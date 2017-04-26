@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<title><%= title %></title>
+<link rel="stylesheet" href="/css/app.css" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/dropdown.min.css" />
+<link rel="stylesheet" href="/css/transition.min.css" />
+<script src="/lib/jquery-3.1.1.min.js"></script>
+<script src="/lib/bootstrap.min.js"></script>
+<script src="/lib/dropdown.min.js"></script>
+<script src="/lib/transition.min.js"></script>
+<script src="/lib/angular.min.js"></script>
+<script src="/lib/angular-ui-router.min.js"></script>
+
+<script src="/js/main.js"></script>
+<body ng-app="zBrain">
+
+	<nav-component></nav-component>
+
+	<div id="main" class="main container-fluid">	
+	
+		<ui-view></ui-view>
+
+	</div>
+	
+	<script type="text/ng-template" id="/home.html">
+
+		<div id=header>
+			<h1 id=title><%= title %></h1>
+		</div>
+
+		<lines-component></llines-component>
+	
+	</script>
+
+</body>
 </html>

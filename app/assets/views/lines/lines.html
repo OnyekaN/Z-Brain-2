@@ -1,0 +1,24 @@
+<!--lines/lines.html-->
+<div>
+	<div id="sidebar">
+		<sidebar-component></sidebar-component>
+		<br>
+		<select lines-directive class="ui search dropdown">
+			<option>Select Line</option>
+			<option ng-repeat="item in $ctrl.itemArray">
+				{{item.name}}
+			</option>
+		</select>	
+
+		<select lines-directive class="ui search dropdown">
+			<option>Select Mask</option>
+			<option>Mask 1</option>
+			<option>Mask 2</option>
+			<option>Mask 3</option>
+
+	</div>
+	<div id="viewer">
+		<vviewer-component></viewer-component>
+	</div>
+</div>
+

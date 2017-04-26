@@ -1,0 +1,18 @@
+<!--nav.html-->
+<nav class="navbar navbar-default"
+	aria-label="Page navigation">
+	<div class="navbar-inner container-fluid">
+		<div class="navbar-header pull-left">
+			<h4>Z-Brain Atlas •</h4>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li ng-repeat="page in $ctrl.pages">
+					<a href="{{page.link}}">
+						{{page.name}}
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
