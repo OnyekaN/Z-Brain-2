@@ -44,15 +44,16 @@ body {
 #header {
 	-border: 1px solid green;
 	height: 100px;
+	width: 110%;
+	min-width: 1200px;
 	position: relative;
 	box-shadow: 10px 15px 25px #eee;
-
 }
 
 
 #main {
 	background-color: transparent;
-
+	min-width: 1200px;
 }
 
 
