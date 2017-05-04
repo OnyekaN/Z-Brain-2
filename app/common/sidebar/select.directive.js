@@ -1,6 +1,6 @@
-/* lines/lines.directive.js */
+/* sidebar/sidebar.directive.js */
 
-function linesDirective() {
+function sidebarDirective() {
 	return {
 		restrict: 'A',
 		scope: {
@@ -13,4 +13,4 @@ function linesDirective() {
 	}
 }
 
-export default linesDirective;
+export default sidebarDirective;

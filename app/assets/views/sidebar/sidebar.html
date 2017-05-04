@@ -1,0 +1,20 @@
+<div>
+		<select select-directive class="ui search dropdown"
+		ng-model="$ctrl.selected"
+		ng-change="console.log($ctrl.selected);
+		$ctrl.updateLine($ctrl.selected);">
+		<option value="">Select Line</option>
+		<option ng-repeat="item in $ctrl.lines"
+			ng-value="'{{item}}'">
+			{{item}}
+		</option>
+	</select>
+	<br>
+	<select select-directive class="ui search dropdown">
+		<option value="">Select Mask</option>
+		<option value="mask1">Mask 1</option>
+		<option value="mask2">Mask 2</option>
+	</select>
+
+</div>
+

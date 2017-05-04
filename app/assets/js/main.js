@@ -4807,9 +4807,13 @@ var _index3 = __webpack_require__(8);
 
 var _index4 = _interopRequireDefault(_index3);
 
+var _index5 = __webpack_require__(13);
+
+var _index6 = _interopRequireDefault(_index5);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var common = angular.module('app.common', [_index2.default, _index4.default]).name;
+var common = angular.module('app.common', [_index2.default, _index4.default, _index6.default]).name;
 
 exports.default = common;
 
@@ -4833,13 +4837,9 @@ var _lines3 = __webpack_require__(7);
 
 var _lines4 = _interopRequireDefault(_lines3);
 
-var _lines5 = __webpack_require__(6);
-
-var _lines6 = _interopRequireDefault(_lines5);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Lines = angular.module('lines', []).component('linesComponent', _lines2.default).directive('linesDirective', _lines6.default).service('LinesService', _lines4.default).name;
+var Lines = angular.module('lines', []).component('linesComponent', _lines2.default).service('LinesService', _lines4.default).name;
 
 exports.default = Lines;
 
@@ -4873,54 +4873,65 @@ exports.default = LinesComponent;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* lines/lines.controller.js */
 
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-/* lines/lines.controller.js */
+var LinesController = function () {
+	function LinesController(LinesService) {
+		_classCallCheck(this, LinesController);
 
-var LinesController = function LinesController() {
-	_classCallCheck(this, LinesController);
+		this.LinesService = LinesService;
+		this.lines = [];
+		this.selected = undefined;
+		this.lineImages = [];
+	}
 
-	//	this.lines = LinesService.lines;
-	this.itemArray = [{ id: 1, name: 'first' }, { id: 2, name: 'second' }, { id: 3, name: 'thirdwithanamelongerthantheddadgagdadgadgabox' }];
-	this.selected = { value: this.itemArray[0] };
-	this.selectedItem = "";
-};
+	_createClass(LinesController, [{
+		key: '$onInit',
+		value: function $onInit() {
+			var _this = this;
 
-//LinesController.$inject['LinesService'];
+			this.LinesService.getLineNames().then(function (response) {
+				_this.lines = response.map(function (obj) {
+					return obj.line_name;
+				});
+				console.log(_this.lines);
+			});
+
+			this.LinesService.cacheLine("Elavl3-H2BRFP").then(function (response) {
+				_this.lineImages = response;
+				console.log(response);
+			});
+		}
+	}, {
+		key: 'updateLine',
+		value: function updateLine(line) {
+			var _this2 = this;
+
+			this.LinesService.cacheLine(line).then(function (response) {
+				_this2.lineImages = response;
+				console.log(_this2.lineImages);
+			});
+		}
+	}]);
+
+	return LinesController;
+}();
+
+LinesController.$inject = ['LinesService'];
 
 exports.default = LinesController;
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-/* lines/lines.directive.js */
-
-function linesDirective() {
-	return {
-		restrict: 'A',
-		scope: {},
-		link: function link(scope, elem, attrs) {
-			$(elem).dropdown();
-		}
-	};
-}
-
-exports.default = linesDirective;
-
-/***/ }),
+/* 6 */,
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4937,19 +4948,43 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var LinesService = function () {
-	function LinesService() {
+	function LinesService($http) {
 		_classCallCheck(this, LinesService);
 
-		this.lines = ['Opt', 'ElavE', 'ELavH', 'ZBB1', 'ZBB2'];
+		this.$http = $http;
 	}
 
 	_createClass(LinesService, [{
-		key: 'getLine',
-		value: function getLine() {}
+		key: 'getLineNames',
+		value: function getLineNames() {
+			return this.$http.get('/api/lines/').then(function (response) {
+				return response.data;
+			}).catch(function (e) {
+				return console.log(e);
+			});
+		}
+	}, {
+		key: 'cacheLine',
+		value: function cacheLine(line) {
+			return this.$http({
+				method: 'GET',
+				url: '/api/lines/' + line,
+				cache: true
+			}).then(function (response) {
+				var images = response.data.map(function (obj) {
+					var img = new Image();img.src = obj.image_path;return img;
+				});
+				return images;
+			}).catch(function (e) {
+				return console.log(e);
+			});
+		}
 	}]);
 
 	return LinesService;
 }();
+
+LinesService.$inject = ['$http'];
 
 exports.default = LinesService;
 
@@ -5068,6 +5103,107 @@ exports.default = NavService;
 
 module.exports = __webpack_require__(0);
 
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* sidebar/index.js */
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _sidebar = __webpack_require__(15);
+
+var _sidebar2 = _interopRequireDefault(_sidebar);
+
+var _select = __webpack_require__(14);
+
+var _select2 = _interopRequireDefault(_select);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Sidebar = angular.module('sidebar', []).component('sidebarComponent', _sidebar2.default).directive('selectDirective', _select2.default).name;
+
+exports.default = Sidebar;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+/* sidebar/sidebar.directive.js */
+
+function sidebarDirective() {
+	return {
+		restrict: 'A',
+		scope: {},
+		link: function link(scope, elem, attrs) {
+			$(elem).dropdown();
+		}
+	};
+}
+
+exports.default = sidebarDirective;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _sidebar = __webpack_require__(16);
+
+var _sidebar2 = _interopRequireDefault(_sidebar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+'use strict'; /* sidebar/sidebar.component.js */
+
+
+var SidebarComponent = {
+	bindings: {
+		lines: '<',
+		updateLine: '<'
+	},
+	controller: _sidebar2.default,
+	templateUrl: '/views/sidebar/sidebar.html'
+};
+
+exports.default = SidebarComponent;
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* sidebar/sidebar.controller.js */
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var SidebarController = function SidebarController() {
+	_classCallCheck(this, SidebarController);
+};
+
+exports.default = SidebarController;
 
 /***/ })
 /******/ ]);
