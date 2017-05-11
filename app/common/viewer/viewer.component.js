@@ -3,6 +3,9 @@
 import ViewerController from './viewer.controller.js';
 
 const ViewerComponent = {
+	bindings: {
+		lineImages: '<',
+	},
 	controller: ViewerController,
 	templateUrl: 'views/viewer/viewer.html'
 }

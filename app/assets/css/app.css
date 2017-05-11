@@ -1,5 +1,5 @@
 html {
-	background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+	-background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
 }
 
 body {
@@ -9,7 +9,7 @@ body {
 }
 
 .navbar {
-	background-color:  !important;
+	background-color: !important;
 	min-width: 1200px;
 	width: 100%
 
@@ -22,7 +22,7 @@ body {
 }
 
 .navbar-header h4 {
-	color: #333;
+	color: #38c;
 	font-family: Arial;
 	font-size: 1.2em;
 	font-weight: bold;
@@ -48,15 +48,8 @@ body {
 	width: 100%;
 	min-width: 1100px;
 	position: relative;
-	box-shadow: 10px 15px 25px #eee;
+	-box-shadow: 10px 15px 25px #eee;
 }
-
-
-#main {
-	background-color: transparent;
-	min-width: 1200px;
-}
-
 
 #title {
 	top: 0px;
@@ -66,22 +59,9 @@ body {
 	font-size: 4.5em; 
 }
 
-#viewer {
-	border: 1px solid grey;
-	position: relative;
-	left: 200px;
-	height: 600px;
-	min-width: 1000px;
-}
-
-#sidebar {
-	border: 1px solid blue;
-	position: relative;
-	float: left;
-	display: inline-block;
-	height: 600px;
-	width: 200px;
-	
+#main {
+	background-color: transparent;
+	min-width: 1200px;
 }
 
 #lines {
@@ -89,9 +69,19 @@ body {
 	position: relative;
 	display: inline-block;
 	height: 600px;
-	width: 1000px;
+	width: 1500px;
 }
 
+#sidebar {
+	background-color: ;
+	-border: 1px solid blue;
+	position: relative;
+	-float: left;
+	display: inline-block;
+	height: 600px;
+	width: 230px;
+	
+}
 .ui.search.dropdown {
 	width: 100px !important;
 	text-overflow: ellipsis;
@@ -99,4 +89,21 @@ body {
 
 .ui.search.dropdown .text {
 	width: 150px !important;	
+}
+
+#viewer {
+	display: inline-block;
+	border: 1px solid grey;
+	position: relative;
+	-left: 200px;
+	top: -37px;
+	height: 600px;
+	min-width: 1000px;
+}
+
+#line-image {
+	position: absolute;
+	left: 0;
+	height: 440px;
+	width: 1050px;
 }

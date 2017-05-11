@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -4803,17 +4803,21 @@ var _index = __webpack_require__(3);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(8);
+var _index3 = __webpack_require__(7);
 
 var _index4 = _interopRequireDefault(_index3);
 
-var _index5 = __webpack_require__(13);
+var _index5 = __webpack_require__(11);
 
 var _index6 = _interopRequireDefault(_index5);
 
+var _index7 = __webpack_require__(16);
+
+var _index8 = _interopRequireDefault(_index7);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var common = angular.module('app.common', [_index2.default, _index4.default, _index6.default]).name;
+var common = angular.module('app.common', [_index2.default, _index4.default, _index6.default, _index8.default]).name;
 
 exports.default = common;
 
@@ -4833,7 +4837,7 @@ var _lines = __webpack_require__(4);
 
 var _lines2 = _interopRequireDefault(_lines);
 
-var _lines3 = __webpack_require__(7);
+var _lines3 = __webpack_require__(6);
 
 var _lines4 = _interopRequireDefault(_lines3);
 
@@ -4903,7 +4907,7 @@ var LinesController = function () {
 				_this.lines = response.map(function (obj) {
 					return obj.line_name;
 				});
-				console.log(_this.lines);
+				//console.log(this.lines) 
 			});
 
 			this.LinesService.cacheLine("Elavl3-H2BRFP").then(function (response) {
@@ -4916,6 +4920,7 @@ var LinesController = function () {
 		value: function updateLine(line) {
 			var _this2 = this;
 
+			//console.log(line);
 			this.LinesService.cacheLine(line).then(function (response) {
 				_this2.lineImages = response;
 				console.log(_this2.lineImages);
@@ -4931,8 +4936,7 @@ LinesController.$inject = ['LinesService'];
 exports.default = LinesController;
 
 /***/ }),
-/* 6 */,
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4989,7 +4993,7 @@ LinesService.$inject = ['$http'];
 exports.default = LinesService;
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5000,11 +5004,11 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _nav = __webpack_require__(9);
+var _nav = __webpack_require__(8);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _nav3 = __webpack_require__(11);
+var _nav3 = __webpack_require__(10);
 
 var _nav4 = _interopRequireDefault(_nav3);
 
@@ -5015,7 +5019,7 @@ var Nav = angular.module('nav', []).component('navComponent', _nav2.default).ser
 exports.default = Nav;
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5026,7 +5030,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _nav = __webpack_require__(10);
+var _nav = __webpack_require__(9);
 
 var _nav2 = _interopRequireDefault(_nav);
 
@@ -5040,7 +5044,7 @@ var NavComponent = {
 exports.default = NavComponent;
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5064,7 +5068,7 @@ NavController.$inject = ['NavService'];
 exports.default = NavController;
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5098,14 +5102,7 @@ var NavService = function () {
 exports.default = NavService;
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(0);
-
-
-/***/ }),
-/* 13 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5116,11 +5113,11 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _sidebar = __webpack_require__(15);
+var _sidebar = __webpack_require__(13);
 
 var _sidebar2 = _interopRequireDefault(_sidebar);
 
-var _select = __webpack_require__(14);
+var _select = __webpack_require__(12);
 
 var _select2 = _interopRequireDefault(_select);
 
@@ -5131,7 +5128,7 @@ var Sidebar = angular.module('sidebar', []).component('sidebarComponent', _sideb
 exports.default = Sidebar;
 
 /***/ }),
-/* 14 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5155,7 +5152,7 @@ function sidebarDirective() {
 exports.default = sidebarDirective;
 
 /***/ }),
-/* 15 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5165,7 +5162,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _sidebar = __webpack_require__(16);
+var _sidebar = __webpack_require__(14);
 
 var _sidebar2 = _interopRequireDefault(_sidebar);
 
@@ -5177,7 +5174,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var SidebarComponent = {
 	bindings: {
 		lines: '<',
-		updateLine: '<'
+		onUpdateLine: '&'
 	},
 	controller: _sidebar2.default,
 	templateUrl: '/views/sidebar/sidebar.html'
@@ -5186,7 +5183,7 @@ var SidebarComponent = {
 exports.default = SidebarComponent;
 
 /***/ }),
-/* 16 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5197,13 +5194,136 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var SidebarController = function SidebarController() {
-	_classCallCheck(this, SidebarController);
-};
+var SidebarController = function () {
+	function SidebarController() {
+		_classCallCheck(this, SidebarController);
+	}
+
+	_createClass(SidebarController, [{
+		key: 'update',
+		value: function update() {
+			console.log('selection has changed');
+		}
+	}]);
+
+	return SidebarController;
+}();
 
 exports.default = SidebarController;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(0);
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* viewer/index.js */
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _viewer = __webpack_require__(17);
+
+var _viewer2 = _interopRequireDefault(_viewer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Viewer = angular.module('viewer', []).component('viewerComponent', _viewer2.default).name;
+
+exports.default = Viewer;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* viewer/viewer.component.js */
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _viewerController = __webpack_require__(18);
+
+var _viewerController2 = _interopRequireDefault(_viewerController);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ViewerComponent = {
+	bindings: {
+		lineImages: '<'
+	},
+	controller: _viewerController2.default,
+	templateUrl: 'views/viewer/viewer.html'
+};
+
+exports.default = ViewerComponent;
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* viewer/viewer-controller.js */
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ViewerController = function () {
+	function ViewerController() {
+		_classCallCheck(this, ViewerController);
+
+		this.imageIndex = 80;
+		this.imagesrc = "images/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-80.jpg";
+		this.currentLine = this.imagesrc;
+	}
+
+	_createClass(ViewerController, [{
+		key: 'update',
+		value: function update() {
+			console.log('now viewing new line number');
+		}
+	}, {
+		key: '$onInit',
+		value: function $onInit() {}
+	}, {
+		key: '$onChanges',
+		value: function $onChanges() {
+			if (this.lineImages.length) {
+				this.currentLine = this.lineImages[this.imageIndex].src;
+			}
+		}
+	}, {
+		key: 'updateSlice',
+		value: function updateSlice() {
+			console.log(this.ImageIndex);
+			this.currentLine = this.lineImages[this.imageIndex].src;
+		}
+	}]);
+
+	return ViewerController;
+}();
+
+exports.default = ViewerController;
 
 /***/ })
 /******/ ]);

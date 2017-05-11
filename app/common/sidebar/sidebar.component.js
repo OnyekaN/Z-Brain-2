@@ -5,7 +5,7 @@ import SidebarController from './sidebar.controller';
 const SidebarComponent = {
 	bindings: {
 		lines: '<',
-		updateLine: '<',
+		onUpdateLine: '&',
 	},
 	controller: SidebarController,
 	templateUrl: '/views/sidebar/sidebar.html'

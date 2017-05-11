@@ -1,15 +1,17 @@
 <!--lines/lines.html-->
-<div>
+<div style="width:1300px;">
 	<div id="sidebar">
 		<sidebar-component
 			lines="$ctrl.lines"
-			updateLine="$ctrl.updateLine()">
+			on-update-line="$ctrl.updateLine(line)">
 		</sidebar-component>
 		<br>
 
 	</div>
 	<div id="viewer">
-		<vviewer-component></viewer-component>
+		<viewer-component
+			line-images="$ctrl.lineImages">
+		</viewer-component>
 	</div>
 </div>
 

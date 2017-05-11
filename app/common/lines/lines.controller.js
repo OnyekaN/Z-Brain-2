@@ -12,7 +12,7 @@ class LinesController {
 	$onInit() {
 		this.LinesService.getLineNames().then(response => { 
 												this.lines = response.map(obj => obj.line_name);			
-												console.log(this.lines) 
+												//console.log(this.lines) 
 												});
 
 		this.LinesService.cacheLine("Elavl3-H2BRFP").then(response => {
@@ -22,6 +22,7 @@ class LinesController {
 	}	
 
 	updateLine(line) {	
+		//console.log(line);
 		this.LinesService.cacheLine(line).then(response => {
 												this.lineImages = response;
 												console.log(this.lineImages);

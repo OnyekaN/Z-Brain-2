@@ -1,8 +1,11 @@
 <div>
-		<select select-directive class="ui search dropdown"
+	<div style="background-color:#555">
+		<span style="color:white">Menu</span>
+	</div>
+	
+	<select select-directive class="ui search dropdown"
 		ng-model="$ctrl.selected"
-		ng-change="console.log($ctrl.selected);
-		$ctrl.updateLine($ctrl.selected);">
+		ng-change="$ctrl.onUpdateLine({line: $ctrl.selected})">
 		<option value="">Select Line</option>
 		<option ng-repeat="item in $ctrl.lines"
 			ng-value="'{{item}}'">
