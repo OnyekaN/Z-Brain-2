@@ -9,6 +9,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Z-Brain Atlas' });
 });
 
+/* GET entire imagesdb database as json*/
 router.get('/api/imagesdb', (req, res, next) => {
 	const results = [];
 
@@ -33,6 +34,7 @@ router.get('/api/imagesdb', (req, res, next) => {
 
 });
 
+/* param for one line */
 router.param('line', (req, res, next, id) => {
 	const results = [];
 	
@@ -60,6 +62,7 @@ router.param('line', (req, res, next, id) => {
 
 });
 
+/* GET single line info as json */
 router.get('/api/lines/:line', (req, res) => {
 	res.json(req.line);
 });
@@ -69,7 +72,7 @@ router.get('/api/lines', (req, res, next) => {
 
 	pg.connect(connectionString, (err, client, done) => {
 		if (err) {
-			done()
+			done();
 			console.log(err);
 			return res.status(500).json({success: false, data: err});
 		}

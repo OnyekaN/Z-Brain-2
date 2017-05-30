@@ -4,20 +4,24 @@
 		<span style="color:white;">Viewer</span>
 	</div>
 
-	<span class="slider">
-		<input type="range" style="width:400px;"
+	<span class="slider" style="margin-left:100px;">	
+		<span>Currently viewing....
+			<em>{{$ctrl.currentLineName}}</em>
+			...slice index-{{$ctrl.imageIndex}}
+		</span>
+		<br>
+		<input id="main-range" type="range" style="width:400px;"
 		 ng-change="$ctrl.updateSlice()"
 		 ng-model="$ctrl.imageIndex" min="0" max="137">
-		 <span>this is {{$ctrl.imageIndex}}</span>
 		 <br>
 	</span>
 
 	<img id="line-image"
 	ng-src="{{$ctrl.currentLine}}" alt="line-image">
-	<img src="#" alt="cyan-mask">
-	<img src="#" alt="yellow-mask">
-	<img src="#" alt="purple-mask">
-	<img src="#" alt="green-mask">
+	<img id="cyan-mask" class="mask-img" src="#" alt="cyan-mask">
+	<img id="yellow-mask" class="mask-img" src="#" alt="yellow-mask">
+	<img id-"purple-mask" class="mask-img" src="#" alt="purple-mask">
+	<img id="green-mask" class="mask-img" src="#" alt="green-mask">
 </div>
 
 

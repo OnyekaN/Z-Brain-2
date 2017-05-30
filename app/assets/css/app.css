@@ -96,14 +96,30 @@ body {
 	border: 1px solid grey;
 	position: relative;
 	-left: 200px;
-	top: -37px;
+	top: -55px;
 	height: 600px;
-	min-width: 1000px;
+	min-width: 1100px;
+}
+
+#main-range {
+	position: absolute;
+	left: 100px;
+	top: 50px;
+	width: 600px !important;
+	z-index: 50 ;
 }
 
 #line-image {
 	position: absolute;
-	left: 0;
+	left: 20px;
 	height: 440px;
 	width: 1050px;
 }
+
+.mask-img {
+	position: absolute;
+	left: 20px;
+	height: 440px;
+	width: 1050px;
+}
+

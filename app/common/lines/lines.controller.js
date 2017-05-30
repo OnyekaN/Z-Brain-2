@@ -10,11 +10,12 @@ class LinesController {
 	}
 
 	$onInit() {
+		// GET line names from server (e.g. Elavl3-H2BRFP)
 		this.LinesService.getLineNames().then(response => { 
 												this.lines = response.map(obj => obj.line_name);			
-												//console.log(this.lines) 
 												});
 
+		// Load selected line images into browser cache
 		this.LinesService.cacheLine("Elavl3-H2BRFP").then(response => {
 												this.lineImages = response;
 												console.log(response) 
@@ -22,9 +23,9 @@ class LinesController {
 	}	
 
 	updateLine(line) {	
-		//console.log(line);
 		this.LinesService.cacheLine(line).then(response => {
 												this.lineImages = response;
+												this.lineName = line;
 												console.log(this.lineImages);
 												});
 	}

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 18);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -4811,7 +4811,7 @@ var _index5 = __webpack_require__(11);
 
 var _index6 = _interopRequireDefault(_index5);
 
-var _index7 = __webpack_require__(16);
+var _index7 = __webpack_require__(15);
 
 var _index8 = _interopRequireDefault(_index7);
 
@@ -4903,13 +4903,14 @@ var LinesController = function () {
 		value: function $onInit() {
 			var _this = this;
 
+			// GET line names from server (e.g. Elavl3-H2BRFP)
 			this.LinesService.getLineNames().then(function (response) {
 				_this.lines = response.map(function (obj) {
 					return obj.line_name;
 				});
-				//console.log(this.lines) 
 			});
 
+			// Load selected line images into browser cache
 			this.LinesService.cacheLine("Elavl3-H2BRFP").then(function (response) {
 				_this.lineImages = response;
 				console.log(response);
@@ -4920,9 +4921,9 @@ var LinesController = function () {
 		value: function updateLine(line) {
 			var _this2 = this;
 
-			//console.log(line);
 			this.LinesService.cacheLine(line).then(function (response) {
 				_this2.lineImages = response;
+				_this2.lineName = line;
 				console.log(_this2.lineImages);
 			});
 		}
@@ -5219,13 +5220,6 @@ exports.default = SidebarController;
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(0);
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 /* viewer/index.js */
 
@@ -5234,7 +5228,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _viewer = __webpack_require__(17);
+var _viewer = __webpack_require__(16);
 
 var _viewer2 = _interopRequireDefault(_viewer);
 
@@ -5245,7 +5239,7 @@ var Viewer = angular.module('viewer', []).component('viewerComponent', _viewer2.
 exports.default = Viewer;
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5256,7 +5250,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _viewerController = __webpack_require__(18);
+var _viewerController = __webpack_require__(17);
 
 var _viewerController2 = _interopRequireDefault(_viewerController);
 
@@ -5264,7 +5258,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var ViewerComponent = {
 	bindings: {
-		lineImages: '<'
+		lineImages: '<',
+		lineName: '<'
 	},
 	controller: _viewerController2.default,
 	templateUrl: 'views/viewer/viewer.html'
@@ -5273,7 +5268,7 @@ var ViewerComponent = {
 exports.default = ViewerComponent;
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5295,27 +5290,28 @@ var ViewerController = function () {
 		this.imageIndex = 80;
 		this.imagesrc = "images/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-80.jpg";
 		this.currentLine = this.imagesrc;
+		this.currentLineName = "Elavl3-H2BRFP";
 	}
 
 	_createClass(ViewerController, [{
-		key: 'update',
+		key: "update",
 		value: function update() {
 			console.log('now viewing new line number');
 		}
 	}, {
-		key: '$onInit',
+		key: "$onInit",
 		value: function $onInit() {}
 	}, {
-		key: '$onChanges',
+		key: "$onChanges",
 		value: function $onChanges() {
 			if (this.lineImages.length) {
 				this.currentLine = this.lineImages[this.imageIndex].src;
+				this.currentLineName = this.lineName || "Elavl3-H2BRFP";
 			}
 		}
 	}, {
-		key: 'updateSlice',
+		key: "updateSlice",
 		value: function updateSlice() {
-			console.log(this.ImageIndex);
 			this.currentLine = this.lineImages[this.imageIndex].src;
 		}
 	}]);
@@ -5324,6 +5320,13 @@ var ViewerController = function () {
 }();
 
 exports.default = ViewerController;
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(0);
+
 
 /***/ })
 /******/ ]);
