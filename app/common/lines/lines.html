@@ -1,9 +1,11 @@
 <!--lines/lines.html-->
-<div style="width:1400px;">
+<div id="viewer-container" style="wwidth:1400px;">
 	<div id="sidebar">
 		<sidebar-component
 			lines="$ctrl.lines"
-			on-update-line="$ctrl.updateLine(line)">
+			on-update-line="$ctrl.updateLine(line)"
+			on-update-gamma="$ctrl.updateGamma(gamma)"
+			on-update-brightness="$ctrl.updateBrightness(brightness)">
 		</sidebar-component>
 		<br>
 
@@ -11,7 +13,9 @@
 	<div id="viewer">
 		<viewer-component
 			line-images="$ctrl.lineImages"
-			line-name="$ctrl.lineName">
+			line-name="$ctrl.lineName"
+			brightness="$ctrl.brightness"
+			gamma="$ctrl.gamma">
 		</viewer-component>
 	</div>
 </div>

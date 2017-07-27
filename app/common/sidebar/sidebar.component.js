@@ -6,6 +6,8 @@ const SidebarComponent = {
 	bindings: {
 		lines: '<',
 		onUpdateLine: '&',
+		onUpdateGamma: '&',
+		onUpdateBrightness: '&',
 	},
 	controller: SidebarController,
 	templateUrl: '/views/sidebar/sidebar.html'

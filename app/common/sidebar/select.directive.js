@@ -1,16 +1,15 @@
-/* sidebar/sidebar.directive.js */
+/* sidebar/select.directive.js */
 
-function sidebarDirective() {
+function selectDirective() {
 	return {
 		restrict: 'A',
 		scope: {
 		},
 		link: function(scope, elem, attrs) {
 			$(elem)
-				.dropdown()
-			;
+				.dropdown();
 		}
 	}
 }
 
-export default sidebarDirective;
+export default selectDirective;

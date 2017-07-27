@@ -7,6 +7,9 @@ class LinesController {
 		this.lines = [];
 		this.selected = undefined;
 		this.lineImages = [];
+		this.lineName = "";
+		this.gamma = 0;
+		this.brightness = 10;
 	}
 
 	$onInit() {
@@ -18,17 +21,27 @@ class LinesController {
 		// Load selected line images into browser cache
 		this.LinesService.cacheLine("Elavl3-H2BRFP").then(response => {
 												this.lineImages = response;
-												console.log(response) 
 												});
 	}	
 
+	// Load new set of line images into browser cache
 	updateLine(line) {	
 		this.LinesService.cacheLine(line).then(response => {
 												this.lineImages = response;
 												this.lineName = line;
-												console.log(this.lineImages);
+												//console.log(this.lineImages);
 												});
 	}
+
+	// Change the brightness or gamma settings on the displayed line image
+	updateBrightness(brightness) {
+		this.brightness = brightness;
+		console.log(this.brightness);
+	}
+	updateGamma(gamma) {
+		this.gamma = gamma;
+	}
+
 		
 
 }

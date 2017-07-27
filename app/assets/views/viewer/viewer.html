@@ -1,27 +1,39 @@
 <!--viewer/viewer.html-->
 <div>
-	<div style="background-color:#555">
-		<span style="color:white;">Viewer</span>
+	<div style="background-color:#ddd;padding-left:5px;">
+		<span style="color:black;font-family:serif;"><b>Viewer</b></span>
 	</div>
-
-	<span class="slider" style="margin-left:100px;">	
-		<span>Currently viewing....
-			<em>{{$ctrl.currentLineName}}</em>
-			...slice index-{{$ctrl.imageIndex}}
+	<div style="margin-left:270px;margin-top:15px;">
+			<span style="color:#999">Currently viewing.......
+			<span style="color:#49d;ttext-shadow:0px 0px 0px #fff;">
+			<b><em>{{$ctrl.currentLineName}}</em></b>
+			</span>
+			.......slice index {{$ctrl.imageIndex}}
 		</span>
-		<br>
-		<input id="main-range" type="range" style="width:400px;"
+	</div>
+	<span class="z-index-div"
+	 style="margin-left:260px;margin-top:5px;z-index:50;position:absolute;">	
+		<input id="z-index-slider" type="range" orient="vertical"
 		 ng-change="$ctrl.updateSlice()"
-		 ng-model="$ctrl.imageIndex" min="0" max="137">
+		 ng-model="$ctrl.imageIndex" 
+		 min="0" max="137" value="90"/>
 		 <br>
 	</span>
 
-	<img id="line-image"
-	ng-src="{{$ctrl.currentLine}}" alt="line-image">
-	<img id="cyan-mask" class="mask-img" src="#" alt="cyan-mask">
-	<img id="yellow-mask" class="mask-img" src="#" alt="yellow-mask">
-	<img id-"purple-mask" class="mask-img" src="#" alt="purple-mask">
-	<img id="green-mask" class="mask-img" src="#" alt="green-mask">
+	<img id="line-image" ng-src="{{$ctrl.currentDisplayImage}}" 
+	 alt="line-image" brightness="{{$ctrl.brightness}}" 
+	 zb-gamma="{{$ctrl.gamma}}"/>
+	<!--img id="cyan-mask" class="mask-img" src="#" alt="cyan-mask"/>
+	<img id="yellow-mask" class="mask-img" src="#" alt="yellow-mask"/>
+	<img id="purple-mask" class="mask-img" src="#" alt="purple-mask"/>
+	<img id="green-mask" class="mask-img" src="#" alt="green-mask"/-->
+
+	<!--script>
+ 	Caman("#line-image", function () {
+        this.brightness(30);
+        this.render();
+    });
+  </script-->	
 </div>
 
 

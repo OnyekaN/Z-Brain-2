@@ -6,6 +6,8 @@ const ViewerComponent = {
 	bindings: {
 		lineImages: '<',
 		lineName: '<',
+		brightness: '<',
+		gamma: '<',
 	},
 	controller: ViewerController,
 	templateUrl: 'views/viewer/viewer.html'

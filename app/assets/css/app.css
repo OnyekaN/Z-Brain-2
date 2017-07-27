@@ -1,17 +1,24 @@
 html {
 	-background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+
 }
 
 body {
 	position: relative;
 	overflow: scroll;
-	background-color: transparent !important;
+	background-color: rgb(255, 252, 250) !important;
+	font-family: Helvetica !important;
 }
 
 .navbar {
-	background-color: !important;
-	min-width: 1200px;
-	width: 100%
+	background-color: transparent !important;
+	min-width: 1400px;
+	width: 100%;
+	font-family: helvetica;
+	margin-bottom: 0px !important;
+	box-shadow: 0px 2px 3px grey;
+
+
 
 }
 
@@ -35,7 +42,7 @@ body {
 }
 
 .navbar li:hover {
-	background-color: #fff;
+	background-color: #ddd;
 }
 
 .navbar a {
@@ -43,25 +50,39 @@ body {
 }
 
 #header {
+	-background-color: #38c;
+	-background: linear-gradient(to right, #fffefd,#ddd,#ddd, #ddd,#fffefd);
+	-background: linear-gradient(to right, white,black, black,black ,white);
 	-border: 1px solid green;
 	height: 100px;
 	width: 100%;
-	min-width: 1100px;
+	min-width: 1385px;
 	position: relative;
-	-box-shadow: 10px 15px 25px #eee;
+	box-shadow: 10px 15px 25px #eee;
+	margin-bottom: 40px;
+	font-family: "Raleway", sans-serif !important;
 }
 
+
 #title {
-	top: 0px;
-	left: 300px;
+	top: 10px;
+	left: 500px;
+	width: 400px;
 	position: relative;
-	font-family: palatino, serif;
+	font-family: Raleway, sans-serif;
 	font-size: 4.5em; 
+	color:#111;
+	text-shadow: 2px 2px 2px #ccc;
+	-background-color: grey;
 }
 
 #main {
 	background-color: transparent;
-	min-width: 1200px;
+	width: 1400px;
+}
+
+#viewer-container {
+	width: 1450px;
 }
 
 #lines {
@@ -73,15 +94,18 @@ body {
 }
 
 #sidebar {
-	background-color: ;
-	-border: 1px solid blue;
-	position: relative;
-	-float: left;
 	display: inline-block;
+	vertical-align: top;
+	background-color: #eee;
+	-border: 1px solid grey;
+	position: relative;
 	height: 600px;
 	width: 230px;
+	margin-right: 20px;
+	box-shadow: 1px 1px 1px #bbb;
 	
 }
+
 .ui.search.dropdown {
 	width: 100px !important;
 	text-overflow: ellipsis;
@@ -91,29 +115,37 @@ body {
 	width: 150px !important;	
 }
 
-#viewer {
-	display: inline-block;
-	border: 1px solid grey;
-	position: relative;
-	-left: 200px;
-	top: -55px;
-	height: 600px;
-	min-width: 1100px;
+#brightness-slider {
+	width: 100px !important
 }
 
-#main-range {
-	position: absolute;
-	left: 100px;
-	top: 50px;
-	width: 600px !important;
+#viewer {
+	display: inline-block;
+	background-color: #000;
+	vertical-align: top;
+	-border: 1px solid grey;
+	position: relative;
+	height: 600px;
+	min-width: 1150px;
+	box-shadow: -2px 2px 2px #bbb;
+
+}
+
+#z-index-slider {
+	left: 250px;
+
+	top: 83px;
+	width: 380px !important;
 	z-index: 50 ;
 }
 
 #line-image {
 	position: absolute;
-	left: 20px;
-	height: 440px;
-	width: 1050px;
+	left: 0px;
+	top: 90px;
+	height: 440px !important;
+	width: 1050px !important;
+	-z-index: -10;
 }
 
 .mask-img {

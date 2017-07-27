@@ -1,23 +1,54 @@
 <div>
-	<div style="background-color:#555">
-		<span style="color:white">Menu</span>
+	<div style="background-color:#ddd;padding-left:5px;">
+		<span style="color:black;font-family:serif;"><b>Menu</b></span>
 	</div>
-	
-	<select select-directive class="ui search dropdown"
-		ng-model="$ctrl.selected"
-		ng-change="$ctrl.onUpdateLine({line: $ctrl.selected})">
-		<option value="">Select Line</option>
-		<option ng-repeat="item in $ctrl.lines"
-			ng-value="'{{item}}'">
-			{{item}}
-		</option>
-	</select>
-	<br>
-	<select select-directive class="ui search dropdown">
-		<option value="">Select Mask</option>
-		<option value="mask1">Mask 1</option>
-		<option value="mask2">Mask 2</option>
-	</select>
+
+	<div style="padding:10px 10px 30px 10px;">	
+		<select select-directive class="ui search dropdown"
+			ng-model="$ctrl.selected"
+			ng-change="$ctrl.onUpdateLine({line: $ctrl.selected})">
+			<option value="">Search Line</option>
+			<option ng-repeat="item in $ctrl.lines"
+				ng-value="'{{item}}'">
+				{{item}}
+			</option>
+		</select>
+		
+		<div style="margin-left:20px;margin-top:10px;">
+			<span>Brightness</span>
+			<div>
+			<input type="range"
+			 style="width:100px;"
+			 id="brightness-slider" class="img-slider"  
+			 min="0" max="40"
+			 ng-model="$ctrl.brightness"
+			 ng-change="$ctrl.onUpdateBrightness({brightness: $ctrl.brightness})">
+		</div>
+			 
+			
+
+			<span>Gamma</span>
+			<div>
+			<input type="range"
+			 style="width:100px;"
+			 id="gamma-slider" class="sidebar-slider"
+			 min="0" max="20" 
+			 ng-model="$ctrl.gamma"
+			 ng-change="$ctrl.onUpdateGamma({gamma: $ctrl.gamma})"/>
+			</div>
+		</div>
+
+
+	</div>
+
+	<div style="padding:10px 10px 30px 10px;">	
+		<select select-directive class="ui search dropdown">
+			<option value="">Search Mask</option>
+			<option value="mask1">Mask 1</option>
+			<option value="mask2">Mask 2</option>
+		</select>
+	</div>
+
 
 </div>
 
