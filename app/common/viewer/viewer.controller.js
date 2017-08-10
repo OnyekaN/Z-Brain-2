@@ -26,8 +26,9 @@ class ViewerController {
 			&& typeof changes.brightness.previousValue == 'object' ) {
 				return;
 			}
-			let brightness = changes.brightness.currentValue - changes.brightness.previousValue;	
+			let brightness = changes.brightness.currentValue;	
 			Caman('#line-image', function () {
+				this.revert(false);
 				this.brightness(brightness);
 				this.render();
 			});

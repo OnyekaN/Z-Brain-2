@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var Caman = require('caman').Caman;
 const pg = require('pg');
 const path = require('path');
 const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/zbrain2db'
@@ -63,7 +64,7 @@ router.param('line', (req, res, next, id) => {
 });
 
 /* GET single line info as json */
-router.get('/api/lines/:line', (req, res) => {
+router.get('/api/lines/:line', (req, res, next) => {
 	res.json(req.line);
 });
 
@@ -94,5 +95,25 @@ router.get('/api/lines', (req, res, next) => {
 		
 	});
 });
+
+/* GET caman-modified dataset images */
+router.get('/api/caman/:line', (req, res, next) => {
+	let image_path = "app/assets/" + req.line[80]["image_path"];
+	let brightness = req.query.brightness;
+	let gamma = req.query.gamma;
+
+	Caman(image_path, function () {
+		this.revert(false);
+//		this.brightness(brightness);
+		this.gamma(gamma);
+		this.render(function () {
+			this.save("app/assets/images/1test/test5.png");
+		});
+	});
+	res.sendFile("test5.png", {root: path.join(__dirname, '../app/assets/images/1test/')});
+
+
+});
+
 
 module.exports = router;
