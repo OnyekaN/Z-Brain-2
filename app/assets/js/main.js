@@ -4901,8 +4901,6 @@ var LinesController = function () {
 		this.selected = undefined;
 		this.lineImages = [];
 		this.lineName = "";
-		this.gamma = 0;
-		this.brightness = 10;
 	}
 
 	_createClass(LinesController, [{
@@ -4933,7 +4931,6 @@ var LinesController = function () {
 			this.LinesService.cacheLine(line).then(function (response) {
 				_this2.lineImages = response;
 				_this2.lineName = line;
-				//console.log(this.lineImages);
 			});
 		}
 
@@ -4946,9 +4943,12 @@ var LinesController = function () {
 			console.log(this.brightness);
 		}
 	}, {
-		key: "updateGamma",
-		value: function updateGamma(gamma) {
-			this.gamma = gamma;
+		key: "modifyLine",
+		value: function modifyLine(line, brightness, gamma) {
+			console.log("line:" + line + ", br:" + brightness + ", g:" + gamma);
+			this.LinesService.modifyLine(line, brightness, gamma).then(function (response) {
+				console.log(response.data);
+			});
 		}
 	}]);
 
@@ -5003,6 +5003,19 @@ var LinesService = function () {
 					var img = new Image();img.src = obj.image_path;return img;
 				});
 				return images;
+			}).catch(function (e) {
+				return console.log(e);
+			});
+		}
+	}, {
+		key: 'modifyLine',
+		value: function modifyLine(line, brightness, gamma) {
+			return this.$http({
+				method: 'GET',
+				url: '/api/caman/' + line + '?brightness=' + brightness + '&gamma=' + gamma,
+				cache: true
+			}).then(function (response) {
+				return response;
 			}).catch(function (e) {
 				return console.log(e);
 			});
@@ -5223,7 +5236,7 @@ var SidebarComponent = {
 	bindings: {
 		lines: '<',
 		onUpdateLine: '&',
-		onUpdateGamma: '&',
+		onModifyLine: '&',
 		onUpdateBrightness: '&'
 	},
 	controller: _sidebar2.default,
@@ -5252,14 +5265,17 @@ var SidebarController = function () {
 	function SidebarController() {
 		_classCallCheck(this, SidebarController);
 
+		this.brightness = 0;
 		this.gamma = 0;
-		this.brightness = 20;
+		this.selected = 'Elavl3-H2BRFP';
 	}
 
 	_createClass(SidebarController, [{
-		key: 'update',
-		value: function update() {
-			console.log('selection has changed');
+		key: 'resetValues',
+		value: function resetValues() {
+			this.brightness = 0;
+			this.gamma = 0;
+			this.onModifyLine({ line: this.selected, brightness: 0, gamma: 0 });
 		}
 	}]);
 
@@ -5359,7 +5375,6 @@ var ViewerController = function () {
 			// whenever new set of line images loaded, change currently shown
 			// line and display name
 			if (this.lineImages.length) {
-				//$("#line-image").replaceWith("<img id='line-image' ng-src='{{$ctrl.currentDisplayImage}}' alt='line-image' brightness='{{$ctrl.brightness}}'/>")
 				this.currentDisplayImage = this.lineImages[this.imageIndex].src;
 				this.currentLineName = this.lineName || "Elavl3-H2BRFP";
 			}
@@ -5369,12 +5384,13 @@ var ViewerController = function () {
 				if (changes.brightness.currentValue == 10 && _typeof(changes.brightness.previousValue) == 'object') {
 					return;
 				}
-				var brightness = changes.brightness.currentValue;
-				Caman('#line-image', function () {
-					this.revert(false);
-					this.brightness(brightness);
-					this.render();
-				});
+				/*let brightness = changes.brightness.currentValue;	
+    Caman('#line-image', function () {
+    	this.revert(false);
+    	this.brightness(brightness);
+    	this.render();
+    });
+    */
 			}
 
 			// on changes in gamma update line-img gamma attr

@@ -15,7 +15,6 @@ class ViewerController {
 		// whenever new set of line images loaded, change currently shown
 		// line and display name
 		if ( this.lineImages.length ) {
-			//$("#line-image").replaceWith("<img id='line-image' ng-src='{{$ctrl.currentDisplayImage}}' alt='line-image' brightness='{{$ctrl.brightness}}'/>")
 			this.currentDisplayImage = this.lineImages[this.imageIndex].src;
 			this.currentLineName = this.lineName || "Elavl3-H2BRFP";
 		}			
@@ -26,12 +25,13 @@ class ViewerController {
 			&& typeof changes.brightness.previousValue == 'object' ) {
 				return;
 			}
-			let brightness = changes.brightness.currentValue;	
+			/*let brightness = changes.brightness.currentValue;	
 			Caman('#line-image', function () {
 				this.revert(false);
 				this.brightness(brightness);
 				this.render();
 			});
+			*/	
 		}
 			
 		// on changes in gamma update line-img gamma attr

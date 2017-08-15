@@ -8,8 +8,6 @@ class LinesController {
 		this.selected = undefined;
 		this.lineImages = [];
 		this.lineName = "";
-		this.gamma = 0;
-		this.brightness = 10;
 	}
 
 	$onInit() {
@@ -29,7 +27,6 @@ class LinesController {
 		this.LinesService.cacheLine(line).then(response => {
 												this.lineImages = response;
 												this.lineName = line;
-												//console.log(this.lineImages);
 												});
 	}
 
@@ -38,11 +35,13 @@ class LinesController {
 		this.brightness = brightness;
 		console.log(this.brightness);
 	}
-	updateGamma(gamma) {
-		this.gamma = gamma;
-	}
 
-		
+	modifyLine(line, brightness, gamma) {
+		console.log(`line:${line}, br:${brightness}, g:${gamma}`);
+		this.LinesService.modifyLine(line, brightness, gamma).then(response => {
+												console.log(response.data)
+												});
+	}
 
 }
 

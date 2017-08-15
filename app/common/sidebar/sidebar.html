@@ -15,26 +15,27 @@
 		</select>
 		
 		<div style="margin-left:20px;margin-top:10px;">
-			<span>Brightness</span>
+			<span style="font-size: 0.8em"><em>Adjust Brightness</em></span>
 			<div>
-			<input type="range"
-			 style="width:100px;"
-			 id="brightness-slider" class="img-slider"  
-			 min="0" max="40"
+			<input type="text"
+			 style="" ng-attr-placeholder="Enter Value"
+			 id="brightness-input" class="img-modify-input"  
 			 ng-model="$ctrl.brightness"
 			 ng-change="$ctrl.onUpdateBrightness({brightness: $ctrl.brightness})">
-		</div>
-			 
-			
+			</div>	
 
-			<span>Gamma</span>
+			<span style="font-size: 0.8em"><em>Adjust Gamma</em></span>
 			<div>
-			<input type="range"
-			 style="width:100px;"
-			 id="gamma-slider" class="sidebar-slider"
-			 min="0" max="20" 
-			 ng-model="$ctrl.gamma"
-			 ng-change="$ctrl.onUpdateGamma({gamma: $ctrl.gamma})"/>
+			<input type="text"
+			 style="" placeholder="Enter Value"
+			 id="gamma-input" class="img-modify-input"
+			 ng-model="$ctrl.gamma"/>
+			</div>
+
+			<div style="margin-top:0.3em">
+				<button ng-click="$ctrl.onModifyLine({line: $ctrl.selected,
+			 		brightness: $ctrl.brightness, gamma: $ctrl.gamma})">Submit</button>
+				<button ng-click="$ctrl.resetValues()">Reset</button>
 			</div>
 		</div>
 

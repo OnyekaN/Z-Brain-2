@@ -98,19 +98,38 @@ router.get('/api/lines', (req, res, next) => {
 
 /* GET caman-modified dataset images */
 router.get('/api/caman/:line', (req, res, next) => {
+	let line_name= req.line[0].line_name;
+	let line_qty = 138;
 	let image_path = "app/assets/" + req.line[80]["image_path"];
 	let brightness = req.query.brightness;
 	let gamma = req.query.gamma;
+	let modified_images = [];
 
+	for (i = 0; i < line_qty; i++) {
+		let orig_image_path = `app/assets/${req.line[i].image_path}`;
+		let rel_new_image_path = `images/1TemporaryLineImages/${line_name}&b${brightness}&g${gamma}-${i}.png`;
+		let abs_new_image_path = `app/assets/${rel_new_image_path}`;
+		modified_images.push({'line_name': line_name, 'image_path': rel_new_image_path});
+
+		Caman(orig_image_path, function () {
+			this.revert(false)
+			this.brightness(brightness);
+			this.gamma(gamma);
+			this.render(function () {
+				this.save(abs_new_image_path);
+			});
+		});
+	}
+	/*
 	Caman(image_path, function () {
 		this.revert(false);
-//		this.brightness(brightness);
+		this.brightness(brightness);
 		this.gamma(gamma);
 		this.render(function () {
-			this.save("app/assets/images/1test/test5.png");
+			this.save("app/assets/images/1test/test1.png");
 		});
-	});
-	res.sendFile("test5.png", {root: path.join(__dirname, '../app/assets/images/1test/')});
+	});*/
+	res.json(modified_images);
 
 
 });

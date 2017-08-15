@@ -6,7 +6,7 @@ const SidebarComponent = {
 	bindings: {
 		lines: '<',
 		onUpdateLine: '&',
-		onUpdateGamma: '&',
+		onModifyLine: '&',
 		onUpdateBrightness: '&',
 	},
 	controller: SidebarController,
