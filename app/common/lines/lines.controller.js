@@ -36,9 +36,9 @@ class LinesController {
 		console.log(this.brightness);
 	}
 
-	modifyLine(line, brightness, gamma) {
+	adjustLine(line, brightness, gamma) {
 		console.log(`line:${line}, br:${brightness}, g:${gamma}`);
-		this.LinesService.modifyLine(line, brightness, gamma).then(response => {
+		this.LinesService.adjustLine(line, brightness, gamma).then(response => {
 												console.log(response.data)
 												});
 	}

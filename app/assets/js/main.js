@@ -4943,10 +4943,10 @@ var LinesController = function () {
 			console.log(this.brightness);
 		}
 	}, {
-		key: "modifyLine",
-		value: function modifyLine(line, brightness, gamma) {
+		key: "adjustLine",
+		value: function adjustLine(line, brightness, gamma) {
 			console.log("line:" + line + ", br:" + brightness + ", g:" + gamma);
-			this.LinesService.modifyLine(line, brightness, gamma).then(function (response) {
+			this.LinesService.adjustLine(line, brightness, gamma).then(function (response) {
 				console.log(response.data);
 			});
 		}
@@ -5008,8 +5008,8 @@ var LinesService = function () {
 			});
 		}
 	}, {
-		key: 'modifyLine',
-		value: function modifyLine(line, brightness, gamma) {
+		key: 'adjustLine',
+		value: function adjustLine(line, brightness, gamma) {
 			return this.$http({
 				method: 'GET',
 				url: '/api/caman/' + line + '?brightness=' + brightness + '&gamma=' + gamma,
@@ -5275,7 +5275,7 @@ var SidebarController = function () {
 		value: function resetValues() {
 			this.brightness = 0;
 			this.gamma = 0;
-			this.onModifyLine({ line: this.selected, brightness: 0, gamma: 0 });
+			this.onAdjustLine({ line: this.selected, brightness: 0, gamma: 0 });
 		}
 	}]);
 

@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var Caman = require('caman').Caman;
-const pg = require('pg');
+var PythonShell = require('python-shell');
+const { Pool } = require('pg');
 const path = require('path');
 const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/zbrain2db'
+const pool = new Pool({
+	connectionString: connectionString,
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -14,7 +17,7 @@ router.get('/', function(req, res, next) {
 router.get('/api/imagesdb', (req, res, next) => {
 	const results = [];
 
-	pg.connect(connectionString, (err, client, done) => {
+	pool.connect((err, client, done) => {
 		if (err) {
 			done();
 			console.log(err);
@@ -33,13 +36,15 @@ router.get('/api/imagesdb', (req, res, next) => {
 		});
 	});
 
+	pool.end();
+
 });
 
 /* param for one line */
 router.param('line', (req, res, next, id) => {
 	const results = [];
 	
-	pg.connect(connectionString, (err, client, done) => {
+	pool.connect((err, client, done) => {
 		if (err) {
 			done();	
 			console.log(err);
@@ -71,7 +76,7 @@ router.get('/api/lines/:line', (req, res, next) => {
 router.get('/api/lines', (req, res, next) => {
 	const results = []
 
-	pg.connect(connectionString, (err, client, done) => {
+	pool.connect((err, client, done) => {
 		if (err) {
 			done();
 			console.log(err);
@@ -98,38 +103,40 @@ router.get('/api/lines', (req, res, next) => {
 
 /* GET caman-modified dataset images */
 router.get('/api/caman/:line', (req, res, next) => {
-	let line_name= req.line[0].line_name;
-	let line_qty = 138;
-	let image_path = "app/assets/" + req.line[80]["image_path"];
-	let brightness = req.query.brightness;
-	let gamma = req.query.gamma;
-	let modified_images = [];
+	let line_name = req.line[0].line_name
+	,		image_path = "app/assets/" + req.line[80]["image_path"]
+	,		brightness = req.query.brightness
+	,		gamma = req.query.gamma
+	,		image_paths = ""
+	,		image_json = [];
 
-	for (i = 0; i < line_qty; i++) {
-		let orig_image_path = `app/assets/${req.line[i].image_path}`;
-		let rel_new_image_path = `images/1TemporaryLineImages/${line_name}&b${brightness}&g${gamma}-${i}.png`;
-		let abs_new_image_path = `app/assets/${rel_new_image_path}`;
-		modified_images.push({'line_name': line_name, 'image_path': rel_new_image_path});
+	const spawn = require('child_process').spawn;
+	const scriptExecution = spawn('python', ["image_modify.py", line_name, brightness, gamma]);
 
-		Caman(orig_image_path, function () {
-			this.revert(false)
-			this.brightness(brightness);
-			this.gamma(gamma);
-			this.render(function () {
-				this.save(abs_new_image_path);
-			});
-		});
+	const uint8arrayToString = (data) => {
+		return String.fromCharCode.apply(null, data);
 	}
-	/*
-	Caman(image_path, function () {
-		this.revert(false);
-		this.brightness(brightness);
-		this.gamma(gamma);
-		this.render(function () {
-			this.save("app/assets/images/1test/test1.png");
+
+	scriptExecution.stdout.on('data', (data) => {
+		image_paths += (uint8arrayToString(data))	
+	});
+
+	scriptExecution.on('exit', (code) => {
+		let callback = () => { console.log("Process quit with code : " + code) }
+		//setTimeout(callback, 10);
+		//
+		JSON.parse(image_paths).map(path => {
+			let obj = { 'line_name': line_name, 'image_path':	path }
+			image_json.push(obj);
 		});
-	});*/
-	res.json(modified_images);
+		res.json(image_json);
+	});
+
+	scriptExecution.stderr.on('data', (data) => {
+		let err = uint8arrayToString(data)
+//		res.status(500).send(err);
+	});
+
 
 
 });

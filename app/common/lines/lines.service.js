@@ -26,7 +26,7 @@ class LinesService {
 		.catch(e => console.log(e));
 	}
 
-	modifyLine(line, brightness, gamma) {
+	adjustLine(line, brightness, gamma) {
 		return this.$http({
 						method: 'GET',
 						url: `/api/caman/${line}?brightness=${brightness}&gamma=${gamma}`,

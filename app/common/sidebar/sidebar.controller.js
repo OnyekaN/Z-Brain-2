@@ -10,7 +10,7 @@ class SidebarController {
 	resetValues() {
 		this.brightness = 0;
 		this.gamma = 0;
-		this.onModifyLine({line: this.selected, brightness: 0, gamma: 0});
+		this.onAdjustLine({line: this.selected, brightness: 0, gamma: 0});
 	}
 }
 
