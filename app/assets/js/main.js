@@ -4901,10 +4901,19 @@ var LinesController = function () {
 		this.selected = undefined;
 		this.lineImages = [];
 		this.lineName = "";
+		this.spinnerOpts = {
+			// settings for spin.js spinner
+			lines: 9, length: 40, width: 18, radius: 67, corners: 0.2,
+			scale: 1.0, color: '#fff', opacity: 0.55, rotate: 0, direction: 1,
+			speed: 1.9, trail: 90, fps: 20, zIndex: 2e9, className: 'spinner',
+			top: '49%', left: '50%', shadow: false, hwaccel: false, position: 'absolute'
+		};
+		this.spinnerTarget = document.getElementById('spin');
+		this.spinner = new Spinner(this.spinnerOpts).spin(this.spinnerTarget).stop();
 	}
 
 	_createClass(LinesController, [{
-		key: "$onInit",
+		key: '$onInit',
 		value: function $onInit() {
 			var _this = this;
 
@@ -4924,30 +4933,34 @@ var LinesController = function () {
 		// Load new set of line images into browser cache
 
 	}, {
-		key: "updateLine",
+		key: 'updateLine',
 		value: function updateLine(line) {
 			var _this2 = this;
 
 			this.LinesService.cacheLine(line).then(function (response) {
 				_this2.lineImages = response;
 				_this2.lineName = line;
+				_this2.spinner.stop();
 			});
 		}
 
 		// Change the brightness or gamma settings on the displayed line image
 
 	}, {
-		key: "updateBrightness",
+		key: 'updateBrightness',
 		value: function updateBrightness(brightness) {
 			this.brightness = brightness;
-			console.log(this.brightness);
 		}
 	}, {
-		key: "adjustLine",
+		key: 'adjustLine',
 		value: function adjustLine(line, brightness, gamma) {
-			console.log("line:" + line + ", br:" + brightness + ", g:" + gamma);
+			var _this3 = this;
+
+			console.log('line:' + line + ', br:' + brightness + ', g:' + gamma);
+			this.spinner.spin(this.spinnerTarget);
 			this.LinesService.adjustLine(line, brightness, gamma).then(function (response) {
-				console.log(response.data);
+				_this3.lineImages = response;
+				_this3.spinner.stop();
 			});
 		}
 	}]);
@@ -4992,6 +5005,11 @@ var LinesService = function () {
 			});
 		}
 	}, {
+		key: 'getMaskNames',
+		value: function getMaskNames() {
+			return;
+		}
+	}, {
 		key: 'cacheLine',
 		value: function cacheLine(line) {
 			return this.$http({
@@ -5012,10 +5030,13 @@ var LinesService = function () {
 		value: function adjustLine(line, brightness, gamma) {
 			return this.$http({
 				method: 'GET',
-				url: '/api/caman/' + line + '?brightness=' + brightness + '&gamma=' + gamma,
+				url: '/api/adjust/' + line + '?brightness=' + brightness + '&gamma=' + gamma,
 				cache: true
 			}).then(function (response) {
-				return response;
+				var images = response.data.map(function (obj) {
+					var img = new Image();img.src = obj.image_path;return img;
+				});
+				return images;
 			}).catch(function (e) {
 				return console.log(e);
 			});
@@ -5235,8 +5256,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var SidebarComponent = {
 	bindings: {
 		lines: '<',
+		masks: '<',
 		onUpdateLine: '&',
-		onModifyLine: '&',
+		onAdjustLine: '&',
 		onUpdateBrightness: '&'
 	},
 	controller: _sidebar2.default,
@@ -5265,17 +5287,17 @@ var SidebarController = function () {
 	function SidebarController() {
 		_classCallCheck(this, SidebarController);
 
-		this.brightness = 0;
-		this.gamma = 0;
+		this.brightness = 1;
+		this.gamma = 1;
 		this.selected = 'Elavl3-H2BRFP';
 	}
 
 	_createClass(SidebarController, [{
 		key: 'resetValues',
 		value: function resetValues() {
-			this.brightness = 0;
-			this.gamma = 0;
-			this.onAdjustLine({ line: this.selected, brightness: 0, gamma: 0 });
+			this.brightness = 1;
+			this.gamma = 1;
+			this.onUpdateLine({ line: this.selected });
 		}
 	}]);
 

@@ -3,14 +3,14 @@
 
 class SidebarController {
 	constructor() {
-		this.brightness = 0;
-		this.gamma = 0;
+		this.brightness = 1;
+		this.gamma = 1;
 		this.selected = 'Elavl3-H2BRFP';
 	}
 	resetValues() {
-		this.brightness = 0;
-		this.gamma = 0;
-		this.onAdjustLine({line: this.selected, brightness: 0, gamma: 0});
+		this.brightness = 1;
+		this.gamma = 1;
+		this.onUpdateLine({line: this.selected});
 	}
 }
 

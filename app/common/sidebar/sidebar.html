@@ -20,8 +20,7 @@
 			<input type="text"
 			 style="" ng-attr-placeholder="Enter Value"
 			 id="brightness-input" class="img-modify-input"  
-			 ng-model="$ctrl.brightness"
-			 ng-change="$ctrl.onUpdateBrightness({brightness: $ctrl.brightness})">
+			 ng-model="$ctrl.brightness">
 			</div>	
 
 			<span style="font-size: 0.8em"><em>Adjust Gamma</em></span>
@@ -45,8 +44,7 @@
 	<div style="padding:10px 10px 30px 10px;">	
 		<select select-directive class="ui search dropdown">
 			<option value="">Search Mask</option>
-			<option value="mask1">Mask 1</option>
-			<option value="mask2">Mask 2</option>
+			<option ng-repeat="" ng-value=""></option>
 		</select>
 	</div>
 

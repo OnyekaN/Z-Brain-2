@@ -12,6 +12,10 @@ class LinesService {
 						.catch(e => console.log(e));
 	}
 
+	getMaskNames() {
+		return;
+	}
+
 	cacheLine(line) {
 		return this.$http({
 						method: 'GET',
@@ -19,7 +23,7 @@ class LinesService {
 						cache: true
 		}).then(response => {
 			let images = response.data.map(obj => {
-				let img = new Image(); img.src = obj.image_path; return img
+				let img = new Image(); img.src = obj.image_path; return img;
 			});
 			return images;
 		})
@@ -29,10 +33,13 @@ class LinesService {
 	adjustLine(line, brightness, gamma) {
 		return this.$http({
 						method: 'GET',
-						url: `/api/caman/${line}?brightness=${brightness}&gamma=${gamma}`,
+						url: `/api/adjust/${line}?brightness=${brightness}&gamma=${gamma}`,
 						cache: true
 		}).then(response => {
-			return response;
+			let images = response.data.map(obj => {
+				let img = new Image(); img.src = obj.image_path; return img;
+			});
+			return images;
 		})
 	.catch(e => console.log(e));
 	}

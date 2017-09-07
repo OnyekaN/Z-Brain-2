@@ -100,8 +100,8 @@ router.get('/api/lines', (req, res, next) => {
 	});
 });
 
-/* GET caman-modified dataset images */
-router.get('/api/caman/:line', (req, res, next) => {
+/* GET python adjusted dataset images */
+router.get('/api/adjust/:line', (req, res, next) => {
 	let line_name = req.line[0].line_name
 	,		image_path = "app/assets/" + req.line[80]["image_path"]
 	,		brightness = req.query.brightness

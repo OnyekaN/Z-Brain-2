@@ -8,21 +8,22 @@ body {
 	overflow: scroll;
 	background-color: rgb(255, 252, 250) !important;
 	font-family: Helvetica !important;
+	width: 1420px;
 }
 
 .navbar {
 	background-color: transparent !important;
 	min-width: 1400px;
 	width: 100%;
-	font-family: helvetica;
+	font-family: Raleway, sans-serif;
+	margin-left: 10px;
 	margin-bottom: 0px !important;
-	box-shadow: 0px 2px 3px grey;
-
-
+	-box-shadow: 0px 2px 3px grey;
 
 }
 
 .navbar ul {
+
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -33,7 +34,7 @@ body {
 	font-family: Arial;
 	font-size: 1.2em;
 	font-weight: bold;
-	margin: 16px 30px 0 10px;
+	margin: 16px 100px 0 10px;
 }
 
 .navbar li {
@@ -52,11 +53,10 @@ body {
 #header {
 	-background-color: #38c;
 	-background: linear-gradient(to right, #fffefd,#ddd,#ddd, #ddd,#fffefd);
-	-background: linear-gradient(to right, white,black, black,black ,white);
 	-border: 1px solid green;
-	height: 100px;
+	height: 120px;
 	width: 100%;
-	min-width: 1385px;
+	min-width: 1400px;
 	position: relative;
 	box-shadow: 10px 15px 25px #eee;
 	margin-bottom: 40px;
@@ -71,7 +71,7 @@ body {
 	position: relative;
 	font-family: Raleway, sans-serif;
 	font-size: 4.5em; 
-	color:#111;
+	color:#333;
 	text-shadow: 2px 2px 2px #ccc;
 	-background-color: grey;
 }

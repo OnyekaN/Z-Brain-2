@@ -5,8 +5,9 @@ import SidebarController from './sidebar.controller';
 const SidebarComponent = {
 	bindings: {
 		lines: '<',
+		masks: '<',
 		onUpdateLine: '&',
-		onModifyLine: '&',
+		onAdjustLine: '&',
 		onUpdateBrightness: '&',
 	},
 	controller: SidebarController,
