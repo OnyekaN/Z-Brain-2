@@ -5,8 +5,10 @@ class LinesController {
 	constructor(LinesService) {
 		this.LinesService = LinesService;
 		this.lines = [];
+		this.masks = [];
 		this.selected = undefined;
 		this.lineImages = [];
+		this.cyanMaskImages = [];
 		this.lineName = "";
 		this.spinnerOpts = {
 			// settings for spin.js spinner
@@ -25,13 +27,18 @@ class LinesController {
 												this.lines = response.map(obj => obj.line_name);			
 												});
 
+		this.LinesService.getMaskNames().then(response => { 
+												this.masks = response.map(obj => obj.mask_name
+																														.replace("'", "&quot"));			
+												});
+
 		// Load selected line images into browser cache
 		this.LinesService.cacheLine("Elavl3-H2BRFP").then(response => {
 												this.lineImages = response;
 												});
 	}	
 
-	// Load new set of line images into browser cache
+	// Make line images available to viewer component
 	updateLine(line) {	
 		this.LinesService.cacheLine(line).then(response => {
 												this.lineImages = response;
@@ -40,11 +47,15 @@ class LinesController {
 												});
 	}
 
-	// Change the brightness or gamma settings on the displayed line image
-	updateBrightness(brightness) {
-		this.brightness = brightness;
+	// Make mask images available to viewer component
+	updateMask(mask, color) {
+		this.LinesService.cacheMask(mask, color).then(response => {
+												this.maskImages = response;
+												this.maskColor = color;
+												});
 	}
 
+	// Change the brightness or gamma settings on the displayed line image
 	adjustLine(line, brightness, gamma) {
 		console.log(`line:${line}, br:${brightness}, g:${gamma}`);	
 		this.spinner.spin(this.spinnerTarget);

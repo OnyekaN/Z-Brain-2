@@ -4,27 +4,28 @@
 		<span style="color:black;font-family:serif;"><b>Viewer</b></span>
 	</div>
 	<div style="margin-left:270px;margin-top:15px;">
-			<span style="color:#999;font-size:1em">Currently viewing.......
+			<span style="color:#bbb;font-size:1em">Currently viewing:
 			<span style="color:#49d">
 				<b><em>{{$ctrl.currentLineName}}</em></b>
 			</span>
-			.......slice index {{$ctrl.imageIndex}}
+			- slice index {{$ctrl.sliceIndex}}
 		</span>
 	</div>
 	<span class="z-index-div"
 	 style="margin-left:260px;margin-top:5px;z-index:50;position:absolute;">	
-		<input id="z-index-slider" type="range" orient="vertical"
+		<input id="z-index-slider" class="z-index-slider" type="range" orient="vertical"
 		 ng-change="$ctrl.updateSlice()"
-		 ng-model="$ctrl.imageIndex" 
+		 ng-model="$ctrl.sliceIndex" 
 		 min="0" max="137" value="90"/>
 		 <br>
 	</span>
 
-	<img id="line-image" ng-src="{{$ctrl.currentDisplayImage}}" 
-	 alt="line-image" brightness="{{$ctrl.brightness}}" 
-	 zb-gamma="{{$ctrl.gamma}}"/>
-	<!--img id="cyan-mask" class="mask-img" src="#" alt="cyan-mask"/>
-	<img id="yellow-mask" class="mask-img" src="#" alt="yellow-mask"/>
+	<img id="line-image" ng-src="{{$ctrl.currentDisplayImage}}" alt="line-image"/>
+	<img id="cyan-mask" ng-src="{{$ctrl.currentDisplayMasks['cyan']}}"
+		class="mask-img" alt="cyan-mask"/>
+	<img id="temp-overlay" ng-src="{{$ctrl.tempOverlay}}"
+	alt="temp-overlay">
+	<!--img id="yellow-mask" class="mask-img" src="#" alt="yellow-mask"/>
 	<img id="purple-mask" class="mask-img" src="#" alt="purple-mask"/>
 	<img id="green-mask" class="mask-img" src="#" alt="green-mask"/-->
 

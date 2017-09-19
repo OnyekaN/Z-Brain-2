@@ -6,11 +6,14 @@ const ViewerComponent = {
 	bindings: {
 		lineImages: '<',
 		lineName: '<',
+		maskImages: '<',
+		maskColor: '<',
 		brightness: '<',
 		gamma: '<',
 	},
 	controller: ViewerController,
 	templateUrl: 'views/viewer/viewer.html'
 }
+
 
 export default ViewerComponent;

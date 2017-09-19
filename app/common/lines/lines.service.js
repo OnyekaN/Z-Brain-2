@@ -13,7 +13,9 @@ class LinesService {
 	}
 
 	getMaskNames() {
-		return;
+		return this.$http.get('/api/masks/')
+						.then(response => response.data)
+						.catch(e => console.log(e));
 	}
 
 	cacheLine(line) {
@@ -26,6 +28,22 @@ class LinesService {
 				let img = new Image(); img.src = obj.image_path; return img;
 			});
 			return images;
+		})
+		.catch(e => console.log(e));
+	}
+
+	cacheMask(mask, color) {
+		return this.$http({
+						method: 'GET',
+						url: `/api/masks/${mask}`,
+						cache: true
+		}).then(response => {
+			let masks = response.data.map(obj => {
+				let img = new Image(); 
+				img.src = `images/2Masks/${color}/${obj.mask_image_path}`;
+				return img;
+			});
+			return masks;
 		})
 		.catch(e => console.log(e));
 	}

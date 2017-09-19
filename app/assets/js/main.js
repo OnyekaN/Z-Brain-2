@@ -4898,8 +4898,10 @@ var LinesController = function () {
 
 		this.LinesService = LinesService;
 		this.lines = [];
+		this.masks = [];
 		this.selected = undefined;
 		this.lineImages = [];
+		this.cyanMaskImages = [];
 		this.lineName = "";
 		this.spinnerOpts = {
 			// settings for spin.js spinner
@@ -4924,13 +4926,19 @@ var LinesController = function () {
 				});
 			});
 
+			this.LinesService.getMaskNames().then(function (response) {
+				_this.masks = response.map(function (obj) {
+					return obj.mask_name.replace("'", "&quot");
+				});
+			});
+
 			// Load selected line images into browser cache
 			this.LinesService.cacheLine("Elavl3-H2BRFP").then(function (response) {
 				_this.lineImages = response;
 			});
 		}
 
-		// Load new set of line images into browser cache
+		// Make line images available to viewer component
 
 	}, {
 		key: 'updateLine',
@@ -4944,23 +4952,31 @@ var LinesController = function () {
 			});
 		}
 
+		// Make mask images available to viewer component
+
+	}, {
+		key: 'updateMask',
+		value: function updateMask(mask, color) {
+			var _this3 = this;
+
+			this.LinesService.cacheMask(mask, color).then(function (response) {
+				_this3.maskImages = response;
+				_this3.maskColor = color;
+			});
+		}
+
 		// Change the brightness or gamma settings on the displayed line image
 
 	}, {
-		key: 'updateBrightness',
-		value: function updateBrightness(brightness) {
-			this.brightness = brightness;
-		}
-	}, {
 		key: 'adjustLine',
 		value: function adjustLine(line, brightness, gamma) {
-			var _this3 = this;
+			var _this4 = this;
 
 			console.log('line:' + line + ', br:' + brightness + ', g:' + gamma);
 			this.spinner.spin(this.spinnerTarget);
 			this.LinesService.adjustLine(line, brightness, gamma).then(function (response) {
-				_this3.lineImages = response;
-				_this3.spinner.stop();
+				_this4.lineImages = response;
+				_this4.spinner.stop();
 			});
 		}
 	}]);
@@ -5007,7 +5023,11 @@ var LinesService = function () {
 	}, {
 		key: 'getMaskNames',
 		value: function getMaskNames() {
-			return;
+			return this.$http.get('/api/masks/').then(function (response) {
+				return response.data;
+			}).catch(function (e) {
+				return console.log(e);
+			});
 		}
 	}, {
 		key: 'cacheLine',
@@ -5021,6 +5041,24 @@ var LinesService = function () {
 					var img = new Image();img.src = obj.image_path;return img;
 				});
 				return images;
+			}).catch(function (e) {
+				return console.log(e);
+			});
+		}
+	}, {
+		key: 'cacheMask',
+		value: function cacheMask(mask, color) {
+			return this.$http({
+				method: 'GET',
+				url: '/api/masks/' + mask,
+				cache: true
+			}).then(function (response) {
+				var masks = response.data.map(function (obj) {
+					var img = new Image();
+					img.src = 'images/2Masks/' + color + '/' + obj.mask_image_path;
+					return img;
+				});
+				return masks;
 			}).catch(function (e) {
 				return console.log(e);
 			});
@@ -5258,6 +5296,7 @@ var SidebarComponent = {
 		lines: '<',
 		masks: '<',
 		onUpdateLine: '&',
+		onUpdateMask: '&',
 		onAdjustLine: '&',
 		onUpdateBrightness: '&'
 	},
@@ -5290,6 +5329,12 @@ var SidebarController = function () {
 		this.brightness = 1;
 		this.gamma = 1;
 		this.selected = 'Elavl3-H2BRFP';
+		this.masks = {
+			cyan: 'none',
+			green: 'none',
+			magenta: 'none',
+			yellow: 'none'
+		};
 	}
 
 	_createClass(SidebarController, [{
@@ -5350,6 +5395,8 @@ var ViewerComponent = {
 	bindings: {
 		lineImages: '<',
 		lineName: '<',
+		maskImages: '<',
+		maskColor: '<',
 		brightness: '<',
 		gamma: '<'
 	},
@@ -5382,10 +5429,22 @@ var ViewerController = function () {
 		_classCallCheck(this, ViewerController);
 
 		// initial #viewer#main-img index, src, images array, and name
-		this.imageIndex = 90;
-		this.imagesrc = "images/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg";
-		this.currentDisplayImage = this.imagesrc;
+		this.sliceIndex = 90;
+		this.currentDisplayImage = "images/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg";
 		this.currentLineName = "Elavl3-H2BRFP";
+		this.maskArrays = {
+			cyan: undefined,
+			green: undefined,
+			magenta: undefined,
+			yellow: undefined
+		};
+		this.currentDisplayMasks = {
+			cyan: "images/2Masks/blank.png",
+			green: "images/2Masks/blank.png",
+			magenta: "images/2Masks/blank.png",
+			yellow: "images/2Masks/blank.png"
+		};
+		this.tempOverlay = "imagesbk/3test/6.7FRhcrtR-Gal4-uasKaede_6dpf_MeanImageOf12Fish-" + this.sliceIndex + ".png";
 	}
 
 	_createClass(ViewerController, [{
@@ -5397,8 +5456,14 @@ var ViewerController = function () {
 			// whenever new set of line images loaded, change currently shown
 			// line and display name
 			if (this.lineImages.length) {
-				this.currentDisplayImage = this.lineImages[this.imageIndex].src;
+				this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
 				this.currentLineName = this.lineName || "Elavl3-H2BRFP";
+			}
+
+			// whenver new set of mask images loaded, display them
+			if (this.maskImages) {
+				this.maskArrays[this.maskColor] = this.maskImages;
+				this.currentDisplayMasks[this.maskColor] = this.maskArrays[this.maskColor][this.sliceIndex].src;
 			}
 
 			// on changes in brightness update line-img brightness attr
@@ -5406,13 +5471,6 @@ var ViewerController = function () {
 				if (changes.brightness.currentValue == 10 && _typeof(changes.brightness.previousValue) == 'object') {
 					return;
 				}
-				/*let brightness = changes.brightness.currentValue;	
-    Caman('#line-image', function () {
-    	this.revert(false);
-    	this.brightness(brightness);
-    	this.render();
-    });
-    */
 			}
 
 			// on changes in gamma update line-img gamma attr
@@ -5428,7 +5486,14 @@ var ViewerController = function () {
 	}, {
 		key: "updateSlice",
 		value: function updateSlice() {
-			this.currentDisplayImage = this.lineImages[this.imageIndex].src;
+			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
+
+			if (Array.isArray(this.maskArrays['cyan'])) this.currentDisplayMasks['cyan'] = this.maskArrays['cyan'][this.sliceIndex].src;
+			if (Array.isArray(this.maskArrays['green'])) this.currentDisplayMasks['green'] = this.maskArrays['green'][this.sliceIndex].src;
+			if (Array.isArray(this.maskArrays['magenta'])) this.currentDisplayMasks['magenta'] = this.maskArrays['magenta'][this.sliceIndex].src;
+			if (Array.isArray(this.maskArrays['yellow'])) this.currentDisplayMasks['yellow'] = this.maskArrays['yellow'][this.sliceIndex].src;
+
+			this.tempOverlay = "imagesbk/3test/6.7FRhcrtR-Gal4-uasKaede_6dpf_MeanImageOf12Fish-" + this.sliceIndex + ".png";
 		}
 	}]);
 

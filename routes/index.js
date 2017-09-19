@@ -100,6 +100,67 @@ router.get('/api/lines', (req, res, next) => {
 	});
 });
 
+router.get('/api/masks', (req, res, next) => {
+	const results = [];
+
+	pool.connect((err, client, done) => { 
+		if (err) {
+			done();
+			console.log(err);
+			res.status(500).json({success: false, data:err});
+		}
+
+		querySQL = `SELECT mask_name FROM masks
+								GROUP BY mask_name
+								ORDER BY mask_name ASC; ` 
+
+		const query = client.query(querySQL);
+
+		query.on('row', (row) => {
+			results.push(row);
+		});
+
+		query.on('end', () => {
+			done();
+			res.json(results);
+		});
+	});
+
+});
+
+router.param('mask', (req, res, next, id) => {
+	const results = [];
+	
+	pool.connect((err, client, done) => {
+		if (err) {
+			done();	
+			console.log(err);
+			return res.status(500).json({success:false, data: err});
+		}
+		
+		querySQL = `SELECT * FROM masks
+							WHERE mask_name='${id}'`
+		const query = client.query(querySQL);
+
+		query.on('row', (row) => {
+			results.push(row);
+		});
+
+		query.on('end', () => {
+			done();
+			req.mask = results;
+			return next();
+		});
+	});		
+
+});
+
+
+/* GET single mask info as json */
+router.get('/api/masks/:mask', (req, res, next) => {
+	res.json(req.mask);
+});
+
 /* GET python adjusted dataset images */
 router.get('/api/adjust/:line', (req, res, next) => {
 	let line_name = req.line[0].line_name

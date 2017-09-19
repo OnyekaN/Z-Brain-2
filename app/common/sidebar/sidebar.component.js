@@ -7,6 +7,7 @@ const SidebarComponent = {
 		lines: '<',
 		masks: '<',
 		onUpdateLine: '&',
+		onUpdateMask: '&',
 		onAdjustLine: '&',
 		onUpdateBrightness: '&',
 	},

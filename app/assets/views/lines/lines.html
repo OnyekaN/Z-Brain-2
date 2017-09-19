@@ -3,9 +3,10 @@
 	<div id="sidebar">
 		<sidebar-component
 			lines="$ctrl.lines"
+			masks="$ctrl.masks"
 			on-update-line="$ctrl.updateLine(line)"
-			on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)"
-			on-update-brightness="$ctrl.updateBrightness(brightness)">
+			on-update-mask="$ctrl.updateMask(mask, color)"
+			on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)">
 		</sidebar-component>
 		<br>
 
@@ -15,6 +16,8 @@
 		<viewer-component
 			line-images="$ctrl.lineImages"
 			line-name="$ctrl.lineName"
+			mask-images="$ctrl.maskImages"
+			mask-color="$ctrl.maskColor"
 			brightness="$ctrl.brightness"
 			gamma="$ctrl.gamma">
 		</viewer-component>

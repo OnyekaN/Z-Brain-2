@@ -8,9 +8,8 @@
 			ng-model="$ctrl.selected"
 			ng-change="$ctrl.onUpdateLine({line: $ctrl.selected})">
 			<option value="">Search Line</option>
-			<option ng-repeat="item in $ctrl.lines"
-				ng-value="'{{item}}'">
-				{{item}}
+			<option ng-repeat="line in $ctrl.lines" ng-value="'{{line}}'">
+				{{line}}
 			</option>
 		</select>
 		
@@ -42,10 +41,18 @@
 	</div>
 
 	<div style="padding:10px 10px 30px 10px;">	
-		<select select-directive class="ui search dropdown">
+		<select select-directive class="ui search dropdown"
+			ng-model="$ctrl.masks.cyan"
+			ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.cyan, color: 'cyan'})">
 			<option value="">Search Mask</option>
-			<option ng-repeat="" ng-value=""></option>
+			<option ng-repeat="mask in $ctrl.masks" ng-value="'{{mask}}'">
+				{{mask}}
+			</option>
 		</select>
+		<!--span style="font-size:.7em">Opacity</span-->
+		<input type="range" min=0 max=100
+		style="margin-left:10px;width:80px;display:inline-block"/>
+		<button style="display:inline-block">Remove</button>
 	</div>
 
 

@@ -133,9 +133,8 @@ body {
 
 #z-index-slider {
 	left: 250px;
-
 	top: 83px;
-	width: 380px !important;
+	width: 340px !important;
 	z-index: 50 ;
 }
 
@@ -150,8 +149,17 @@ body {
 
 .mask-img {
 	position: absolute;
-	left: 20px;
+	left: 0px;
+	top: 90px;
 	height: 440px;
 	width: 1050px;
 }
 
+#temp-overlay {
+	position: absolute;
+	left: 0px;
+	top: 90px;
+	height: 440px;
+	width: 1050px;
+	opacity: .2;
+}
