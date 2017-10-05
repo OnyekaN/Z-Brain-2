@@ -9,6 +9,8 @@ body {
 	background-color: rgb(255, 252, 250) !important;
 	font-family: Helvetica !important;
 	width: 1420px;
+	-min-height: 900px;
+	min-height: calc(100vh - 50px);
 }
 
 .navbar {

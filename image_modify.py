@@ -30,7 +30,7 @@ def adjust_stack_images(stack_images, brightness, gamma):
           g = re.sub('\.', '_', str(gamma))
 
           new_path = (
-               "app/assets/images/1TemporaryLineImages/{}&b{}&g{}-{}.jpg"
+               "app/assets/images/1-TemporaryLineImages/{}&b{}&g{}-{}.jpg"
                .format(stack_name, b, g, i)
                     )
 

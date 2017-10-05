@@ -41,18 +41,51 @@
 	</div>
 
 	<div style="padding:10px 10px 30px 10px;">	
-		<select select-directive class="ui search dropdown"
+		<select select-directive class="ui search dropdown mask"
 			ng-model="$ctrl.masks.cyan"
 			ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.cyan, color: 'cyan'})">
-			<option value="">Search Mask</option>
+			<option value="">Search Cyan Mask</option>
 			<option ng-repeat="mask in $ctrl.masks" ng-value="'{{mask}}'">
 				{{mask}}
 			</option>
 		</select>
+		<!--svg width="10" height="10">
+			<rect y="5" width="10" height="10" rx="3" ry="3" style="fill:cyan"/>
+		</svg-->
+
+
+		<select select-directive class="ui search dropdown"
+			ng-model="$ctrl.masks.magenta"
+			ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.magenta, color:
+			'magenta'})">
+			<option value="">Search Magenta Mask</option>
+			<option ng-repeat="mask in $ctrl.masks" ng-value="'{{mask}}'">
+				{{mask}}
+			</option>
+		</select>
+		<select select-directive class="ui search dropdown"
+			ng-model="$ctrl.masks.green"
+			ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.green, color:
+			'green'})">
+			<option value="">Search Green Mask</option>
+			<option ng-repeat="mask in $ctrl.masks" ng-value="'{{mask}}'">
+				{{mask}}
+			</option>
+		</select>
+		<select select-directive class="ui search dropdown"
+			ng-model="$ctrl.masks.yellow"
+			ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.yellow, color:'yellow'})">
+			<option value="">Search Yellow Mask</option>
+			<option ng-repeat="mask in $ctrl.masks" ng-value="'{{mask}}'">
+				{{mask}}
+			</option>
+		</select>
+
+
 		<!--span style="font-size:.7em">Opacity</span-->
-		<input type="range" min=0 max=100
+		<!--input type="range" min=0 max=100
 		style="margin-left:10px;width:80px;display:inline-block"/>
-		<button style="display:inline-block">Remove</button>
+		<button style="display:inline-block">Remove</button-->
 	</div>
 
 

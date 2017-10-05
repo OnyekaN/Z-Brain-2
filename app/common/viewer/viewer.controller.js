@@ -14,10 +14,10 @@ class ViewerController {
 			yellow: undefined,
 		}	
 		this.currentDisplayMasks = {
-			cyan: "images/2Masks/blank.png",
-			green: "images/2Masks/blank.png",
-			magenta: "images/2Masks/blank.png",
-			yellow: "images/2Masks/blank.png"
+			cyan: "images/2-Masks/blank.png",
+			green: "images/2-Masks/blank.png",
+			magenta: "images/2-Masks/blank.png",
+			yellow: "images/2-Masks/blank.png"
 		}
 		this.tempOverlay = `imagesbk/3test/6.7FRhcrtR-Gal4-uasKaede_6dpf_MeanImageOf12Fish-${this.sliceIndex}.png`;
 	}
@@ -69,7 +69,7 @@ class ViewerController {
 		if ( Array.isArray(this.maskArrays['yellow']) ) 
 			this.currentDisplayMasks['yellow'] = this.maskArrays['yellow'][this.sliceIndex].src;
 
-		this.tempOverlay = `imagesbk/3test/6.7FRhcrtR-Gal4-uasKaede_6dpf_MeanImageOf12Fish-${this.sliceIndex}.png`;
+		// this.tempOverlay = `imagesbk/3test/6.7FRhcrtR-Gal4-uasKaede_6dpf_MeanImageOf12Fish-${this.sliceIndex}.png`;
 	}
 
 
