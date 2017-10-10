@@ -20,7 +20,16 @@
 		 <br>
 	</span>
 
-	<img id="line-image" ng-src="{{$ctrl.currentDisplayImage}}" alt="line-image"/>
+	<img id="primary-line-image" ng-src="{{$ctrl.currentDisplayImage}}"
+		alt="primary-line-image"/>
+
+	<img id="red-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['red']}}"
+		class="color-channel" alt="red-color-channel"/>
+	<img id="green-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['green']}}"
+		class="color-channel" alt="green-color-channel"/>
+	<img id="blue-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['blue']}}"
+		class="color-channel" alt="blue-color-channel"/>
+		
 	<img id="cyan-mask" ng-src="{{$ctrl.currentDisplayMasks['cyan']}}"
 		class="mask-img" alt="cyan-mask"/>
 	<img id="magenta-mask" ng-src="{{$ctrl.currentDisplayMasks['magenta']}}"
@@ -29,11 +38,6 @@
 		class="mask-img" alt="green-mask"/>
 	<img id="yellow-mask" ng-src="{{$ctrl.currentDisplayMasks['yellow']}}"
 		class="mask-img" alt="yellow-mask"/>
-	<img id="temp-overlay" ng-src="{{$ctrl.tempOverlay}}"
-	alt="temp-overlay">
-	<!--img id="yellow-mask" class="mask-img" src="#" alt="yellow-mask"/>
-	<img id="purple-mask" class="mask-img" src="#" alt="purple-mask"/>
-	<img id="green-mask" class="mask-img" src="#" alt="green-mask"/-->
 
 </div>
 

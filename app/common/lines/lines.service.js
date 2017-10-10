@@ -40,12 +40,28 @@ class LinesService {
 		}).then(response => {
 			let masks = response.data.map(obj => {
 				let img = new Image(); 
-				img.src = `images/2Masks/${color}/${obj.mask_image_path}`;
+				img.src = `images/2-Masks/${color}/${obj.mask_image_path}`;
 				return img;
 			});
 			return masks;
 		})
 		.catch(e => console.log(e));
+	}
+
+	cacheColorChannel(line, color) {
+		return this.$http({
+						method: 'GET',
+						url: `/api/colorchannels/{"name":"${line}","color":"${color}"}`,
+						cache: true
+		}).then(response => {
+			let overlays = response.data.map(obj => {
+				let img = new Image();
+				img.src = obj.channel_image_path;
+				return img;
+			});
+			console.log(overlays[5].src);
+			return overlays;
+		}).catch(e => console.log(e));
 	}
 
 	adjustLine(line, brightness, gamma) {

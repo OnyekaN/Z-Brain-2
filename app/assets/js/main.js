@@ -4938,7 +4938,7 @@ var LinesController = function () {
 			});
 		}
 
-		// Make line images available to viewer component
+		// Send line images to viewer component
 
 	}, {
 		key: 'updateLine',
@@ -4952,7 +4952,7 @@ var LinesController = function () {
 			});
 		}
 
-		// Make mask images available to viewer component
+		// Send mask images to viewer component
 
 	}, {
 		key: 'updateMask',
@@ -4965,18 +4965,31 @@ var LinesController = function () {
 			});
 		}
 
+		// Send color channel to viewer component
+
+	}, {
+		key: 'updateColorChannel',
+		value: function updateColorChannel(line, color) {
+			var _this4 = this;
+
+			this.LinesService.cacheColorChannel(line, color).then(function (response) {
+				_this4.colorChannelImages = response;
+				_this4.colorChannelColor = color;
+			});
+		}
+
 		// Change the brightness or gamma settings on the displayed line image
 
 	}, {
 		key: 'adjustLine',
 		value: function adjustLine(line, brightness, gamma) {
-			var _this4 = this;
+			var _this5 = this;
 
 			console.log('line:' + line + ', br:' + brightness + ', g:' + gamma);
 			this.spinner.spin(this.spinnerTarget);
 			this.LinesService.adjustLine(line, brightness, gamma).then(function (response) {
-				_this4.lineImages = response;
-				_this4.spinner.stop();
+				_this5.lineImages = response;
+				_this5.spinner.stop();
 			});
 		}
 	}]);
@@ -5055,10 +5068,29 @@ var LinesService = function () {
 			}).then(function (response) {
 				var masks = response.data.map(function (obj) {
 					var img = new Image();
-					img.src = 'images/2Masks/' + color + '/' + obj.mask_image_path;
+					img.src = 'images/2-Masks/' + color + '/' + obj.mask_image_path;
 					return img;
 				});
 				return masks;
+			}).catch(function (e) {
+				return console.log(e);
+			});
+		}
+	}, {
+		key: 'cacheColorChannel',
+		value: function cacheColorChannel(line, color) {
+			return this.$http({
+				method: 'GET',
+				url: '/api/colorchannels/{"name":"' + line + '","color":"' + color + '"}',
+				cache: true
+			}).then(function (response) {
+				var overlays = response.data.map(function (obj) {
+					var img = new Image();
+					img.src = obj.channel_image_path;
+					return img;
+				});
+				console.log(overlays[5].src);
+				return overlays;
 			}).catch(function (e) {
 				return console.log(e);
 			});
@@ -5297,8 +5329,8 @@ var SidebarComponent = {
 		masks: '<',
 		onUpdateLine: '&',
 		onUpdateMask: '&',
-		onAdjustLine: '&',
-		onUpdateBrightness: '&'
+		onUpdateColorChannel: '&',
+		onAdjustLine: '&'
 	},
 	controller: _sidebar2.default,
 	templateUrl: '/views/sidebar/sidebar.html'
@@ -5334,6 +5366,11 @@ var SidebarController = function () {
 			green: 'none',
 			magenta: 'none',
 			yellow: 'none'
+		};
+		this.colorChannels = {
+			red: 'none',
+			green: 'none',
+			blue: 'none'
 		};
 	}
 
@@ -5397,6 +5434,8 @@ var ViewerComponent = {
 		lineName: '<',
 		maskImages: '<',
 		maskColor: '<',
+		colorChannelImages: '<',
+		colorChannelColor: '<',
 		brightness: '<',
 		gamma: '<'
 	},
@@ -5439,12 +5478,21 @@ var ViewerController = function () {
 			yellow: undefined
 		};
 		this.currentDisplayMasks = {
-			cyan: "images/2-Masks/blank.png",
-			green: "images/2-Masks/blank.png",
-			magenta: "images/2-Masks/blank.png",
-			yellow: "images/2-Masks/blank.png"
+			cyan: "images/blank.png",
+			green: "images/blank.png",
+			magenta: "images/blank.png",
+			yellow: "images/blank.png"
 		};
-		this.tempOverlay = "imagesbk/3test/6.7FRhcrtR-Gal4-uasKaede_6dpf_MeanImageOf12Fish-" + this.sliceIndex + ".png";
+		this.colorChannelArrays = {
+			red: undefined,
+			green: undefined,
+			blue: undefined
+		};
+		this.currentDisplayColorChannels = {
+			red: "images/blank.png",
+			green: "images/blank.png",
+			blue: "images/blank.png"
+		};
 	}
 
 	_createClass(ViewerController, [{
@@ -5460,10 +5508,17 @@ var ViewerController = function () {
 				this.currentLineName = this.lineName || "Elavl3-H2BRFP";
 			}
 
-			// whenver new set of mask images loaded, display them
+			// whenever new set of mask images loaded, update display
 			if (this.maskImages) {
 				this.maskArrays[this.maskColor] = this.maskImages;
 				this.currentDisplayMasks[this.maskColor] = this.maskArrays[this.maskColor][this.sliceIndex].src;
+			}
+
+			// whenever new set of color channel images loaded, update display
+			if (this.colorChannelImages) {
+				this.colorChannelArrays[this.colorChannelColor] = this.colorChannelImages;
+				this.currentDisplayColorChannels[this.colorChannelColor] = this.colorChannelArrays[this.colorChannelColor][this.sliceIndex].src;
+				console.log('ye');
 			}
 
 			// on changes in brightness update line-img brightness attr
@@ -5493,7 +5548,9 @@ var ViewerController = function () {
 			if (Array.isArray(this.maskArrays['magenta'])) this.currentDisplayMasks['magenta'] = this.maskArrays['magenta'][this.sliceIndex].src;
 			if (Array.isArray(this.maskArrays['yellow'])) this.currentDisplayMasks['yellow'] = this.maskArrays['yellow'][this.sliceIndex].src;
 
-			// this.tempOverlay = `imagesbk/3test/6.7FRhcrtR-Gal4-uasKaede_6dpf_MeanImageOf12Fish-${this.sliceIndex}.png`;
+			if (Array.isArray(this.colorChannelArrays['red'])) this.currentDisplayColorChannels['red'] = this.colorChannelArrays['red'][this.sliceIndex].src;
+			if (Array.isArray(this.colorChannelArrays['green'])) this.currentDisplayColorChannels['green'] = this.colorChannelArrays['green'][this.sliceIndex].src;
+			if (Array.isArray(this.colorChannelArrays['blue'])) this.currentDisplayColorChannels['blue'] = this.colorChannelArrays['blue'][this.sliceIndex].src;
 		}
 	}]);
 

@@ -14,12 +14,21 @@ class ViewerController {
 			yellow: undefined,
 		}	
 		this.currentDisplayMasks = {
-			cyan: "images/2-Masks/blank.png",
-			green: "images/2-Masks/blank.png",
-			magenta: "images/2-Masks/blank.png",
-			yellow: "images/2-Masks/blank.png"
+			cyan: "images/blank.png",
+			green: "images/blank.png",
+			magenta: "images/blank.png",
+			yellow: "images/blank.png"
 		}
-		this.tempOverlay = `imagesbk/3test/6.7FRhcrtR-Gal4-uasKaede_6dpf_MeanImageOf12Fish-${this.sliceIndex}.png`;
+		this.colorChannelArrays = {
+			red: undefined,
+			green: undefined,
+			blue: undefined,
+		}	
+		this.currentDisplayColorChannels = {
+			red: "images/blank.png",
+			green: "images/blank.png",
+			blue: "images/blank.png",
+		}
 	}
 	$onInit() {
 	}
@@ -31,10 +40,17 @@ class ViewerController {
 			this.currentLineName = this.lineName || "Elavl3-H2BRFP";
 		}			
 
-		// whenver new set of mask images loaded, display them
+		// whenever new set of mask images loaded, update display
 		if ( this.maskImages ) {	
 			this.maskArrays[this.maskColor] = this.maskImages;
 			this.currentDisplayMasks[this.maskColor] = this.maskArrays[this.maskColor][this.sliceIndex].src;
+		}
+
+		// whenever new set of color channel images loaded, update display
+		if ( this.colorChannelImages ) {
+			this.colorChannelArrays[this.colorChannelColor] = this.colorChannelImages;
+			this.currentDisplayColorChannels[this.colorChannelColor] = this.colorChannelArrays[this.colorChannelColor][this.sliceIndex].src;
+			console.log('ye');
 		}
 
 		// on changes in brightness update line-img brightness attr
@@ -69,9 +85,15 @@ class ViewerController {
 		if ( Array.isArray(this.maskArrays['yellow']) ) 
 			this.currentDisplayMasks['yellow'] = this.maskArrays['yellow'][this.sliceIndex].src;
 
-		// this.tempOverlay = `imagesbk/3test/6.7FRhcrtR-Gal4-uasKaede_6dpf_MeanImageOf12Fish-${this.sliceIndex}.png`;
-	}
+		if ( Array.isArray(this.colorChannelArrays['red']) ) 
+			this.currentDisplayColorChannels['red'] = this.colorChannelArrays['red'][this.sliceIndex].src;
+		if ( Array.isArray(this.colorChannelArrays['green']) ) 
+			this.currentDisplayColorChannels['green'] = this.colorChannelArrays['green'][this.sliceIndex].src;
+		if ( Array.isArray(this.colorChannelArrays['blue']) ) 
+			this.currentDisplayColorChannels['blue'] = this.colorChannelArrays['blue'][this.sliceIndex].src;
 
+
+	}
 
 }
 

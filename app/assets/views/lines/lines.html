@@ -6,6 +6,7 @@
 			masks="$ctrl.masks"
 			on-update-line="$ctrl.updateLine(line)"
 			on-update-mask="$ctrl.updateMask(mask, color)"
+			on-update-color-channel="$ctrl.updateColorChannel(line, color)"
 			on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)">
 		</sidebar-component>
 		<br>
@@ -18,6 +19,8 @@
 			line-name="$ctrl.lineName"
 			mask-images="$ctrl.maskImages"
 			mask-color="$ctrl.maskColor"
+			color-channel-images="$ctrl.colorChannelImages"
+			color-channel-color="$ctrl.colorChannelColor"
 			brightness="$ctrl.brightness"
 			gamma="$ctrl.gamma">
 		</viewer-component>

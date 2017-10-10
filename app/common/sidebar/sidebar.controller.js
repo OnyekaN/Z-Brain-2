@@ -12,6 +12,11 @@ class SidebarController {
 			magenta: 'none',
 			yellow: 'none'
 		}
+		this.colorChannels = {
+			red: 'none',
+			green: 'none',
+			blue: 'none'
+		}	
 	}
 	resetValues() {
 		this.brightness = 1;

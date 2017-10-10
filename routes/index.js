@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Z-Brain Atlas' });
 });
 
-/* GET entire imagesdb database as json*/
+/* GET entire imagesdb database as json */
 router.get('/api/imagesdb', (req, res, next) => {
 	const results = [];
 
@@ -39,7 +39,7 @@ router.get('/api/imagesdb', (req, res, next) => {
 
 });
 
-/* param for one line */
+/* query db for one line */
 router.param('line', (req, res, next, id) => {
 	const results = [];
 	
@@ -67,7 +67,7 @@ router.param('line', (req, res, next, id) => {
 
 });
 
-/* GET single line info as json */
+/* GET single line metadata as json */
 router.get('/api/lines/:line', (req, res, next) => {
 	res.json(req.line);
 });
@@ -100,8 +100,11 @@ router.get('/api/lines', (req, res, next) => {
 	});
 });
 
+/* GET mask names */
 router.get('/api/masks', (req, res, next) => {
 	const results = [];
+
+
 
 	pool.connect((err, client, done) => { 
 		if (err) {
@@ -128,6 +131,7 @@ router.get('/api/masks', (req, res, next) => {
 
 });
 
+/* query db for one mask */
 router.param('mask', (req, res, next, id) => {
 	const results = [];
 	
@@ -155,11 +159,45 @@ router.param('mask', (req, res, next, id) => {
 
 });
 
-
-/* GET single mask info as json */
+/* GET single mask metadata as json */
 router.get('/api/masks/:mask', (req, res, next) => {
 	res.json(req.mask);
+	return next();
 });
+
+/* query db for colorChannel overlay for one line and one color */
+router.param('colorchannel', (req, res, next, id) => {
+	let channel = JSON.parse(id);
+	const results = [];
+	
+	pool.connect((err, client, done) => {
+		if (err) {
+			done();	
+			console.log(err);
+			return res.status(500).json({success:false, data: err});
+		}
+		
+		querySQL = `SELECT * FROM colorChannels
+							WHERE channel_name='${channel.name}'
+							AND channel_color='${channel.color}';`
+		const query = client.query(querySQL);
+
+		query.on('row', (row) => {
+			results.push(row);
+		});
+
+		query.on('end', () => {
+			done();
+			req.channel = results;
+			return next();
+		});
+	});		
+});
+
+router.get('/api/colorchannels/:colorchannel', (req, res, next) => {
+	res.json(req.channel);
+});
+
 
 /* GET python adjusted dataset images */
 router.get('/api/adjust/:line', (req, res, next) => {

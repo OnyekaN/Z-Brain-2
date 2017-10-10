@@ -8,6 +8,8 @@ const ViewerComponent = {
 		lineName: '<',
 		maskImages: '<',
 		maskColor: '<',
+		colorChannelImages: '<',
+		colorChannelColor: '<',
 		brightness: '<',
 		gamma: '<',
 	},

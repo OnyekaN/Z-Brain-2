@@ -38,7 +38,7 @@ class LinesController {
 												});
 	}	
 
-	// Make line images available to viewer component
+	// Send line images to viewer component
 	updateLine(line) {	
 		this.LinesService.cacheLine(line).then(response => {
 												this.lineImages = response;
@@ -47,13 +47,21 @@ class LinesController {
 												});
 	}
 
-	// Make mask images available to viewer component
+	// Send mask images to viewer component
 	updateMask(mask, color) {
 		this.LinesService.cacheMask(mask, color).then(response => {
 												this.maskImages = response;
 												this.maskColor = color;
 												});
 	}
+
+	// Send color channel to viewer component
+	updateColorChannel(line, color) {
+		this.LinesService.cacheColorChannel(line, color).then(response => {
+												this.colorChannelImages = response;
+												this.colorChannelColor = color;
+												});
+	}	
 
 	// Change the brightness or gamma settings on the displayed line image
 	adjustLine(line, brightness, gamma) {

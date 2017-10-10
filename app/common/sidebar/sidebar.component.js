@@ -8,8 +8,8 @@ const SidebarComponent = {
 		masks: '<',
 		onUpdateLine: '&',
 		onUpdateMask: '&',
-		onAdjustLine: '&',
-		onUpdateBrightness: '&',
+		onUpdateColorChannel: '&',
+		onAdjustLine: '&'
 	},
 	controller: SidebarController,
 	templateUrl: '/views/sidebar/sidebar.html'

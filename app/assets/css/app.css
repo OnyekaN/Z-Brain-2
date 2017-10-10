@@ -9,8 +9,8 @@ body {
 	background-color: rgb(255, 252, 250) !important;
 	font-family: Helvetica !important;
 	width: 1420px;
-	-min-height: 900px;
-	min-height: calc(100vh - 50px);
+	min-height: 900px;
+	height: calc(100vh - 50px);
 }
 
 .navbar {
@@ -53,9 +53,6 @@ body {
 }
 
 #header {
-	-background-color: #38c;
-	-background: linear-gradient(to right, #fffefd,#ddd,#ddd, #ddd,#fffefd);
-	-border: 1px solid green;
 	height: 120px;
 	width: 100%;
 	min-width: 1400px;
@@ -102,7 +99,7 @@ body {
 	-border: 1px solid grey;
 	position: relative;
 	height: 600px;
-	width: 230px;
+	width: 260px;
 	margin-right: 20px;
 	box-shadow: 1px 1px 1px #bbb;
 	
@@ -115,6 +112,35 @@ body {
 
 .ui.search.dropdown .text {
 	width: 150px !important;	
+}
+
+.cyan i {
+	-color: cyan;
+	box-shadow: 3px 0px 1px -1px cyan;
+}
+
+.magenta i {
+	-color: magenta;
+	box-shadow: 3px 0px 1px -1px magenta;
+}
+
+.green i {
+	-color: green;
+	box-shadow: 3px 0px 1px -1px green;
+}
+
+.yellow i {
+	-color: yellow;
+	box-shadow: 3px 0px 1px -1px yellow;
+}
+
+.red i {
+	-color: red;
+	box-shadow: 3px 0px 1px -1px red;
+}
+.blue i {
+	-color: blue;
+	box-shadow: 3px 0px 1px -1px blue;
 }
 
 #brightness-slider {
@@ -140,13 +166,22 @@ body {
 	z-index: 50 ;
 }
 
-#line-image {
+#primary-line-image {
 	position: absolute;
 	left: 0px;
 	top: 90px;
 	height: 440px !important;
 	width: 1050px !important;
-	-z-index: -10;
+}
+
+.color-channel {
+	position: absolute;
+	left: 0px;
+	top: 90px;
+	height: 440px;
+	width: 1050px;
+	z-index: 500;
+	opacity: 0.5;
 }
 
 .mask-img {
@@ -155,6 +190,7 @@ body {
 	top: 90px;
 	height: 440px;
 	width: 1050px;
+	z-index: 1000;
 }
 
 #temp-overlay {
