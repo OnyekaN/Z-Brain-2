@@ -42,15 +42,23 @@ class ViewerController {
 
 		// whenever new set of mask images loaded, update display
 		if ( this.maskImages ) {	
-			this.maskArrays[this.maskColor] = this.maskImages;
-			this.currentDisplayMasks[this.maskColor] = this.maskArrays[this.maskColor][this.sliceIndex].src;
+			if ( this.maskImages === 'None' ) {
+				this.maskArrays[this.maskColor] = undefined;
+				this.currentDisplayMasks[this.maskColor] = 'images/blank.png'; 
+			} else {
+				this.maskArrays[this.maskColor] = this.maskImages;
+				this.currentDisplayMasks[this.maskColor] = this.maskArrays[this.maskColor][this.sliceIndex].src;
+			}
 		}
-
 		// whenever new set of color channel images loaded, update display
 		if ( this.colorChannelImages ) {
-			this.colorChannelArrays[this.colorChannelColor] = this.colorChannelImages;
-			this.currentDisplayColorChannels[this.colorChannelColor] = this.colorChannelArrays[this.colorChannelColor][this.sliceIndex].src;
-			console.log('ye');
+			if ( this.colorChannelImages === 'None') {
+				this.colorChannelArrays[this.colorChannelColor] = undefined;
+				this.currentDisplayColorChannels[this.colorChannelColor] = 'images/blank.png';
+			} else {
+				this.colorChannelArrays[this.colorChannelColor] = this.colorChannelImages;
+				this.currentDisplayColorChannels[this.colorChannelColor] = this.colorChannelArrays[this.colorChannelColor][this.sliceIndex].src;
+			}
 		}
 
 		// on changes in brightness update line-img brightness attr

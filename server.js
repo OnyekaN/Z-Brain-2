@@ -4,11 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-const pg = require('pg');
-const connectionString = 'postgres://localhost:5432/zbrain2db'
-
-const client = new pg.Client(connectionString);
-client.connect();
 
 var index = require('./routes/index');
 var users = require('./routes/users');

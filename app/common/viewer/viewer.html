@@ -3,16 +3,16 @@
 	<div style="background-color:#ddd;padding-left:5px;">
 		<span style="color:black;font-family:serif;"><b>Viewer</b></span>
 	</div>
-	<div style="margin-left:270px;margin-top:15px;">
-			<span style="color:#bbb;font-size:1em">Currently viewing:
-			<span style="color:#49d">
-				<b><em>{{$ctrl.currentLineName}}</em></b>
+	<div style="margin-left:330px;margin-top:15px;">
+		<span style="color:#bbb;font-size:1em">Currently Viewing - 
+			<span style="color:#49d;font-size:1.1em">
+				<b>{{$ctrl.currentLineName}}</b>
+				<span style="font-size:0.8em">-{{$ctrl.sliceIndex}}</span>
 			</span>
-			- slice index {{$ctrl.sliceIndex}}
 		</span>
 	</div>
 	<span class="z-index-div"
-	 style="margin-left:260px;margin-top:5px;z-index:50;position:absolute;">	
+	 style="margin:5px 0 20px 260px;z-index:50;position:absolute;">	
 		<input id="z-index-slider" class="z-index-slider" type="range" orient="vertical"
 		 ng-change="$ctrl.updateSlice()"
 		 ng-model="$ctrl.sliceIndex" 
@@ -24,7 +24,7 @@
 		alt="primary-line-image"/>
 
 	<img id="red-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['red']}}"
-		class="color-channel" alt="red-color-channel"/>
+		class="color-channel" alt="red-color-channel" />
 	<img id="green-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['green']}}"
 		class="color-channel" alt="green-color-channel"/>
 	<img id="blue-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['blue']}}"

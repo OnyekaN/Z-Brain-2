@@ -49,23 +49,35 @@ class LinesController {
 
 	// Send mask images to viewer component
 	updateMask(mask, color) {
+		if ( mask === 'None' ) {
+			this.maskImages = 'None'; 
+			this.maskColor = color;
+			return;
+		} else {
 		this.LinesService.cacheMask(mask, color).then(response => {
 												this.maskImages = response;
 												this.maskColor = color;
 												});
+		}
 	}
+
 
 	// Send color channel to viewer component
 	updateColorChannel(line, color) {
-		this.LinesService.cacheColorChannel(line, color).then(response => {
-												this.colorChannelImages = response;
-												this.colorChannelColor = color;
-												});
+		if ( line === 'None' ) {
+			this.colorChannelImages = 'None'; 
+			this.colorChannelColor = color;
+			return;
+		} else {
+			this.LinesService.cacheColorChannel(line, color).then(response => {
+													this.colorChannelImages = response;
+													this.colorChannelColor = color;
+													});
+		}
 	}	
 
 	// Change the brightness or gamma settings on the displayed line image
 	adjustLine(line, brightness, gamma) {
-		console.log(`line:${line}, br:${brightness}, g:${gamma}`);	
 		this.spinner.spin(this.spinnerTarget);
 		this.LinesService.adjustLine(line, brightness, gamma).then(response => {
 												this.lineImages = response;

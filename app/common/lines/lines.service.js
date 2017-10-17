@@ -59,7 +59,6 @@ class LinesService {
 				img.src = obj.channel_image_path;
 				return img;
 			});
-			console.log(overlays[5].src);
 			return overlays;
 		}).catch(e => console.log(e));
 	}

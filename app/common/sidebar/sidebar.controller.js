@@ -25,4 +25,5 @@ class SidebarController {
 	}
 }
 
+
 export default SidebarController;

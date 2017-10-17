@@ -3,8 +3,9 @@ var router = express.Router();
 const { Pool } = require('pg');
 const path = require('path');
 const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/zbrain2db'
+
 const pool = new Pool({
-	connectionString: connectionString,
+	connectionString: connectionString
 });
 
 /* GET home page. */

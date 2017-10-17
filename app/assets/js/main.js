@@ -4959,10 +4959,16 @@ var LinesController = function () {
 		value: function updateMask(mask, color) {
 			var _this3 = this;
 
-			this.LinesService.cacheMask(mask, color).then(function (response) {
-				_this3.maskImages = response;
-				_this3.maskColor = color;
-			});
+			if (mask === 'None') {
+				this.maskImages = 'None';
+				this.maskColor = color;
+				return;
+			} else {
+				this.LinesService.cacheMask(mask, color).then(function (response) {
+					_this3.maskImages = response;
+					_this3.maskColor = color;
+				});
+			}
 		}
 
 		// Send color channel to viewer component
@@ -4972,10 +4978,16 @@ var LinesController = function () {
 		value: function updateColorChannel(line, color) {
 			var _this4 = this;
 
-			this.LinesService.cacheColorChannel(line, color).then(function (response) {
-				_this4.colorChannelImages = response;
-				_this4.colorChannelColor = color;
-			});
+			if (line === 'None') {
+				this.colorChannelImages = 'None';
+				this.colorChannelColor = color;
+				return;
+			} else {
+				this.LinesService.cacheColorChannel(line, color).then(function (response) {
+					_this4.colorChannelImages = response;
+					_this4.colorChannelColor = color;
+				});
+			}
 		}
 
 		// Change the brightness or gamma settings on the displayed line image
@@ -4985,7 +4997,6 @@ var LinesController = function () {
 		value: function adjustLine(line, brightness, gamma) {
 			var _this5 = this;
 
-			console.log('line:' + line + ', br:' + brightness + ', g:' + gamma);
 			this.spinner.spin(this.spinnerTarget);
 			this.LinesService.adjustLine(line, brightness, gamma).then(function (response) {
 				_this5.lineImages = response;
@@ -5089,7 +5100,6 @@ var LinesService = function () {
 					img.src = obj.channel_image_path;
 					return img;
 				});
-				console.log(overlays[5].src);
 				return overlays;
 			}).catch(function (e) {
 				return console.log(e);
@@ -5510,15 +5520,23 @@ var ViewerController = function () {
 
 			// whenever new set of mask images loaded, update display
 			if (this.maskImages) {
-				this.maskArrays[this.maskColor] = this.maskImages;
-				this.currentDisplayMasks[this.maskColor] = this.maskArrays[this.maskColor][this.sliceIndex].src;
+				if (this.maskImages === 'None') {
+					this.maskArrays[this.maskColor] = undefined;
+					this.currentDisplayMasks[this.maskColor] = 'images/blank.png';
+				} else {
+					this.maskArrays[this.maskColor] = this.maskImages;
+					this.currentDisplayMasks[this.maskColor] = this.maskArrays[this.maskColor][this.sliceIndex].src;
+				}
 			}
-
 			// whenever new set of color channel images loaded, update display
 			if (this.colorChannelImages) {
-				this.colorChannelArrays[this.colorChannelColor] = this.colorChannelImages;
-				this.currentDisplayColorChannels[this.colorChannelColor] = this.colorChannelArrays[this.colorChannelColor][this.sliceIndex].src;
-				console.log('ye');
+				if (this.colorChannelImages === 'None') {
+					this.colorChannelArrays[this.colorChannelColor] = undefined;
+					this.currentDisplayColorChannels[this.colorChannelColor] = 'images/blank.png';
+				} else {
+					this.colorChannelArrays[this.colorChannelColor] = this.colorChannelImages;
+					this.currentDisplayColorChannels[this.colorChannelColor] = this.colorChannelArrays[this.colorChannelColor][this.sliceIndex].src;
+				}
 			}
 
 			// on changes in brightness update line-img brightness attr

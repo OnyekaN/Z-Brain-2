@@ -44,18 +44,19 @@
 		<div>	
 			<select select-directive class="ui search dropdown cyan"
 				ng-model="$ctrl.masks.cyan"
-				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.cyan, color: 'cyan'})">
+				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.cyan, color:'cyan'})">
 				<option value="">Search Masks</option>
+				<option value="None">None</option>
 				<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
 					{{::mask}}
 				</option>
 			</select>
-			
 		</div>
 		<select select-directive class="ui search dropdown magenta"
 			ng-model="$ctrl.masks.magenta"
 			ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.magenta, color:'magenta'})">
 			<option value="">Search Masks</option>
+			<option value="None">None</option>
 			<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
 				{{::mask}}
 			</option>
@@ -65,6 +66,7 @@
 			ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.green, color:
 			'green'})">
 			<option value="">Search Masks</option>
+			<option value="None">None</option>
 			<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
 				{{::mask}}
 			</option>
@@ -73,6 +75,7 @@
 			ng-model="$ctrl.masks.yellow"
 			ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.yellow, color:'yellow'})">
 			<option value="">Search Masks</option>
+			<option value="None">None</option>
 			<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
 				{{::mask}}
 				<!--	{{mask.charAt(mask.length - 1) === "-" ?
@@ -86,6 +89,7 @@
 			ng-model="$ctrl.colorChannels.red"
 			ng-change="$ctrl.onUpdateColorChannel({line: $ctrl.colorChannels.red, color:'red'})">
 			<option value="">Search Color Channels</option>
+			<option value="None">None</option>
 			<option ng-repeat="line in $ctrl.lines" ng-value="'{{::line}}'">
 				{{::line}}
 			</option>
@@ -94,6 +98,7 @@
 			ng-model="$ctrl.colorChannels.green"
 			ng-change="$ctrl.onUpdateColorChannel({line: $ctrl.colorChannels.green, color:'green'})">
 			<option value="">Search Color Channels</option>
+			<option value="None">None</option>
 			<option ng-repeat="line in $ctrl.lines" ng-value="'{{::line}}'">
 				{{::line}}
 			</option>
@@ -102,6 +107,7 @@
 			ng-model="$ctrl.colorChannels.blue"
 			ng-change="$ctrl.onUpdateColorChannel({line: $ctrl.colorChannels.blue, color:'blue'})">
 			<option value="">Search Color Channels</option>
+			<option value="None">None</option>
 			<option ng-repeat="line in $ctrl.lines" ng-value="'{{::line}}'">
 				{{::line}}
 			</option>
