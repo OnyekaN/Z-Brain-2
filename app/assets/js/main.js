@@ -92,6 +92,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 		}).state('about', {
 			url: '/about',
 			templateUrl: '/views/about.html'
+		}).state('contributing', {
+			url: '/contributing',
+			templateUrl: '/views/contributing.html'
+		}).state('faq', {
+			url: '/faq',
+			templateUrl: '/views/faq.html'
+		}).state('downloads', {
+			url: '/downloads',
+			templateUrl: '/views/downloads.html'
 		});
 		$urlRouterProvider.when('/', '/home');
 		$urlRouterProvider.otherwise('/home');
@@ -5249,7 +5258,7 @@ var NavService = function () {
 	function NavService() {
 		_classCallCheck(this, NavService);
 
-		this.pages = [{ name: 'Home', link: '/#/home' }, { name: 'About', link: '/#/about' }, { name: 'Contributing to the Z-Brain', link: '#' }, { name: 'FAQ', link: '#' }, { name: 'Downloads', link: '#' }, { name: 'Engert Lab Lines Resource', link: '#' }];
+		this.pages = [{ name: 'Home', link: '/#/home' }, { name: 'About', link: '/#/about' }, { name: 'Contributing to the Z-Brain', link: '/#/contributing' }, { name: 'FAQ', link: '/#/faq' }, { name: 'Downloads', link: '/#/downloads' }, { name: 'Engert Lab Lines Resource', link: 'http://engertlab.fas.harvard.edu:3000/' }];
 	}
 
 	_createClass(NavService, [{

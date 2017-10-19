@@ -16,6 +16,7 @@ body {
 
 .navbar {
 	background-color: transparent !important;
+	border-color: transparent !important;
 	min-width: 1450px;
 	width: 100%;
 	font-family: Raleway, sans-serif;
@@ -55,9 +56,9 @@ body {
 #header {
 	height: 120px;
 	width: 100%;
-	min-width: 1400px;
+	min-width: 1410px;
 	position: relative;
-	box-shadow: 10px 15px 25px #eee;
+	box-shadow: -10px 15px 25px #eee;
 	margin-bottom: 40px;
 	font-family: "Raleway", sans-serif !important;
 	margin-left:-15px;
@@ -78,7 +79,7 @@ body {
 
 #main {
 	background-color: transparent;
-	width: 1480px;
+	width: 1500px;
 	margin-left: -px;
 }
 
@@ -101,11 +102,9 @@ body {
 	position: relative;
 	height: 600px;
 	width: 260px;
-	margin-right: 20px;
+	margin-right: 30px;
 	box-shadow: 1px 1px 1px #bbb;
-	overflow:scroll;
-
-	
+	overflow:scroll;	
 }
 
 .ui.search.dropdown {

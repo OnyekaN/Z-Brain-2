@@ -1,0 +1,191 @@
+<style>
+h1 {
+	font-family: helvetica;
+	font-weight: bold;
+}
+h2 {
+	color: grey;
+}
+a {
+	color: #38c;
+}
+.content {
+	margin: 40px 50px 70px 50px;
+	font-family: Raleway;
+	width: 90vw;
+}
+
+.content p {
+	margin-left: 10px;
+}
+.str {
+	font-weight: bold;
+  font-family: helvetica;
+}
+</style>
+    
+<div class="content"> 
+    <h1 style="margin: 0 0 30px -7px;">Contributing to Z-Brain</h1>
+    	<h2 style="margin-left:-4px;">Registering new data to the Z-Brain Atlas</h2>
+        <h3>Option 1: Get us to register your data</h3>
+        <p>	
+        <br>To register your new line or stain, you will need to acquire
+        high-quality 2-channel confocal stacks of your line. 
+        <br>Your new
+        label will need to be co-stained with anti-ERK (p44/42 MAPK
+                (Erk1/2) (L34F12) Mouse mAb #4696,
+                <a
+                href="http://www.cellsignal.com/products/primary-antibodies/4696"
+                target="_blank">http://www.cellsignal.com/products/primary-antibodies/4696</a>.
+        <br>If you are registering another mouse IgG1 antibody and so
+        can’t easily use ERK as a stain, you can use another label
+        currently contained in the database. For this we recommend you
+        use <a href="http://zfin.org/ZDB-ATB-081002-25"
+        target="_blank">anti-Znp1</a>. See below
+        for our recommended staining protocol.</p>
+        <p>Image stacks should be acquired on a confocal microscope,
+        using a setup and settings as close to the following as
+        possible:</p>
+        <ul>
+          <li>x/y/z resolution = 0.798/0.798/2um</li>
+          <li>20x 1.0NA water dipping objective</li>
+          <li>Fish are mounted in low-melting point agarose, imaged with
+        dorsal side closest to the objective (up on an upright scope)</li>
+        </ul>
+        </p>
+    
+        <p>Stacks should be acquired to cover the entire brain from
+        dorsal to ventral surface, and from the tip of the nose to a
+        few somites into the spinal cord (same coverage as Z-Brain).
+        To do this you can acquire two image tiles, which can be
+        stitched using the <a href="http://fiji.sc/Image_Stitching#Pairwise_Stitching)"
+        target="_blank">‘pairwise stitching’</a> function in FIJI.
+        <br>
+        Once you have the stacks, open them in <a
+        href="http://fiji.sc/Fiji" target="_blank">FIJI</a>. Split the channels of the 2-channel
+        stack (Image -> Color -> Split Channels). Save each channel
+        separately as an “nrrd” file (File -> Save As -> nrrd). The
+        image stack of the ERK stain should be named as:
+        ThisFishName_01.nrrd. Your new label file should have the same
+        name, but replace ‘_01.nrrd’ with ‘_02.nrrd’. And so on, if
+        more than 2 labels.
+        <br>
+        Open the saved nrrd files in FIJI to make sure that the
+        metadata is correct. Go to Image->Properties, and ensure that
+        ‘pixel width’, ‘pixel height’ and ‘pixel depth’ are the
+        physical dimensions of the voxels in your image. These must be
+        correct for the registration to work optimally.</p>
+        <p>Send the image files to <a
+        href="mailto:zebrafishbrain@gmail.com">me
+        (zebrafishbrain@gmail.com)</a>.
+        Dropbox, Google Drive, or physically mailing a hard drive are
+        a few options. The more stacks of different fish you can send
+        the better, in order to get the best representation of it in
+        the Z-Brain. We will need a minimum of 5 fish, but aim for 20.
+        We will register all the fish to the Z-Brain, and calculate
+        the mean-across-fish stack. We are happy to do this for you,
+        with the understanding that the data will eventually be added
+        to the Z-Brain database. This could be done immediately, or
+        after you publish your reagent.
+        <br><br>
+        Before sending the full dataset, please send me some example
+        image slices of your stack to ensure the quality will be high
+        enough for registration.
+        </p>
+        <br>
+        <h3>Option 2: Register data yourself</h3>
+        <p>
+        To register data we use 
+        <a href="https://www.nitrc.org/projects/cmtk/" target="_blank">CMTK</a>.  I think the easiest
+        way to get this running is to use the graphical interfaces
+        built by the Jefferis lab. Detailed instructions on warping
+        data are available <a
+        href="http://flybrain.mrc-lmb.cam.ac.uk/dokuwiki/doku.php?id=warping_manual:start"
+        target="_blank">here</a>, and <a href="http://www.ncbi.nlm.nih.gov/pubmed/23547150"	target="_blank">here</a> (note, these tools were originally made to register fly brains, but they also do an excellent job registering fish brains). For typical registrations we pass
+        these parameters to the registration GUI/munger: -awr 0102 -X
+        52 -C 8 -G 80 -R 3 -A '--accuracy 0.4' -W '--accuracy 1.6'.
+        The tERK reference brain can be found here:
+        <a href="Downloads/Ref20131120pt14pl2.nrrd"
+        target="_blank">Reference Brain</a><br>
+        We would appreciate it if you could provide us with the
+        registered data to be included in the Z-Brain database.
+        Ideally, this could be done in conjunction with publication of
+        the reagent.
+        </p><br><br>
+        <h2>Contributing to the segmentation effort</h2>
+        <p>The segmentation of the Z-Brain into anatomical regions was
+        done manually by us, and partially edited through consultation
+        with Mario Wullimann. Performing a true and accurate
+        high-resolution 3D segmentation of all of the neuroanatomical
+        regions is an immense task, which is certainly not fully
+        realized at present. We hope that you will help us to improve
+        it by adding new labels (above) and by contributing new and/or
+        updated region definitions. These regions are represented by binary
+        image stacks, with 1’s defining the region.</p>
+        <p>To create a new regional definition, you can use the
+        ZBrainViewer.
+        With the dataset you will use to guide segmentation open and
+        in ‘coronal’ (default) view, click ‘r’ to begin drawing a new
+        region. Instructions for how to draw the region will be
+        displayed.</p>
+        <p>Draw the outline of the region in the current plane, and
+        then move to a new plane and again draw the relevant outline.
+        Once you have drawn a sufficient number of planes to define
+        the region, press ‘i’ to interpolate any undrawn planes and
+        complete the 3D mask. You can check the accuracy of your
+        drawing by scrolling through the planes after interpolating.</p>
+        <p>Pressing ‘s’ will prompt you to give the region a name, and
+        save to disk in a separate file called
+        ‘NewAnatomyRegion—YourRegion’sName.mat’. Then, pressing ‘w’
+        will integrate your new region into your local version of the
+        Z-Brain database.</p>
+        <p>Email the ‘NewAnatomyRegion--...’ file, along with a
+        description of what the region is, and what defines it, to me.
+        I will vet it for inclusion in the Z-Brain.</p>
+        <h2>tERK staining protocol</h2>
+        <h3>1) Fixation</h3>
+        <p>
+          <ul>
+            <li>Fix larvae in 4% PFA in PBS + 0.25% Triton (PBT),
+        overnight (O/N) at 4⁰C.</li>
+            <li>Wash in PBT 3x 5min</li>
+          </ul>
+        </p>
+        <h3>2) Antigen Retrieval</h3>
+        <span style="color:rgb(180,180,180)"><em>(optional, improves signal of some antibodies like Znp1, 
+        but doesn’t affect tERK staining substantially, Inoue et al.,
+        Plos One, 2011)</em></span>
+        <p>
+          <ul>
+            <li>Incubate in 150mM TrisHCl pH 9.0 for 5min at RT</li>
+            <li>Transfer to 70⁰C water bath for 15min</li>
+            <li>Wash with PBT 2x 5 min</li>
+          </ul>
+        <h3>3) Permeabilization</h3>
+          <ul>
+            <li>Incubate larvae in 0.05% Trypsin-EDTA on ice. Optimal
+            time will depend on stage. I use 45min for 6 dpf larvae</li>
+            <li>Wash 3x in PBT (I do 2 quick washes to make sure I get
+            all of the trypsin out, and then wash for 10 min with PBT)</li>
+          </ul>
+        <h3>4) Blocking</h3>
+          <ul>
+            <li>1 hour in 2% Normal Goat Serum, 1% BSA, 1% DMSO in PBT</li>
+            <li>Only use NGS if the no primary antibodies are made in
+            goat.</li>
+          </ul>
+        <h3>5) Antibodies</h3>
+          <ul>
+            <li>Dilute the ERK antibody 1:500 in 1%BSA, 1%DMSO in PBT,
+            and incubate O/N at 4⁰C</li>
+            <li>Wash 3X 15 min in PBT at RT</li>
+            <li>Incubate in 2nd AB in 1%BSA, 1%DMSO in PBT, O/N at 4C</li>
+            <li>Wash 3X 15 min in PBT at RT</li>
+            <li>Mount for imaging in LMP Agarose, mount as close to the
+            imaging surface as possible to minimize light scattering by
+            the agarose</li>
+          </ul>
+        </p>
+      </div>
+    </div>
+</div>
