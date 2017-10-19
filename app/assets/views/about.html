@@ -30,6 +30,7 @@ a {
 <div class="content"> 
 	<h1 style="margin: 0 0 30px -7px;">About Z-Brain</h1>
 	<h2>The Z-Brain</h2>
+	<br>
 	<p>	We built the Z-Brain in order to provide a standard reference brain
 	atlas for anatomical and functional studies of the larval zebrafish
 	brain <a href="http://www.nature.com/nmeth/journal/v12/n11/abs/nmeth.3581.html"
@@ -61,11 +62,11 @@ a {
 		<a href="mailto:zebrafishbrain@gmail.com">zebrafishbrain@gmail.com</a>.</p>
 	<br>
 	<h2>Using the Z-Brain to explore anatomy</h2>
-		<p>To view the data, you can either use the <a href="index.html">web
+		<p>To view the data, you can either use the <a href="/#/home">web
 		interface</a>. This can get you oriented with the data, and
 		overlay masks of regions onto any of the anatomical labels. Below is
 		a diagram of the different buttons and functions.</p>
-		<p><img alt="diagram" src="About/DiagramInfoImage.jpg"
+		<p><img alt="diagram" src="images/DiagramInfoImage.jpg"
 		style="height:500px;width900px;"></p>
 		<p>To explore the Z-Brain in more detail, you can use the
 		Matlab-based viewer that we have built. You need to download the
@@ -78,18 +79,20 @@ a {
 		function.
 		</p>
 		<p><span class="str">The three files you will need are:</span>
-		<br>
+		<br><br>
 			<ol>
 				<li><a href="https://github.com/owenrandlett/Z-Brain/archive/master.zip" download>ZBrainViewer</a></li>
 				 <dd>- Unzip this directory, which containls the Matlab script 'ZBrainViewer.m' that runs the viewer.</dd>
-				<li><a href="Downloads/AnatomyLabelDatabase.hdf5" download>Anatomy Label Database</a></li>
+				 <br>
+				<li><a href="downloads/AnatomyLabelDatabase.hdf5" download>Anatomy Label Database</a></li>
 				 <dd> - This is an image file that contains the stacks of
 			 the labels (transgenes, antibody stains, etc). Each stack
 				is a mean across multiple fish. It is an HDF5 file, and so
 			can also be loaded into different viewing programs. The
 				resolution of the data is x/y/z = 0.798/0.798/2um.
 				<br><em><strong>Warning: file size is ~4.5gb.</strong></em></dd>
-				<li><a href="Downloads/MaskDatabase.mat" download>Mask Database</a></li>
+				<br>
+				<li><a href="downloads/MaskDatabase.mat" download>Mask Database</a></li>
 				 <dd> - This is the file that contains the regional
 				definitions. It is a compressed Matlab file. If you would
 				like the regions in an image format, please contact me.</dd>
