@@ -1,4 +1,5 @@
 var express = require('express');
+var app = express();
 var router = express.Router();
 const { Pool } = require('pg');
 const path = require('path');
@@ -10,7 +11,14 @@ const pool = new Pool({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Z-Brain Atlas' });
+	if (app.get('env') === 'development') {
+	  res.render('index', { title: 'Z-Brain Atlas',
+													main: 'js/main.js' });
+	}
+	if (app.get('env') === 'production') {
+		res.render('index', { title: 'Z-Brain Atlas',
+													main: 'js/main.min.js' });
+	}
 });
 
 /* GET entire imagesdb database as json */
