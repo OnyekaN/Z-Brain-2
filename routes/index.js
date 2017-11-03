@@ -5,6 +5,7 @@ const { Pool } = require('pg');
 const path = require('path');
 const c = require('./connectionString').connectionString;
 const connectionString = process.env.DATABASE_URL || c; 
+const findRemoveSync = require('find-remove');
 
 const pool = new Pool({
 	connectionString: connectionString
@@ -20,6 +21,10 @@ router.get('/', function(req, res, next) {
 		res.render('index', { title: 'Z-Brain Atlas',
 													main: 'js/main.min.js' });
 	}
+
+	//Remove temporary jpgs if older than 6mins	
+	let tmp = path.join(__dirname, '../app/assets/images/1-TemporaryLineImages');
+	let result = findRemoveSync(tmp, {age: {seconds: 360}, extensions: '.jpg'});	
 });
 
 /* GET entire imagesdb database as json */

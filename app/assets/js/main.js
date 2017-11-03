@@ -4910,7 +4910,7 @@ var LinesController = function () {
 		this.lineName = "";
 		this.spinnerOpts = {
 			// settings for spin.js spinner
-			lines: 9, length: 40, width: 18, radius: 67, corners: 0.2,
+			lines: 9, length: 40, width: 18, radius: 67, corners: 0.8,
 			scale: 1.0, color: '#fff', opacity: 0.55, rotate: 0, direction: 1,
 			speed: 1.9, trail: 90, fps: 20, zIndex: 2e9, className: 'spinner',
 			top: '49%', left: '50%', shadow: false, hwaccel: false, position: 'absolute'
@@ -4953,7 +4953,7 @@ var LinesController = function () {
 			this.LinesService.cacheLine(line).then(function (response) {
 				_this2.lineImages = response;
 				_this2.lineName = line;
-				_this2.spinner.stop();
+				//	this.spinner.stop();
 			});
 		}
 
