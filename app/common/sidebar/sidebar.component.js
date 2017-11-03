@@ -12,7 +12,7 @@ const SidebarComponent = {
 		onAdjustLine: '&'
 	},
 	controller: SidebarController,
-	templateUrl: '/views/sidebar/sidebar.html'
+	templateUrl: 'views/sidebar/sidebar.html'
 }
 
 export default SidebarComponent;

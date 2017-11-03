@@ -4850,13 +4850,9 @@ var _lines3 = __webpack_require__(6);
 
 var _lines4 = _interopRequireDefault(_lines3);
 
-var _slider = __webpack_require__(7);
-
-var _slider2 = _interopRequireDefault(_slider);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Lines = angular.module('lines', []).component('linesComponent', _lines2.default).service('LinesService', _lines4.default).directive('sliderDirective', _slider2.default).name;
+var Lines = angular.module('lines', []).component('linesComponent', _lines2.default).service('LinesService', _lines4.default).name;
 
 exports.default = Lines;
 
@@ -4880,7 +4876,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var LinesComponent = {
 	controller: _lines2.default,
-	templateUrl: '/views/lines/lines.html'
+	templateUrl: 'views/lines/lines.html'
 };
 
 exports.default = LinesComponent;
@@ -5047,7 +5043,7 @@ var LinesService = function () {
 	_createClass(LinesService, [{
 		key: 'getLineNames',
 		value: function getLineNames() {
-			return this.$http.get('/api/lines/').then(function (response) {
+			return this.$http.get('api/lines/').then(function (response) {
 				return response.data;
 			}).catch(function (e) {
 				return console.log(e);
@@ -5056,7 +5052,7 @@ var LinesService = function () {
 	}, {
 		key: 'getMaskNames',
 		value: function getMaskNames() {
-			return this.$http.get('/api/masks/').then(function (response) {
+			return this.$http.get('api/masks/').then(function (response) {
 				return response.data;
 			}).catch(function (e) {
 				return console.log(e);
@@ -5067,7 +5063,7 @@ var LinesService = function () {
 		value: function cacheLine(line) {
 			return this.$http({
 				method: 'GET',
-				url: '/api/lines/' + line,
+				url: 'api/lines/' + line,
 				cache: true
 			}).then(function (response) {
 				var images = response.data.map(function (obj) {
@@ -5083,7 +5079,7 @@ var LinesService = function () {
 		value: function cacheMask(mask, color) {
 			return this.$http({
 				method: 'GET',
-				url: '/api/masks/' + mask,
+				url: 'api/masks/' + mask,
 				cache: true
 			}).then(function (response) {
 				var masks = response.data.map(function (obj) {
@@ -5101,7 +5097,7 @@ var LinesService = function () {
 		value: function cacheColorChannel(line, color) {
 			return this.$http({
 				method: 'GET',
-				url: '/api/colorchannels/{"name":"' + line + '","color":"' + color + '"}',
+				url: 'api/colorchannels/{"name":"' + line + '","color":"' + color + '"}',
 				cache: true
 			}).then(function (response) {
 				var overlays = response.data.map(function (obj) {
@@ -5119,7 +5115,7 @@ var LinesService = function () {
 		value: function adjustLine(line, brightness, gamma) {
 			return this.$http({
 				method: 'GET',
-				url: '/api/adjust/' + line + '?brightness=' + brightness + '&gamma=' + gamma,
+				url: 'api/adjust/' + line + '?brightness=' + brightness + '&gamma=' + gamma,
 				cache: true
 			}).then(function (response) {
 				var images = response.data.map(function (obj) {
@@ -5140,30 +5136,7 @@ LinesService.$inject = ['$http'];
 exports.default = LinesService;
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-/* lines/slider-directive.js */
-
-function sliderDirective() {
-	return {
-		restrict: 'A',
-		scope: {},
-		link: function link(scope, elem, attrs) {
-			$(elem).slider();
-		}
-	};
-}
-
-exports.default = sliderDirective;
-
-/***/ }),
+/* 7 */,
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5352,7 +5325,7 @@ var SidebarComponent = {
 		onAdjustLine: '&'
 	},
 	controller: _sidebar2.default,
-	templateUrl: '/views/sidebar/sidebar.html'
+	templateUrl: 'views/sidebar/sidebar.html'
 };
 
 exports.default = SidebarComponent;
@@ -5423,9 +5396,13 @@ var _viewer = __webpack_require__(17);
 
 var _viewer2 = _interopRequireDefault(_viewer);
 
+var _slider = __webpack_require__(20);
+
+var _slider2 = _interopRequireDefault(_slider);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Viewer = angular.module('viewer', []).component('viewerComponent', _viewer2.default).name;
+var Viewer = angular.module('viewer', []).component('viewerComponent', _viewer2.default).directive('sliderDirective', _slider2.default).name;
 
 exports.default = Viewer;
 
@@ -5592,6 +5569,30 @@ exports.default = ViewerController;
 
 module.exports = __webpack_require__(0);
 
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+/* lines/slider-directive.js */
+
+function sliderDirective() {
+	return {
+		restrict: 'A',
+		scope: {},
+		link: function link(scope, elem, attrs) {
+			$(elem).slider();
+		}
+	};
+}
+
+exports.default = sliderDirective;
 
 /***/ })
 /******/ ]);

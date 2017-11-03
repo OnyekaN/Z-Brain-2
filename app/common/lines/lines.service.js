@@ -7,13 +7,13 @@ class LinesService {
 	}
 
 	getLineNames() {
-		return this.$http.get('/api/lines/')
+		return this.$http.get('api/lines/')
 						.then(response => response.data)
 						.catch(e => console.log(e));
 	}
 
 	getMaskNames() {
-		return this.$http.get('/api/masks/')
+		return this.$http.get('api/masks/')
 						.then(response => response.data)
 						.catch(e => console.log(e));
 	}
@@ -21,7 +21,7 @@ class LinesService {
 	cacheLine(line) {
 		return this.$http({
 						method: 'GET',
-						url: `/api/lines/${line}`,
+						url: `api/lines/${line}`,
 						cache: true
 		}).then(response => {
 			let images = response.data.map(obj => {
@@ -35,7 +35,7 @@ class LinesService {
 	cacheMask(mask, color) {
 		return this.$http({
 						method: 'GET',
-						url: `/api/masks/${mask}`,
+						url: `api/masks/${mask}`,
 						cache: true
 		}).then(response => {
 			let masks = response.data.map(obj => {
@@ -51,7 +51,7 @@ class LinesService {
 	cacheColorChannel(line, color) {
 		return this.$http({
 						method: 'GET',
-						url: `/api/colorchannels/{"name":"${line}","color":"${color}"}`,
+						url: `api/colorchannels/{"name":"${line}","color":"${color}"}`,
 						cache: true
 		}).then(response => {
 			let overlays = response.data.map(obj => {
@@ -66,7 +66,7 @@ class LinesService {
 	adjustLine(line, brightness, gamma) {
 		return this.$http({
 						method: 'GET',
-						url: `/api/adjust/${line}?brightness=${brightness}&gamma=${gamma}`,
+						url: `api/adjust/${line}?brightness=${brightness}&gamma=${gamma}`,
 						cache: true
 		}).then(response => {
 			let images = response.data.map(obj => {
