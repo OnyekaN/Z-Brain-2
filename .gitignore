@@ -4,3 +4,4 @@
 1-TemporaryLineImages/
 downloads/
 routes/connectionString.js
+bin/www
