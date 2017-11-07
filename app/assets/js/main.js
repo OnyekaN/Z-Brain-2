@@ -4812,15 +4812,15 @@ var _index = __webpack_require__(3);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(8);
+var _index3 = __webpack_require__(7);
 
 var _index4 = _interopRequireDefault(_index3);
 
-var _index5 = __webpack_require__(12);
+var _index5 = __webpack_require__(11);
 
 var _index6 = _interopRequireDefault(_index5);
 
-var _index7 = __webpack_require__(16);
+var _index7 = __webpack_require__(15);
 
 var _index8 = _interopRequireDefault(_index7);
 
@@ -5136,8 +5136,7 @@ LinesService.$inject = ['$http'];
 exports.default = LinesService;
 
 /***/ }),
-/* 7 */,
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5148,11 +5147,11 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _nav = __webpack_require__(9);
+var _nav = __webpack_require__(8);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _nav3 = __webpack_require__(11);
+var _nav3 = __webpack_require__(10);
 
 var _nav4 = _interopRequireDefault(_nav3);
 
@@ -5163,7 +5162,7 @@ var Nav = angular.module('nav', []).component('navComponent', _nav2.default).ser
 exports.default = Nav;
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5174,7 +5173,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _nav = __webpack_require__(10);
+var _nav = __webpack_require__(9);
 
 var _nav2 = _interopRequireDefault(_nav);
 
@@ -5188,7 +5187,7 @@ var NavComponent = {
 exports.default = NavComponent;
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5212,7 +5211,7 @@ NavController.$inject = ['NavService'];
 exports.default = NavController;
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5231,7 +5230,7 @@ var NavService = function () {
 	function NavService() {
 		_classCallCheck(this, NavService);
 
-		this.pages = [{ name: 'Home', link: '/#/home' }, { name: 'About', link: '/#/about' }, { name: 'Contributing to the Z-Brain', link: '/#/contributing' }, { name: 'FAQ', link: '/#/faq' }, { name: 'Downloads', link: '/#/downloads' }, { name: 'Engert Lab Lines Resource', link: 'http://engertlab.fas.harvard.edu:3000/' }];
+		this.pages = [{ name: 'Home', link: '#/home' }, { name: 'About', link: '#/about' }, { name: 'Contributing to the Z-Brain', link: '#/contributing' }, { name: 'FAQ', link: '#/faq' }, { name: 'Downloads', link: '#/downloads' }, { name: 'Engert Lab Lines Resource', link: 'http://engertlab.fas.harvard.edu:3000/' }];
 	}
 
 	_createClass(NavService, [{
@@ -5246,7 +5245,7 @@ var NavService = function () {
 exports.default = NavService;
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5257,11 +5256,11 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _sidebar = __webpack_require__(14);
+var _sidebar = __webpack_require__(13);
 
 var _sidebar2 = _interopRequireDefault(_sidebar);
 
-var _select = __webpack_require__(13);
+var _select = __webpack_require__(12);
 
 var _select2 = _interopRequireDefault(_select);
 
@@ -5272,7 +5271,7 @@ var Sidebar = angular.module('sidebar', []).component('sidebarComponent', _sideb
 exports.default = Sidebar;
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5296,7 +5295,7 @@ function selectDirective() {
 exports.default = selectDirective;
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5306,7 +5305,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _sidebar = __webpack_require__(15);
+var _sidebar = __webpack_require__(14);
 
 var _sidebar2 = _interopRequireDefault(_sidebar);
 
@@ -5331,7 +5330,7 @@ var SidebarComponent = {
 exports.default = SidebarComponent;
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5381,7 +5380,7 @@ var SidebarController = function () {
 exports.default = SidebarController;
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5396,7 +5395,7 @@ var _viewer = __webpack_require__(17);
 
 var _viewer2 = _interopRequireDefault(_viewer);
 
-var _slider = __webpack_require__(20);
+var _slider = __webpack_require__(16);
 
 var _slider2 = _interopRequireDefault(_slider);
 
@@ -5405,6 +5404,30 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Viewer = angular.module('viewer', []).component('viewerComponent', _viewer2.default).directive('sliderDirective', _slider2.default).name;
 
 exports.default = Viewer;
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+/* lines/slider-directive.js */
+
+function sliderDirective() {
+	return {
+		restrict: 'A',
+		scope: {},
+		link: function link(scope, elem, attrs) {
+			$(elem).slider();
+		}
+	};
+}
+
+exports.default = sliderDirective;
 
 /***/ }),
 /* 17 */
@@ -5569,30 +5592,6 @@ exports.default = ViewerController;
 
 module.exports = __webpack_require__(0);
 
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-/* lines/slider-directive.js */
-
-function sliderDirective() {
-	return {
-		restrict: 'A',
-		scope: {},
-		link: function link(scope, elem, attrs) {
-			$(elem).slider();
-		}
-	};
-}
-
-exports.default = sliderDirective;
 
 /***/ })
 /******/ ]);

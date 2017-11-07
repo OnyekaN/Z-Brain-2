@@ -6,15 +6,19 @@ h1 {
 h2 {
 		color: grey;
 }
-
 a {
 		color: #38c;
 }
 
+img {
+	height: 424px;
+	width: 990px;
+}
 .content {
 		margin: 40px 50px 70px 50px;
 		font-family: Raleway;
 		width: 90vw;
+		text-align: justify;
 }
 
 .content p {
@@ -25,6 +29,20 @@ a {
 		font-weight: bold;
 		font-family: helvetica;
 }
+
+@media screen and (min-width:1800px) {
+	.content {
+		margin: 4vh 0 0 4vw !important ;
+	}
+	br {
+		line-height: 300%;
+	}
+	img {
+		width: 70vh;
+		height: auto;
+	}
+}
+
 </style>
 
 <div class="content"> 
@@ -66,8 +84,9 @@ a {
 		interface</a>. This can get you oriented with the data, and
 		overlay masks of regions onto any of the anatomical labels. Below is
 		a diagram of the different buttons and functions.</p>
-		<p><img alt="diagram" src="images/DiagramInfoImage.jpg"
-		style="height:500px;width900px;"></p>
+		<br>
+		<p><img alt="diagram" src="images/DiagramInfoImage.jpg"></p>
+		<br>
 		<p>To explore the Z-Brain in more detail, you can use the
 		Matlab-based viewer that we have built. You need to download the
 		files below, and run the viewer in Matlab. This will allow you to
