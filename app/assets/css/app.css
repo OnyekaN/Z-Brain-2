@@ -225,7 +225,7 @@ body {
 }
 
 
-@media screen and (min-width: 1601px) and (max-width: 2499px) {
+@media screen and (min-width: 1601px) and (max-width: 2299px) {
 	body {
 		width: 100%;
 		min-width: 100vw;
@@ -242,19 +242,29 @@ body {
 		margin-left: 3vw !important;
 	}
 	#sidebar {
-		min-width: 300px;
-		min-height: 60vh;
+		min-width: 350px;
+		min-height: 680px;
 		margin-right: 5vw !important;
 	}
 	#sidebar .inner {
 		padding: 0 30px 0 30px !important;
 	}
 	#viewer {
-		min-height: 60vh;
+		min-height: 680px;
 	}
+	#primary-line-image {
+		top: 130px;
+	}
+	.mask-img {
+		top: 130px;
+	}
+	.color-channel {
+		top: 130px;
+	}
+	
 }
 
-@media screen and (min-width: 2500px) {	
+@media screen and (min-width: 2300px) {	
 	body {
 		width: 100%;
 		min-width: 100vw;
@@ -265,10 +275,10 @@ body {
 		margin-right: 50px !important;
 	}
 	#main {
-		min-width: 100vw;
+		min-width: 110vw;
 	}
 	#header {
-		min-width: 100vw !important;
+		min-width: 110vw !important;
 		min-height: 7vw !important;
 	}
 	#title {
@@ -276,13 +286,13 @@ body {
 		font-size: 6.5em !important;
 	}
 	#viewer-container {
-		min-width: 100vw;	
+		min-width: 110vw;	
 	}
 	#sidebar {
 		min-width: 400px;
 		min-height: 900px;
-		margin-right: 50px !important;
-		margin-left: 5vw !important;
+		margin-right: 2vw !important;
+		margin-left: 3vw !important;
 	}
 	#sidebar .inner {
 		padding: 0 30px 0 30px !important;
