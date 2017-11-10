@@ -7,7 +7,9 @@ function selectDirective() {
 		},
 		link: function(scope, elem, attrs) {
 			$(elem)
-				.dropdown();
+				.dropdown({
+					fullTextSearch: true		
+				});
 		}
 	}
 }

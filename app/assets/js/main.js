@@ -5287,7 +5287,9 @@ function selectDirective() {
 		restrict: 'A',
 		scope: {},
 		link: function link(scope, elem, attrs) {
-			$(elem).dropdown();
+			$(elem).dropdown({
+				fullTextSearch: true
+			});
 		}
 	};
 }
