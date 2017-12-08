@@ -31,7 +31,7 @@ stack_images.sort(key=natural_keys)
 
 
 
-def print_stack_names(stack_images, brightness, gamma):
+def print_stack_names(file_path, stack_images, brightness, gamma):
      new_paths = []
      for i, image in enumerate(stack_images):
           filename = '{}{}'.format(path, image)
@@ -82,7 +82,7 @@ def save_img_slice(stack_images, path, zindex):
           return
  
 
-def modify_images(stack_images, path, brightness, gamma, zslice):
+def modify_images(file_path, stack_images, path, brightness, gamma, zslice):
      interval = 8
      start = zslice % interval
      remaining = np.arange(138)[start::interval]
@@ -92,10 +92,10 @@ def modify_images(stack_images, path, brightness, gamma, zslice):
      for i in remaining:
           save_img_slice(stack_images, path, i)
  
-     output = print_stack_names(stack_images, brightness, gamma)
+     output = print_stack_names(file_path, stack_images, brightness, gamma)
      print json.dumps(output)
      return 0
 
-modify_images(stack_images, path, brightness, gamma, zslice)
+modify_images(file_path, stack_images, path, brightness, gamma, zslice)
 
 
