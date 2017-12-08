@@ -47,7 +47,7 @@ def print_stack_names(file_path, stack_images, brightness, gamma):
           new_paths.append(new_path)
 
      for p in new_paths:
-          f = 'app/assets/{}'.format(p)
+          f = '{}/app/assets/{}'.format(file_path,p)
           open(f, 'a')
           
      return new_paths
