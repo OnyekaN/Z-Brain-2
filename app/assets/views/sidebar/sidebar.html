@@ -6,7 +6,7 @@
 		<div style="padding:10px 10px 30px 10px;">	
 			<select select-directive class="ui search dropdown"
 				ng-model="$ctrl.selected"
-				ng-change="$ctrl.onUpdateLine({line: $ctrl.selected})">
+				ng-change="$ctrl.onUpdateLine({line: $ctrl.selected});$ctrl.gaEvent;">
 				<option value="">Search Lines</option>
 				<option ng-repeat="line in $ctrl.lines" ng-value="'{{::line}}'">
 					{{::line}}
@@ -14,20 +14,20 @@
 			</select>
 			
 			<div style="margin-left:20px;margin-top:10px;">
-				<form ng-submit="$ctrl.onAdjustLine({line: $ctrl.selected,
+				<form autocomplete="off" ng-submit="$ctrl.onAdjustLine({line: $ctrl.selected,
 						brightness: $ctrl.brightness, gamma: $ctrl.gamma})">
 					<span style="font-size: 0.8em"><em>Adjust Brightness</em></span>
 					<div>
-					<input type="text"
-					 style="" ng-attr-placeholder="Enter Value"
+					<input type="number" step="any"
+					 style="" -placeholder="Enter Value"
 					 id="brightness-input" class="img-modify-input"  
 					 ng-model="$ctrl.brightness">
 					</div>	
 
 					<span style="font-size: 0.8em"><em>Adjust Gamma</em></span>
 					<div>
-					<input type="text"
-					 style="" placeholder="Enter Value"
+					<input type="number" step="any"
+					 style="" -placeholder="Enter Value"
 					 id="gamma-input" class="img-modify-input"
 					 ng-model="$ctrl.gamma"/>
 					</div>

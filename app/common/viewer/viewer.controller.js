@@ -2,8 +2,9 @@
 'use strict'
 
 class ViewerController {
-	constructor() {
-	// initial #viewer#main-img index, src, images array, and name
+	constructor(ViewerService) {
+		this.ViewerService = ViewerService;
+		// initial #viewer#main-img index, src, images array, and name
 		this.sliceIndex = 90;
 		this.currentDisplayImage = "images/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg"
 		this.currentLineName = "Elavl3-H2BRFP"; 
@@ -29,6 +30,7 @@ class ViewerController {
 			green: "images/blank.png",
 			blue: "images/blank.png",
 		}
+		this.storage = window.localStorage;
 	}
 	$onInit() {
 	}
@@ -82,7 +84,15 @@ class ViewerController {
 	}
 	// on slider update change slice number
 	updateSlice() {
-		this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
+
+		this.onUpdateIndex({sliceIndex:this.sliceIndex});
+
+		let isntBlank = this.lineImages[this.sliceIndex].naturalHeight;
+		if ( isntBlank )  
+			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
+		else { 
+			this.ViewerService.forceImgReload(this.lineImages[this.sliceIndex], false, {height: 1406, width: 621}, false);
+		}
 
 		if ( Array.isArray(this.maskArrays['cyan']) ) 
 			this.currentDisplayMasks['cyan'] = this.maskArrays['cyan'][this.sliceIndex].src;
@@ -100,9 +110,10 @@ class ViewerController {
 		if ( Array.isArray(this.colorChannelArrays['blue']) ) 
 			this.currentDisplayColorChannels['blue'] = this.colorChannelArrays['blue'][this.sliceIndex].src;
 
-
 	}
 
 }
+
+ViewerController.$inject = ['ViewerService'];
 
 export default ViewerController;

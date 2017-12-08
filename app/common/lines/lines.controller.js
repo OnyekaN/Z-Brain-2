@@ -6,6 +6,7 @@ class LinesController {
 		this.LinesService = LinesService;
 		this.lines = [];
 		this.masks = [];
+		this.sliceIndex = 90;
 		this.selected = undefined;
 		this.lineImages = [];
 		this.cyanMaskImages = [];
@@ -22,7 +23,7 @@ class LinesController {
 	}
 
 	$onInit() {
-		// GET line names from server (e.g. Elavl3-H2BRFP)
+		// GET line and mask names from server (e.g. Elavl3-H2BRFP)
 		this.LinesService.getLineNames().then(response => { 
 												this.lines = response.map(obj => obj.line_name);			
 												});
@@ -38,12 +39,16 @@ class LinesController {
 												});
 	}	
 
+	// Sync slice index in lines component with viewer component
+	updateIndex(sliceIndex) {
+		this.sliceIndex = sliceIndex;
+	}
+
 	// Send line images to viewer component
 	updateLine(line) {	
 		this.LinesService.cacheLine(line).then(response => {
 												this.lineImages = response;
 												this.lineName = line;
-											//	this.spinner.stop();
 												});
 	}
 
@@ -79,7 +84,7 @@ class LinesController {
 	// Change the brightness or gamma settings on the displayed line image
 	adjustLine(line, brightness, gamma) {
 		this.spinner.spin(this.spinnerTarget);
-		this.LinesService.adjustLine(line, brightness, gamma).then(response => {
+		this.LinesService.adjustLine(line, brightness, gamma, this.sliceIndex).then(response => {
 												this.lineImages = response;
 												this.spinner.stop();
 												});

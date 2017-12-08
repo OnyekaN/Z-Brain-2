@@ -63,14 +63,17 @@ class LinesService {
 		}).catch(e => console.log(e));
 	}
 
-	adjustLine(line, brightness, gamma) {
+	adjustLine(line, brightness, gamma, slice) {
 		return this.$http({
 						method: 'GET',
-						url: `api/adjust/${line}?brightness=${brightness}&gamma=${gamma}`,
+						url: `api/adjust/${line}?brightness=${brightness}&gamma=${gamma}&slice=${slice}`,
 						cache: true
 		}).then(response => {
 			let images = response.data.map(obj => {
-				let img = new Image(); img.src = obj.image_path; return img;
+				let img = new Image();
+				let date = new Date().getTime()
+				img.src = obj.image_path; 
+				return img;
 			});
 			return images;
 		})

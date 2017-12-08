@@ -1,7 +1,8 @@
 *DS_Store
 *.hdf5
-3-ColorChannels/
 1-TemporaryLineImages/
+2-Masks
+3-ColorChannels/
 downloads/
 routes/connectionString.js
 bin/www

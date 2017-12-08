@@ -4904,6 +4904,7 @@ var LinesController = function () {
 		this.LinesService = LinesService;
 		this.lines = [];
 		this.masks = [];
+		this.sliceIndex = 90;
 		this.selected = undefined;
 		this.lineImages = [];
 		this.cyanMaskImages = [];
@@ -4924,7 +4925,7 @@ var LinesController = function () {
 		value: function $onInit() {
 			var _this = this;
 
-			// GET line names from server (e.g. Elavl3-H2BRFP)
+			// GET line and mask names from server (e.g. Elavl3-H2BRFP)
 			this.LinesService.getLineNames().then(function (response) {
 				_this.lines = response.map(function (obj) {
 					return obj.line_name;
@@ -4943,6 +4944,14 @@ var LinesController = function () {
 			});
 		}
 
+		// Sync slice index in lines component with viewer component
+
+	}, {
+		key: 'updateIndex',
+		value: function updateIndex(sliceIndex) {
+			this.sliceIndex = sliceIndex;
+		}
+
 		// Send line images to viewer component
 
 	}, {
@@ -4953,7 +4962,6 @@ var LinesController = function () {
 			this.LinesService.cacheLine(line).then(function (response) {
 				_this2.lineImages = response;
 				_this2.lineName = line;
-				//	this.spinner.stop();
 			});
 		}
 
@@ -5003,7 +5011,7 @@ var LinesController = function () {
 			var _this5 = this;
 
 			this.spinner.spin(this.spinnerTarget);
-			this.LinesService.adjustLine(line, brightness, gamma).then(function (response) {
+			this.LinesService.adjustLine(line, brightness, gamma, this.sliceIndex).then(function (response) {
 				_this5.lineImages = response;
 				_this5.spinner.stop();
 			});
@@ -5112,14 +5120,17 @@ var LinesService = function () {
 		}
 	}, {
 		key: 'adjustLine',
-		value: function adjustLine(line, brightness, gamma) {
+		value: function adjustLine(line, brightness, gamma, slice) {
 			return this.$http({
 				method: 'GET',
-				url: 'api/adjust/' + line + '?brightness=' + brightness + '&gamma=' + gamma,
+				url: 'api/adjust/' + line + '?brightness=' + brightness + '&gamma=' + gamma + '&slice=' + slice,
 				cache: true
 			}).then(function (response) {
 				var images = response.data.map(function (obj) {
-					var img = new Image();img.src = obj.image_path;return img;
+					var img = new Image();
+					var date = new Date().getTime();
+					img.src = obj.image_path;
+					return img;
 				});
 				return images;
 			}).catch(function (e) {
@@ -5230,7 +5241,7 @@ var NavService = function () {
 	function NavService() {
 		_classCallCheck(this, NavService);
 
-		this.pages = [{ name: 'Home', link: '#/home' }, { name: 'About', link: '#/about' }, { name: 'Contributing to the Z-Brain', link: '#/contributing' }, { name: 'FAQ', link: '#/faq' }, { name: 'Downloads', link: '#/downloads' }, { name: 'Engert Lab Lines Resource', link: 'http://engertlab.fas.harvard.edu/Enhancer-Trap/' }, { name: 'Legacy Z-Brain', link: 'http://engertlab.fas.harvard.edu/LegacyZ-Brain/' }];
+		this.pages = [{ name: 'Home', link: '#/home' }, { name: 'About', link: '#/about' }, { name: 'Contributing to the Z-Brain', link: '#/contributing' }, { name: 'FAQ', link: '#/faq' }, { name: 'Downloads', link: '#/downloads' }, { name: 'Engert Lab Lines Resource', link: 'http://engertlab.fas.harvard.edu/Enhancer-Trap/' }];
 	}
 
 	_createClass(NavService, [{
@@ -5353,6 +5364,7 @@ var SidebarController = function () {
 
 		this.brightness = 1;
 		this.gamma = 1;
+		this.slice = 90;
 		this.selected = 'Elavl3-H2BRFP';
 		this.masks = {
 			cyan: 'none',
@@ -5373,6 +5385,16 @@ var SidebarController = function () {
 			this.brightness = 1;
 			this.gamma = 1;
 			this.onUpdateLine({ line: this.selected });
+		}
+	}, {
+		key: 'gaEvent',
+		value: function gaEvent() {
+			ga('send', {
+				hitType: 'event',
+				eventCategory: 'Lines',
+				eventAction: 'select',
+				eventLabel: 'Search Line'
+			});
 		}
 	}]);
 
@@ -5397,13 +5419,17 @@ var _viewer = __webpack_require__(17);
 
 var _viewer2 = _interopRequireDefault(_viewer);
 
+var _viewer3 = __webpack_require__(20);
+
+var _viewer4 = _interopRequireDefault(_viewer3);
+
 var _slider = __webpack_require__(16);
 
 var _slider2 = _interopRequireDefault(_slider);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Viewer = angular.module('viewer', []).component('viewerComponent', _viewer2.default).directive('sliderDirective', _slider2.default).name;
+var Viewer = angular.module('viewer', []).component('viewerComponent', _viewer2.default).service('ViewerService', _viewer4.default).directive('sliderDirective', _slider2.default).name;
 
 exports.default = Viewer;
 
@@ -5451,14 +5477,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var ViewerComponent = {
 	bindings: {
+		//sliceIndex: '=',
 		lineImages: '<',
 		lineName: '<',
 		maskImages: '<',
 		maskColor: '<',
 		colorChannelImages: '<',
 		colorChannelColor: '<',
-		brightness: '<',
-		gamma: '<'
+		onUpdateIndex: '&'
 	},
 	controller: _viewerController2.default,
 	templateUrl: 'views/viewer/viewer.html'
@@ -5485,9 +5511,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ViewerController = function () {
-	function ViewerController() {
+	function ViewerController(ViewerService) {
 		_classCallCheck(this, ViewerController);
 
+		this.ViewerService = ViewerService;
 		// initial #viewer#main-img index, src, images array, and name
 		this.sliceIndex = 90;
 		this.currentDisplayImage = "images/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg";
@@ -5514,6 +5541,7 @@ var ViewerController = function () {
 			green: "images/blank.png",
 			blue: "images/blank.png"
 		};
+		this.storage = window.localStorage;
 	}
 
 	_createClass(ViewerController, [{
@@ -5570,7 +5598,13 @@ var ViewerController = function () {
 	}, {
 		key: "updateSlice",
 		value: function updateSlice() {
-			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
+
+			this.onUpdateIndex({ sliceIndex: this.sliceIndex });
+
+			var isntBlank = this.lineImages[this.sliceIndex].naturalHeight;
+			if (isntBlank) this.currentDisplayImage = this.lineImages[this.sliceIndex].src;else {
+				this.ViewerService.forceImgReload(this.lineImages[this.sliceIndex], false, { height: 1406, width: 621 }, false);
+			}
 
 			if (Array.isArray(this.maskArrays['cyan'])) this.currentDisplayMasks['cyan'] = this.maskArrays['cyan'][this.sliceIndex].src;
 			if (Array.isArray(this.maskArrays['green'])) this.currentDisplayMasks['green'] = this.maskArrays['green'][this.sliceIndex].src;
@@ -5586,6 +5620,8 @@ var ViewerController = function () {
 	return ViewerController;
 }();
 
+ViewerController.$inject = ['ViewerService'];
+
 exports.default = ViewerController;
 
 /***/ }),
@@ -5594,6 +5630,94 @@ exports.default = ViewerController;
 
 module.exports = __webpack_require__(0);
 
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* viewer/viewer.service.js */
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ViewerService = function () {
+	function ViewerService() {
+		_classCallCheck(this, ViewerService);
+	}
+	// functions to manually reload the Temporary Line Images as
+	// they are produced on the server.
+	// Loads them into a non-displayed iframe and relaods the frame,
+	// which refreshes browser cache and clears the initially empty
+	// versions of those images
+
+
+	_createClass(ViewerService, [{
+		key: "imgReloadRestore",
+		value: function imgReloadRestore(image, imgDim, loadError) {
+			var i = void 0,
+			    img = void 0,
+			    height = imgDim.height,
+			    width = imgDim.width;
+
+			img = image;
+			img.src = image.src;
+			if (width) img.style.width = width + "px";
+			if (height) img.style.height = height + "px";
+		}
+	}, {
+		key: "forceImgReload",
+		value: function forceImgReload(image, isCrossDomain, imgDim, twostage) {
+			var _this = this;
+
+			var blankList = void 0,
+			    step = 0,
+			    iframe = window.document.createElement("iframe"),
+			    loadCallback = function loadCallback(e) {
+				if (!step) {
+					if (twostage) {
+						step = 1;
+					} else {
+						step = 2;
+						iframe.contentWindow.location.reload(true);
+					}
+				} else if (step === 2) {
+					_this.imgReloadRestore(image, imgDim, (e || window.event).type === "error");
+					if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+				}
+			};
+			iframe.style.display = "none";
+			window.parent.document.body.appendChild(iframe);
+			iframe.addEventListener("load", loadCallback, false);
+			iframe.addEventListener("error", loadCallback, false);
+			iframe.src = image.src;
+			return twostage ? function (proceed, dim) {
+				if (!twostage) return;
+				twostage = false;
+				if (proceed) {
+					imgDim = dim || imgDim;
+					if (step === 1) {
+						step = 2;iframe.contentWindow.location.reload(true);
+					}
+				} else {
+					step = 3;
+					if (iframe.contentWindow.stop) iframe.contentWindow.stop();
+					if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+				}
+			} : null;
+		}
+	}]);
+
+	return ViewerService;
+}();
+
+exports.default = ViewerService;
 
 /***/ })
 /******/ ]);

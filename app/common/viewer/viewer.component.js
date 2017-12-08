@@ -4,18 +4,19 @@ import ViewerController from './viewer.controller.js';
 
 const ViewerComponent = {
 	bindings: {
+		//sliceIndex: '=',
 		lineImages: '<',
 		lineName: '<',
 		maskImages: '<',
 		maskColor: '<',
 		colorChannelImages: '<',
 		colorChannelColor: '<',
-		brightness: '<',
-		gamma: '<',
+		onUpdateIndex: '&'
 	},
 	controller: ViewerController,
 	templateUrl: 'views/viewer/viewer.html'
 }
+
 
 
 export default ViewerComponent;

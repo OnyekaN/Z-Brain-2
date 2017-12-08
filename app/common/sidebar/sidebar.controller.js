@@ -5,6 +5,7 @@ class SidebarController {
 	constructor() {
 		this.brightness = 1;
 		this.gamma = 1;
+		this.slice = 90;
 		this.selected = 'Elavl3-H2BRFP';
 		this.masks = {
 			cyan: 'none',
@@ -22,6 +23,14 @@ class SidebarController {
 		this.brightness = 1;
 		this.gamma = 1;
 		this.onUpdateLine({line: this.selected});
+	}
+	gaEvent() {
+		ga('send', {
+			hitType: 'event',
+			eventCategory: 'Lines',
+			eventAction: 'select',
+			eventLabel: 'Search Line'
+		});
 	}
 }
 

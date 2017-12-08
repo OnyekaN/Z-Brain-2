@@ -217,14 +217,17 @@ router.get('/api/colorchannels/:colorchannel', (req, res, next) => {
 /* GET python adjusted dataset images */
 router.get('/api/adjust/:line', (req, res, next) => {
 	let line_name = req.line[0].line_name
-	,		image_path = "app/assets/" + req.line[80]["image_path"]
 	,		brightness = req.query.brightness
 	,		gamma = req.query.gamma
+	,		slice = req.query.slice
 	,		image_paths = ""
 	,		image_json = [];
 
-	const spawn = require('child_process').spawn;
-	const scriptExecution = spawn('python', ["image_modify.py", line_name, brightness, gamma]);
+	const spawn = require('child_process').spawn
+	,		scriptPathInitial = path.join(__dirname, '../initial_slices.py')
+	,		scriptExecution = spawn('python', ['-W', 'ignore', scriptPathInitial, line_name, brightness, gamma, slice])
+	,		scriptPathRemaining = path.join(__dirname, '../remaining_slices.py')
+	,		scriptExecutionFinal = spawn('python', ['-W', 'ignore', scriptPathRemaining, line_name, brightness, gamma, slice])
 
 	const uint8arrayToString = (data) => {
 		return String.fromCharCode.apply(null, data);
@@ -247,9 +250,8 @@ router.get('/api/adjust/:line', (req, res, next) => {
 
 	scriptExecution.stderr.on('data', (data) => {
 		let err = uint8arrayToString(data)
-//		res.status(500).send(err);
+		res.status(500).send(err);
 	});
-
 
 
 });
