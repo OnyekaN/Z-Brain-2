@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 19);
+/******/ 	return __webpack_require__(__webpack_require__.s = 20);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -5075,7 +5075,8 @@ var LinesService = function () {
 				cache: true
 			}).then(function (response) {
 				var images = response.data.map(function (obj) {
-					var img = new Image();img.src = obj.image_path;return img;
+					var src = obj.image_path.split('images/')[1];
+					var img = new Image();img.src = 'images/0-Lines/' + src;return img;
 				});
 				return images;
 			}).catch(function (e) {
@@ -5419,7 +5420,7 @@ var _viewer = __webpack_require__(17);
 
 var _viewer2 = _interopRequireDefault(_viewer);
 
-var _viewer3 = __webpack_require__(20);
+var _viewer3 = __webpack_require__(19);
 
 var _viewer4 = _interopRequireDefault(_viewer3);
 
@@ -5517,7 +5518,7 @@ var ViewerController = function () {
 		this.ViewerService = ViewerService;
 		// initial #viewer#main-img index, src, images array, and name
 		this.sliceIndex = 90;
-		this.currentDisplayImage = "images/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg";
+		this.currentDisplayImage = "images/0-Lines/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg";
 		this.currentLineName = "Elavl3-H2BRFP";
 		this.maskArrays = {
 			cyan: undefined,
@@ -5628,13 +5629,6 @@ exports.default = ViewerController;
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(0);
-
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 /* viewer/viewer.service.js */
 
@@ -5718,6 +5712,13 @@ var ViewerService = function () {
 }();
 
 exports.default = ViewerService;
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(0);
+
 
 /***/ })
 /******/ ]);

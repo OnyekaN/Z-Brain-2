@@ -16,7 +16,7 @@ brightness = float(sys.argv[2])
 gamma = float(sys.argv[3])
 zslice = int(sys.argv[4])
 file_path = os.path.dirname(os.path.realpath(__file__))
-path = "{}/app/assets/images/{}/".format(file_path,stack_name)
+path = "{}/app/assets/images/0-Lines/{}/".format(file_path,stack_name)
 
 
 # Sort filenames by natural numerical order

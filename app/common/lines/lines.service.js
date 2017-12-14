@@ -25,7 +25,8 @@ class LinesService {
 						cache: true
 		}).then(response => {
 			let images = response.data.map(obj => {
-				let img = new Image(); img.src = obj.image_path; return img;
+				let src = obj.image_path.split('images/')[1]
+				let img = new Image(); img.src = `images/0-Lines/${src}`; return img;
 			});
 			return images;
 		})

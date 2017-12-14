@@ -6,3 +6,4 @@
 downloads/
 routes/connectionString.js
 bin/www
+*.tif

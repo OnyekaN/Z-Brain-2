@@ -6,7 +6,7 @@ class ViewerController {
 		this.ViewerService = ViewerService;
 		// initial #viewer#main-img index, src, images array, and name
 		this.sliceIndex = 90;
-		this.currentDisplayImage = "images/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg"
+		this.currentDisplayImage = "images/0-Lines/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg"
 		this.currentLineName = "Elavl3-H2BRFP"; 
 		this.maskArrays = {
 			cyan: undefined,
