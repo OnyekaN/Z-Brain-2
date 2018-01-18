@@ -3,113 +3,129 @@
 
 class ViewerController {
 	constructor(ViewerService) {
+
 		this.ViewerService = ViewerService;
-		// initial #viewer#main-img index, src, images array, and name
+		// Initial (page load) z-slice number [range 0-137]
 		this.sliceIndex = 90;
-		this.currentDisplayImage = "images/0-Lines/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg"
-		this.currentLineName = "Elavl3-H2BRFP"; 
+		// Initial display line
+		this.currentLineName = 'Elavl3-H2BRFP';
+		// Initial display image, #viewer#primary-line-image[src]
+		this.currentDisplayImage = 'images/0-Lines/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg';
+
+		this.activeMasks = [];
+		// Will be populated with arrays of mask images
 		this.maskArrays = {
 			cyan: undefined,
 			green: undefined,
 			magenta: undefined,
 			yellow: undefined,
-		}	
-		this.currentDisplayMasks = {
-			cyan: "images/blank.png",
-			green: "images/blank.png",
-			magenta: "images/blank.png",
-			yellow: "images/blank.png"
 		}
+		// Currently displayed mask image slices (each uses image src)
+		this.currentDisplayMasks = {
+			cyan: 'images/blank.png',
+			green: 'images/blank.png',
+			magenta: 'images/blank.png',
+			yellow: 'images/blank.png',
+		}
+
+		this.activeChannels = [];
+		// Will be populated with arrays of color channel images
 		this.colorChannelArrays = {
 			red: undefined,
 			green: undefined,
 			blue: undefined,
-		}	
-		this.currentDisplayColorChannels = {
-			red: "images/blank.png",
-			green: "images/blank.png",
-			blue: "images/blank.png",
 		}
-		this.storage = window.localStorage;
+		// Currently displayed mask image slices (each uses image src)
+		this.currentDisplayColorChannels = {
+			red: 'images/blank.png',
+			green: 'images/blank.png',
+			blue: 'images/blank.png',
+		}
 	}
+
 	$onInit() {
 	}
+
 	$onChanges(changes) {
-		// whenever new set of line images loaded, change currently shown
-		// line and display name
+		/* On new set of lines images load, update display
+		 * lineImages << LinesComponent
+		 */
 		if ( this.lineImages.length ) {
 			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
-			this.currentLineName = this.lineName || "Elavl3-H2BRFP";
-		}			
+			this.currentLineName = this.lineName || 'Elavl3-H2BRFP';
+		}
 
-		// whenever new set of mask images loaded, update display
-		if ( this.maskImages ) {	
+		/* On new set of mask images load, update display
+		 * maskImages << LinesComponent
+		 */
+		if ( this.maskImages ) {
+
+			let color = this.maskColor;
+			if ( !this.activeMasks.includes(color) )
+				this.activeMasks.push(color)
+
 			if ( this.maskImages === 'None' ) {
-				this.maskArrays[this.maskColor] = undefined;
-				this.currentDisplayMasks[this.maskColor] = 'images/blank.png'; 
+				this.activeMasks.splice(this.activeMasks.indexOf(color));
+				this.maskArrays[color] = undefined;
+				this.currentDisplayMasks[color] = 'images/blank.png';
 			} else {
-				this.maskArrays[this.maskColor] = this.maskImages;
-				this.currentDisplayMasks[this.maskColor] = this.maskArrays[this.maskColor][this.sliceIndex].src;
+				this.maskArrays[color] = this.maskImages;
+				this.currentDisplayMasks[color] = this.maskArrays[color][this.sliceIndex].src;
 			}
 		}
-		// whenever new set of color channel images loaded, update display
+
+		/* On new set of color channel images load, update display
+		 * colorChannelImages << LinesComponent
+		 */
 		if ( this.colorChannelImages ) {
+
+			let color = this.colorChannelColor;
+			if ( !this.activeChannels.includes(color) )
+				this.activeChannels.push(color)
+
 			if ( this.colorChannelImages === 'None') {
-				this.colorChannelArrays[this.colorChannelColor] = undefined;
-				this.currentDisplayColorChannels[this.colorChannelColor] = 'images/blank.png';
+				this.activeChannels.splice(this.activeChannels.indexOf(color));
+				this.colorChannelArrays[color] = undefined;
+				this.currentDisplayColorChannels[color] = 'images/blank.png';
 			} else {
-				this.colorChannelArrays[this.colorChannelColor] = this.colorChannelImages;
-				this.currentDisplayColorChannels[this.colorChannelColor] = this.colorChannelArrays[this.colorChannelColor][this.sliceIndex].src;
+				this.colorChannelArrays[color] = this.colorChannelImages;
+				this.currentDisplayColorChannels[color] = this.colorChannelArrays[color][this.sliceIndex].src;
 			}
-		}
-
-		// on changes in brightness update line-img brightness attr
-		if ( changes.brightness	) {
-			if ( changes.brightness.currentValue == 10 
-			&& typeof changes.brightness.previousValue == 'object' ) {
-				return;
-			}
-		}
-			
-		// on changes in gamma update line-img gamma attr
-		if ( changes.gamma ) {
-			if ( changes.gamma.currentValue == 0 
-			&& typeof changes.gamma.previousValue == 'object' ) {
-				return
-			}	
-			this.gamma = changes.gamma.currentValue;
-
 		}
 
 	}
-	// on slider update change slice number
+
+	/* On slider change, update display with new slice number
+	 */
 	updateSlice() {
 
+		// Update displayed slice image
 		this.onUpdateIndex({sliceIndex:this.sliceIndex});
 
-		let isntBlank = this.lineImages[this.sliceIndex].naturalHeight;
-		if ( isntBlank )  
+		// Update active displayed masks
+		this.activeMasks.forEach((color) => {
+			if ( Array.isArray(this.maskArrays[color]) ) {
+				this.currentDisplayMasks[color] = this.maskArrays[color][this.sliceIndex].src;
+			}
+		});
+
+		// Update active displayed color channels
+		this.activeChannels.forEach((color) => {
+			if ( Array.isArray(this.colorChannelArrays[color]) ) {
+				this.currentDisplayColorChannels[color] = this.colorChannelArrays[color][this.sliceIndex].src;
+			}
+		});
+
+		/* When brightness/gamma adjustments,
+		 * update display image if loaded, otherwise skip
+		 */
+		let imageLoaded = this.lineImages[this.sliceIndex].naturalHeight;
+		if ( imageLoaded ) {
 			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
-		else { 
-			this.ViewerService.forceImgReload(this.lineImages[this.sliceIndex], false, {height: 1406, width: 621}, false);
+		} else {
+			this.ViewerService.forceImgReload(this.lineImages[this.sliceIndex],
+													false, { height: 1406, width: 621 }, false);
 		}
-
-		if ( Array.isArray(this.maskArrays['cyan']) ) 
-			this.currentDisplayMasks['cyan'] = this.maskArrays['cyan'][this.sliceIndex].src;
-		if ( Array.isArray(this.maskArrays['green']) ) 
-			this.currentDisplayMasks['green'] = this.maskArrays['green'][this.sliceIndex].src;
-		if ( Array.isArray(this.maskArrays['magenta']) ) 
-			this.currentDisplayMasks['magenta'] = this.maskArrays['magenta'][this.sliceIndex].src;
-		if ( Array.isArray(this.maskArrays['yellow']) ) 
-			this.currentDisplayMasks['yellow'] = this.maskArrays['yellow'][this.sliceIndex].src;
-
-		if ( Array.isArray(this.colorChannelArrays['red']) ) 
-			this.currentDisplayColorChannels['red'] = this.colorChannelArrays['red'][this.sliceIndex].src;
-		if ( Array.isArray(this.colorChannelArrays['green']) ) 
-			this.currentDisplayColorChannels['green'] = this.colorChannelArrays['green'][this.sliceIndex].src;
-		if ( Array.isArray(this.colorChannelArrays['blue']) ) 
-			this.currentDisplayColorChannels['blue'] = this.colorChannelArrays['blue'][this.sliceIndex].src;
-
 	}
 
 }

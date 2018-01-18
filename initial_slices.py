@@ -33,6 +33,7 @@ stack_images.sort(key=natural_keys)
 
 def print_stack_names(file_path, stack_images, brightness, gamma):
      new_paths = []
+     # self note: consider replacing with a generator
      for i, image in enumerate(stack_images):
           filename = '{}{}'.format(path, image)
           # remove dot from floats to insert into new filename
@@ -49,11 +50,10 @@ def print_stack_names(file_path, stack_images, brightness, gamma):
      for p in new_paths:
           f = '{}/app/assets/{}'.format(file_path,p)
           open(f, 'a')
-          
+
      return new_paths
 
 
-	
 def save_img_slice(stack_images, path, zindex):
           filename = '{}{}'.format(path, stack_images[zindex])
           # remove dot from floats to insert into new filename
