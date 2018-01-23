@@ -1,9 +1,5 @@
 # initial_slices.py
-import re
-import os
-import sys
-import json
-import warnings
+import re, os, sys, json, warnings
 import numpy as np
 from PIL import Image, ImageEnhance
 from skimage import io
@@ -78,9 +74,9 @@ def save_img_slice(stack_images, path, zindex):
           with warnings.catch_warnings():
                warnings.simplefilter("ignore")
                io.imsave(new_path, im_bg)
-     
+
           return
- 
+
 
 def modify_images(file_path, stack_images, path, brightness, gamma, zslice):
      interval = 8
@@ -91,7 +87,7 @@ def modify_images(file_path, stack_images, path, brightness, gamma, zslice):
 
      for i in remaining:
           save_img_slice(stack_images, path, i)
- 
+
      output = print_stack_names(file_path, stack_images, brightness, gamma)
      print json.dumps(output)
      return 0

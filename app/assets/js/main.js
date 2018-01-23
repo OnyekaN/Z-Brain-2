@@ -33,9 +33,6 @@
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 /******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -63,52 +60,73 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 20);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* /app.js */
+module.exports = __webpack_require__(1);
 
-
-var _angularUiRouter = __webpack_require__(1);
-
-var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
-
-var _index = __webpack_require__(2);
-
-var _index2 = _interopRequireDefault(_index);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-(function () {
-	angular.module('zBrain', [_angularUiRouter2.default, _index2.default]).config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider) {
-		$stateProvider.state('home', {
-			url: '/home',
-			templateUrl: '/home.html'
-		}).state('about', {
-			url: '/about',
-			templateUrl: 'views/about.html'
-		}).state('contributing', {
-			url: '/contributing',
-			templateUrl: 'views/contributing.html'
-		}).state('faq', {
-			url: '/faq',
-			templateUrl: 'views/faq.html'
-		}).state('downloads', {
-			url: '/downloads',
-			templateUrl: 'views/downloads.html'
-		});
-		$urlRouterProvider.when('/', '/home');
-		$urlRouterProvider.otherwise('/home');
-	}]).name;
-})();
 
 /***/ }),
 /* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular_ui_router__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular_ui_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular_ui_router__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_index__ = __webpack_require__(3);
+/* /app.js */
+
+
+
+
+(() => {
+	angular
+		.module('zBrain', [
+			__WEBPACK_IMPORTED_MODULE_0_angular_ui_router___default.a,
+			__WEBPACK_IMPORTED_MODULE_1__common_index__["a" /* default */],
+		])
+		.config([
+			'$stateProvider',
+			'$urlRouterProvider',
+			'$locationProvider',
+			($stateProvider, $urlRouterProvider) => {
+				$stateProvider
+				.state('home', {
+					url: '/home',
+					templateUrl: '/home.html'	
+				})	
+				.state('about', {
+					url: '/about',
+					templateUrl: 'views/about.html'
+				})
+				.state('contributing', {
+					url: '/contributing',
+					templateUrl: 'views/contributing.html'
+				})
+				.state('faq', {
+					url: '/faq',
+					templateUrl: 'views/faq.html'
+				})
+				.state('downloads', {
+					url: '/downloads',
+					templateUrl: 'views/downloads.html'
+				});
+			$urlRouterProvider.when('/', '/home');
+			$urlRouterProvider.otherwise('/home');	
+			}])	
+		.name;
+})()
+
+
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports) {
 
 /**
@@ -4797,110 +4815,82 @@ angular.module('ui.router.state')
 })(window, window.angular);
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lines_index__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__nav_index__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sidebar_index__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__viewer_index__ = __webpack_require__(16);
 /* common/index.js */
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _index = __webpack_require__(3);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _index3 = __webpack_require__(7);
-
-var _index4 = _interopRequireDefault(_index3);
-
-var _index5 = __webpack_require__(11);
-
-var _index6 = _interopRequireDefault(_index5);
-
-var _index7 = __webpack_require__(15);
-
-var _index8 = _interopRequireDefault(_index7);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var common = angular.module('app.common', [_index2.default, _index4.default, _index6.default, _index8.default]).name;
-
-exports.default = common;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* lines/index.js */
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
 
-var _lines = __webpack_require__(4);
 
-var _lines2 = _interopRequireDefault(_lines);
+const common = angular
+	.module('app.common', [
+		__WEBPACK_IMPORTED_MODULE_0__lines_index__["a" /* default */],
+		__WEBPACK_IMPORTED_MODULE_1__nav_index__["a" /* default */],
+		__WEBPACK_IMPORTED_MODULE_2__sidebar_index__["a" /* default */],
+		__WEBPACK_IMPORTED_MODULE_3__viewer_index__["a" /* default */],
+	])
+	.name;
 
-var _lines3 = __webpack_require__(6);
+/* harmony default export */ __webpack_exports__["a"] = (common);
 
-var _lines4 = _interopRequireDefault(_lines3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Lines = angular.module('lines', []).component('linesComponent', _lines2.default).service('LinesService', _lines4.default).name;
-
-exports.default = Lines;
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* lines/lines.component.js */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lines_component__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lines_service__ = __webpack_require__(7);
+/* lines/index.js */
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
 
-var _lines = __webpack_require__(5);
 
-var _lines2 = _interopRequireDefault(_lines);
+const Lines = angular
+	.module('lines', [])
+	.component('linesComponent', __WEBPACK_IMPORTED_MODULE_0__lines_component__["a" /* default */])
+	.service('LinesService', __WEBPACK_IMPORTED_MODULE_1__lines_service__["a" /* default */])
+	.name;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/* harmony default export */ __webpack_exports__["a"] = (Lines);
 
-var LinesComponent = {
-	controller: _lines2.default,
-	templateUrl: 'views/lines/lines.html'
-};
-
-exports.default = LinesComponent;
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lines_controller__ = __webpack_require__(6);
+/* lines/lines.component.js */
+
+
+
+const LinesComponent = {
+	controller: __WEBPACK_IMPORTED_MODULE_0__lines_controller__["a" /* default */],
+	templateUrl: 'views/lines/lines.html'
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (LinesComponent);
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* lines/lines.controller.js */
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var LinesController = function () {
-	function LinesController(LinesService) {
-		_classCallCheck(this, LinesController);
-
+class LinesController {
+	constructor(LinesService) {
 		this.LinesService = LinesService;
 		this.lines = [];
 		this.masks = [];
@@ -4912,423 +4902,304 @@ var LinesController = function () {
 		this.spinnerOpts = {
 			// settings for spin.js spinner
 			lines: 9, length: 40, width: 18, radius: 67, corners: 0.8,
-			scale: 1.0, color: '#fff', opacity: 0.55, rotate: 0, direction: 1,
+			scale: 1.0, color: '#fff', opacity: 0.55, rotate: 0, direction: 1, 
 			speed: 1.9, trail: 90, fps: 20, zIndex: 2e9, className: 'spinner',
-			top: '49%', left: '50%', shadow: false, hwaccel: false, position: 'absolute'
-		};
+		 	top: '49%', left: '50%', shadow: false, hwaccel: false, position: 'absolute'
+		}
 		this.spinnerTarget = document.getElementById('spin');
 		this.spinner = new Spinner(this.spinnerOpts).spin(this.spinnerTarget).stop();
 	}
 
-	_createClass(LinesController, [{
-		key: '$onInit',
-		value: function $onInit() {
-			var _this = this;
+	$onInit() {
+		// GET line and mask names from server (e.g. Elavl3-H2BRFP)
+		this.LinesService.getLineNames().then(response => { 
+												this.lines = response.map(obj => obj.line_name);			
+												});
 
-			// GET line and mask names from server (e.g. Elavl3-H2BRFP)
-			this.LinesService.getLineNames().then(function (response) {
-				_this.lines = response.map(function (obj) {
-					return obj.line_name;
-				});
-			});
+		this.LinesService.getMaskNames().then(response => { 
+												this.masks = response.map(obj => obj.mask_name
+																														.replace("'", "&quot"));			
+												});
 
-			this.LinesService.getMaskNames().then(function (response) {
-				_this.masks = response.map(function (obj) {
-					return obj.mask_name.replace("'", "&quot");
-				});
-			});
+		// Load selected line images into browser cache
+		this.LinesService.cacheLine("Elavl3-H2BRFP").then(response => {
+												this.lineImages = response;
+												});
+	}	
 
-			// Load selected line images into browser cache
-			this.LinesService.cacheLine("Elavl3-H2BRFP").then(function (response) {
-				_this.lineImages = response;
-			});
+	// Sync slice index in lines component with viewer component
+	updateIndex(sliceIndex) {
+		this.sliceIndex = sliceIndex;
+	}
+
+	// Send line images to viewer component
+	updateLine(line) {	
+		this.LinesService.cacheLine(line).then(response => {
+												this.lineImages = response;
+												this.lineName = line;
+												});
+	}
+
+	// Send mask images to viewer component
+	updateMask(mask, color) {
+		if ( mask === 'None' ) {
+			this.maskImages = 'None'; 
+			this.maskColor = color;
+			return;
+		} else {
+		this.LinesService.cacheMask(mask, color).then(response => {
+												this.maskImages = response;
+												this.maskColor = color;
+												});
 		}
+	}
 
-		// Sync slice index in lines component with viewer component
 
-	}, {
-		key: 'updateIndex',
-		value: function updateIndex(sliceIndex) {
-			this.sliceIndex = sliceIndex;
+	// Send color channel to viewer component
+	updateColorChannel(line, color) {
+		if ( line === 'None' ) {
+			this.colorChannelImages = 'None'; 
+			this.colorChannelColor = color;
+			return;
+		} else {
+			this.LinesService.cacheColorChannel(line, color).then(response => {
+													this.colorChannelImages = response;
+													this.colorChannelColor = color;
+													});
 		}
+	}	
 
-		// Send line images to viewer component
+	// Change the brightness or gamma settings on the displayed line image
+	adjustLine(line, brightness, gamma) {
+		this.spinner.spin(this.spinnerTarget);
+		this.LinesService.adjustLine(line, brightness, gamma, this.sliceIndex).then(response => {
+												this.lineImages = response;
+												this.spinner.stop();
+												});
+	}
 
-	}, {
-		key: 'updateLine',
-		value: function updateLine(line) {
-			var _this2 = this;
-
-			this.LinesService.cacheLine(line).then(function (response) {
-				_this2.lineImages = response;
-				_this2.lineName = line;
-			});
-		}
-
-		// Send mask images to viewer component
-
-	}, {
-		key: 'updateMask',
-		value: function updateMask(mask, color) {
-			var _this3 = this;
-
-			if (mask === 'None') {
-				this.maskImages = 'None';
-				this.maskColor = color;
-				return;
-			} else {
-				this.LinesService.cacheMask(mask, color).then(function (response) {
-					_this3.maskImages = response;
-					_this3.maskColor = color;
-				});
-			}
-		}
-
-		// Send color channel to viewer component
-
-	}, {
-		key: 'updateColorChannel',
-		value: function updateColorChannel(line, color) {
-			var _this4 = this;
-
-			if (line === 'None') {
-				this.colorChannelImages = 'None';
-				this.colorChannelColor = color;
-				return;
-			} else {
-				this.LinesService.cacheColorChannel(line, color).then(function (response) {
-					_this4.colorChannelImages = response;
-					_this4.colorChannelColor = color;
-				});
-			}
-		}
-
-		// Change the brightness or gamma settings on the displayed line image
-
-	}, {
-		key: 'adjustLine',
-		value: function adjustLine(line, brightness, gamma) {
-			var _this5 = this;
-
-			this.spinner.spin(this.spinnerTarget);
-			this.LinesService.adjustLine(line, brightness, gamma, this.sliceIndex).then(function (response) {
-				_this5.lineImages = response;
-				_this5.spinner.stop();
-			});
-		}
-	}]);
-
-	return LinesController;
-}();
+}
 
 LinesController.$inject = ['LinesService'];
 
-exports.default = LinesController;
+/* harmony default export */ __webpack_exports__["a"] = (LinesController);
+
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* lines/lines.service.js */
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var LinesService = function () {
-	function LinesService($http) {
-		_classCallCheck(this, LinesService);
-
+class LinesService {
+	constructor($http) {
 		this.$http = $http;
 	}
 
-	_createClass(LinesService, [{
-		key: 'getLineNames',
-		value: function getLineNames() {
-			return this.$http.get('api/lines/').then(function (response) {
-				return response.data;
-			}).catch(function (e) {
-				return console.log(e);
-			});
-		}
-	}, {
-		key: 'getMaskNames',
-		value: function getMaskNames() {
-			return this.$http.get('api/masks/').then(function (response) {
-				return response.data;
-			}).catch(function (e) {
-				return console.log(e);
-			});
-		}
-	}, {
-		key: 'cacheLine',
-		value: function cacheLine(line) {
-			return this.$http({
-				method: 'GET',
-				url: 'api/lines/' + line,
-				cache: true
-			}).then(function (response) {
-				var images = response.data.map(function (obj) {
-					var img = new Image();img.src = 'images/0-Lines/' + obj.image_path;
-					return img;
-				});
-				return images;
-			}).catch(function (e) {
-				return console.log(e);
-			});
-		}
-	}, {
-		key: 'cacheMask',
-		value: function cacheMask(mask, color) {
-			return this.$http({
-				method: 'GET',
-				url: 'api/masks/' + mask,
-				cache: true
-			}).then(function (response) {
-				var masks = response.data.map(function (obj) {
-					var img = new Image();
-					img.src = 'images/2-Masks/' + color + '/' + obj.mask_image_path;
-					return img;
-				});
-				return masks;
-			}).catch(function (e) {
-				return console.log(e);
-			});
-		}
-	}, {
-		key: 'cacheColorChannel',
-		value: function cacheColorChannel(line, color) {
-			return this.$http({
-				method: 'GET',
-				url: 'api/colorchannels/{"name":"' + line + '","color":"' + color + '"}',
-				cache: true
-			}).then(function (response) {
-				var overlays = response.data.map(function (obj) {
-					var img = new Image();
-					img.src = obj.channel_image_path;
-					return img;
-				});
-				return overlays;
-			}).catch(function (e) {
-				return console.log(e);
-			});
-		}
-	}, {
-		key: 'adjustLine',
-		value: function adjustLine(line, brightness, gamma, slice) {
-			return this.$http({
-				method: 'GET',
-				url: 'api/adjust/' + line + '?brightness=' + brightness + '&gamma=' + gamma + '&slice=' + slice,
-				cache: true
-			}).then(function (response) {
-				var images = response.data.map(function (obj) {
-					var img = new Image();
-					var date = new Date().getTime();
-					img.src = obj.image_path;
-					return img;
-				});
-				return images;
-			}).catch(function (e) {
-				return console.log(e);
-			});
-		}
-	}]);
+	getLineNames() {
+		return this.$http.get('api/lines/')
+						.then(response => response.data)
+						.catch(e => console.log(e));
+	}
 
-	return LinesService;
-}();
+	getMaskNames() {
+		return this.$http.get('api/masks/')
+						.then(response => response.data)
+						.catch(e => console.log(e));
+	}
+
+	cacheLine(line) {
+		return this.$http({
+						method: 'GET',
+						url: `api/lines/${line}`,
+						cache: true
+		}).then(response => {
+			let images = response.data.map(obj => {
+				let img = new Image(); img.src = `images/0-Lines/${obj.image_path}`;
+			 	return img;
+			});
+			return images;
+		})
+		.catch(e => console.log(e));
+	}
+
+	cacheMask(mask, color) {
+		return this.$http({
+						method: 'GET',
+						url: `api/masks/${mask}`,
+						cache: true
+		}).then(response => {
+			let masks = response.data.map(obj => {
+				let img = new Image(); 
+				img.src = `images/2-Masks/${color}/${obj.mask_image_path}`;
+				return img;
+			});
+			return masks;
+		})
+		.catch(e => console.log(e));
+	}
+
+	cacheColorChannel(line, color) {
+		return this.$http({
+						method: 'GET',
+						url: `api/colorchannels/{"name":"${line}","color":"${color}"}`,
+						cache: true
+		}).then(response => {
+			let overlays = response.data.map(obj => {
+				let img = new Image();
+				img.src = obj.channel_image_path;
+				return img;
+			});
+			return overlays;
+		}).catch(e => console.log(e));
+	}
+
+	adjustLine(line, brightness, gamma, slice) {
+		return this.$http({
+						method: 'GET',
+						url: `api/adjust/${line}?brightness=${brightness}&gamma=${gamma}&slice=${slice}`,
+						cache: true
+		}).then(response => {
+			let images = response.data.map(obj => {
+				let img = new Image();
+				let date = new Date().getTime()
+				img.src = obj.image_path; 
+				return img;
+			});
+			return images;
+		})
+	.catch(e => console.log(e));
+	}
+
+}
 
 LinesService.$inject = ['$http'];
 
-exports.default = LinesService;
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* nav/index.js */
+/* harmony default export */ __webpack_exports__["a"] = (LinesService);
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _nav = __webpack_require__(8);
-
-var _nav2 = _interopRequireDefault(_nav);
-
-var _nav3 = __webpack_require__(10);
-
-var _nav4 = _interopRequireDefault(_nav3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Nav = angular.module('nav', []).component('navComponent', _nav2.default).service('NavService', _nav4.default).name;
-
-exports.default = Nav;
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* nav/nav.component.js */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__nav_component__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__nav_service__ = __webpack_require__(11);
+/* nav/index.js */
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
 
-var _nav = __webpack_require__(9);
 
-var _nav2 = _interopRequireDefault(_nav);
+const Nav = angular
+	.module('nav', [])
+	.component('navComponent', __WEBPACK_IMPORTED_MODULE_0__nav_component__["a" /* default */])
+	.service('NavService', __WEBPACK_IMPORTED_MODULE_1__nav_service__["a" /* default */])
+	.name;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/* harmony default export */ __webpack_exports__["a"] = (Nav);
 
-var NavComponent = {
-	controller: _nav2.default,
-	templateUrl: 'views/nav/nav.html'
-};
-
-exports.default = NavComponent;
 
 /***/ }),
 /* 9 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__nav_controller__ = __webpack_require__(10);
+/* nav/nav.component.js */
+
+
+
+const NavComponent = {
+	controller: __WEBPACK_IMPORTED_MODULE_0__nav_controller__["a" /* default */],
+	templateUrl: 'views/nav/nav.html'
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (NavComponent);
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* nav/nav.controller.js */
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var NavController = function NavController(NavService) {
-	_classCallCheck(this, NavController);
-
-	this.pages = NavService.pages;
-};
+class NavController {
+	constructor(NavService) {
+		this.pages = NavService.pages;
+	}
+}
 
 NavController.$inject = ['NavService'];
 
-exports.default = NavController;
+/* harmony default export */ __webpack_exports__["a"] = (NavController);
+
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* nav/nav.service.js */
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var NavService = function () {
-	function NavService() {
-		_classCallCheck(this, NavService);
-
-		this.pages = [{ name: 'Home', link: '#/home' }, { name: 'About', link: '#/about' }, { name: 'Contributing to the Z-Brain', link: '#/contributing' }, { name: 'FAQ', link: '#/faq' }, { name: 'Downloads', link: '#/downloads' }, { name: 'Engert Lab Lines Resource', link: 'http://engertlab.fas.harvard.edu/Enhancer-Trap/' }];
+class NavService {
+	constructor() {
+		this.pages = [
+			{ name: 'Home', link: '#/home' },
+			{ name: 'About', link: '#/about' },	
+			{ name: 'Contributing to the Z-Brain', link: '#/contributing' },
+			{ name: 'FAQ', link: '#/faq' },
+			{ name: 'Downloads', link: '#/downloads' },
+			{ name: 'Engert Lab Lines Resource', link: 'http://engertlab.fas.harvard.edu/Enhancer-Trap/'},
+//			{ name: 'Legacy Z-Brain', link: 'http://engertlab.fas.harvard.edu/LegacyZ-Brain/'}
+		]
 	}
-
-	_createClass(NavService, [{
-		key: 'getActive',
-		value: function getActive() {}
-	}]);
-
-	return NavService;
-}();
+	getActive() {
+	}
+}
 //NavService.$inject = ['$http', '$location']
 
-exports.default = NavService;
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* sidebar/index.js */
+/* harmony default export */ __webpack_exports__["a"] = (NavService);
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _sidebar = __webpack_require__(13);
-
-var _sidebar2 = _interopRequireDefault(_sidebar);
-
-var _select = __webpack_require__(12);
-
-var _select2 = _interopRequireDefault(_select);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Sidebar = angular.module('sidebar', []).component('sidebarComponent', _sidebar2.default).directive('selectDirective', _select2.default).name;
-
-exports.default = Sidebar;
 
 /***/ }),
 /* 12 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sidebar_component__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select_directive__ = __webpack_require__(15);
+/* sidebar/index.js */
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-/* sidebar/select.directive.js */
 
-function selectDirective() {
-	return {
-		restrict: 'A',
-		scope: {},
-		link: function link(scope, elem, attrs) {
-			$(elem).dropdown({
-				fullTextSearch: true
-			});
-		}
-	};
-}
 
-exports.default = selectDirective;
+const Sidebar = angular
+	.module('sidebar', [])
+	.component('sidebarComponent', __WEBPACK_IMPORTED_MODULE_0__sidebar_component__["a" /* default */])
+	.directive('selectDirective', __WEBPACK_IMPORTED_MODULE_1__select_directive__["a" /* default */])
+	.name;
+	
+/* harmony default export */ __webpack_exports__["a"] = (Sidebar);
+
 
 /***/ }),
 /* 13 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sidebar_controller__ = __webpack_require__(14);
+/* sidebar/sidebar.component.js */
 
+'use strict'
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _sidebar = __webpack_require__(14);
-
-var _sidebar2 = _interopRequireDefault(_sidebar);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-'use strict'; /* sidebar/sidebar.component.js */
-
-
-var SidebarComponent = {
+const SidebarComponent = {
 	bindings: {
 		lines: '<',
 		masks: '<',
@@ -5337,32 +5208,23 @@ var SidebarComponent = {
 		onUpdateColorChannel: '&',
 		onAdjustLine: '&'
 	},
-	controller: _sidebar2.default,
+	controller: __WEBPACK_IMPORTED_MODULE_0__sidebar_controller__["a" /* default */],
 	templateUrl: 'views/sidebar/sidebar.html'
-};
+}
 
-exports.default = SidebarComponent;
+/* harmony default export */ __webpack_exports__["a"] = (SidebarComponent);
+
 
 /***/ }),
 /* 14 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* sidebar/sidebar.controller.js */
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var SidebarController = function () {
-	function SidebarController() {
-		_classCallCheck(this, SidebarController);
-
+class SidebarController {
+	constructor() {
 		this.brightness = 1;
 		this.gamma = 1;
 		this.slice = 90;
@@ -5372,111 +5234,91 @@ var SidebarController = function () {
 			green: 'none',
 			magenta: 'none',
 			yellow: 'none'
-		};
+		}
 		this.colorChannels = {
 			red: 'none',
 			green: 'none',
 			blue: 'none'
-		};
+		}	
 	}
+	resetValues() {
+		this.brightness = 1;
+		this.gamma = 1;
+		this.onUpdateLine({line: this.selected});
+	}
+	gaEvent() {
+		ga('send', {
+			hitType: 'event',
+			eventCategory: 'Lines',
+			eventAction: 'select',
+			eventLabel: 'Search Line'
+		});
+	}
+}
 
-	_createClass(SidebarController, [{
-		key: 'resetValues',
-		value: function resetValues() {
-			this.brightness = 1;
-			this.gamma = 1;
-			this.onUpdateLine({ line: this.selected });
-		}
-	}, {
-		key: 'gaEvent',
-		value: function gaEvent() {
-			ga('send', {
-				hitType: 'event',
-				eventCategory: 'Lines',
-				eventAction: 'select',
-				eventLabel: 'Search Line'
-			});
-		}
-	}]);
 
-	return SidebarController;
-}();
+/* harmony default export */ __webpack_exports__["a"] = (SidebarController);
 
-exports.default = SidebarController;
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* viewer/index.js */
+/* sidebar/select.directive.js */
 
+function selectDirective() {
+	return {
+		restrict: 'A',
+		scope: {
+		},
+		link: function(scope, elem, attrs) {
+			$(elem)
+				.dropdown({
+					fullTextSearch: true		
+				});
+		}
+	}
+}
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
+/* harmony default export */ __webpack_exports__["a"] = (selectDirective);
 
-var _viewer = __webpack_require__(17);
-
-var _viewer2 = _interopRequireDefault(_viewer);
-
-var _viewer3 = __webpack_require__(19);
-
-var _viewer4 = _interopRequireDefault(_viewer3);
-
-var _slider = __webpack_require__(16);
-
-var _slider2 = _interopRequireDefault(_slider);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Viewer = angular.module('viewer', []).component('viewerComponent', _viewer2.default).service('ViewerService', _viewer4.default).directive('sliderDirective', _slider2.default).name;
-
-exports.default = Viewer;
 
 /***/ }),
 /* 16 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__viewer_component__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__viewer_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__slider_directive__ = __webpack_require__(20);
+/* viewer/index.js */
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-/* lines/slider-directive.js */
 
-function sliderDirective() {
-	return {
-		restrict: 'A',
-		scope: {},
-		link: function link(scope, elem, attrs) {
-			$(elem).slider();
-		}
-	};
-}
 
-exports.default = sliderDirective;
+
+const Viewer = angular
+	.module('viewer', [])
+	.component('viewerComponent', __WEBPACK_IMPORTED_MODULE_0__viewer_component__["a" /* default */])
+	.service('ViewerService', __WEBPACK_IMPORTED_MODULE_1__viewer_service__["a" /* default */])
+	.directive('sliderDirective', __WEBPACK_IMPORTED_MODULE_2__slider_directive__["a" /* default */])
+	.name;
+
+/* harmony default export */ __webpack_exports__["a"] = (Viewer);
+
 
 /***/ }),
 /* 17 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__viewer_controller_js__ = __webpack_require__(18);
 /* viewer/viewer.component.js */
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
 
-var _viewerController = __webpack_require__(18);
-
-var _viewerController2 = _interopRequireDefault(_viewerController);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ViewerComponent = {
+const ViewerComponent = {
 	bindings: {
 		//sliceIndex: '=',
 		lineImages: '<',
@@ -5487,31 +5329,25 @@ var ViewerComponent = {
 		colorChannelColor: '<',
 		onUpdateIndex: '&'
 	},
-	controller: _viewerController2.default,
+	controller: __WEBPACK_IMPORTED_MODULE_0__viewer_controller_js__["a" /* default */],
 	templateUrl: 'views/viewer/viewer.html'
-};
+}
 
-exports.default = ViewerComponent;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (ViewerComponent);
+
 
 /***/ }),
 /* 18 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* viewer/viewer-controller.js */
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var ViewerController = function () {
-	function ViewerController(ViewerService) {
-		_classCallCheck(this, ViewerController);
+class ViewerController {
+	constructor(ViewerService) {
 
 		this.ViewerService = ViewerService;
 		// Initial (page load) z-slice number [range 0-137]
@@ -5527,217 +5363,218 @@ var ViewerController = function () {
 			cyan: undefined,
 			green: undefined,
 			magenta: undefined,
-			yellow: undefined
-			// Currently displayed mask image slices (each uses image src)
-		};this.currentDisplayMasks = {
+			yellow: undefined,
+		}
+		// Currently displayed mask image slices (each uses image src)
+		this.currentDisplayMasks = {
 			cyan: 'images/blank.png',
 			green: 'images/blank.png',
 			magenta: 'images/blank.png',
-			yellow: 'images/blank.png'
-		};
+			yellow: 'images/blank.png',
+		}
 
 		this.activeChannels = [];
 		// Will be populated with arrays of color channel images
 		this.colorChannelArrays = {
 			red: undefined,
 			green: undefined,
-			blue: undefined
-			// Currently displayed mask image slices (each uses image src)
-		};this.currentDisplayColorChannels = {
+			blue: undefined,
+		}
+		// Currently displayed mask image slices (each uses image src)
+		this.currentDisplayColorChannels = {
 			red: 'images/blank.png',
 			green: 'images/blank.png',
-			blue: 'images/blank.png'
-		};
+			blue: 'images/blank.png',
+		}
 	}
 
-	_createClass(ViewerController, [{
-		key: '$onInit',
-		value: function $onInit() {}
-	}, {
-		key: '$onChanges',
-		value: function $onChanges(changes) {
-			/* On new set of lines images load, update display
-    * lineImages << LinesComponent
-    */
-			if (this.lineImages.length) {
-				this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
-				this.currentLineName = this.lineName || 'Elavl3-H2BRFP';
-			}
+	$onInit() {
+	}
 
-			/* On new set of mask images load, update display
-    * maskImages << LinesComponent
-    */
-			if (this.maskImages) {
-
-				var color = this.maskColor;
-				if (!this.activeMasks.includes(color)) this.activeMasks.push(color);
-
-				if (this.maskImages === 'None') {
-					this.activeMasks.splice(this.activeMasks.indexOf(color));
-					this.maskArrays[color] = undefined;
-					this.currentDisplayMasks[color] = 'images/blank.png';
-				} else {
-					this.maskArrays[color] = this.maskImages;
-					this.currentDisplayMasks[color] = this.maskArrays[color][this.sliceIndex].src;
-				}
-			}
-
-			/* On new set of color channel images load, update display
-    * colorChannelImages << LinesComponent
-    */
-			if (this.colorChannelImages) {
-
-				var _color = this.colorChannelColor;
-				if (!this.activeChannels.includes(_color)) this.activeChannels.push(_color);
-
-				if (this.colorChannelImages === 'None') {
-					this.activeChannels.splice(this.activeChannels.indexOf(_color));
-					this.colorChannelArrays[_color] = undefined;
-					this.currentDisplayColorChannels[_color] = 'images/blank.png';
-				} else {
-					this.colorChannelArrays[_color] = this.colorChannelImages;
-					this.currentDisplayColorChannels[_color] = this.colorChannelArrays[_color][this.sliceIndex].src;
-				}
-			}
+	$onChanges(changes) {
+		/* On new set of lines images load, update display
+		 * lineImages << LinesComponent
+		 */
+		if ( this.lineImages.length ) {
+			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
+			this.currentLineName = this.lineName || 'Elavl3-H2BRFP';
 		}
 
-		/* On slider change, update display with new slice number
-   */
+		/* On new set of mask images load, update display
+		 * maskImages << LinesComponent
+		 */
+		if ( this.maskImages ) {
 
-	}, {
-		key: 'updateSlice',
-		value: function updateSlice() {
-			var _this = this;
+			let color = this.maskColor;
+			if ( !this.activeMasks.includes(color) )
+				this.activeMasks.push(color)
 
-			// Update displayed slice image
-			this.onUpdateIndex({ sliceIndex: this.sliceIndex });
-
-			// Update active displayed masks
-			this.activeMasks.forEach(function (color) {
-				if (Array.isArray(_this.maskArrays[color])) {
-					_this.currentDisplayMasks[color] = _this.maskArrays[color][_this.sliceIndex].src;
-				}
-			});
-
-			// Update active displayed color channels
-			this.activeChannels.forEach(function (color) {
-				if (Array.isArray(_this.colorChannelArrays[color])) {
-					_this.currentDisplayColorChannels[color] = _this.colorChannelArrays[color][_this.sliceIndex].src;
-				}
-			});
-
-			/* When brightness/gamma adjustments,
-    * update display image if loaded, otherwise skip
-    */
-			var imageLoaded = this.lineImages[this.sliceIndex].naturalHeight;
-			if (imageLoaded) {
-				this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
+			if ( this.maskImages === 'None' ) {
+				this.activeMasks.splice(this.activeMasks.indexOf(color));
+				this.maskArrays[color] = undefined;
+				this.currentDisplayMasks[color] = 'images/blank.png';
 			} else {
-				this.ViewerService.forceImgReload(this.lineImages[this.sliceIndex], false, { height: 1406, width: 621 }, false);
+				this.maskArrays[color] = this.maskImages;
+				this.currentDisplayMasks[color] = this.maskArrays[color][this.sliceIndex].src;
 			}
 		}
-	}]);
 
-	return ViewerController;
-}();
+		/* On new set of color channel images load, update display
+		 * colorChannelImages << LinesComponent
+		 */
+		if ( this.colorChannelImages ) {
+
+			let color = this.colorChannelColor;
+			if ( !this.activeChannels.includes(color) )
+				this.activeChannels.push(color)
+
+			if ( this.colorChannelImages === 'None') {
+				this.activeChannels.splice(this.activeChannels.indexOf(color));
+				this.colorChannelArrays[color] = undefined;
+				this.currentDisplayColorChannels[color] = 'images/blank.png';
+			} else {
+				this.colorChannelArrays[color] = this.colorChannelImages;
+				this.currentDisplayColorChannels[color] = this.colorChannelArrays[color][this.sliceIndex].src;
+			}
+		}
+
+	}
+
+	/* On slider change, update display with new slice number
+	 */
+	updateSlice() {
+
+		// Update displayed slice image
+		this.onUpdateIndex({sliceIndex:this.sliceIndex});
+
+		// Update active displayed masks
+		this.activeMasks.forEach((color) => {
+			if ( Array.isArray(this.maskArrays[color]) ) {
+				this.currentDisplayMasks[color] = this.maskArrays[color][this.sliceIndex].src;
+			}
+		});
+
+		// Update active displayed color channels
+		this.activeChannels.forEach((color) => {
+			if ( Array.isArray(this.colorChannelArrays[color]) ) {
+				this.currentDisplayColorChannels[color] = this.colorChannelArrays[color][this.sliceIndex].src;
+			}
+		});
+
+		/* When brightness/gamma adjustments,
+		 * update display image if loaded, otherwise skip
+		 */
+		let imageLoaded = this.lineImages[this.sliceIndex].naturalHeight;
+		if ( imageLoaded ) {
+			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
+		} else {
+			this.ViewerService.forceImgReload(this.lineImages[this.sliceIndex],
+													false, { height: 1406, width: 621 }, false);
+		}
+	}
+
+}
 
 ViewerController.$inject = ['ViewerService'];
 
-exports.default = ViewerController;
+/* harmony default export */ __webpack_exports__["a"] = (ViewerController);
+
 
 /***/ }),
 /* 19 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* viewer/viewer.service.js */
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var ViewerService = function () {
-	function ViewerService() {
-		_classCallCheck(this, ViewerService);
+class ViewerService {
+	constructor() {
 	}
 	// functions to manually reload the Temporary Line Images as
 	// they are produced on the server.
 	// Loads them into a non-displayed iframe and relaods the frame,
 	// which refreshes browser cache and clears the initially empty
 	// versions of those images
+	imgReloadRestore(image, imgDim, loadError) {
+		let i, img, { height, width } = imgDim;
 
+		img = image;
+		img.src = image.src;
+		if ( width ) img.style.width = width + "px";
+		if ( height ) img.style.height = height + "px";
+		
+	}
 
-	_createClass(ViewerService, [{
-		key: "imgReloadRestore",
-		value: function imgReloadRestore(image, imgDim, loadError) {
-			var i = void 0,
-			    img = void 0,
-			    height = imgDim.height,
-			    width = imgDim.width;
-
-			img = image;
-			img.src = image.src;
-			if (width) img.style.width = width + "px";
-			if (height) img.style.height = height + "px";
-		}
-	}, {
-		key: "forceImgReload",
-		value: function forceImgReload(image, isCrossDomain, imgDim, twostage) {
-			var _this = this;
-
-			var blankList = void 0,
-			    step = 0,
-			    iframe = window.document.createElement("iframe"),
-			    loadCallback = function loadCallback(e) {
-				if (!step) {
-					if (twostage) {
-						step = 1;
-					} else {
-						step = 2;
-						iframe.contentWindow.location.reload(true);
+	forceImgReload(image, isCrossDomain, imgDim, twostage) {
+		let blankList, step = 0,
+				iframe = window.document.createElement("iframe"),
+				loadCallback = (e) => {
+					if ( !step ) {
+						if ( twostage ) { 
+							step = 1 
+						} else { 
+							step = 2; 
+							iframe.contentWindow.location.reload(true); 
+						}
 					}
-				} else if (step === 2) {
-					_this.imgReloadRestore(image, imgDim, (e || window.event).type === "error");
-					if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+					else if ( step === 2 ) {
+						this.imgReloadRestore(image, imgDim, (e||window.event).type==="error");
+						if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+					}
 				}
-			};
-			iframe.style.display = "none";
-			window.parent.document.body.appendChild(iframe);
-			iframe.addEventListener("load", loadCallback, false);
-			iframe.addEventListener("error", loadCallback, false);
-			iframe.src = image.src;
-			return twostage ? function (proceed, dim) {
+		iframe.style.display = "none";
+		window.parent.document.body.appendChild(iframe);
+		iframe.addEventListener("load", loadCallback, false);
+		iframe.addEventListener("error", loadCallback, false);
+		iframe.src = image.src;
+		return (twostage ?
+			(proceed, dim) => {
 				if (!twostage) return;
 				twostage = false;
 				if (proceed) {
-					imgDim = dim || imgDim;
-					if (step === 1) {
-						step = 2;iframe.contentWindow.location.reload(true);
-					}
+					imgDim = (dim||imgDim);
+					if (step===1) { step = 2; iframe.contentWindow.location.reload(true); }
 				} else {
 					step = 3;
 					if (iframe.contentWindow.stop) iframe.contentWindow.stop();
 					if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
 				}
-			} : null;
-		}
-	}]);
+			}
+		: null);
+	}
+						
+}
 
-	return ViewerService;
-}();
+/* harmony default export */ __webpack_exports__["a"] = (ViewerService);
 
-exports.default = ViewerService;
+
+
+
+
 
 /***/ }),
 /* 20 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__(0);
+"use strict";
+/* lines/slider-directive.js */
+
+function sliderDirective() {
+	return {
+		restrict: 'A',
+		scope: {
+		},
+		link: function(scope, elem, attrs) {
+			$(elem)
+				.slider();
+		},
+	}
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (sliderDirective);
+
+
 
 
 /***/ })

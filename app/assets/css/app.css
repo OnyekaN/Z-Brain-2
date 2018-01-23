@@ -249,6 +249,17 @@ body {
 	#sidebar .inner {
 		padding: 0 30px 0 30px !important;
 	}
+
+	.ui.search.dropdown {
+		width: 100% !important;
+		-height: 40px !important;
+		margin-bottom: 5px;
+	}
+	.img-modify-input {
+		width: 80%;
+		margin-bottom: 10px;
+	}
+
 	#viewer {
 		min-height: 680px;
 	}
@@ -297,6 +308,11 @@ body {
 	#sidebar .inner {
 		padding: 0 30px 0 30px !important;
 	}
+
+	.ui.search.dropdown {
+		width: 100% !important;
+	}
+
 	#viewer {
 		min-height: 900px;
 		min-width: 1820px !important;
