@@ -3,7 +3,7 @@
 	<div style="background-color:#ddd;padding-left:5px;">
 		<span style="color:black;font-family:serif;"><b>Viewer</b></span>
 	</div>
-	<div class="current" style="margin-left:330px;margin-top:15px;">
+	<div class="current-text">
 		<span style="color:#bbb;font-size:1em">Currently Viewing - 
 			<span style="color:#49d;font-size:1.1em">
 				<b>{{$ctrl.currentLineName}}</b>
@@ -11,18 +11,17 @@
 			</span>
 		</span>
 	</div>
-	<span class="z-index-div"
-	 style="margin:5px 0 20px 260px;z-index:2000;position:absolute;">	
-		<input id="z-index-slider" class="z-index-slider" type="range"
+	<div class="z-index-div"> 
+		<input class="z-index-slider" type="range"
 		orient="horizontal"
 		 ng-change="$ctrl.updateSlice()"
 		 ng-model="$ctrl.sliceIndex" 
 		 ng-touchmove="$ctrl.updateSlice()"	
 		 min="0" max="137" value="90"/>
 		 <br>
-	</span>
+	</div>
 
-	<img id="primary-line-image" ng-src="{{$ctrl.currentDisplayImage}}"
+	<img class="primary-line-image" ng-src="{{$ctrl.currentDisplayImage}}"
 		alt="primary-line-image"/>
 
 	<img id="red-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['red']}}"

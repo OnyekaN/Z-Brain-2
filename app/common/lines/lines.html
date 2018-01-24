@@ -1,6 +1,7 @@
 <!--lines/lines.html-->
-<div id="viewer-container" class="container-fluid">
-	<div id="sidebar">
+<div class="lines-container">
+
+	<div class="sidebar">
 		<sidebar-component
 			lines="$ctrl.lines"
 			masks="$ctrl.masks"
@@ -9,10 +10,9 @@
 			on-update-color-channel="$ctrl.updateColorChannel(line, color)"
 			on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)">
 		</sidebar-component>
-		<br>
-
 	</div>
-	<div id="viewer">
+
+	<div class="viewer">
 		<div id="spin"></div>
 		<viewer-component
 			line-images="$ctrl.lineImages"

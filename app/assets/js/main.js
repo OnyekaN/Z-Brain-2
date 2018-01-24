@@ -4902,7 +4902,7 @@ class LinesController {
 		this.spinnerOpts = {
 			// settings for spin.js spinner
 			lines: 9, length: 40, width: 18, radius: 67, corners: 0.8,
-			scale: 1.0, color: '#fff', opacity: 0.55, rotate: 0, direction: 1, 
+			scale: 1.0, color: '#fff', opacity: 0.55, rotate: 0, direction: 1,
 			speed: 1.9, trail: 90, fps: 20, zIndex: 2e9, className: 'spinner',
 		 	top: '49%', left: '50%', shadow: false, hwaccel: false, position: 'absolute'
 		}
@@ -4912,20 +4912,33 @@ class LinesController {
 
 	$onInit() {
 		// GET line and mask names from server (e.g. Elavl3-H2BRFP)
-		this.LinesService.getLineNames().then(response => { 
-												this.lines = response.map(obj => obj.line_name);			
+		this.LinesService.getLineNames().then(response => {
+												let names = response.map(obj => {
+													let name = obj.line_name;
+													if ( name.indexOf('MH_') !== -1 )
+														name = "Z1"+name; // Prefix it to end up near the bottom after sort
+													return name;
 												});
+												names = names.sort();
+												names = names.map(name => {
+													if ( name.indexOf('Z1') !== -1 )
+														name = name.substring(2); // Remove the prefix
+													return name;
+												});
+												this.lines = names;
+											});
 
-		this.LinesService.getMaskNames().then(response => { 
+		this.LinesService.getMaskNames().then(response => {
 												this.masks = response.map(obj => obj.mask_name
-																														.replace("'", "&quot"));			
+																														.replace("'", "&quot"));
+
 												});
 
 		// Load selected line images into browser cache
 		this.LinesService.cacheLine("Elavl3-H2BRFP").then(response => {
 												this.lineImages = response;
 												});
-	}	
+	}
 
 	// Sync slice index in lines component with viewer component
 	updateIndex(sliceIndex) {
@@ -4933,7 +4946,7 @@ class LinesController {
 	}
 
 	// Send line images to viewer component
-	updateLine(line) {	
+	updateLine(line) {
 		this.LinesService.cacheLine(line).then(response => {
 												this.lineImages = response;
 												this.lineName = line;
@@ -4943,7 +4956,7 @@ class LinesController {
 	// Send mask images to viewer component
 	updateMask(mask, color) {
 		if ( mask === 'None' ) {
-			this.maskImages = 'None'; 
+			this.maskImages = 'None';
 			this.maskColor = color;
 			return;
 		} else {
@@ -4958,7 +4971,7 @@ class LinesController {
 	// Send color channel to viewer component
 	updateColorChannel(line, color) {
 		if ( line === 'None' ) {
-			this.colorChannelImages = 'None'; 
+			this.colorChannelImages = 'None';
 			this.colorChannelColor = color;
 			return;
 		} else {
@@ -4967,7 +4980,7 @@ class LinesController {
 													this.colorChannelColor = color;
 													});
 		}
-	}	
+	}
 
 	// Change the brightness or gamma settings on the displayed line image
 	adjustLine(line, brightness, gamma) {

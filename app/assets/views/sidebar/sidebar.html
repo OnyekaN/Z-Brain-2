@@ -1,9 +1,11 @@
 <div>
-	<div style="background-color:#ddd;padding-left:5px;">
+
+	<div class="menu-title" style="background-color:#ddd;padding-left:5px;">
 		<span style="color:black;font-family:serif;"><b>Menu</b></span>
 	</div>
-		<div class="inner">
-		<div style="padding:10px 10px 30px 10px;">	
+
+	<div class="inner">
+		<div class="lines-ctrls" style="padding:10px 10px 30px 10px;">	
 			<select select-directive class="ui search dropdown"
 				ng-model="$ctrl.selected"
 				ng-change="$ctrl.onUpdateLine({line: $ctrl.selected});$ctrl.gaEvent;">
@@ -16,20 +18,21 @@
 			<div style="margin-left:20px;margin-top:10px;">
 				<form autocomplete="off" ng-submit="$ctrl.onAdjustLine({line: $ctrl.selected,
 						brightness: $ctrl.brightness, gamma: $ctrl.gamma})">
+
 					<span style="font-size: 0.8em"><em>Adjust Brightness</em></span>
 					<div>
-					<input type="number" step="any"
-					 style="" -placeholder="Enter Value"
-					 id="brightness-input" class="img-modify-input"  
-					 ng-model="$ctrl.brightness">
+						<input type="number" step="any"
+					 	style="" -placeholder="Enter Value"
+					 	id="brightness-input" class="img-modify-input"  
+					 	ng-model="$ctrl.brightness">
 					</div>	
 
 					<span style="font-size: 0.8em"><em>Adjust Gamma</em></span>
 					<div>
-					<input type="number" step="any"
-					 style="" -placeholder="Enter Value"
-					 id="gamma-input" class="img-modify-input"
-					 ng-model="$ctrl.gamma"/>
+						<input type="number" step="any"
+					 	style="" -placeholder="Enter Value"
+					 	id="gamma-input" class="img-modify-input"
+					 	ng-model="$ctrl.gamma"/>
 					</div>
 
 					<div style="margin-top:0.3em">
@@ -37,24 +40,23 @@
 							brightness: $ctrl.brightness, gamma: $ctrl.gamma})"
 							style="margin-right:20px">Submit</button>
 						<button ng-click="$ctrl.resetValues()">Reset</button>
-					</div>
-				</div>
-			</form>
-
+					</div>				
+				</form>
+			</div>
 		</div>
 
-		<div style="padding:10px 10px 30px 10px;">	
-			<div>	
-				<select select-directive class="ui search dropdown cyan"
-					ng-model="$ctrl.masks.cyan"
-					ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.cyan, color:'cyan'})">
-					<option value="">Search Regions</option>
-					<option value="None">None</option>
-					<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
-						{{::mask}}
-					</option>
-				</select>
-			</div>
+		<div class="regions-ctrls" style="padding:10px 10px 30px 10px;">	
+			
+			<select select-directive class="ui search dropdown cyan"
+				ng-model="$ctrl.masks.cyan"
+				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.cyan, color:'cyan'})">
+				<option value="">Search Regions</option>
+				<option value="None">None</option>
+				<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
+					{{::mask}}
+				</option>
+			</select>
+			
 			<select select-directive class="ui search dropdown magenta"
 				ng-model="$ctrl.masks.magenta"
 				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.magenta, color:'magenta'})">
@@ -64,6 +66,7 @@
 					{{::mask}}
 				</option>
 			</select>
+			
 			<select select-directive class="ui search dropdown green"
 				ng-model="$ctrl.masks.green"
 				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.green, color:
@@ -74,6 +77,7 @@
 					{{::mask}}
 				</option>
 			</select>
+
 			<select select-directive class="ui search dropdown yellow"
 				ng-model="$ctrl.masks.yellow"
 				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.yellow, color:'yellow'})">
@@ -81,13 +85,13 @@
 				<option value="None">None</option>
 				<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
 					{{::mask}}
-					<!--	{{mask.charAt(mask.length - 1) === "-" ?
-						 mask.substring(0, mask.length - 1) : mask}}-->
 				</option>
 			</select>
+
 		</div>
 
-		<div style="padding:10px 10px 30px 10px;">		
+		<div class="channel-ctrls" style="padding:10px 10px 30px 10px;">		
+
 			<select select-directive class="ui search dropdown red"
 				ng-model="$ctrl.colorChannels.red"
 				ng-change="$ctrl.onUpdateColorChannel({line: $ctrl.colorChannels.red, color:'red'})">
@@ -97,6 +101,7 @@
 					{{::line}}
 				</option>
 			</select>	
+
 			<select select-directive class="ui search dropdown green"
 				ng-model="$ctrl.colorChannels.green"
 				ng-change="$ctrl.onUpdateColorChannel({line: $ctrl.colorChannels.green, color:'green'})">
@@ -106,6 +111,7 @@
 					{{::line}}
 				</option>
 			</select>
+
 			<select select-directive class="ui search dropdown blue"
 				ng-model="$ctrl.colorChannels.blue"
 				ng-change="$ctrl.onUpdateColorChannel({line: $ctrl.colorChannels.blue, color:'blue'})">
@@ -115,7 +121,9 @@
 					{{::line}}
 				</option>
 			</select>
+
 		</div>
+
 	</div>
 
 </div>
