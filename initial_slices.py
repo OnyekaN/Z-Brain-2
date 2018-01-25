@@ -81,7 +81,8 @@ def save_img_slice(stack_images, path, zindex):
 def modify_images(file_path, stack_images, path, brightness, gamma, zslice):
      interval = 8
      start = zslice % interval
-     remaining = np.arange(138)[start::interval]
+     remaining = np.arange(138)[start:]
+     remaining = remaining[::interval]
      remaining = sorted(remaining, key=lambda val: abs(zslice-val))
      new_paths = []
 
@@ -90,6 +91,7 @@ def modify_images(file_path, stack_images, path, brightness, gamma, zslice):
 
      output = print_stack_names(file_path, stack_images, brightness, gamma)
      print json.dumps(output)
+
      return 0
 
 modify_images(file_path, stack_images, path, brightness, gamma, zslice)
