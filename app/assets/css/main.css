@@ -77,7 +77,26 @@ body {
   .sidebar .inner {
     padding-left: 10px; }
   .sidebar button {
-    border-radius: 5px; }
+    font-family: Helvetica, sans-serif;
+    border-radius: 00px; }
+  .sidebar .download-line {
+    margin: 7px 0 2px 20px;
+    min-width: 160px;
+    min-height: 28px;
+    color: #fdfdfd;
+    background: linear-gradient(#3388cc 0px, #146ec8 100%);
+    border: none; }
+  .sidebar form button {
+    color: #111;
+    border: none;
+    margin-top: 12px;
+    min-width: 70px;
+    margin-right: 16px;
+    background: linear-gradient(white 0px, #fafafa 100%); }
+  .sidebar button:focus {
+    outline: none; }
+  .sidebar .regions-ctrls {
+    padding: 0 10px 30px 10px; }
   .sidebar .cyan i {
     box-shadow: 3px 0px 1px -1px rgba(0, 255, 255, 0.6); }
   .sidebar .magenta i {
@@ -104,19 +123,21 @@ body {
   height: 600px;
   min-width: 1150px;
   box-shadow: -2px 2px 2px #bbb; }
-  .viewer .current-text {
-    font-family: Helvetica;
-    margin-left: 330px;
-    margin-top: 15px; }
-  .viewer .z-index-div {
+  .viewer .viewer-ctrl-panel {
     position: absolute;
-    margin: 5px 0 20px 260px;
-    z-index: 2000; }
-  .viewer .z-index-slider {
-    left: 100px;
-    top: 90px;
-    width: 440px !important;
-    z-index: 2000; }
+    top: 40px;
+    left: 200px;
+    z-index: 1000; }
+    .viewer .viewer-ctrl-panel .current-text {
+      font-family: Helvetica;
+      margin-left: 130px; }
+    .viewer .viewer-ctrl-panel .z-index-div {
+      margin: 10px 0 20px 55px;
+      z-index: 2000; }
+    .viewer .viewer-ctrl-panel .z-index-slider {
+      top: 90px;
+      width: 440px !important;
+      z-index: 2000; }
   .viewer .primary-line-image {
     left: 0;
     top: 90px;
@@ -160,6 +181,8 @@ body {
     margin-right: 5vw !important; }
     .sidebar .inner {
       padding: 0 30px 0 30px !important; }
+    .sidebar .download-line {
+      width: 200px; }
     .sidebar .ui.search.dropdown {
       width: 100% !important;
       margin-bottom: 5px; }
@@ -170,11 +193,14 @@ body {
   .viewer {
     min-height: 680px; }
     .viewer .primary-line-image {
-      top: 130px; }
+      top: 130px;
+      left: 60px; }
     .viewer .mask-img {
-      top: 130px; }
+      top: 130px;
+      left: 60px; }
     .viewer .color-channel {
-      top: 130px; } }
+      top: 130px;
+      left: 60px; } }
 @media screen and (min-width: 2300px) {
   body {
     width: 100%;
@@ -204,21 +230,28 @@ body {
     margin-left: 3vw !important; }
     .sidebar .inner {
       padding: 0 30px 0 30px !important; }
+    .sidebar .download-line {
+      width: 80%; }
     .sidebar .ui.search.dropdown {
       width: 100% !important; }
 
   .viewer {
     min-height: 900px;
     min-width: 1820px !important; }
-    .viewer .current-text {
-      margin-left: 630px !important; }
-    .viewer .z-index-div {
-      margin-left: 450px !important; }
-    .viewer .z-index-slider {
-      top: 83px;
+    .viewer .viewer-ctrl-panel {
+      position: absolute;
+      top: 20px;
       left: 400px;
-      width: 700px !important;
       z-index: 1000; }
+      .viewer .viewer-ctrl-panel .current-text {
+        margin-left: 230px !important; }
+      .viewer .viewer-ctrl-panel .z-index-div {
+        margin-left: 50px !important; }
+      .viewer .viewer-ctrl-panel .z-index-slider {
+        top: 63px;
+        left: 400px;
+        width: 700px !important;
+        z-index: 1000; }
     .viewer .primary-line-image {
       top: 130px;
       height: 748px !important;

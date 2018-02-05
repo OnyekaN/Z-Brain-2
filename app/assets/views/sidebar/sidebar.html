@@ -14,6 +14,9 @@
 					{{::line}}
 				</option>
 			</select>
+			<a href="images/4-TiffStacks/{{$ctrl.selected}}.tif" download>
+				<button class="download-line">Download Line</button>
+			</a>
 			
 			<div style="margin-left:20px;margin-top:10px;">
 				<form autocomplete="off" ng-submit="$ctrl.onAdjustLine({line: $ctrl.selected,
@@ -37,15 +40,14 @@
 
 					<div style="margin-top:0.3em">
 						<button ng-click="$ctrl.onAdjustLine({line: $ctrl.selected,
-							brightness: $ctrl.brightness, gamma: $ctrl.gamma})"
-							style="margin-right:20px">Submit</button>
+							brightness: $ctrl.brightness, gamma: $ctrl.gamma})">Submit</button>
 						<button ng-click="$ctrl.resetValues()">Reset</button>
 					</div>				
 				</form>
 			</div>
 		</div>
 
-		<div class="regions-ctrls" style="padding:10px 10px 30px 10px;">	
+		<div class="regions-ctrls"> 
 			
 			<select select-directive class="ui search dropdown cyan"
 				ng-model="$ctrl.masks.cyan"

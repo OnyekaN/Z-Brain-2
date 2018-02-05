@@ -17,7 +17,7 @@ class SidebarController {
 			red: 'none',
 			green: 'none',
 			blue: 'none'
-		}	
+		}
 	}
 	resetValues() {
 		this.brightness = 1;
