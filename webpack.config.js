@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const UglifyJSWebpackPlugin = require('uglifyjs-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const PROD = (process.env.NODE_ENV === 'production');
 
@@ -15,7 +16,7 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: path.join(__dirname, '/\.js/'),
+				test: path.join(__dirname, '/\.js?$/'),
 				exclude: /node_modules/,
 				loader: 'babel-loader',
 				options: {
@@ -36,9 +37,11 @@ module.exports = {
 		PROD && new webpack.optimize.UglifyJsPlugin({
 							compress: { warnings: false }
 		})
-	].filter(Boolean),
+	].filter(Boolean).filter((plugin) => plugin.constructor.name !== 'UglifyJsPlugin'),
 
 };
+
+
 
 process.noDeprecation = true;
 

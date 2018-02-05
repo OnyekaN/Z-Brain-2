@@ -5168,8 +5168,8 @@ class NavService {
 			{ name: 'Contributing to the Z-Brain', link: '#/contributing' },
 			{ name: 'FAQ', link: '#/faq' },
 			{ name: 'Downloads', link: '#/downloads' },
+			{ name: 'Multiscale Virtual Fish', link: 'http://www.zib.de/projects/multiscale-virtual-fish'},
 			{ name: 'Engert Lab Lines Resource', link: 'http://engertlab.fas.harvard.edu/Enhancer-Trap/'},
-//			{ name: 'Legacy Z-Brain', link: 'http://engertlab.fas.harvard.edu/LegacyZ-Brain/'}
 		]
 	}
 	getActive() {
@@ -5252,7 +5252,7 @@ class SidebarController {
 			red: 'none',
 			green: 'none',
 			blue: 'none'
-		}	
+		}
 	}
 	resetValues() {
 		this.brightness = 1;
