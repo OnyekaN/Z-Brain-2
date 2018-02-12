@@ -15,7 +15,7 @@ const pool = new Pool({
 router.get('/', function(req, res, next) {
 	if (app.get('env') === 'development') {
 	  res.render('index', { title: 'Z-Brain Atlas',
-													main: 'js/main.min.js' });
+													main: 'js/main.js' });
 	}
 	if (app.get('env') === 'production') {
 		res.render('index', { title: 'Z-Brain Atlas',

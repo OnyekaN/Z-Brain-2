@@ -40,7 +40,7 @@ class LinesService {
 						cache: true
 		}).then(response => {
 			let masks = response.data.map(obj => {
-				let img = new Image(); 
+				let img = new Image();
 				img.src = `images/2-Masks/${color}/${obj.mask_image_path}`;
 				return img;
 			});
@@ -73,7 +73,7 @@ class LinesService {
 			let images = response.data.map(obj => {
 				let img = new Image();
 				let date = new Date().getTime()
-				img.src = obj.image_path; 
+				img.src = obj.image_path;
 				return img;
 			});
 			return images;
