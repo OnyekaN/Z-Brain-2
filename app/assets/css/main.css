@@ -80,7 +80,7 @@ body {
     font-family: Helvetica, sans-serif;
     border-radius: 00px; }
   .sidebar .download-line {
-    margin: 7px 0 2px 20px;
+    margin: 7px 0 0 20px;
     min-width: 160px;
     min-height: 28px;
     color: #fdfdfd;
