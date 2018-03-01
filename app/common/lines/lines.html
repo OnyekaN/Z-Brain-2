@@ -2,6 +2,7 @@
 <div class="lines-container">
 
 	<div class="sidebar">
+
 		<sidebar-component
 			lines="$ctrl.lines"
 			masks="$ctrl.masks"
@@ -10,10 +11,13 @@
 			on-update-color-channel="$ctrl.updateColorChannel(line, color)"
 			on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)"
 		</sidebar-component>
+
 	</div>
 
 	<div class="viewer">
-		<div id="spin"></div>
+
+		<div id="spin">
+		</div>
 		<viewer-component
 			line-images="$ctrl.lineImages"
 			line-name="$ctrl.lineName"
@@ -23,8 +27,17 @@
 			color-channel-color="$ctrl.colorChannelColor"
 			on-update-index="$ctrl.updateIndex(sliceIndex)">
 		</viewer-component>
+
 	</div>
 
+	<div class="annotations">
+
+		<annotations-component
+			line-name="$ctrl.lineName"
+			annotations="$ctrl.annotations">
+		</annotatons-component>	
+
+	</div>
 </div>
 
 

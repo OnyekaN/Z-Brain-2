@@ -4823,7 +4823,9 @@ angular.module('ui.router.state')
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__nav_index__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sidebar_index__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__viewer_index__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__annotations_index__ = __webpack_require__(21);
 /* common/index.js */
+
 
 
 
@@ -4836,6 +4838,7 @@ const common = angular
 		__WEBPACK_IMPORTED_MODULE_1__nav_index__["a" /* default */],
 		__WEBPACK_IMPORTED_MODULE_2__sidebar_index__["a" /* default */],
 		__WEBPACK_IMPORTED_MODULE_3__viewer_index__["a" /* default */],
+		__WEBPACK_IMPORTED_MODULE_4__annotations_index__["a" /* default */],
 	])
 	.name;
 
@@ -4900,7 +4903,7 @@ class LinesController {
 		this.cyanMaskImages = [];
 		this.lineName = "";
 		this.spinnerOpts = {
-			// settings for spin.js spinner
+			//settings for spin.js spinner
 			lines: 9, length: 40, width: 18, radius: 67, corners: 0.8,
 			scale: 1.0, color: '#fff', opacity: 0.55, rotate: 0, direction: 1,
 			speed: 1.9, trail: 90, fps: 20, zIndex: 2e9, className: 'spinner',
@@ -4911,49 +4914,52 @@ class LinesController {
 	}
 
 	$onInit() {
-		// GET line and mask names from server (e.g. Elavl3-H2BRFP)
+		//GET line and mask names for sidebar
 		this.LinesService.getLineNames().then(response => {
 												let names = response.map(obj => {
 													let name = obj.line_name;
 													if ( name.indexOf('MH_') !== -1 )
-														name = "Z1"+name; // Prefix it to end up near the bottom after sort
+														name = "Z1"+name; //Prefix it to end up near the bottom after sort
 													return name;
 												});
 												names = names.sort();
 												names = names.map(name => {
 													if ( name.indexOf('Z1') !== -1 )
-														name = name.substring(2); // Remove the prefix
+														name = name.substring(2); //Strip prefix
 													return name;
 												});
 												this.lines = names;
 											});
 
 		this.LinesService.getMaskNames().then(response => {
-												this.masks = response.map(obj => obj.mask_name
-																														.replace("'", "&quot"));
-
+													this.masks = response.map(obj => obj.mask_name
+																				.replace("'", "&quot"));
 												});
 
-		// Load selected line images into browser cache
+		this.LinesService.getAnnotations().then(response => {
+													this.annotations = response;
+												});
+
+		//Load default (Elavl3-H2BRFP) line images into cache for viewer
 		this.LinesService.cacheLine("Elavl3-H2BRFP").then(response => {
-												this.lineImages = response;
+													this.lineImages = response;
 												});
 	}
 
-	// Sync slice index in lines component with viewer component
+	//Sync slice index in lines component with viewer component
 	updateIndex(sliceIndex) {
 		this.sliceIndex = sliceIndex;
 	}
 
-	// Send line images to viewer component
+	//Send line images to viewer component
 	updateLine(line) {
 		this.LinesService.cacheLine(line).then(response => {
 												this.lineImages = response;
 												this.lineName = line;
-												});
+											});
 	}
 
-	// Send mask images to viewer component
+	//Send mask images to viewer component
 	updateMask(mask, color) {
 		if ( mask === 'None' ) {
 			this.maskImages = 'None';
@@ -4963,12 +4969,12 @@ class LinesController {
 		this.LinesService.cacheMask(mask, color).then(response => {
 												this.maskImages = response;
 												this.maskColor = color;
-												});
+											});
 		}
 	}
 
 
-	// Send color channel to viewer component
+	//Send color channel to viewer component
 	updateColorChannel(line, color) {
 		if ( line === 'None' ) {
 			this.colorChannelImages = 'None';
@@ -4978,11 +4984,11 @@ class LinesController {
 			this.LinesService.cacheColorChannel(line, color).then(response => {
 													this.colorChannelImages = response;
 													this.colorChannelColor = color;
-													});
+												});
 		}
 	}
 
-	// Change the brightness or gamma settings on the displayed line image
+	//Change the brightness or gamma settings on the displayed line image
 	adjustLine(line, brightness, gamma) {
 		this.spinner.spin(this.spinnerTarget);
 		this.LinesService.adjustLine(line, brightness, gamma, this.sliceIndex).then(response => {
@@ -5019,6 +5025,12 @@ class LinesService {
 
 	getMaskNames() {
 		return this.$http.get('api/masks/')
+						.then(response => response.data)
+						.catch(e => console.log(e));
+	}
+
+	getAnnotations() {
+		return this.$http.get('api/annotations/')
 						.then(response => response.data)
 						.catch(e => console.log(e));
 	}
@@ -5586,6 +5598,71 @@ function sliderDirective() {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (sliderDirective);
+
+
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__annotations_component__ = __webpack_require__(22);
+/*annotations/annotations.js */
+
+
+
+const Annotations = angular
+	.module('annotations', [])
+	.component('annotationsComponent', __WEBPACK_IMPORTED_MODULE_0__annotations_component__["a" /* default */])
+	.name;
+
+/* harmony default export */ __webpack_exports__["a"] = (Annotations);
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__annotations_controller__ = __webpack_require__(23);
+
+
+
+const AnnotationsComponent = {
+	bindings: {
+		lineName: '<',
+		annotations: '<'
+	},
+	controller: __WEBPACK_IMPORTED_MODULE_0__annotations_controller__["a" /* default */],
+	templateUrl: 'views/annotations/annotations.html'
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (AnnotationsComponent);
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+class AnnotationsController {
+
+	constructor() {
+		this.currentAnnotations = this.annotations;
+	}
+
+	$onChanges(changes) {
+		if ( this.lineName ) {
+			console.log(this.annotations)
+		}
+	}
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (AnnotationsController);
 
 
 

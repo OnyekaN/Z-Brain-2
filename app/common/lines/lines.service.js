@@ -18,6 +18,12 @@ class LinesService {
 						.catch(e => console.log(e));
 	}
 
+	getAnnotations() {
+		return this.$http.get('api/annotations/')
+						.then(response => response.data)
+						.catch(e => console.log(e));
+	}
+
 	cacheLine(line) {
 		return this.$http({
 						method: 'GET',

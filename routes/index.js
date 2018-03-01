@@ -22,9 +22,9 @@ router.get('/', function(req, res, next) {
 													main: 'js/main.min.js' });
 	}
 
-	//Remove temporary jpgs if older than 6mins	
+	//Remove temporary linejpgs if > 6mins
 	let tmp = path.join(__dirname, '../app/assets/images/1-TemporaryLineImages');
-	let result = findRemoveSync(tmp, {age: {seconds: 360}, extensions: '.jpg'});	
+	let result = findRemoveSync(tmp, {age: {seconds: 360}, extensions: '.jpg'});
 });
 
 /* GET entire imagesdb database as json */
@@ -57,16 +57,16 @@ router.get('/api/imagesdb', (req, res, next) => {
 /* query db for one line */
 router.param('line', (req, res, next, id) => {
 	const results = [];
-	
+
 	pool.connect((err, client, done) => {
 		if (err) {
-			done();	
+			done();
 			console.log(err);
 			return res.status(500).json({success:false, data: err});
 		}
-		
-		querySQL = `SELECT * FROM images
-							WHERE line_name='${id}'`
+
+		let querySQL = `SELECT * FROM images
+								WHERE line_name='${id}'`
 		const query = client.query(querySQL);
 
 		query.on('row', (row) => {
@@ -88,7 +88,7 @@ router.get('/api/lines/:line', (req, res, next) => {
 });
 
 router.get('/api/lines', (req, res, next) => {
-	const results = []
+	let results = []
 
 	pool.connect((err, client, done) => {
 		if (err) {
@@ -96,32 +96,30 @@ router.get('/api/lines', (req, res, next) => {
 			console.log(err);
 			return res.status(500).json({success: false, data: err});
 		}
-		
-		querySQL = `SELECT line_name FROM images
+
+		let querySQL = `SELECT line_name FROM images
 								GROUP BY line_name
-								ORDER BY line_name ASC; ` 
+								ORDER BY line_name ASC; `
 
 		const query = client.query(querySQL);
 
 		query.on('row', (row) => {
 			results.push(row);
 		});
-		
+
 		query.on('end', () => {
 			done();
 			return res.json(results);
 		});
-		
+
 	});
 });
 
 /* GET mask names */
 router.get('/api/masks', (req, res, next) => {
-	const results = [];
+	let results = [];
 
-
-
-	pool.connect((err, client, done) => { 
+	pool.connect((err, client, done) => {
 		if (err) {
 			done();
 			console.log(err);
@@ -130,7 +128,7 @@ router.get('/api/masks', (req, res, next) => {
 
 		querySQL = `SELECT mask_name FROM masks
 								GROUP BY mask_name
-								ORDER BY mask_name ASC; ` 
+								ORDER BY mask_name ASC; `
 
 		const query = client.query(querySQL);
 
@@ -148,17 +146,17 @@ router.get('/api/masks', (req, res, next) => {
 
 /* query db for one mask */
 router.param('mask', (req, res, next, id) => {
-	const results = [];
-	
+	let results = [];
+
 	pool.connect((err, client, done) => {
 		if (err) {
-			done();	
+			done();
 			console.log(err);
-			return res.status(500).json({success:false, data: err});
+			return res.status(500).json({success: false, data: err});
 		}
-		
+
 		querySQL = `SELECT * FROM masks
-							WHERE mask_name='${id}'`
+								WHERE mask_name='${id}'`
 		const query = client.query(querySQL);
 
 		query.on('row', (row) => {
@@ -170,7 +168,7 @@ router.param('mask', (req, res, next, id) => {
 			req.mask = results;
 			return next();
 		});
-	});		
+	});
 
 });
 
@@ -184,17 +182,17 @@ router.get('/api/masks/:mask', (req, res, next) => {
 router.param('colorchannel', (req, res, next, id) => {
 	let channel = JSON.parse(id);
 	const results = [];
-	
+
 	pool.connect((err, client, done) => {
 		if (err) {
-			done();	
+			done();
 			console.log(err);
-			return res.status(500).json({success:false, data: err});
+			return res.status(500).json({success: false, data: err});
 		}
-		
-		querySQL = `SELECT * FROM colorChannels
-							WHERE channel_name='${channel.name}'
-							AND channel_color='${channel.color}';`
+
+		let querySQL = `SELECT * FROM colorChannels
+								WHERE channel_name='${channel.name}'
+								AND channel_color='${channel.color}';`
 		const query = client.query(querySQL);
 
 		query.on('row', (row) => {
@@ -206,11 +204,35 @@ router.param('colorchannel', (req, res, next, id) => {
 			req.channel = results;
 			return next();
 		});
-	});		
+	});
 });
 
 router.get('/api/colorchannels/:colorchannel', (req, res, next) => {
 	res.json(req.channel);
+});
+
+router.get('/api/annotations', (req, res, next) => {
+	let results = [];
+	pool.connect((err, client, done) => {
+		if (err) {
+			done();
+			console.log(err);
+			return res.status(500).json({success: false, data: err});
+		}
+
+		let querySQL = 'SELECT * FROM annotations ORDER BY line_id;';
+		const query = client.query(querySQL);
+
+		query.on('row', (row) => {
+			results.push(row);
+		});
+
+		query.on('end', () => {
+			done();
+			return res.json(results);
+		});
+	});
+
 });
 
 
@@ -234,7 +256,7 @@ router.get('/api/adjust/:line', (req, res, next) => {
 	}
 
 	scriptExecution.stdout.on('data', (data) => {
-		image_paths += (uint8arrayToString(data))	
+		image_paths += (uint8arrayToString(data))
 	});
 
 	scriptExecution.on('exit', (code) => {
