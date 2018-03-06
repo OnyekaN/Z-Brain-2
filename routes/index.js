@@ -229,7 +229,11 @@ router.get('/api/annotations', (req, res, next) => {
 
 		query.on('end', () => {
 			done();
-			return res.json(results);
+			const annotations = {};
+			results.forEach(line => {
+				annotations[line.line_name] = line;
+			});
+			return res.json(annotations);
 		});
 	});
 
@@ -261,8 +265,7 @@ router.get('/api/adjust/:line', (req, res, next) => {
 
 	scriptExecution.on('exit', (code) => {
 		let callback = () => { console.log("Process quit with code : " + code) }
-		//setTimeout(callback, 10);
-		//
+
 		JSON.parse(image_paths).map(path => {
 			let obj = { 'line_name': line_name, 'image_path':	path }
 			image_json.push(obj);

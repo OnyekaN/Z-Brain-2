@@ -4903,7 +4903,7 @@ class LinesController {
 		this.cyanMaskImages = [];
 		this.lineName = "";
 		this.spinnerOpts = {
-			//settings for spin.js spinner
+				//settings for spin.js spinner
 			lines: 9, length: 40, width: 18, radius: 67, corners: 0.8,
 			scale: 1.0, color: '#fff', opacity: 0.55, rotate: 0, direction: 1,
 			speed: 1.9, trail: 90, fps: 20, zIndex: 2e9, className: 'spinner',
@@ -4914,7 +4914,8 @@ class LinesController {
 	}
 
 	$onInit() {
-		//GET line and mask names for sidebar
+
+			//GET line and mask names for sidebar
 		this.LinesService.getLineNames().then(response => {
 												let names = response.map(obj => {
 													let name = obj.line_name;
@@ -4940,18 +4941,18 @@ class LinesController {
 													this.annotations = response;
 												});
 
-		//Load default (Elavl3-H2BRFP) line images into cache for viewer
+			//Load default (Elavl3-H2BRFP) line images into cache for viewer
 		this.LinesService.cacheLine("Elavl3-H2BRFP").then(response => {
 													this.lineImages = response;
 												});
 	}
 
-	//Sync slice index in lines component with viewer component
+		//Sync slice index in lines component with viewer component
 	updateIndex(sliceIndex) {
 		this.sliceIndex = sliceIndex;
 	}
 
-	//Send line images to viewer component
+		//Send line images to viewer component
 	updateLine(line) {
 		this.LinesService.cacheLine(line).then(response => {
 												this.lineImages = response;
@@ -4959,7 +4960,7 @@ class LinesController {
 											});
 	}
 
-	//Send mask images to viewer component
+		//Send mask images to viewer component
 	updateMask(mask, color) {
 		if ( mask === 'None' ) {
 			this.maskImages = 'None';
@@ -4974,7 +4975,7 @@ class LinesController {
 	}
 
 
-	//Send color channel to viewer component
+		//fetch color channel for viewer component
 	updateColorChannel(line, color) {
 		if ( line === 'None' ) {
 			this.colorChannelImages = 'None';
@@ -4988,7 +4989,7 @@ class LinesController {
 		}
 	}
 
-	//Change the brightness or gamma settings on the displayed line image
+		//Change the brightness or gamma settings on the displayed line image
 	adjustLine(line, brightness, gamma) {
 		this.spinner.spin(this.spinnerTarget);
 		this.LinesService.adjustLine(line, brightness, gamma, this.sliceIndex).then(response => {
@@ -5375,22 +5376,22 @@ class ViewerController {
 	constructor(ViewerService) {
 
 		this.ViewerService = ViewerService;
-		// Initial (page load) z-slice number [range 0-137]
+			//Initial (page load) z-slice number [range 0-137]
 		this.sliceIndex = 90;
-		// Initial display line
+			//Initial display line
 		this.currentLineName = 'Elavl3-H2BRFP';
-		// Initial display image, #viewer#primary-line-image[src]
+			//Initial display image, #viewer#primary-line-image[src]
 		this.currentDisplayImage = 'images/0-Lines/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg';
 
 		this.activeMasks = [];
-		// Will be populated with arrays of mask images
+			//Object stores arrays of mask images
 		this.maskArrays = {
 			cyan: undefined,
 			green: undefined,
 			magenta: undefined,
 			yellow: undefined,
 		}
-		// Currently displayed mask image slices (each uses image src)
+			//Currently displayed mask images (each uses image src)
 		this.currentDisplayMasks = {
 			cyan: 'images/blank.png',
 			green: 'images/blank.png',
@@ -5399,13 +5400,13 @@ class ViewerController {
 		}
 
 		this.activeChannels = [];
-		// Will be populated with arrays of color channel images
+			// Will be populated with arrays of color channel images
 		this.colorChannelArrays = {
 			red: undefined,
 			green: undefined,
 			blue: undefined,
 		}
-		// Currently displayed mask image slices (each uses image src)
+			// Currently displayed mask image slices (each uses image src)
 		this.currentDisplayColorChannels = {
 			red: 'images/blank.png',
 			green: 'images/blank.png',
@@ -5651,12 +5652,18 @@ const AnnotationsComponent = {
 class AnnotationsController {
 
 	constructor() {
-		this.currentAnnotations = this.annotations;
 	}
 
 	$onChanges(changes) {
+		if ( !this.lineName && this.annotations ) {
+			let current = Object.assign({}, this.annotations['Elavl3-H2BRFP']);
+			console.log(current);
+			this.current = current;
+
+		}
+
 		if ( this.lineName ) {
-			console.log(this.annotations)
+			this.current = this.annotations[this.lineName];
 		}
 	}
 

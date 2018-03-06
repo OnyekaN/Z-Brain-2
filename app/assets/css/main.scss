@@ -84,6 +84,7 @@ body {
 
 }
 
+
 .sidebar {
 	display: inline-block;
 	position: relative;
@@ -204,7 +205,44 @@ body {
 }
 
 .annotations {
-	height: 400px;
+	margin: 35px 0 60px 0;
+	width: 1424px;
+
+	table {
+		width: 100%;
+		font-family: "Open Sans", sans-serif;
+		text-align: center;
+	}
+
+	tr:first-of-type {
+		font-family: "Raleway", serif;
+		background-color: #f2f8ff;
+	}
+
+	th {
+		padding: 8px;
+		color: #333;
+		text-align: center;
+		border-bottom: 1px solid #aaa;
+		border-bottom: 1px solid #38c;
+	}
+
+	td {
+		overflow: scroll;
+		text-align: center;
+		color: #146ec8;
+	}
+
+	.notes {
+		text-align: left;
+		min-width: 40px;
+		max-width: 100px;
+
+		div {
+			height: 45px;
+			overflow: scroll;
+		}
+	}
 }
 
 

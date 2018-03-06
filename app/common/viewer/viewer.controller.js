@@ -5,22 +5,22 @@ class ViewerController {
 	constructor(ViewerService) {
 
 		this.ViewerService = ViewerService;
-		// Initial (page load) z-slice number [range 0-137]
+			//Initial (page load) z-slice number [range 0-137]
 		this.sliceIndex = 90;
-		// Initial display line
+			//Initial display line
 		this.currentLineName = 'Elavl3-H2BRFP';
-		// Initial display image, #viewer#primary-line-image[src]
+			//Initial display image, #viewer#primary-line-image[src]
 		this.currentDisplayImage = 'images/0-Lines/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg';
 
 		this.activeMasks = [];
-		// Will be populated with arrays of mask images
+			//Object stores arrays of mask images
 		this.maskArrays = {
 			cyan: undefined,
 			green: undefined,
 			magenta: undefined,
 			yellow: undefined,
 		}
-		// Currently displayed mask image slices (each uses image src)
+			//Currently displayed mask images (each uses image src)
 		this.currentDisplayMasks = {
 			cyan: 'images/blank.png',
 			green: 'images/blank.png',
@@ -29,13 +29,13 @@ class ViewerController {
 		}
 
 		this.activeChannels = [];
-		// Will be populated with arrays of color channel images
+			// Will be populated with arrays of color channel images
 		this.colorChannelArrays = {
 			red: undefined,
 			green: undefined,
 			blue: undefined,
 		}
-		// Currently displayed mask image slices (each uses image src)
+			// Currently displayed mask image slices (each uses image src)
 		this.currentDisplayColorChannels = {
 			red: 'images/blank.png',
 			green: 'images/blank.png',
