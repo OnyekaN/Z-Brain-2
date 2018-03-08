@@ -220,7 +220,7 @@ body {
 	}
 
 	tr:first-of-type {
-		background-color: #f2f8ff;
+		background: linear-gradient(to bottom, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff);
 	}
 
 	th {
@@ -232,7 +232,7 @@ body {
 	}
 
 	td {
-		background: linear-gradient(to top, #fffcfa, #fffcfa, #f2f8ff);
+		-background: linear-gradient(to top, #fffcfa, #fffcfa, #f2f8ff);
 		overflow: scroll;
 		text-align: center;
 		color: black;
@@ -244,7 +244,8 @@ body {
 		max-width: 100px;
 
 		div {
-			height: 38px;
+			padding-top: 5px;
+			height: 40px;
 			overflow: scroll;
 		}
 	}
@@ -315,6 +316,8 @@ body {
 
 	.annotations {
 		width: calc(1603px + 5vw);
+		margin-top: 80px;
+		margin-bottom: 130px;
 
 		.notes {
 			min-width: 100px;
@@ -405,7 +408,7 @@ body {
 	}
 
 	.annotations {
-		margin: 90px 0 100px 3vw;
+		margin: 90px 0 130px 3vw;
 		width: 2277px;
 
 		.notes {

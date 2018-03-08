@@ -173,7 +173,7 @@ body {
     -webkit-border-radius: 5px;
     border-collapse: separate !important; }
   .annotations tr:first-of-type {
-    background-color: #f2f8ff; }
+    background: linear-gradient(to bottom, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff); }
   .annotations th {
     padding: 8px;
     color: #4e71de;
@@ -181,7 +181,7 @@ body {
     border-bottom: 2px solid #49d;
     text-shadow: 1px 1px #eee; }
   .annotations td {
-    background: linear-gradient(to top, #fffcfa, #fffcfa, #f2f8ff);
+    -background: linear-gradient(to top, #fffcfa, #fffcfa, #f2f8ff);
     overflow: scroll;
     text-align: center;
     color: black;
@@ -190,7 +190,8 @@ body {
     min-width: 80px;
     max-width: 100px; }
     .annotations .notes div {
-      height: 38px;
+      padding-top: 5px;
+      height: 40px;
       overflow: scroll; }
 
 @media screen and (min-width: 1601px) and (max-width: 2299px) {
@@ -242,7 +243,9 @@ body {
       left: 60px; }
 
   .annotations {
-    width: calc(1603px + 5vw); }
+    width: calc(1603px + 5vw);
+    margin-top: 80px;
+    margin-bottom: 130px; }
     .annotations .notes {
       min-width: 100px;
       max-width: 200px; }
@@ -311,7 +314,7 @@ body {
       width: 1785px !important; }
 
   .annotations {
-    margin: 90px 0 100px 3vw;
+    margin: 90px 0 130px 3vw;
     width: 2277px; }
     .annotations .notes {
       min-width: 150px;
