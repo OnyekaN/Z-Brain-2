@@ -165,6 +165,8 @@ body {
   width: 1424px;
   box-shadow: 0px -2px 4px -4px #bbb;
   font-size: .9em; }
+  .annotations tr {
+    width: 100%; }
   .annotations table {
     width: 100%;
     font-family: "Open Sans", sans-serif;
@@ -172,23 +174,24 @@ body {
     border-radius: 5px;
     -webkit-border-radius: 5px;
     border-collapse: separate !important; }
-  .annotations tr:first-of-type {
+  .annotations .headers {
     background: linear-gradient(to bottom, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff); }
   .annotations th {
+    min-width: 200px;
     padding: 8px;
-    color: #4e71de;
     text-align: center;
     border-bottom: 2px solid #49d;
-    text-shadow: 1px 1px #eee; }
+    text-shadow: 0px 0px 1px grey;
+    color: black; }
   .annotations td {
-    -background: linear-gradient(to top, #fffcfa, #fffcfa, #f2f8ff);
     overflow: scroll;
+    padding: 3px 0 15px 0;
     text-align: center;
-    color: black;
-    text-shadow: 1px 1px #ddd; }
+    text-shadow: 1px 1px #ddd;
+    color: #4e71de; }
   .annotations .notes {
-    min-width: 80px;
-    max-width: 100px; }
+    min-width: 100px;
+    max-width: 350px; }
     .annotations .notes div {
       padding-top: 5px;
       height: 40px;
@@ -243,12 +246,12 @@ body {
       left: 60px; }
 
   .annotations {
-    width: calc(1603px + 5vw);
+    width: calc(1513px + 5vw);
     margin-top: 80px;
     margin-bottom: 130px; }
     .annotations .notes {
-      min-width: 100px;
-      max-width: 200px; }
+      min-width: 150px;
+      max-width: 400px; }
       .annotations .notes div {
         height: 50px; } }
 @media screen and (min-width: 2300px) {
@@ -282,6 +285,9 @@ body {
       padding: 0 30px 0 30px !important; }
     .sidebar .download-line {
       width: 80%; }
+    .sidebar button {
+      width: 90px;
+      margin-right: 40px; }
     .sidebar .ui.search.dropdown {
       width: 100% !important; }
 
@@ -317,8 +323,8 @@ body {
     margin: 90px 0 130px 3vw;
     width: 2277px; }
     .annotations .notes {
-      min-width: 150px;
-      max-width: 250px; }
+      min-width: 200px;
+      max-width: 450px; }
       .annotations .notes div {
         height: 60px; } }
 

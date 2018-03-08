@@ -210,6 +210,10 @@ body {
 	box-shadow: 0px -2px 4px -4px #bbb;
 	font-size: .9em;
 
+	tr {
+		width: 100%;
+	}
+
 	table {
 		width: 100%;
 		font-family: "Open Sans", sans-serif;
@@ -219,29 +223,31 @@ body {
 		border-collapse: separate !important;
 	}
 
-	tr:first-of-type {
+	.headers {
 		background: linear-gradient(to bottom, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff);
 	}
 
 	th {
+		min-width: 200px;
 		padding: 8px;
-		color: #4e71de;
 		text-align: center;
 		border-bottom: 2px solid #49d;
-		text-shadow: 1px 1px #eee;
+		text-shadow: 0px 0px 1px grey;
+		color: black;
 	}
 
 	td {
-		-background: linear-gradient(to top, #fffcfa, #fffcfa, #f2f8ff);
+		//background: linear-gradient(to top, #fffcfa, #fffcfa, #f2f8ff);
 		overflow: scroll;
+		padding: 3px 0 15px 0;
 		text-align: center;
-		color: black;
 		text-shadow: 1px 1px #ddd;
+		color: #4e71de;
 	}
 
 	.notes {
-		min-width: 80px;
-		max-width: 100px;
+		min-width: 100px;
+		max-width: 350px;
 
 		div {
 			padding-top: 5px;
@@ -315,13 +321,13 @@ body {
 	}
 
 	.annotations {
-		width: calc(1603px + 5vw);
+		width: calc(1513px + 5vw);
 		margin-top: 80px;
 		margin-bottom: 130px;
 
 		.notes {
-			min-width: 100px;
-			max-width: 200px;
+			min-width: 150px;
+			max-width: 400px;
 
 			div {
 				height: 50px;
@@ -370,6 +376,11 @@ body {
 
 		.download-line { width: 80% ; }
 
+		button {
+			width: 90px;
+			margin-right: 40px;
+		}
+
 		.ui.search.dropdown { width: 100% !important; }
 	}
 
@@ -412,8 +423,8 @@ body {
 		width: 2277px;
 
 		.notes {
-			min-width: 150px;
-			max-width: 250px;
+			min-width: 200px;
+			max-width: 450px;
 
 			div {
 				height: 60px;

@@ -1,29 +1,39 @@
-<div>
+<div ng-show="$ctrl.annotations">
 	<table>
-		<tr>
+		<tr class="headers">
 			<th>Line Name</th>
-			<th>Identifier Name</th>
-			<th>Identifier Link</th>
 			<th>No° Fish Imaged</th>
 			<th>Regions of Expression</th>
 			<th>Keywords</th>
-			<th>Source Animal</th>
-			<th>Source Reagent</th>
-			<th>Source Images</th>
 			<th class="notes">References</th>
-			<th class="notes">Notes</th>
 		</tr>
 		<tr>
 			<td>{{$ctrl.current.line_name}}</td>
-			<td>{{$ctrl.current.identifer_name}}</td>
-			<td>{{$ctrl.current.identifer_link}}</td>
 			<td>{{$ctrl.current.number_of_fish_imaged}}</td>
 			<td>{{$ctrl.current.regions_of_expression}}</td>
 			<td>{{$ctrl.current.keywords.join(', ')}}</td>
-			<td>{{$ctrl.current.source_animal}}</td>
+			<td class="notes"><div>{{$ctrl.current.refs}}</div></td>
+		</tr>
+		<br>
+	</table>
+	<table>
+		<tr class="headers">
+			<th>Source Reagent</th>
+			<th>Source Images</th>
+			<th>Identifier Name</th>
+			<th>Identifier Link</th>
+			<th class="notes">Notes</th>
+		</tr>
+		<tr>
 			<td>{{$ctrl.current.source_reagent}}</td>
 			<td>{{$ctrl.current.source_images}}</td>
-			<td class="notes"><div>{{$ctrl.current.refs}}<div></td>
+			<td>{{$ctrl.current.identifier_name}}</td>
+			<td><a href="{{$ctrl.current.identifer_link.split(';')[0]}}">
+				{{$ctrl.current.identifier_link.split(';')[0]}}</a>
+				<a ng-show="{{$ctrl.current.identifier_link.split(';')[1]}}"
+					 href="{{$ctrl.current.identifier_link.split(';')[1]}}">
+				{{$ctrl.current.identifier_link.split(';')[1]}}</a>
+			</td>
 			<td class="notes"><div>{{$ctrl.current.notes}}</div></td>
 		</tr>
 	</table>
