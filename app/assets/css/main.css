@@ -73,7 +73,7 @@ body {
   vertical-align: top;
   margin-right: 30px;
   background-color: #eee;
-  box-shadow: 1px 1px 1px #bbb; }
+  box-shadow: 1px 1px 2px #bbb; }
   .sidebar .inner {
     padding-left: 10px; }
   .sidebar button {
@@ -161,37 +161,45 @@ body {
     width: 1050 !important; }
 
 .annotations {
-  margin: 35px 0 60px 0;
-  width: 1424px; }
+  margin: 60px 0 100px 0;
+  width: 1424px;
+  box-shadow: 0px -2px 4px -4px #bbb;
+  font-size: .9em; }
   .annotations table {
     width: 100%;
     font-family: "Open Sans", sans-serif;
-    text-align: center; }
+    text-align: center;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-collapse: separate !important; }
   .annotations tr:first-of-type {
-    font-family: "Raleway", serif;
     background-color: #f2f8ff; }
   .annotations th {
     padding: 8px;
-    color: #333;
+    color: #4e71de;
     text-align: center;
-    border-bottom: 1px solid #aaa;
-    border-bottom: 1px solid #38c; }
+    border-bottom: 2px solid #49d;
+    text-shadow: 1px 1px #eee; }
   .annotations td {
+    background: linear-gradient(to top, #fffcfa, #fffcfa, #f2f8ff);
     overflow: scroll;
     text-align: center;
-    color: #146ec8; }
+    color: black;
+    text-shadow: 1px 1px #ddd; }
   .annotations .notes {
-    text-align: left;
-    min-width: 40px;
+    min-width: 80px;
     max-width: 100px; }
     .annotations .notes div {
-      height: 45px;
+      height: 40px;
       overflow: scroll; }
 
 @media screen and (min-width: 1601px) and (max-width: 2299px) {
   body {
     width: 100%;
     min-width: 100vw; }
+
+  .navbar li {
+    margin-right: 40px !important; }
 
   .header {
     width: 100vw !important; }
@@ -220,6 +228,9 @@ body {
 
   .viewer {
     min-height: 680px; }
+    .viewer .viewer-ctrl-panel {
+      top: 40px;
+      left: 240px; }
     .viewer .primary-line-image {
       top: 130px;
       left: 60px; }
@@ -228,14 +239,22 @@ body {
       left: 60px; }
     .viewer .color-channel {
       top: 130px;
-      left: 60px; } }
+      left: 60px; }
+
+  .annotations {
+    width: calc(1603px + 5vw); }
+    .annotations .notes {
+      min-width: 100px;
+      max-width: 200px; }
+      .annotations .notes div {
+        height: 50px; } }
 @media screen and (min-width: 2300px) {
   body {
     width: 100%;
     min-width: 100vw; }
 
   .navbar li {
-    margin-right: 50px !important; }
+    margin-right: 60px !important; }
 
   .main {
     min-width: 110vw; }
@@ -267,10 +286,8 @@ body {
     min-height: 900px;
     min-width: 1820px !important; }
     .viewer .viewer-ctrl-panel {
-      position: absolute;
-      top: 20px;
-      left: 400px;
-      z-index: 1000; }
+      top: 60px;
+      left: 400px; }
       .viewer .viewer-ctrl-panel .current-text {
         margin-left: 230px !important; }
       .viewer .viewer-ctrl-panel .z-index-div {
@@ -291,6 +308,15 @@ body {
     .viewer .color-channel {
       top: 130px;
       height: 748px !important;
-      width: 1785px !important; } }
+      width: 1785px !important; }
+
+  .annotations {
+    margin: 90px 0 100px 3vw;
+    width: 2277px; }
+    .annotations .notes {
+      min-width: 150px;
+      max-width: 250px; }
+      .annotations .notes div {
+        height: 60px; } }
 
 /*# sourceMappingURL=main.css.map */

@@ -94,7 +94,7 @@ body {
 	vertical-align: top;
 	margin-right: 30px;
 	background-color: #eee;
-	box-shadow: 1px 1px 1px #bbb;
+	box-shadow: 1px 1px 2px #bbb;
 
 	.inner { padding-left: 10px; }
 
@@ -205,52 +205,60 @@ body {
 }
 
 .annotations {
-	margin: 35px 0 60px 0;
+	margin: 60px 0 100px 0;
 	width: 1424px;
+	box-shadow: 0px -2px 4px -4px #bbb;
+	font-size: .9em;
 
 	table {
 		width: 100%;
 		font-family: "Open Sans", sans-serif;
 		text-align: center;
+		border-radius: 5px;
+		-webkit-border-radius: 5px;
+		border-collapse: separate !important;
 	}
 
 	tr:first-of-type {
-		font-family: "Raleway", serif;
 		background-color: #f2f8ff;
 	}
 
 	th {
 		padding: 8px;
-		color: #333;
+		color: #4e71de;
 		text-align: center;
-		border-bottom: 1px solid #aaa;
-		border-bottom: 1px solid #38c;
+		border-bottom: 2px solid #49d;
+		text-shadow: 1px 1px #eee;
 	}
 
 	td {
+		background: linear-gradient(to top, #fffcfa, #fffcfa, #f2f8ff);
 		overflow: scroll;
 		text-align: center;
-		color: #146ec8;
+		color: black;
+		text-shadow: 1px 1px #ddd;
 	}
 
 	.notes {
-		text-align: left;
-		min-width: 40px;
+		min-width: 80px;
 		max-width: 100px;
 
 		div {
-			height: 45px;
+			height: 40px;
 			overflow: scroll;
 		}
 	}
 }
 
 
-
 @media screen and (min-width: 1601px) and (max-width: 2299px) {
 	body {
 		width: 100%;
 		min-width: 100vw;
+	}
+
+	.navbar {
+	 	li { margin-right: 40px !important; }
 	}
 
 	.header {
@@ -285,11 +293,15 @@ body {
 			width: 80%;
 			margin-bottom: 10px;
 		}
-
 	}
 
 	.viewer {
 		min-height: 680px;
+
+		.viewer-ctrl-panel {
+			top: 40px;
+			left: 240px;
+		}
 
 		@mixin viewer-img-pos() {
 			top: 130px;
@@ -299,6 +311,21 @@ body {
 		.primary-line-image { @include viewer-img-pos() }
 		.mask-img { @include viewer-img-pos() }
 		.color-channel { @include viewer-img-pos() }
+	}
+
+	.annotations {
+		width: calc(1603px + 5vw);
+
+		.notes {
+			min-width: 100px;
+			max-width: 200px;
+
+			div {
+				height: 50px;
+			}
+		}
+
+
 	}
 
 }
@@ -311,7 +338,7 @@ body {
 	}
 
 	.navbar {
-	 	li { margin-right: 50px !important; }
+	 	li { margin-right: 60px !important; }
 	}
 
 	$media-xl-min-width: 110vw;
@@ -348,10 +375,8 @@ body {
 		min-width: 1820px !important;
 
 		.viewer-ctrl-panel {
-			position: absolute;
-			top: 20px;
+			top: 60px;
 			left: 400px;
-			z-index: 1000;
 
 			.current-text { margin-left: 230px !important; }
 
@@ -377,6 +402,20 @@ body {
 
 		.color-channel { @include xl-viewer-img-props() }
 
+	}
+
+	.annotations {
+		margin: 90px 0 100px 3vw;
+		width: 2277px;
+
+		.notes {
+			min-width: 150px;
+			max-width: 250px;
+
+			div {
+				height: 60px;
+			}
+		}
 	}
 
 }
