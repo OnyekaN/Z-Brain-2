@@ -161,7 +161,8 @@ body {
     width: 1050 !important; }
 
 .annotations {
-  margin: 60px 0 100px 0;
+  background-color: #fffcfa;
+  margin: 70px 0 100px 0;
   width: 1424px;
   box-shadow: 0px -2px 4px -4px #bbb;
   font-size: .9em; }
@@ -175,14 +176,16 @@ body {
     -webkit-border-radius: 5px;
     border-collapse: separate !important; }
   .annotations .headers {
-    background: linear-gradient(to bottom, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff); }
+    height: 50px;
+    background-color: #f2f8ff; }
   .annotations th {
     min-width: 200px;
     padding: 8px;
     text-align: center;
     border-bottom: 2px solid #49d;
     text-shadow: 0px 0px 1px grey;
-    color: black; }
+    color: #333;
+    font-size: 1.1em; }
   .annotations td {
     overflow: scroll;
     padding: 3px 0 15px 0;

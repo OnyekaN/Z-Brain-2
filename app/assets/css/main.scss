@@ -205,7 +205,8 @@ body {
 }
 
 .annotations {
-	margin: 60px 0 100px 0;
+	background-color: #fffcfa;
+	margin: 70px 0 100px 0;
 	width: 1424px;
 	box-shadow: 0px -2px 4px -4px #bbb;
 	font-size: .9em;
@@ -224,7 +225,9 @@ body {
 	}
 
 	.headers {
-		background: linear-gradient(to bottom, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff);
+		height: 50px;
+		//background: linear-gradient(to top, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff);
+		background-color: #f2f8ff;
 	}
 
 	th {
@@ -233,11 +236,11 @@ body {
 		text-align: center;
 		border-bottom: 2px solid #49d;
 		text-shadow: 0px 0px 1px grey;
-		color: black;
+		color: #333;
+		font-size: 1.1em;
 	}
 
 	td {
-		//background: linear-gradient(to top, #fffcfa, #fffcfa, #f2f8ff);
 		overflow: scroll;
 		padding: 3px 0 15px 0;
 		text-align: center;
