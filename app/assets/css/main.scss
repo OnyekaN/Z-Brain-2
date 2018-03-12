@@ -225,9 +225,13 @@ body {
 	}
 
 	.headers {
-		height: 50px;
-		background: linear-gradient(to bottom, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff);
+		height: 45px;
+		background: linear-gradient(to bottom, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff, #f2f8ff);
 		//background-color: #f2f8ff;
+	}
+
+	.headers:first-of-type {
+		max-width: 80px;
 	}
 
 	th {
@@ -235,7 +239,7 @@ body {
 		padding: 8px;
 		text-align: center;
 		border-bottom: 2px solid #49d;
-		text-shadow: 1px 1px 1px #49d;
+		text-shadow: 1px 1px 2px #49d;
 		color: #333;
 		font-size: 1.1em;
 	}
@@ -244,7 +248,7 @@ body {
 		overflow: scroll;
 		padding: 3px 0 15px 0;
 		text-align: center;
-		text-shadow: 1px 1px #ddd;
+		text-shadow: 1px 1px 2px #dde;
 		color: #889;
 	}
 
@@ -253,7 +257,7 @@ body {
 		max-width: 350px;
 
 		div {
-			padding-top: 5px;
+			padding-top: 15px;
 			height: 40px;
 			overflow: scroll;
 		}

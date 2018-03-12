@@ -176,27 +176,29 @@ body {
     -webkit-border-radius: 5px;
     border-collapse: separate !important; }
   .annotations .headers {
-    height: 50px;
-    background: linear-gradient(to bottom, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff); }
+    height: 45px;
+    background: linear-gradient(to bottom, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff, #f2f8ff); }
+  .annotations .headers:first-of-type {
+    max-width: 80px; }
   .annotations th {
     min-width: 200px;
     padding: 8px;
     text-align: center;
     border-bottom: 2px solid #49d;
-    text-shadow: 1px 1px 1px #49d;
+    text-shadow: 1px 1px 2px #49d;
     color: #333;
     font-size: 1.1em; }
   .annotations td {
     overflow: scroll;
     padding: 3px 0 15px 0;
     text-align: center;
-    text-shadow: 1px 1px #ddd;
+    text-shadow: 1px 1px 2px #dde;
     color: #889; }
   .annotations .notes {
     min-width: 100px;
     max-width: 350px; }
     .annotations .notes div {
-      padding-top: 5px;
+      padding-top: 15px;
       height: 40px;
       overflow: scroll; }
 
