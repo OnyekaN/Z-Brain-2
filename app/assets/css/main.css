@@ -177,13 +177,13 @@ body {
     border-collapse: separate !important; }
   .annotations .headers {
     height: 50px;
-    background-color: #f2f8ff; }
+    background: linear-gradient(to bottom, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff); }
   .annotations th {
     min-width: 200px;
     padding: 8px;
     text-align: center;
     border-bottom: 2px solid #49d;
-    text-shadow: 0px 0px 1px grey;
+    text-shadow: 1px 1px 1px #49d;
     color: #333;
     font-size: 1.1em; }
   .annotations td {
@@ -191,7 +191,7 @@ body {
     padding: 3px 0 15px 0;
     text-align: center;
     text-shadow: 1px 1px #ddd;
-    color: #4e71de; }
+    color: grey; }
   .annotations .notes {
     min-width: 100px;
     max-width: 350px; }
