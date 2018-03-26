@@ -98,8 +98,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				$stateProvider
 				.state('home', {
 					url: '/home',
-					templateUrl: '/home.html'	
-				})	
+					templateUrl: '/home.html'
+				})
 				.state('about', {
 					url: '/about',
 					templateUrl: 'views/about.html'
@@ -115,12 +115,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				.state('downloads', {
 					url: '/downloads',
 					templateUrl: 'views/downloads.html'
+				})
+				.state('upload', {
+					url: '/upload',
+					templateUrl: 'views/upload.html'
 				});
+
 			$urlRouterProvider.when('/', '/home');
-			$urlRouterProvider.otherwise('/home');	
-			}])	
+			$urlRouterProvider.otherwise('/home');
+			}])
 		.name;
 })()
+
 
 
 
@@ -131,7 +137,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /**
  * State-based routing for AngularJS
- * @version v0.4.2
+ * @version v0.4.3
  * @link http://angular-ui.github.com/
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -1476,7 +1482,7 @@ function $UrlMatcherFactory() {
       encode: valToString,
       decode: function(val) { return parseInt(val, 10); },
       is: function(val) { return val !== undefined && val !== null && this.decode(val.toString()) === val; },
-      pattern: /\d+/
+      pattern: /-?\d+/
     },
     "bool": {
       encode: function(val) { return val ? 1 : 0; },
@@ -3645,7 +3651,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
 
       return !params || objectKeys(params).reduce(function(acc, key) {
         var paramDef = state.params[key];
-        return acc && !paramDef || paramDef.type.equals($stateParams[key], params[key]);
+        return acc && (!paramDef || paramDef.type.equals($stateParams[key], params[key]));
       }, true);
     };
 
@@ -4903,7 +4909,7 @@ class LinesController {
 		this.cyanMaskImages = [];
 		this.lineName = "";
 		this.spinnerOpts = {
-				//settings for spin.js spinner
+				// settings for spin.js spinner
 			lines: 9, length: 40, width: 18, radius: 67, corners: 0.8,
 			scale: 1.0, color: '#fff', opacity: 0.55, rotate: 0, direction: 1,
 			speed: 1.9, trail: 90, fps: 20, zIndex: 2e9, className: 'spinner',
@@ -4915,18 +4921,18 @@ class LinesController {
 
 	$onInit() {
 
-			//GET line and mask names for sidebar
+			// GET line and mask names for sidebar
 		this.LinesService.getLineNames().then(response => {
 												let names = response.map(obj => {
 													let name = obj.line_name;
 													if ( name.indexOf('MH_') !== -1 )
-														name = "Z1"+name; //Prefix it to end up near the bottom after sort
+														name = "Z1" + name; // prefix it to end up near the bottom after sort
 													return name;
 												});
 												names = names.sort();
 												names = names.map(name => {
 													if ( name.indexOf('Z1') !== -1 )
-														name = name.substring(2); //Strip prefix
+														name = name.substring(2); // strip prefix
 													return name;
 												});
 												this.lines = names;
@@ -4941,27 +4947,33 @@ class LinesController {
 													this.annotations = response;
 												});
 
-			//Load default (Elavl3-H2BRFP) line images into cache for viewer
+			// cache default line for viewer component
 		this.LinesService.cacheLine("Elavl3-H2BRFP").then(response => {
-													this.lineImages = response;
-												});
+			this.lineImages = response;
+		});
 	}
 
-		//Sync slice index in lines component with viewer component
+		// sync slice index in lines component with viewer component
 	updateIndex(sliceIndex) {
 		this.sliceIndex = sliceIndex;
 	}
 
-		//Send line images to viewer component
+		// cache selected line images for viewer component
 	updateLine(line) {
-		this.LinesService.cacheLine(line).then(response => {
+
+		if ( line.startsWith('Upload') ){
+			this.openUploadDialog();
+		} else {
+			this.LinesService.cacheLine(line).then(response => {
 												this.lineImages = response;
 												this.lineName = line;
 											});
+		}
 	}
 
-		//Send mask images to viewer component
+		// cache mask images for viewer component
 	updateMask(mask, color) {
+
 		if ( mask === 'None' ) {
 			this.maskImages = 'None';
 			this.maskColor = color;
@@ -4974,8 +4986,7 @@ class LinesController {
 		}
 	}
 
-
-		//fetch color channel for viewer component
+		// get color channel for viewer component
 	updateColorChannel(line, color) {
 		if ( line === 'None' ) {
 			this.colorChannelImages = 'None';
@@ -4989,13 +5000,25 @@ class LinesController {
 		}
 	}
 
-		//Change the brightness or gamma settings on the displayed line image
+		// change the brightness or gamma settings on the displayed line image
 	adjustLine(line, brightness, gamma) {
 		this.spinner.spin(this.spinnerTarget);
-		this.LinesService.adjustLine(line, brightness, gamma, this.sliceIndex).then(response => {
+		this.LinesService.adjustLine(line, brightness, gamma, this.sliceIndex)
+			.then(response => {
 												this.lineImages = response;
 												this.spinner.stop();
 												});
+	}
+
+	 // open and close upload dialog 
+	openUploadDialog() {
+		let el = document.getElementsByClassName('upload')[0];
+		el.className += " upload-active";
+	}
+
+	closeUploadDialog() {
+		let el = document.getElementsByClassName('upload')[0];
+		el.className = el.className.replace(' upload-active', '');
 	}
 
 }
@@ -5177,12 +5200,13 @@ class NavService {
 	constructor() {
 		this.pages = [
 			{ name: 'Home', link: '#/home' },
-			{ name: 'About', link: '#/about' },	
+			{ name: 'About', link: '#/about' },
 			{ name: 'Contributing to the Z-Brain', link: '#/contributing' },
 			{ name: 'FAQ', link: '#/faq' },
 			{ name: 'Downloads', link: '#/downloads' },
 			{ name: 'Multiscale Virtual Fish', link: 'http://www.zib.de/projects/multiscale-virtual-fish'},
 			{ name: 'Engert Lab Lines Resource', link: 'http://engertlab.fas.harvard.edu/Enhancer-Trap/'},
+			{ name: 'Upload (Beta)', link: '#/upload' }
 		]
 	}
 	getActive() {
@@ -5232,7 +5256,7 @@ const SidebarComponent = {
 		onUpdateLine: '&',
 		onUpdateMask: '&',
 		onUpdateColorChannel: '&',
-		onAdjustLine: '&'
+		onAdjustLine: '&',
 	},
 	controller: __WEBPACK_IMPORTED_MODULE_0__sidebar_controller__["a" /* default */],
 	templateUrl: 'views/sidebar/sidebar.html'
@@ -5255,23 +5279,35 @@ class SidebarController {
 		this.gamma = 1;
 		this.slice = 90;
 		this.selected = 'Elavl3-H2BRFP';
+		this.current = 'Elavl3-H2BRFP';
 		this.masks = {
 			cyan: 'none',
 			green: 'none',
 			magenta: 'none',
 			yellow: 'none'
 		}
+
 		this.colorChannels = {
 			red: 'none',
 			green: 'none',
 			blue: 'none'
 		}
 	}
+
+	onUpdateLineWrapper(line) {
+		if ( !line.line.startsWith('Upload') ) {
+			this.current = line.line;
+		}
+		this.onUpdateLine({line: this.selected});
+		this.selected = this.current;
+	}
+
 	resetValues() {
 		this.brightness = 1;
 		this.gamma = 1;
 		this.onUpdateLine({line: this.selected});
 	}
+
 	gaEvent() {
 		ga('send', {
 			hitType: 'event',
@@ -5301,7 +5337,7 @@ function selectDirective() {
 		link: function(scope, elem, attrs) {
 			$(elem)
 				.dropdown({
-					fullTextSearch: true		
+					fullTextSearch: true
 				});
 		}
 	}
@@ -5376,37 +5412,37 @@ class ViewerController {
 	constructor(ViewerService) {
 
 		this.ViewerService = ViewerService;
-			//Initial (page load) z-slice number [range 0-137]
+			// initial (page load) z-slice number [range 0-137]
 		this.sliceIndex = 90;
-			//Initial display line
+			// initial display line
 		this.currentLineName = 'Elavl3-H2BRFP';
-			//Initial display image, #viewer#primary-line-image[src]
+			// initial display image, #viewer#primary-line-image[src]
 		this.currentDisplayImage = 'images/0-Lines/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg';
 
 		this.activeMasks = [];
-			//Object stores arrays of mask images
+			// object stores arrays of mask images
 		this.maskArrays = {
 			cyan: undefined,
 			green: undefined,
 			magenta: undefined,
 			yellow: undefined,
 		}
-			//Currently displayed mask images (each uses image src)
+			// currently displayed mask images (each uses image src)
 		this.currentDisplayMasks = {
 			cyan: 'images/blank.png',
 			green: 'images/blank.png',
 			magenta: 'images/blank.png',
-			yellow: 'images/blank.png',
+			yellow: 'images/blank.png'
 		}
 
 		this.activeChannels = [];
-			// Will be populated with arrays of color channel images
+			// will be populated with arrays of color channel images
 		this.colorChannelArrays = {
 			red: undefined,
 			green: undefined,
 			blue: undefined,
 		}
-			// Currently displayed mask image slices (each uses image src)
+			// currently displayed mask image slices (each uses image src)
 		this.currentDisplayColorChannels = {
 			red: 'images/blank.png',
 			green: 'images/blank.png',
@@ -5415,6 +5451,7 @@ class ViewerController {
 	}
 
 	$onInit() {
+
 	}
 
 	$onChanges(changes) {
@@ -5470,17 +5507,17 @@ class ViewerController {
 	 */
 	updateSlice() {
 
-		// Update displayed slice image
+		// update displayed slice image
 		this.onUpdateIndex({sliceIndex:this.sliceIndex});
 
-		// Update active displayed masks
+		// update active displayed masks
 		this.activeMasks.forEach((color) => {
 			if ( Array.isArray(this.maskArrays[color]) ) {
 				this.currentDisplayMasks[color] = this.maskArrays[color][this.sliceIndex].src;
 			}
 		});
 
-		// Update active displayed color channels
+		// update active displayed color channels
 		this.activeChannels.forEach((color) => {
 			if ( Array.isArray(this.colorChannelArrays[color]) ) {
 				this.currentDisplayColorChannels[color] = this.colorChannelArrays[color][this.sliceIndex].src;
@@ -5657,7 +5694,6 @@ class AnnotationsController {
 	$onChanges(changes) {
 		if ( !this.lineName && this.annotations ) {
 			let current = Object.assign({}, this.annotations['Elavl3-H2BRFP']);
-			console.log(current);
 			this.current = current;
 
 		}

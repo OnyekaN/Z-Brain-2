@@ -12,7 +12,7 @@ class LinesController {
 		this.cyanMaskImages = [];
 		this.lineName = "";
 		this.spinnerOpts = {
-				//settings for spin.js spinner
+				// settings for spin.js spinner
 			lines: 9, length: 40, width: 18, radius: 67, corners: 0.8,
 			scale: 1.0, color: '#fff', opacity: 0.55, rotate: 0, direction: 1,
 			speed: 1.9, trail: 90, fps: 20, zIndex: 2e9, className: 'spinner',
@@ -24,18 +24,18 @@ class LinesController {
 
 	$onInit() {
 
-			//GET line and mask names for sidebar
+			// GET line and mask names for sidebar
 		this.LinesService.getLineNames().then(response => {
 												let names = response.map(obj => {
 													let name = obj.line_name;
 													if ( name.indexOf('MH_') !== -1 )
-														name = "Z1"+name; //Prefix it to end up near the bottom after sort
+														name = "Z1" + name; // prefix it to end up near the bottom after sort
 													return name;
 												});
 												names = names.sort();
 												names = names.map(name => {
 													if ( name.indexOf('Z1') !== -1 )
-														name = name.substring(2); //Strip prefix
+														name = name.substring(2); // strip prefix
 													return name;
 												});
 												this.lines = names;
@@ -50,27 +50,33 @@ class LinesController {
 													this.annotations = response;
 												});
 
-			//Load default (Elavl3-H2BRFP) line images into cache for viewer
+			// cache default line for viewer component
 		this.LinesService.cacheLine("Elavl3-H2BRFP").then(response => {
-													this.lineImages = response;
-												});
+			this.lineImages = response;
+		});
 	}
 
-		//Sync slice index in lines component with viewer component
+		// sync slice index in lines component with viewer component
 	updateIndex(sliceIndex) {
 		this.sliceIndex = sliceIndex;
 	}
 
-		//Send line images to viewer component
+		// cache selected line images for viewer component
 	updateLine(line) {
-		this.LinesService.cacheLine(line).then(response => {
+
+		if ( line.startsWith('Upload') ){
+			this.openUploadDialog();
+		} else {
+			this.LinesService.cacheLine(line).then(response => {
 												this.lineImages = response;
 												this.lineName = line;
 											});
+		}
 	}
 
-		//Send mask images to viewer component
+		// cache mask images for viewer component
 	updateMask(mask, color) {
+
 		if ( mask === 'None' ) {
 			this.maskImages = 'None';
 			this.maskColor = color;
@@ -83,8 +89,7 @@ class LinesController {
 		}
 	}
 
-
-		//fetch color channel for viewer component
+		// get color channel for viewer component
 	updateColorChannel(line, color) {
 		if ( line === 'None' ) {
 			this.colorChannelImages = 'None';
@@ -98,13 +103,25 @@ class LinesController {
 		}
 	}
 
-		//Change the brightness or gamma settings on the displayed line image
+		// change the brightness or gamma settings on the displayed line image
 	adjustLine(line, brightness, gamma) {
 		this.spinner.spin(this.spinnerTarget);
-		this.LinesService.adjustLine(line, brightness, gamma, this.sliceIndex).then(response => {
+		this.LinesService.adjustLine(line, brightness, gamma, this.sliceIndex)
+			.then(response => {
 												this.lineImages = response;
 												this.spinner.stop();
 												});
+	}
+
+	 // open and close upload dialog 
+	openUploadDialog() {
+		let el = document.getElementsByClassName('upload')[0];
+		el.className += " upload-active";
+	}
+
+	closeUploadDialog() {
+		let el = document.getElementsByClassName('upload')[0];
+		el.className = el.className.replace(' upload-active', '');
 	}
 
 }

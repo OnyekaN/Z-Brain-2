@@ -17,8 +17,8 @@ import Common from './common/index';
 				$stateProvider
 				.state('home', {
 					url: '/home',
-					templateUrl: '/home.html'	
-				})	
+					templateUrl: '/home.html'
+				})
 				.state('about', {
 					url: '/about',
 					templateUrl: 'views/about.html'
@@ -34,11 +34,17 @@ import Common from './common/index';
 				.state('downloads', {
 					url: '/downloads',
 					templateUrl: 'views/downloads.html'
+				})
+				.state('upload', {
+					url: '/upload',
+					templateUrl: 'views/upload.html'
 				});
+
 			$urlRouterProvider.when('/', '/home');
-			$urlRouterProvider.otherwise('/home');	
-			}])	
+			$urlRouterProvider.otherwise('/home');
+			}])
 		.name;
 })()
+
 
 

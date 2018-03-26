@@ -4,8 +4,28 @@ var router = express.Router();
 const { Pool } = require('pg');
 const path = require('path');
 const c = require('./connectionString').connectionString;
-const connectionString = process.env.DATABASE_URL || c; 
+const connectionString = process.env.DATABASE_URL || c;
 const findRemoveSync = require('find-remove');
+const multer = require('multer');
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, './app/assets/images/1-TemporaryLineImages')
+	},
+	filename: (req, file, cb) => {
+		cb(null, file.originalname)
+	}
+});
+const upload = multer({
+	storage: storage,
+	fileFilter: (req, file, callback) => {
+		let ext = path.extname(file.originalname);
+		if ( ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg'
+			&& ext !== '.gif' && ext !== '.tif' && ext !== '.tiff' ) {
+				return callback(new Error('Only images are allowed'));
+			}
+			callback(null, true)
+	},
+});
 
 const pool = new Pool({
 	connectionString: connectionString
@@ -78,7 +98,7 @@ router.param('line', (req, res, next, id) => {
 			req.line = results;
 			return next();
 		});
-	});		
+	});
 
 });
 
@@ -279,6 +299,13 @@ router.get('/api/adjust/:line', (req, res, next) => {
 	});
 
 
+});
+
+// Upload image slices or tiff stacks for viewing
+router.post('/api/upload', upload.array('pic', 500), (req, res, next) => {
+	console.log(req.files);
+
+	res.json(req.files);
 });
 
 

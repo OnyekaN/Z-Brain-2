@@ -160,6 +160,53 @@ body {
     height: 440px !important;
     width: 1050 !important; }
 
+.upload {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  height: 100vh;
+  width: 100vw;
+  background-color: #ffffff66;
+  transition: all 400ms ease;
+  visibility: hidden;
+  opacity: .01; }
+  .upload .upload-container {
+    position: absolute;
+    top: 25%;
+    left: 450px;
+    height: 400px;
+    width: 400px;
+    padding: 30px;
+    padding-top: 50px;
+    background-color: #fffffffc;
+    border: 4px solid #222;
+    border-radius: 10px; }
+  .upload .upload-info {
+    font-family: 'Raleway', Helvetica, Sans-serif; }
+    .upload .upload-info ol {
+      font-family: Verdana; }
+    .upload .upload-info input:focus {
+      outline: None; }
+  .upload .upload-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #cccccc;
+    border-radius: 4px;
+    font-family: Arial;
+    border: None;
+    transition: all 200ms ease; }
+  .upload .upload-close:focus {
+    outline: None; }
+  .upload .upload-close:hover {
+    background-color: lightGreen;
+    color: black; }
+
+.upload-active {
+  visibility: visible;
+  opacity: 1; }
+
 .annotations {
   background-color: #fffcfa;
   margin: 70px 0 100px 0;
