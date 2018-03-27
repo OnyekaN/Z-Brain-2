@@ -131,7 +131,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /**
  * State-based routing for AngularJS
- * @version v0.4.2
+ * @version v0.4.3
  * @link http://angular-ui.github.com/
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -1476,7 +1476,7 @@ function $UrlMatcherFactory() {
       encode: valToString,
       decode: function(val) { return parseInt(val, 10); },
       is: function(val) { return val !== undefined && val !== null && this.decode(val.toString()) === val; },
-      pattern: /\d+/
+      pattern: /-?\d+/
     },
     "bool": {
       encode: function(val) { return val ? 1 : 0; },
@@ -3645,7 +3645,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
 
       return !params || objectKeys(params).reduce(function(acc, key) {
         var paramDef = state.params[key];
-        return acc && !paramDef || paramDef.type.equals($stateParams[key], params[key]);
+        return acc && (!paramDef || paramDef.type.equals($stateParams[key], params[key]));
       }, true);
     };
 
@@ -5177,10 +5177,11 @@ class NavService {
 	constructor() {
 		this.pages = [
 			{ name: 'Home', link: '#/home' },
-			{ name: 'About', link: '#/about' },	
+			{ name: 'About', link: '#/about' },
 			{ name: 'Contributing to the Z-Brain', link: '#/contributing' },
 			{ name: 'FAQ', link: '#/faq' },
 			{ name: 'Downloads', link: '#/downloads' },
+			{ name: 'Zebrafish EM', link: 'http://hildebrand16.neurodata.io/catmaid/?pid=6&zp=537540&yp=351910.65&xp=303051.45&tool=tracingtool&sg=2&sgs=4' },
 			{ name: 'Multiscale Virtual Fish', link: 'http://www.zib.de/projects/multiscale-virtual-fish'},
 			{ name: 'Engert Lab Lines Resource', link: 'http://engertlab.fas.harvard.edu/Enhancer-Trap/'},
 		]

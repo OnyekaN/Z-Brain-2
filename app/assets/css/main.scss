@@ -235,6 +235,7 @@ body {
 	}
 
 	th {
+		overflow: auto;
 		min-width: 200px;
 		padding: 8px;
 		text-align: center;
@@ -245,7 +246,7 @@ body {
 	}
 
 	td {
-		overflow: scroll;
+		overflow: auto;
 		padding: 3px 0 15px 0;
 		text-align: center;
 		text-shadow: 1px 1px 2px #dde;
@@ -257,7 +258,7 @@ body {
 		max-width: 350px;
 
 		div {
-			padding-top: 15px;
+			padding-top: 12px;
 			height: 40px;
 			overflow: scroll;
 		}
