@@ -44,9 +44,17 @@ class ViewerController {
 	}
 
 	$onInit() {
+
+		/* Handle URL resolve */
+		if ( this.resolvedLineImages.length ) {
+			this.lineImages = this.resolvedLineImages;
+			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
+			this.currentLineName = this.resolvedLineName;
+		}
 	}
 
 	$onChanges(changes) {
+
 		/* On new set of lines images load, update display
 		 * lineImages << LinesComponent
 		 */
@@ -59,7 +67,6 @@ class ViewerController {
 		 * maskImages << LinesComponent
 		 */
 		if ( this.maskImages ) {
-
 			let color = this.maskColor;
 			if ( !this.activeMasks.includes(color) )
 				this.activeMasks.push(color)
@@ -78,7 +85,6 @@ class ViewerController {
 		 * colorChannelImages << LinesComponent
 		 */
 		if ( this.colorChannelImages ) {
-
 			let color = this.colorChannelColor;
 			if ( !this.activeChannels.includes(color) )
 				this.activeChannels.push(color)
@@ -92,7 +98,6 @@ class ViewerController {
 				this.currentDisplayColorChannels[color] = this.colorChannelArrays[color][this.sliceIndex].src;
 			}
 		}
-
 	}
 
 	/* On slider change, update display with new slice number

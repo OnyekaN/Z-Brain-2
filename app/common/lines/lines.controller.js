@@ -2,7 +2,7 @@
 'use strict'
 
 class LinesController {
-	constructor(LinesService) {
+	constructor(LinesService, lineData) {
 		this.LinesService = LinesService;
 		this.lines = [];
 		this.masks = [];
@@ -23,7 +23,6 @@ class LinesController {
 	}
 
 	$onInit() {
-
 			//GET line and mask names for sidebar
 		this.LinesService.getLineNames().then(response => {
 												let names = response.map(obj => {

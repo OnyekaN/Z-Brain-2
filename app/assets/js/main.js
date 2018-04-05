@@ -98,8 +98,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				$stateProvider
 				.state('home', {
 					url: '/home',
-					templateUrl: '/home.html'	
-				})	
+					templateUrl: '/home.html'
+				})
 				.state('about', {
 					url: '/about',
 					templateUrl: 'views/about.html'
@@ -116,9 +116,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					url: '/downloads',
 					templateUrl: 'views/downloads.html'
 				});
-			$urlRouterProvider.when('/', '/home');
-			$urlRouterProvider.otherwise('/home');	
-			}])	
+			$urlRouterProvider.when('/', '/home/');
+			$urlRouterProvider.otherwise('/home/');
+			}])
 		.name;
 })()
 
@@ -4861,7 +4861,56 @@ const Lines = angular
 	.module('lines', [])
 	.component('linesComponent', __WEBPACK_IMPORTED_MODULE_0__lines_component__["a" /* default */])
 	.service('LinesService', __WEBPACK_IMPORTED_MODULE_1__lines_service__["a" /* default */])
+	.config([
+		'$stateProvider', '$urlRouterProvider',
+		($stateProvider, $urlRouterProvider) => {
+
+			$urlRouterProvider.when('/home', '/home/');
+
+			$stateProvider.state('home.default', {
+				url: '/',
+				template: viewerComponentTemplate,
+				resolve: {
+					resolvedLineImages: [ 'LinesService', (LinesService) => {
+						return LinesService.cacheLine('Elavl3-H2BRFP')
+					}],
+					resolvedLineName: [() => {return 'Elavl3-H2BRFP'}],
+				},
+			})
+
+			$stateProvider.state('home.line', {
+				url: '/line/{id}',
+				template: viewerComponentTemplate,
+				resolve: {
+					resolvedLineImages: [
+						'$stateParams', 'LinesService',
+						($stateParams, LinesService) => {
+							return LinesService.cacheLine($stateParams.id);
+						}
+					],
+					resolvedLineName: [
+						'$stateParams',
+						($stateParams) => { return $stateParams.id }
+					],
+				},
+			});
+
+		}])
 	.name;
+
+let viewerComponentTemplate = `
+					<viewer-component
+						resolved-line-name="$resolve.resolvedLineName"
+						resolved-line-images="$resolve.resolvedLineImages"
+						line-name="$ctrl.lineName"
+						line-images="$ctrl.lineImages"
+						mask-images="$ctrl.maskImages"
+						mask-color="$ctrl.maskColor"
+						color-channel-images="$ctrl.colorChannelImages"
+						color-channel-color="$ctrl.colorChannelColor"
+						on-update-index="$ctrl.updateIndex(sliceIndex)">
+					</viewer-component>
+`;
 
 /* harmony default export */ __webpack_exports__["a"] = (Lines);
 
@@ -4893,7 +4942,7 @@ const LinesComponent = {
 
 
 class LinesController {
-	constructor(LinesService) {
+	constructor(LinesService, lineData) {
 		this.LinesService = LinesService;
 		this.lines = [];
 		this.masks = [];
@@ -4914,7 +4963,6 @@ class LinesController {
 	}
 
 	$onInit() {
-
 			//GET line and mask names for sidebar
 		this.LinesService.getLineNames().then(response => {
 												let names = response.map(obj => {
@@ -5347,7 +5395,8 @@ const Viewer = angular
 
 const ViewerComponent = {
 	bindings: {
-		//sliceIndex: '=',
+		resolvedLineName: '<',
+		resolvedLineImages: '<',
 		lineImages: '<',
 		lineName: '<',
 		maskImages: '<',
@@ -5416,9 +5465,17 @@ class ViewerController {
 	}
 
 	$onInit() {
+
+		/* Handle URL resolve */
+		if ( this.resolvedLineImages.length ) {
+			this.lineImages = this.resolvedLineImages;
+			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
+			this.currentLineName = this.resolvedLineName;
+		}
 	}
 
 	$onChanges(changes) {
+
 		/* On new set of lines images load, update display
 		 * lineImages << LinesComponent
 		 */
@@ -5431,7 +5488,6 @@ class ViewerController {
 		 * maskImages << LinesComponent
 		 */
 		if ( this.maskImages ) {
-
 			let color = this.maskColor;
 			if ( !this.activeMasks.includes(color) )
 				this.activeMasks.push(color)
@@ -5450,7 +5506,6 @@ class ViewerController {
 		 * colorChannelImages << LinesComponent
 		 */
 		if ( this.colorChannelImages ) {
-
 			let color = this.colorChannelColor;
 			if ( !this.activeChannels.includes(color) )
 				this.activeChannels.push(color)
@@ -5464,7 +5519,6 @@ class ViewerController {
 				this.currentDisplayColorChannels[color] = this.colorChannelArrays[color][this.sliceIndex].src;
 			}
 		}
-
 	}
 
 	/* On slider change, update display with new slice number
@@ -5658,9 +5712,7 @@ class AnnotationsController {
 	$onChanges(changes) {
 		if ( !this.lineName && this.annotations ) {
 			let current = Object.assign({}, this.annotations['Elavl3-H2BRFP']);
-			console.log(current);
 			this.current = current;
-
 		}
 
 		if ( this.lineName ) {

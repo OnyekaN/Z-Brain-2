@@ -4,7 +4,8 @@ import ViewerController from './viewer.controller.js';
 
 const ViewerComponent = {
 	bindings: {
-		//sliceIndex: '=',
+		resolvedLineName: '<',
+		resolvedLineImages: '<',
 		lineImages: '<',
 		lineName: '<',
 		maskImages: '<',
