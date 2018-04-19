@@ -2,7 +2,7 @@
 'use strict'
 
 class LinesController {
-	constructor(LinesService, lineData) {
+	constructor(LinesService) {
 		this.LinesService = LinesService;
 		this.lines = [];
 		this.masks = [];

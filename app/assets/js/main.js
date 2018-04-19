@@ -100,6 +100,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					url: '/home',
 					templateUrl: '/home.html'
 				})
+				.state('overview', {
+					url: '/overview',
+					template: `<overview-component
+											lines="$resolve.lines"
+											annotations="$resolve.annotations">
+											</overview-component>`,
+					resolve: {
+						lines: ['LinesService', (LinesService) => {
+							return LinesService.getLineNames();
+						}],
+						annotations: ['LinesService', (LinesService) => {
+							return LinesService.getAnnotations();
+						}]
+					},
+				})
 				.state('about', {
 					url: '/about',
 					templateUrl: 'views/about.html'
@@ -4824,7 +4839,9 @@ angular.module('ui.router.state')
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sidebar_index__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__viewer_index__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__annotations_index__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__overview_index__ = __webpack_require__(24);
 /* common/index.js */
+
 
 
 
@@ -4839,6 +4856,7 @@ const common = angular
 		__WEBPACK_IMPORTED_MODULE_2__sidebar_index__["a" /* default */],
 		__WEBPACK_IMPORTED_MODULE_3__viewer_index__["a" /* default */],
 		__WEBPACK_IMPORTED_MODULE_4__annotations_index__["a" /* default */],
+		__WEBPACK_IMPORTED_MODULE_5__overview_index__["a" /* default */],
 	])
 	.name;
 
@@ -4874,7 +4892,7 @@ const Lines = angular
 					resolvedLineImages: [ 'LinesService', (LinesService) => {
 						return LinesService.cacheLine('Elavl3-H2BRFP')
 					}],
-					resolvedLineName: [() => {return 'Elavl3-H2BRFP'}],
+					resolvedLineName: [() => { return 'Elavl3-H2BRFP' }],
 				},
 			})
 
@@ -4942,7 +4960,7 @@ const LinesComponent = {
 
 
 class LinesController {
-	constructor(LinesService, lineData) {
+	constructor(LinesService) {
 		this.LinesService = LinesService;
 		this.lines = [];
 		this.masks = [];
@@ -5226,12 +5244,13 @@ class NavService {
 		this.pages = [
 			{ name: 'Home', link: '#/home' },
 			{ name: 'About', link: '#/about' },
+			{ name: 'Overview', link: '#/overview' },
 			{ name: 'Contributing to the Z-Brain', link: '#/contributing' },
 			{ name: 'FAQ', link: '#/faq' },
 			{ name: 'Downloads', link: '#/downloads' },
 			{ name: 'Zebrafish EM', link: 'http://hildebrand16.neurodata.io/catmaid/?pid=6&zp=537540&yp=351910.65&xp=303051.45&tool=tracingtool&sg=2&sgs=4' },
 			{ name: 'Multiscale Virtual Fish', link: 'http://www.zib.de/projects/multiscale-virtual-fish'},
-			{ name: 'Engert Lab Lines Resource', link: 'http://engertlab.fas.harvard.edu/Enhancer-Trap/'},
+			{ name: 'Enhancer-Trap Lines', link: 'http://engertlab.fas.harvard.edu/Enhancer-Trap/'},
 		]
 	}
 	getActive() {
@@ -5406,6 +5425,7 @@ const ViewerComponent = {
 		onUpdateIndex: '&'
 	},
 	controller: __WEBPACK_IMPORTED_MODULE_0__viewer_controller_js__["a" /* default */],
+
 	templateUrl: 'views/viewer/viewer.html'
 }
 
@@ -5724,6 +5744,112 @@ class AnnotationsController {
 
 /* harmony default export */ __webpack_exports__["a"] = (AnnotationsController);
 
+
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__overview_component__ = __webpack_require__(25);
+/* overview/index.js */
+
+
+
+
+const Overview = angular
+	.module('overview', [])
+	.component('overviewComponent', __WEBPACK_IMPORTED_MODULE_0__overview_component__["a" /* default */])
+	.component('overviewImageComponent', __WEBPACK_IMPORTED_MODULE_0__overview_component__["a" /* default */])
+	.name;
+
+/* harmony default export */ __webpack_exports__["a"] = (Overview);
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__overview_controller__ = __webpack_require__(26);
+/* overview/component.js */
+
+
+
+const OverviewComponent = {
+	bindings: {
+		lines: '<',
+		annotations: '<',
+	},
+	controller: __WEBPACK_IMPORTED_MODULE_0__overview_controller__["a" /* default */],
+	controllerAs: 'Overview',
+	templateUrl: 'views/overview/overview.html',
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (OverviewComponent);
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* overview/controller.js */
+
+
+class OverviewController {
+	constructor($window, LinesService) {
+		this.LinesService = LinesService;
+		this.$window = $window;
+		this.line = "test";
+}
+
+	$onInit() {
+
+		let names = this.lines;
+		names = names.map(obj => {
+			let name = obj.line_name;
+			if ( name.indexOf('MH_') !== -1 )
+					// prefix it to end up near the bottom after sort
+				name = "Z1"+name;
+			return name;
+		});
+		names = names.sort();
+		names = names.map(name => {
+			if ( name.indexOf('Z1') !== -1 )
+				name = name.substring(2); //strip prefix
+			return name;
+		});
+		this.lines = names.map(name => {
+			let src = `images/5-MeanImages/${name}.jpg`,
+					keywords = [];
+			if ( this.annotations[name] )
+				keywords = this.annotations[name].keywords;
+			return { name: name, src: src, keywords: keywords };
+		});
+
+		this.keywords = [];
+		Object.keys(this.annotations).forEach(key => {
+			this.annotations[key].keywords.forEach(keyword => {
+				if ( keyword != "" && this.keywords.indexOf(keyword) == -1 ) {
+					this.keywords.push(keyword);
+				}
+			});
+		});
+		this.keywords.sort();
+	}
+
+	selectLine(line) {
+		this.$window.location.href = '#/home/line/' + line;
+	}
+
+}
+
+OverviewController.$inject = ['$window', 'LinesService'];
+
+
+/* harmony default export */ __webpack_exports__["a"] = (OverviewController);
 
 
 

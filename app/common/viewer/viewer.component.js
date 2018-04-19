@@ -15,6 +15,7 @@ const ViewerComponent = {
 		onUpdateIndex: '&'
 	},
 	controller: ViewerController,
+
 	templateUrl: 'views/viewer/viewer.html'
 }
 

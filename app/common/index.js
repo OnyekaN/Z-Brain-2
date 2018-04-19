@@ -5,6 +5,7 @@ import Nav from './nav/index';
 import Sidebar from './sidebar/index';
 import Viewer from './viewer/index';
 import Annotations from './annotations/index';
+import Overview from './overview/index';
 
 const common = angular
 	.module('app.common', [
@@ -13,6 +14,7 @@ const common = angular
 		Sidebar,
 		Viewer,
 		Annotations,
+		Overview,
 	])
 	.name;
 

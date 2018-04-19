@@ -20,7 +20,7 @@ const Lines = angular
 					resolvedLineImages: [ 'LinesService', (LinesService) => {
 						return LinesService.cacheLine('Elavl3-H2BRFP')
 					}],
-					resolvedLineName: [() => {return 'Elavl3-H2BRFP'}],
+					resolvedLineName: [() => { return 'Elavl3-H2BRFP' }],
 				},
 			})
 

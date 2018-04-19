@@ -265,6 +265,97 @@ body {
 	}
 }
 
+.overview {
+	margin-top: 40px;
+
+	.overview-keywords-bank {
+		position: fixed;
+		height: calc(100vh - 100px);
+		top: 82px;
+		left: 20px;
+		width: 200;
+		background-color: rgb(255, 252, 250);
+		box-shadow: 1px 1px 2px #bbb;
+		border: 1px solid #888;
+		border-left: None;
+		border-top: None;
+		border-bottom: None;
+		overflow: scroll;
+		opacity: 0.6;
+		transition: all 0.5s ease;
+
+		select {
+			border: None;
+			width: 100%;
+			height: 100%;
+			background-color: transparent;
+
+			option:nth-child(even) { background-color: #f0f8ff }
+			option:hover { background-color: #ddd}
+		}
+
+		select:hover { opacity: 1; }
+		select:focus { outline: None; }
+	}
+
+	.overview-keywords-bank:hover {
+		opacity: 1;
+		border-left: None;
+		border-top: None;
+	}
+
+	.overview-tiles {
+		margin: 30px 0 0 260px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
+	.overview-tile {
+		position: relative;
+		padding: 10px 10px 10px 10px;
+		margin-bottom: 30px;
+		height: 300px;
+		width: 390px;
+		box-shadow: 1px 1px 2px #bbb;
+		overflow: scroll;
+		cursor: pointer;
+		transition: all .4s ease;
+
+		h2 {
+			position: absolute;
+			margin: 8px 0 0 8px;
+			text-shadow: 0px 0px 1px #ddd;
+			font-size: 1em;
+			font-family: "Helvetica";
+			font-weight: bold;
+			white-space: nowrap;
+			color: rgb(51, 122, 183)
+
+		}
+
+		img {
+			width: 370px;
+			height: 160px;
+			margin-bottom: 10px;
+			border-radius: 2px;
+			//box-shadow: 1px 1px 2px #bbb;
+		}
+
+		ul {
+			min-height: 100px;
+			margin-top: 10px;
+			overflow: scroll;
+			font-family: Helvetica Neue, sans-serif;
+			list-style-type: circle;
+		}
+	}
+
+	.overview-tile:hover {
+		box-shadow: 1px 1px 10px #bbb;
+		z-index: 100;
+	}
+}
 
 @media screen and (min-width: 1601px) and (max-width: 2299px) {
 	body {
