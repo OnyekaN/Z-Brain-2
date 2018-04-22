@@ -6,7 +6,6 @@ class NavService {
 		this.pages = [
 			{ name: 'Home', link: '#/home' },
 			{ name: 'About', link: '#/about' },
-			{ name: 'Overview', link: '#/overview' },
 			{ name: 'Contributing to the Z-Brain', link: '#/contributing' },
 			{ name: 'FAQ', link: '#/faq' },
 			{ name: 'Downloads', link: '#/downloads' },

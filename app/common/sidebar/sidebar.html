@@ -17,7 +17,7 @@
 			<a href="images/4-TiffStacks/{{$ctrl.selected}}.tif" download>
 				<button class="download-line">Download</button>
 			</a>
-			
+				
 			<div style="margin-left:20px;margin-top:10px;">
 				<form autocomplete="off" ng-submit="$ctrl.onAdjustLine({line: $ctrl.selected,
 						brightness: $ctrl.brightness, gamma: $ctrl.gamma})">
@@ -44,6 +44,10 @@
 						<button ng-click="$ctrl.resetValues()">Reset</button>
 					</div>				
 				</form>
+			
+				<a href="#/overview">
+					<button class="overview-button">Lines Overview</button>
+				</a>
 			</div>
 		</div>
 

@@ -6,6 +6,9 @@ class OverviewController {
 		this.LinesService = LinesService;
 		this.$window = $window;
 		this.line = "test";
+		this.selectedKeywords = [];
+		this.allLines = [];
+		this.activeLines = [];
 }
 
 	$onInit() {
@@ -24,7 +27,7 @@ class OverviewController {
 				name = name.substring(2); //strip prefix
 			return name;
 		});
-		this.lines = names.map(name => {
+		this.allLines = this.activeLines = names.map(name => {
 			let src = `images/5-MeanImages/${name}.jpg`,
 					keywords = [];
 			if ( this.annotations[name] )
@@ -41,6 +44,24 @@ class OverviewController {
 			});
 		});
 		this.keywords.sort();
+	}
+
+	filterLines(selections) {
+		console.log(selections);
+		if ( !selections || !String(selections) ) {
+			this.activeLines = this.allLines;
+			return
+		}
+
+		else {
+			this.activeLines = this.allLines.filter(obj => {
+				for ( let item in selections ) {
+					if ( obj['keywords'].includes(selections[item]) ) {
+							return true;
+					}
+				}
+			});
+		}
 	}
 
 	selectLine(line) {
