@@ -232,6 +232,11 @@ body {
     overflow: auto;
     opacity: 0.4;
     transition: all 0.5s ease; }
+    .overview .overview-keywords-bank:hover {
+      opacity: 0.9;
+      border-left: None;
+      border-top: None;
+      box-shadow: 1px 1px 4px #aaa; }
     .overview .overview-keywords-bank select {
       border: 1px solid black;
       width: 100%;
@@ -241,10 +246,6 @@ body {
         background-color: #ddd; }
     .overview .overview-keywords-bank select:focus {
       outline: None; }
-  .overview .overview-keywords-bank:hover {
-    opacity: 0.9;
-    border-left: None;
-    border-top: None; }
   .overview .overview-tiles {
     margin: 30px 0 0 250px;
     display: flex;

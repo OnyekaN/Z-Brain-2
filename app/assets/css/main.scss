@@ -298,6 +298,13 @@ body {
 		opacity: 0.4;
 		transition: all 0.5s ease;
 
+		&:hover {
+			opacity: 0.9;
+			border-left: None;
+			border-top: None;
+			box-shadow: 1px 1px 4px #aaa;
+		}
+
 		select {
 			border: 1px solid black;
 			width: 100%;
@@ -309,12 +316,6 @@ body {
 		}
 
 		select:focus { outline: None; }
-	}
-
-	.overview-keywords-bank:hover {
-		opacity: 0.9;
-		border-left: None;
-		border-top: None;
 	}
 
 	.overview-tiles {
@@ -352,9 +353,6 @@ body {
 			height: 160px;
 			margin-bottom: 5px;
 			border-radius: 2px;
-
-
-			//box-shadow: 1px 1px 2px #bbb;
 		}
 
 		ul {
