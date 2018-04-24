@@ -116,10 +116,11 @@ body {
 		margin: 15px 0 0 -10px;
 		min-width: 180px;
 		min-height: 28px;
-		color: rgb(20, 110, 200);
+		color: rgb(5, 50, 200);
+		text-shadow: 1px 1px 2px #ededed;
 		background: linear-gradient(#eee 0px, #ddd);
 		border: none;
-		&:hover { border: 1px solid grey; }
+		&:hover { border: 1px solid #333; }
 	}
 
 
@@ -320,7 +321,7 @@ body {
 		margin: 30px 0 0 250px;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-between;
+		justify-content: space-evenly;
 	}
 
 	.overview-tile {
@@ -403,7 +404,16 @@ body {
 
 		.inner { padding: 0 30px 0 30px !important; }
 
-		.download-line { width: 200px ; }
+		.download-line {
+			width: 200px;
+			height: 35px;
+		}
+
+		.overview-button {
+			margin: 15px 0 0 0;
+			width: 200px;
+			height: 35px;
+		}
 
 		.ui.search.dropdown {
 			width: 100% !important;
@@ -447,8 +457,18 @@ body {
 				height: 50px;
 			}
 		}
+	}
 
 
+	.overview {
+		.overview-keywords-bank {
+			width: 250px;
+			font-size: 1.1em;
+			left: 30px;
+		}
+		.overview-tiles {
+			margin: 30px 0 0 300px;
+		}
 	}
 
 }
@@ -488,7 +508,17 @@ body {
 
 		.inner { padding: 0 30px 0 30px !important; }
 
-		.download-line { width: 80% ; }
+		.download-line {
+			margin-top: 20px;
+			margin-bottom: 20px;
+			width: 80% ;
+			height: 40px;
+		}
+		.overview-button {
+			margin: 30px 0 0 -15px;
+			width: 280px;
+			height: 40px;
+		}
 
 		button {
 			width: 90px;
@@ -543,6 +573,17 @@ body {
 			div {
 				height: 60px;
 			}
+		}
+	}
+
+	.overview {
+		.overview-keywords-bank {
+			width: 300px;
+			font-size: 1.3em;
+			left: 30px;
+		}
+		.overview-tiles {
+			margin: 30px 0 0 350px;
 		}
 	}
 

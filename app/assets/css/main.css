@@ -90,11 +90,12 @@ body {
     margin: 15px 0 0 -10px;
     min-width: 180px;
     min-height: 28px;
-    color: #146ec8;
+    color: #0532c8;
+    text-shadow: 1px 1px 2px #ededed;
     background: linear-gradient(#eee 0px, #ddd);
     border: none; }
     .sidebar .overview-button:hover {
-      border: 1px solid grey; }
+      border: 1px solid #333; }
   .sidebar form button {
     color: #111;
     border: none;
@@ -248,7 +249,7 @@ body {
     margin: 30px 0 0 250px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between; }
+    justify-content: space-evenly; }
   .overview .overview-tile {
     position: relative;
     padding: 10px 10px 10px 10px;
@@ -310,7 +311,12 @@ body {
     .sidebar .inner {
       padding: 0 30px 0 30px !important; }
     .sidebar .download-line {
-      width: 200px; }
+      width: 200px;
+      height: 35px; }
+    .sidebar .overview-button {
+      margin: 15px 0 0 0;
+      width: 200px;
+      height: 35px; }
     .sidebar .ui.search.dropdown {
       width: 100% !important;
       margin-bottom: 5px; }
@@ -341,7 +347,14 @@ body {
       min-width: 150px;
       max-width: 400px; }
       .annotations .notes div {
-        height: 50px; } }
+        height: 50px; }
+
+  .overview .overview-keywords-bank {
+    width: 250px;
+    font-size: 1.1em;
+    left: 30px; }
+  .overview .overview-tiles {
+    margin: 30px 0 0 300px; } }
 @media screen and (min-width: 2300px) {
   body {
     width: 100%;
@@ -372,7 +385,14 @@ body {
     .sidebar .inner {
       padding: 0 30px 0 30px !important; }
     .sidebar .download-line {
-      width: 80%; }
+      margin-top: 20px;
+      margin-bottom: 20px;
+      width: 80%;
+      height: 40px; }
+    .sidebar .overview-button {
+      margin: 30px 0 0 -15px;
+      width: 280px;
+      height: 40px; }
     .sidebar button {
       width: 90px;
       margin-right: 40px; }
@@ -414,6 +434,13 @@ body {
       min-width: 200px;
       max-width: 450px; }
       .annotations .notes div {
-        height: 60px; } }
+        height: 60px; }
+
+  .overview .overview-keywords-bank {
+    width: 300px;
+    font-size: 1.3em;
+    left: 30px; }
+  .overview .overview-tiles {
+    margin: 30px 0 0 350px; } }
 
 /*# sourceMappingURL=main.css.map */
