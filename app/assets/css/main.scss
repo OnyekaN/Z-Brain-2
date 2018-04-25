@@ -116,11 +116,15 @@ body {
 		margin: 15px 0 0 -10px;
 		min-width: 180px;
 		min-height: 28px;
-		color: rgb(5, 50, 200);
-		text-shadow: 1px 1px 2px #ededed;
+		color: #fff;
+		text-shadow: 1px 1px 3px #ddf;
 		background: linear-gradient(#eee 0px, #ddd);
 		border: none;
-		&:hover { border: 1px solid #333; }
+		transition: all .2s ease;
+		&:hover {
+			border: 1px solid #333;
+			font-weight: bold;
+		}
 	}
 
 
@@ -322,7 +326,7 @@ body {
 		margin: 30px 0 0 250px;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-evenly;
+		justify-content: space-around;
 	}
 
 	.overview-tile {
