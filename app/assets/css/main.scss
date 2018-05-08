@@ -88,7 +88,7 @@ body {
 .sidebar {
 	display: inline-block;
 	position: relative;
-	overflow: scroll;
+	overflow: auto;
 	height: 600px;
 	width: 240px;
 	vertical-align: top;
@@ -116,14 +116,16 @@ body {
 		margin: 15px 0 0 -10px;
 		min-width: 180px;
 		min-height: 28px;
-		color: #fff;
-		text-shadow: 1px 1px 3px #ddf;
+		color: #49d;
+		text-shadow: 0 0 2px #fff;
 		background: linear-gradient(#eee 0px, #ddd);
 		border: none;
 		transition: all .2s ease;
+
 		&:hover {
-			border: 1px solid #333;
-			font-weight: bold;
+			border: 1px solid #aaa;
+			font-size: 1.05em;
+			//font-weight: bold;
 		}
 	}
 
@@ -197,7 +199,7 @@ body {
 	}
 
 	@mixin viewer-image-props() {
-		left: 0;
+		left: 10px;
 		top: 90px;
 		position: absolute;
 		height: 440px !important;
@@ -222,7 +224,7 @@ body {
 
 .annotations {
 	background-color: #fffcfa;
-	margin: 70px 0 100px 0;
+	margin: 90px 0 100px 0;
 	width: 1424px;
 	box-shadow: 0px -2px 4px -4px #bbb;
 	font-size: .9em;
@@ -256,7 +258,7 @@ body {
 		padding: 8px;
 		text-align: center;
 		border-bottom: 2px solid #49d;
-		text-shadow: 1px 1px 2px #49d;
+		text-shadow: 1px 1px 2px #eee;
 		color: #333;
 		font-size: 1.1em;
 	}
@@ -396,25 +398,27 @@ body {
 	.lines-container {
 		min-width: 100vw;
 		margin-left: 3vw !important;
+		white-space: nowrap;
 	}
-
 
 	.sidebar {
 		min-width: 350px;
 		min-height: 680px;
 		margin-right: 5vw !important;
+		box-shadow: 1px 1px 4px #bbb;
+		white-space: normal;
 
 		.inner { padding: 0 30px 0 30px !important; }
 
 		.download-line {
-			width: 200px;
-			height: 35px;
+			width: 235px;
+			height: 32px;
 		}
 
 		.overview-button {
 			margin: 15px 0 0 0;
-			width: 200px;
-			height: 35px;
+			width: 235px;
+			height: 32px;
 		}
 
 		.ui.search.dropdown {
@@ -430,15 +434,17 @@ body {
 
 	.viewer {
 		min-height: 680px;
+		min-width: 1250px;
+		box-shadow: -2px 2px 4px #bbb;
 
 		.viewer-ctrl-panel {
 			top: 40px;
-			left: 240px;
+			left: 270px;
 		}
 
 		@mixin viewer-img-pos() {
 			top: 130px;
-			left: 60px;
+			left: 090px;
 		}
 
 		.primary-line-image { @include viewer-img-pos() }
@@ -447,7 +453,9 @@ body {
 	}
 
 	.annotations {
-		width: calc(1513px + 5vw);
+		//width: calc(1513px + 5vw);
+		width: 95%;
+		min-width: calc(1513px + 5vw);
 		margin-top: 80px;
 		margin-bottom: 130px;
 
@@ -507,6 +515,7 @@ body {
 		min-height: 900px;
 		margin-right: 2vw !important;
 		margin-left: 3vw !important;
+		box-shadow: 1px 1px 4px #bbb;
 
 		.inner { padding: 0 30px 0 30px !important; }
 
@@ -533,6 +542,7 @@ body {
 	.viewer {
 		min-height: 900px;
 		min-width: 1820px !important;
+		box-shadow: -2px 2px 4px #bbb;
 
 		.viewer-ctrl-panel {
 			top: 60px;
