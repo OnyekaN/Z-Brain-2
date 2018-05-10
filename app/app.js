@@ -19,6 +19,21 @@ import Common from './common/index';
 					url: '/home',
 					templateUrl: '/home.html'
 				})
+				.state('overview', {
+					url: '/overview',
+					template: `<overview-component
+											lines="$resolve.lines"
+											annotations="$resolve.annotations">
+											</overview-component>`,
+					resolve: {
+						lines: ['LinesService', (LinesService) => {
+							return LinesService.getLineNames();
+						}],
+						annotations: ['LinesService', (LinesService) => {
+							return LinesService.getAnnotations();
+						}]
+					},
+				})
 				.state('about', {
 					url: '/about',
 					templateUrl: 'views/about.html'
@@ -40,8 +55,8 @@ import Common from './common/index';
 					templateUrl: 'views/upload.html'
 				});
 
-			$urlRouterProvider.when('/', '/home');
-			$urlRouterProvider.otherwise('/home');
+			$urlRouterProvider.when('/', '/home/');
+			$urlRouterProvider.otherwise('/home/');
 			}])
 		.name;
 })()

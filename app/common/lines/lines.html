@@ -18,15 +18,8 @@
 
 		<div id="spin">
 		</div>
-		<viewer-component
-			line-name="$ctrl.lineName"
-			line-images="$ctrl.lineImages"
-			mask-images="$ctrl.maskImages"
-			mask-color="$ctrl.maskColor"
-			color-channel-images="$ctrl.colorChannelImages"
-			color-channel-color="$ctrl.colorChannelColor"
-			on-update-index="$ctrl.updateIndex(sliceIndex)">
-		</viewer-component>
+
+		<ui-view><!--viewer-component inserted here--></ui-view>
 
 	</div>
 
@@ -66,6 +59,3 @@
 
 	</div>
 </div>
-
-
-

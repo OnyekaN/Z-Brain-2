@@ -23,7 +23,6 @@ class LinesController {
 	}
 
 	$onInit() {
-
 			// GET line and mask names for sidebar
 		this.LinesService.getLineNames().then(response => {
 												let names = response.map(obj => {

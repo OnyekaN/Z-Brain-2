@@ -1,0 +1,22 @@
+<div class="overview">
+
+	<div class="overview-keywords-bank">	
+		<select multiple ng-model="Overview.selectedKeywords" 
+			ng-change="Overview.filterLines(Overview.selectedKeywords)">
+			<option style="font-weight:bold" value="">All</option>
+			<option ng-repeat="keyword in
+			::Overview.keywords">{{keyword}}</option>
+		</select>
+
+	</div>
+	
+	<div class="overview-tiles">
+		<div class="overview-tile" ng-repeat="line in Overview.activeLines"
+		 ng-click="Overview.selectLine(line.name)">
+			<h2 align="">{{line.name}}</h2>
+			<img alt="{{line.name}}" src="{{line.src}}"/>
+			<ul>
+			 <li ng-repeat="keyword in line.keywords">{{keyword}}</li>
+			</ul>
+		</div>
+	</div>

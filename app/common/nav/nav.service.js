@@ -9,9 +9,9 @@ class NavService {
 			{ name: 'Contributing to the Z-Brain', link: '#/contributing' },
 			{ name: 'FAQ', link: '#/faq' },
 			{ name: 'Downloads', link: '#/downloads' },
+			{ name: 'Zebrafish EM', link: 'http://hildebrand16.neurodata.io/catmaid/?pid=6&zp=537540&yp=351910.65&xp=303051.45&tool=tracingtool&sg=2&sgs=4' },
 			{ name: 'Multiscale Virtual Fish', link: 'http://www.zib.de/projects/multiscale-virtual-fish'},
-			{ name: 'Engert Lab Lines Resource', link: 'http://engertlab.fas.harvard.edu/Enhancer-Trap/'},
-			{ name: 'Upload (Beta)', link: '#/upload' }
+			{ name: 'Enhancer-Trap Lines', link: 'http://engertlab.fas.harvard.edu/Enhancer-Trap/'},
 		]
 	}
 	getActive() {

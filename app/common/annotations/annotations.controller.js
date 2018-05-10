@@ -9,7 +9,6 @@ class AnnotationsController {
 		if ( !this.lineName && this.annotations ) {
 			let current = Object.assign({}, this.annotations['Elavl3-H2BRFP']);
 			this.current = current;
-
 		}
 
 		if ( this.lineName ) {
