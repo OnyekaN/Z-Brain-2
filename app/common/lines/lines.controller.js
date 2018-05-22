@@ -2,15 +2,18 @@
 'use strict'
 
 class LinesController {
-	constructor(LinesService) {
+	constructor(LinesService, Upload) {
 		this.LinesService = LinesService;
+		this.Upload = Upload;
 		this.lines = [];
 		this.masks = [];
+		this.files = [];
 		this.sliceIndex = 90;
 		this.selected = undefined;
 		this.lineImages = [];
 		this.cyanMaskImages = [];
 		this.lineName = "";
+		this.uploadName = "";
 		this.spinnerOpts = {
 				// settings for spin.js spinner
 			lines: 9, length: 40, width: 18, radius: 67, corners: 0.8,
@@ -52,6 +55,17 @@ class LinesController {
 			// cache default line for viewer component
 		this.LinesService.cacheLine("Elavl3-H2BRFP").then(response => {
 			this.lineImages = response;
+		});
+
+		 // limit number of files on file input to 138
+		var that = this;
+		$(document).ready(function() {
+			$('.input-upload').change(function() {
+				if ( this.files.length > 138 )
+					alert('Too many files (min 35, max 138, recommended 138)');
+				if ( this.files.length < 30 )
+					alert('Too few files (min 35, max 138, recommended 138)');
+			});
 		});
 	}
 
@@ -112,7 +126,7 @@ class LinesController {
 												});
 	}
 
-	 // open and close upload dialog 
+	 // open and close upload dialog
 	openUploadDialog() {
 		let el = document.getElementsByClassName('upload')[0];
 		el.className += " upload-active";
@@ -120,11 +134,58 @@ class LinesController {
 
 	closeUploadDialog() {
 		let el = document.getElementsByClassName('upload')[0];
-		el.className = el.className.replace(' upload-active', '');
+		el.className = el.className.replace('upload-active', '');
+	}
+
+		// handle selected files
+	uploadFiles() {
+		if ( this.files && this.files.length && this.files.length <= 138) {
+			this.Upload.upload({
+				url: 'api/upload',
+				method: 'post',
+				arrayKey: '',
+				data: { files: this.files }
+			}).then(response => {
+				let indices = this.linspace(0, response.data.length - 1, 138);
+				let images = [];
+				indices.forEach(i => {
+					let img = new Image(); img.src = response.data[i];
+					images.push(img);
+				})
+				this.lineImages = images;
+				this.files = [];
+			}, response => {
+				alert('Error' + response.data);
+			});
+			this.closeUploadDialog();
+		}
+		else if ( this.files.length > 138 )
+			alert('Too many files (min 35, max 138, recommended 138)');
+		else if ( this.files.length < 35 )
+			alert('Too few files (min 35, max 138, recommended 138)');
+
+		if ( this.uploadName )
+			this.lineName = this.uploadName;
+		else
+			this.lineName = "Uploaded Line";
+
+		this.uploadName = "";
+	}
+
+		// helper function to create linear spaced array
+		// https://gist.github.com/joates/6584908
+		// with slight mod => Math.round()
+	linspace(a, b, n) {
+		if ( typeof n === "undefined" )
+			n = Math.max(Math.round(b-a)+1,1);
+    if ( n < 2) { return n===1?[a]:[]; }
+		let i, ret = Array(n); n--;
+    for ( i=n;i>=0;i-- ) { ret[i] = Math.round((i*b+(n-i)*a)/n); }
+    return ret;
 	}
 
 }
 
-LinesController.$inject = ['LinesService'];
+LinesController.$inject = ['LinesService', 'Upload'];
 
 export default LinesController;

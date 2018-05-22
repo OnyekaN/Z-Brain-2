@@ -28,10 +28,10 @@
 		<div class="upload-container">
 			<button class="upload-close" ng-click="$ctrl.closeUploadDialog()">X</button>	
 			<div class="upload-info">
-				<p>Upload any number of <u>numbered</u> JPEGs or PNGs to view
+				<p>You can upload up to 138 <code>numbered</code> JPEGs or PNGs to view
 				them in the Z-Brain's image viewer.</p>
 				<p>If you have TIF stacks, an easy way to convert them to
-				JPEGs or PNGS, using <a href="https://fiji.sc/"
+				JPEGs or PNGs, using <a href="https://fiji.sc/"
 				target=_blank>Fiji</a> or <a href="https://imagej.nih.gov/ij/"
 				target=_blank>ImageJ</a>, is to:</p>
 				<ol>
@@ -42,9 +42,25 @@
 				</ol>
 				<p>And then use the file upload button to import the
 				result.</p>
-				<br>
-				<input class="input-upload" type="file" name="pic"
-					accept=".jpg, .jpeg, .png" multiple/>
+
+				<form ng-submit="$ctrl.uploadFiles()" class="upload-form">
+					<div class="input-upload-wrapper">
+						<button class="input-upload-button">Upload Images</button>
+						<input type="file" name="files" ngf-select 
+							class="input-upload" ng-model="$ctrl.files"
+							accept=".jpg, .jpeg, .png"
+							multiple="multiple"/>
+					</div>
+					<div class="input-upload-wrapper">
+						<button class="input-upload-button">Submit</button>
+						<input type="submit" value="Submit"/>
+					</div>
+					<input type="text" class="input-line-name"
+						ng-model="$ctrl.uploadName"
+						placeholder="Line Name (Optional)">
+					</input>
+					<span ng-show="$ctrl.files.length">{{$ctrl.files.length}} images</span>
+				</form>
 			</div>
 		</div>
 

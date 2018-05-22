@@ -1,12 +1,14 @@
 /* /app.js */
 'use strict'
 import uiRouter from 'angular-ui-router';
+import ngFileUpload from 'ng-file-upload';
 import Common from './common/index';
 
 (() => {
 	angular
 		.module('zBrain', [
 			uiRouter,
+			ngFileUpload,
 			Common,
 		])
 		.config([
