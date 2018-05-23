@@ -12,7 +12,7 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, 'app/assets/js'),
 		filename: PROD ? 'main.min.js': 'main.js'
-	},
+},
 	module: {
 		rules: [
 			{

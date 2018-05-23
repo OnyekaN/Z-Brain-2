@@ -8,12 +8,18 @@
 		<div class="lines-ctrls" style="padding:10px 10px 30px 10px;">	
 			<select select-directive class="ui search dropdown"
 				ng-model="$ctrl.selected"
-				ng-change="$ctrl.onUpdateLine({line: $ctrl.selected});$ctrl.gaEvent;">
+				ng-change="$ctrl.onUpdateLineWrapper({line:
+				$ctrl.selected});$ctrl.gaEvent()">
 				<option value="">Search Lines</option>
+				<option value="{{'Upload' + Date.toString()}}" style="font-weight:bold">
+					Upload (Image Slices)</option>
 				<option ng-repeat="line in $ctrl.lines" ng-value="'{{::line}}'">
 					{{::line}}
-				</option>
+				</option>	
 			</select>
+			<input type="file" id="upload" name="pic" accept="image/*" 
+				style="display:none" multiple/>
+
 			<a href="images/4-TiffStacks/{{$ctrl.selected}}.tif" download>
 				<button class="download-line">Download</button>
 			</a>

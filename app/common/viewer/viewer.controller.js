@@ -5,37 +5,37 @@ class ViewerController {
 	constructor(ViewerService) {
 
 		this.ViewerService = ViewerService;
-			//Initial (page load) z-slice number [range 0-137]
+			// initial (page load) z-slice number [range 0-137]
 		this.sliceIndex = 90;
-			//Initial display line
+			// initial display line
 		this.currentLineName = 'Elavl3-H2BRFP';
-			//Initial display image, #viewer#primary-line-image[src]
+			// initial display image, #viewer#primary-line-image[src]
 		this.currentDisplayImage = 'images/0-Lines/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg';
 
 		this.activeMasks = [];
-			//Object stores arrays of mask images
+			// object stores arrays of mask images
 		this.maskArrays = {
 			cyan: undefined,
 			green: undefined,
 			magenta: undefined,
 			yellow: undefined,
 		}
-			//Currently displayed mask images (each uses image src)
+			// currently displayed mask images (each uses image src)
 		this.currentDisplayMasks = {
 			cyan: 'images/blank.png',
 			green: 'images/blank.png',
 			magenta: 'images/blank.png',
-			yellow: 'images/blank.png',
+			yellow: 'images/blank.png'
 		}
 
 		this.activeChannels = [];
-			// Will be populated with arrays of color channel images
+			// will be populated with arrays of color channel images
 		this.colorChannelArrays = {
 			red: undefined,
 			green: undefined,
 			blue: undefined,
 		}
-			// Currently displayed mask image slices (each uses image src)
+			// currently displayed mask image slices (each uses image src)
 		this.currentDisplayColorChannels = {
 			red: 'images/blank.png',
 			green: 'images/blank.png',
@@ -44,7 +44,6 @@ class ViewerController {
 	}
 
 	$onInit() {
-
 		/* Handle URL resolve */
 		if ( this.resolvedLineImages.length ) {
 			this.lineImages = this.resolvedLineImages;
@@ -104,17 +103,17 @@ class ViewerController {
 	 */
 	updateSlice() {
 
-		// Update displayed slice image
+		// update displayed slice image
 		this.onUpdateIndex({sliceIndex:this.sliceIndex});
 
-		// Update active displayed masks
+		// update active displayed masks
 		this.activeMasks.forEach((color) => {
 			if ( Array.isArray(this.maskArrays[color]) ) {
 				this.currentDisplayMasks[color] = this.maskArrays[color][this.sliceIndex].src;
 			}
 		});
 
-		// Update active displayed color channels
+		// update active displayed color channels
 		this.activeChannels.forEach((color) => {
 			if ( Array.isArray(this.colorChannelArrays[color]) ) {
 				this.currentDisplayColorChannels[color] = this.colorChannelArrays[color][this.sliceIndex].src;

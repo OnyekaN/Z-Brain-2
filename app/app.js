@@ -1,12 +1,14 @@
 /* /app.js */
 'use strict'
 import uiRouter from 'angular-ui-router';
+import ngFileUpload from 'ng-file-upload';
 import Common from './common/index';
 
 (() => {
 	angular
 		.module('zBrain', [
 			uiRouter,
+			ngFileUpload,
 			Common,
 		])
 		.config([
@@ -49,11 +51,17 @@ import Common from './common/index';
 				.state('downloads', {
 					url: '/downloads',
 					templateUrl: 'views/downloads.html'
+				})
+				.state('upload', {
+					url: '/upload',
+					templateUrl: 'views/upload.html'
 				});
+
 			$urlRouterProvider.when('/', '/home/');
 			$urlRouterProvider.otherwise('/home/');
 			}])
 		.name;
 })()
+
 
 

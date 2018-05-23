@@ -8,7 +8,7 @@ function selectDirective() {
 		link: function(scope, elem, attrs) {
 			$(elem)
 				.dropdown({
-					fullTextSearch: true		
+					fullTextSearch: true
 				});
 		}
 	}
