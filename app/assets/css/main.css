@@ -126,6 +126,9 @@ body {
     text-overflow: ellipsis; }
   .sidebar .ui.search.dropdown.text {
     width: 150px !important; }
+  .sidebar .slider {
+    margin: 3px 0 5px 1px !important;
+    width: 190px !important; }
 
 .viewer {
   display: inline-block;

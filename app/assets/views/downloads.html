@@ -1,4 +1,5 @@
 <style>
+
 h1 {
 	font-family: helvetica;
 	font-weight: bold;
@@ -21,8 +22,11 @@ a {
 }
 
 .download-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
 	padding: 0px;
-	margin-left: 4%;
+	margin: 30px 0 0 0;
 }
 
 .download {
@@ -44,6 +48,7 @@ a {
 .download:hover {	
 	transform: scale(1.01);
 	box-shadow: 0 0 10px #aaa;
+	cursor: pointer;
 }
 
 .download a {
@@ -61,18 +66,28 @@ a {
 <div class="content"> 
 	<h1 style="margin: 0 0 0px -7px;">Downloads</h1>
 
-	<div id="spacer" style="height:100px;width:100%"></div>	
-
 	<div class="download-container">
 
 		<div class="download" style="">
-			<div style="display:flex;align-items:center">
+			<div style="display:flex;align-items:center;">
 				<h3 align="center">
 					<a href="https://github.com/owenrandlett/Z-Brain/archive/master.zip"
 					download>
 						Z-Brain Viewer & Analysis Scripts
 					</a>
 				</h3>
+			</div>
+		</div>
+
+		<div class="download" style="">
+			<div>
+				<h3 align="center">
+					<a
+					href="https://www.dropbox.com/sh/5rio8z08vmofgvy/AABDqp1iwYthqejorsTw1Hp7a?dl=0&preview=z_plane0017_trial000_imaging_roi00_green_channel.tif"
+					download>Example Raw Data
+					</a>
+				</h3>
+				<p align="center">A. Bahl generated TIFF stack</p>
 			</div>
 		</div>
 
@@ -157,3 +172,11 @@ a {
 		</div>
 
 	</div>
+</div>
+
+<script>
+	$(".download").on('click', function(e) {
+		let anchor =	$(this).find('a');
+		window.location = anchor.attr('href');
+	});
+</script>

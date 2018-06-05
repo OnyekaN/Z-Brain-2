@@ -12,10 +12,10 @@ const ViewerComponent = {
 		maskColor: '<',
 		colorChannelImages: '<',
 		colorChannelColor: '<',
-		onUpdateIndex: '&'
+		colorChannelOpacities: '<',
+		onUpdateIndex: '&',
 	},
 	controller: ViewerController,
-
 	templateUrl: 'views/viewer/viewer.html'
 }
 

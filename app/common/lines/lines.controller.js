@@ -5,13 +5,12 @@ class LinesController {
 	constructor(LinesService, Upload) {
 		this.LinesService = LinesService;
 		this.Upload = Upload;
+		this.selected = undefined;
 		this.lines = [];
 		this.masks = [];
 		this.files = [];
 		this.sliceIndex = 90;
-		this.selected = undefined;
 		this.lineImages = [];
-		this.cyanMaskImages = [];
 		this.lineName = "";
 		this.uploadName = "";
 		this.spinnerOpts = {
@@ -23,6 +22,7 @@ class LinesController {
 		}
 		this.spinnerTarget = document.getElementById('spin');
 		this.spinner = new Spinner(this.spinnerOpts).spin(this.spinnerTarget).stop();
+		this.colorChannelOpacities = { cyan: .5, magenta: .5, green: .5, yellow: .5};
 	}
 
 	$onInit() {
@@ -114,6 +114,10 @@ class LinesController {
 													this.colorChannelColor = color;
 												});
 		}
+	}
+
+	updateOpacity(val, color) {
+		this.colorChannelOpacities[color] = parseInt(val) / 100;
 	}
 
 		// change the brightness or gamma settings on the displayed line image

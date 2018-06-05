@@ -57,6 +57,10 @@ class ViewerController {
 		/* On new set of lines images load, update display
 		 * lineImages << LinesComponent
 		 */
+
+		console.log(changes)
+
+
 		if ( this.lineImages.length ) {
 			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
 			this.currentLineName = this.lineName || 'Elavl3-H2BRFP';
@@ -102,6 +106,7 @@ class ViewerController {
 	/* On slider change, update display with new slice number
 	 */
 	updateSlice() {
+		console.log(this.colorChannelOpacities);
 
 		// update displayed slice image
 		this.onUpdateIndex({sliceIndex:this.sliceIndex});

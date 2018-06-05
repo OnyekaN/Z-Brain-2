@@ -9,6 +9,7 @@ const SidebarComponent = {
 		onUpdateLine: '&',
 		onUpdateMask: '&',
 		onUpdateColorChannel: '&',
+		onUpdateOpacity: '&',
 		onAdjustLine: '&',
 	},
 	controller: SidebarController,

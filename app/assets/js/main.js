@@ -7856,11 +7856,10 @@ const Lines = angular
 					],
 				},
 			});
-
 		}])
 	.name;
 
-let viewerComponentTemplate = `
+let viewerComponentTemplate =`
 					<viewer-component
 						resolved-line-name="$resolve.resolvedLineName"
 						resolved-line-images="$resolve.resolvedLineImages"
@@ -7870,6 +7869,7 @@ let viewerComponentTemplate = `
 						mask-color="$ctrl.maskColor"
 						color-channel-images="$ctrl.colorChannelImages"
 						color-channel-color="$ctrl.colorChannelColor"
+						color-channel-opacities="$ctrl.colorChannelOpacities"
 						on-update-index="$ctrl.updateIndex(sliceIndex)">
 					</viewer-component>
 `;
@@ -7907,13 +7907,12 @@ class LinesController {
 	constructor(LinesService, Upload) {
 		this.LinesService = LinesService;
 		this.Upload = Upload;
+		this.selected = undefined;
 		this.lines = [];
 		this.masks = [];
 		this.files = [];
 		this.sliceIndex = 90;
-		this.selected = undefined;
 		this.lineImages = [];
-		this.cyanMaskImages = [];
 		this.lineName = "";
 		this.uploadName = "";
 		this.spinnerOpts = {
@@ -7925,6 +7924,7 @@ class LinesController {
 		}
 		this.spinnerTarget = document.getElementById('spin');
 		this.spinner = new Spinner(this.spinnerOpts).spin(this.spinnerTarget).stop();
+		this.colorChannelOpacities = { cyan: .5, magenta: .5, green: .5, yellow: .5};
 	}
 
 	$onInit() {
@@ -8016,6 +8016,10 @@ class LinesController {
 													this.colorChannelColor = color;
 												});
 		}
+	}
+
+	updateOpacity(val, color) {
+		this.colorChannelOpacities[color] = parseInt(val) / 100;
 	}
 
 		// change the brightness or gamma settings on the displayed line image
@@ -8321,6 +8325,7 @@ const SidebarComponent = {
 		onUpdateLine: '&',
 		onUpdateMask: '&',
 		onUpdateColorChannel: '&',
+		onUpdateOpacity: '&',
 		onAdjustLine: '&',
 	},
 	controller: __WEBPACK_IMPORTED_MODULE_0__sidebar_controller__["a" /* default */],
@@ -8345,6 +8350,7 @@ class SidebarController {
 		this.slice = 90;
 		this.selected = 'Elavl3-H2BRFP';
 		this.current = 'Elavl3-H2BRFP';
+		this.opacity = '50';
 		this.masks = {
 			cyan: 'none',
 			green: 'none',
@@ -8455,10 +8461,10 @@ const ViewerComponent = {
 		maskColor: '<',
 		colorChannelImages: '<',
 		colorChannelColor: '<',
-		onUpdateIndex: '&'
+		colorChannelOpacities: '<',
+		onUpdateIndex: '&',
 	},
 	controller: __WEBPACK_IMPORTED_MODULE_0__viewer_controller_js__["a" /* default */],
-
 	templateUrl: 'views/viewer/viewer.html'
 }
 
@@ -8531,6 +8537,10 @@ class ViewerController {
 		/* On new set of lines images load, update display
 		 * lineImages << LinesComponent
 		 */
+
+		console.log(changes)
+
+
 		if ( this.lineImages.length ) {
 			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
 			this.currentLineName = this.lineName || 'Elavl3-H2BRFP';
@@ -8576,6 +8586,7 @@ class ViewerController {
 	/* On slider change, update display with new slice number
 	 */
 	updateSlice() {
+		console.log(this.colorChannelOpacities);
 
 		// update displayed slice image
 		this.onUpdateIndex({sliceIndex:this.sliceIndex});

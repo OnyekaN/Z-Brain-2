@@ -84,3 +84,89 @@ input[type=range].z-index-slider:focus::-ms-fill-lower {
 input[type=range].z-index-slider:focus::-ms-fill-upper {
   background: #7d7d7d;
 }
+
+input[type=range].red-overlay {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 3.1px 0;
+}
+input[type=range].red-overlay:focus {
+  outline: none;
+}
+input[type=range].red-overlay::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 15.8px;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  background: linear-gradient(to right, transparent, red);
+  border-radius: 0px;
+  border: 0px solid #010001;
+}
+input[type=range].red-overlay::-webkit-slider-thumb {
+  box-shadow: 0.3px 0.3px 0px rgba(0, 0, 0, 0.53), 0px 0px 0.3px rgba(13, 13, 13, 0.53);
+  border: 0px solid #000000;
+  height: 22px;
+  width: 22px;
+  border-radius: 4px;
+  background: #ffffff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -3.1px;
+}
+input[type=range].red-overlay:focus::-webkit-slider-runnable-track {
+  background: #ffffff;
+}
+input[type=range].red-overlay::-moz-range-track {
+  width: 100%;
+  height: 15.8px;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  background: linear-gradient(to right, transparent, red);
+  border-radius: 0px;
+  border: 0px solid #010001;
+}
+input[type=range].red-overlay::-moz-range-thumb {
+  box-shadow: 0.3px 0.3px 0px rgba(0, 0, 0, 0.53), 0px 0px 0.3px rgba(13, 13, 13, 0.53);
+  border: 0px solid #000000;
+  height: 22px;
+  width: 22px;
+  border-radius: 4px;
+  background: #ffffff;
+  cursor: pointer;
+}
+input[type=range].red-overlay::-ms-track {
+  width: 100%;
+  height: 15.8px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range].red-overlay::-ms-fill-lower {
+  background: #c3c3c3;
+  border: 0px solid #010001;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+}
+input[type=range].red-overlay::-ms-fill-upper {
+  background: linear-gradient(to right, transparent, red);
+  border: 0px solid #010001;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+}
+input[type=range].red-overlay::-ms-thumb {
+  box-shadow: 0.3px 0.3px 0px rgba(0, 0, 0, 0.53), 0px 0px 0.3px rgba(13, 13, 13, 0.53);
+  border: 0px solid #000000;
+  height: 22px;
+  width: 22px;
+  border-radius: 4px;
+  background: #ffffff;
+  cursor: pointer;
+  height: 15.8px;
+}
+input[type=range].red-overlay:focus::-ms-fill-lower {
+  background: linear-gradient(to right, transparent, red);
+}
+input[type=range].red-overlay:focus::-ms-fill-upper {
+  background: #ffffff;
+}

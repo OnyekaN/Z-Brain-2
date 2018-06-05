@@ -8,6 +8,7 @@ class SidebarController {
 		this.slice = 90;
 		this.selected = 'Elavl3-H2BRFP';
 		this.current = 'Elavl3-H2BRFP';
+		this.opacity = '50';
 		this.masks = {
 			cyan: 'none',
 			green: 'none',

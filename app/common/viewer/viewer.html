@@ -27,12 +27,12 @@
 		alt="primary-line-image"/>
 
 	<img id="red-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['red']}}"
+		ng-style="{'opacity':$ctrl.colorChannelOpacities['red']}"
 		class="color-channel" alt="red-color-channel"/>
 	<img id="green-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['green']}}"
 		class="color-channel" alt="green-color-channel"/>
 	<img id="blue-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['blue']}}"
-		class="color-channel" alt="blue-color-channel"/>
-		
+		class="color-channel" alt="blue-color-channel"/>	
 	<img id="cyan-mask" ng-src="{{$ctrl.currentDisplayMasks['cyan']}}"
 		class="mask-img" alt="cyan-mask"/>
 	<img id="magenta-mask" ng-src="{{$ctrl.currentDisplayMasks['magenta']}}"
@@ -41,7 +41,6 @@
 		class="mask-img" alt="green-mask"/>
 	<img id="yellow-mask" ng-src="{{$ctrl.currentDisplayMasks['yellow']}}"
 		class="mask-img" alt="yellow-mask"/>
-
 </div>
 
 

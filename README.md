@@ -20,7 +20,7 @@ contains js scripts for the frontend (AngularJS). **assets** contains static fil
 
 - **_misc. files_**
     - **image_modify.py** - (deprecated) script for adjusting (line) stack white-levels
-    - **initial_slices.py** - (replaces **image_modify.py**), outputs the first slices of white-level adjusted stacks for quick return to client
+    - **initial_slices.py** - (replaces **image_modify.py**), outputs the first slices of white-level adjusted stacks for immediate display
     - **remaining_slies.py** - output remaining slices of white-level adjusted stack
     - **package.json** - info file for node.js ecosystem. Dependencies, scripts, etc.
 

@@ -40,11 +40,10 @@ const Lines = angular
 					],
 				},
 			});
-
 		}])
 	.name;
 
-let viewerComponentTemplate = `
+let viewerComponentTemplate =`
 					<viewer-component
 						resolved-line-name="$resolve.resolvedLineName"
 						resolved-line-images="$resolve.resolvedLineImages"
@@ -54,6 +53,7 @@ let viewerComponentTemplate = `
 						mask-color="$ctrl.maskColor"
 						color-channel-images="$ctrl.colorChannelImages"
 						color-channel-color="$ctrl.colorChannelColor"
+						color-channel-opacities="$ctrl.colorChannelOpacities"
 						on-update-index="$ctrl.updateIndex(sliceIndex)">
 					</viewer-component>
 `;

@@ -22,8 +22,7 @@
 
 			<a href="images/4-TiffStacks/{{$ctrl.selected}}.tif" download>
 				<button class="download-line">Download</button>
-			</a>
-				
+			</a>			
 			<div style="margin-left:20px;margin-top:10px;">
 				<form autocomplete="off" ng-submit="$ctrl.onAdjustLine({line: $ctrl.selected,
 						brightness: $ctrl.brightness, gamma: $ctrl.gamma})">
@@ -31,7 +30,6 @@
 					<span style="font-size: 0.8em"><em>Adjust Brightness</em></span>
 					<div>
 						<input type="number" step="any"
-					 	style="" -placeholder="Enter Value"
 					 	id="brightness-input" class="img-modify-input"  
 					 	ng-model="$ctrl.brightness">
 					</div>	
@@ -39,7 +37,6 @@
 					<span style="font-size: 0.8em"><em>Adjust Gamma</em></span>
 					<div>
 						<input type="number" step="any"
-					 	style="" -placeholder="Enter Value"
 					 	id="gamma-input" class="img-modify-input"
 					 	ng-model="$ctrl.gamma"/>
 					</div>
@@ -113,6 +110,9 @@
 					{{::line}}
 				</option>
 			</select>	
+			<!--input type="range" class="red-overlay slider"
+        ng-change="$ctrl.onUpdateOpacity({val: $ctrl.opacity, color:'red'})"	
+        min="0" max="90" ng-model="$ctrl.opacity"/-->
 
 			<select select-directive class="ui search dropdown green"
 				ng-model="$ctrl.colorChannels.green"
@@ -135,7 +135,6 @@
 			</select>
 
 		</div>
-
 	</div>
 
 </div>
