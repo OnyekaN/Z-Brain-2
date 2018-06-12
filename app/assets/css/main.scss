@@ -110,22 +110,28 @@ body {
 		color: #fdfdfd;
 		background: linear-gradient(rgb(51, 136, 204) 0px, rgb(20, 110, 200) 100%);
 		border: none;
+		&:hover { border: 1px solid #ffffff88}
 	}
 
+	.img-modify-input {
+		border: 1px inset #88888833;
+		&:focus { outline: none }
+	}
 	.overview-button {
 		margin: 15px 0 0 -10px;
 		min-width: 180px;
 		min-height: 28px;
 		color: #49d;
-		text-shadow: 0 0 2px #fff;
+		text-shadow: 0 0 2px #ffffff88;
 		background: linear-gradient(#eee 0px, #ddd);
-		border: none;
+		border: 0px solid #aaaaaa00;
 		transition: all .2s ease;
+		box-shadow: 0 0 5px -2px #88888888;
 
 		&:hover {
-			border: 1px solid #aaa;
-			font-size: 1.05em;
-			//font-weight: bold;
+			border: 1px solid #aaaaaa44;
+			//font-size: 1.05em;
+			box-shadow: 0 0 6px -2px #88888888;
 		}
 	}
 
@@ -165,7 +171,7 @@ body {
 	.ui.search.dropdown.text { width: 150px !important; }
 
 	.slider {
-		margin: 3px 0 5px 1px !important;
+		margin: 10px 0 10px 1px !important;
 		width: 190px !important;
 	}
 

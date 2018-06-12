@@ -1,6 +1,6 @@
 <div>
 
-	<div class="menu-title" style="background-color:#ddd;padding-left:5px;">
+	<div class="menu-title" style="position:sticky;top:0;z-index:1000;background-color:#ddd;padding-left:5px;">
 		<span style="color:black;font-family:serif;"><b>Menu</b></span>
 	</div>
 
@@ -41,10 +41,10 @@
 					 	ng-model="$ctrl.gamma"/>
 					</div>
 
-					<div style="margin-top:0.3em">
-						<button ng-click="$ctrl.onAdjustLine({line: $ctrl.selected,
+					<div style="margin-top:0.2em">
+						<button ng-hide="true" ng-click="$ctrl.onAdjustLine({line: $ctrl.selected,
 							brightness: $ctrl.brightness, gamma: $ctrl.gamma})">Submit</button>
-						<button ng-click="$ctrl.resetValues()">Reset</button>
+						<button style="border-radius:10px" ng-click="$ctrl.resetValues()">Reset</button>
 					</div>				
 				</form>
 			
@@ -69,7 +69,7 @@
 			<select select-directive class="ui search dropdown magenta"
 				ng-model="$ctrl.masks.magenta"
 				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.magenta, color:'magenta'})">
-				<option value="">Search Regions</option>
+				<option value="">_________________</option>
 				<option value="None">None</option>
 				<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
 					{{::mask}}
@@ -80,7 +80,7 @@
 				ng-model="$ctrl.masks.green"
 				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.green, color:
 				'green'})">
-				<option value="">Search Regions</option>
+				<option value="">_________________</option>
 				<option value="None">None</option>
 				<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
 					{{::mask}}
@@ -90,7 +90,7 @@
 			<select select-directive class="ui search dropdown yellow"
 				ng-model="$ctrl.masks.yellow"
 				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.yellow, color:'yellow'})">
-				<option value="">Search Regions</option>
+				<option value="">_________________</option>
 				<option value="None">None</option>
 				<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
 					{{::mask}}
@@ -99,7 +99,8 @@
 
 		</div>
 
-		<div class="channel-ctrls" style="padding:10px 10px 30px 10px;">		
+		<div class="channel-ctrls" style="padding:10px 10px 30px 10px;
+			margin-bottom: 40px;">		
 
 			<select select-directive class="ui search dropdown red"
 				ng-model="$ctrl.colorChannels.red"
@@ -110,29 +111,44 @@
 					{{::line}}
 				</option>
 			</select>	
-			<!--input type="range" class="red-overlay slider"
-        ng-change="$ctrl.onUpdateOpacity({val: $ctrl.opacity, color:'red'})"	
-        min="0" max="90" ng-model="$ctrl.opacity"/-->
+			<div>
+			<input type="range" class="red-overlay slider"
+				ng-show="$ctrl.colorChannels.red!='None'"
+				ng-change="$ctrl.onUpdateOpacity({val: $ctrl.colorChannelOpacities.red, color:'red'})"	
+        ng-model="$ctrl.colorChannelOpacities.red"
+				min="0" max="90" value="50"/>
+				
+			</div>
 
 			<select select-directive class="ui search dropdown green"
 				ng-model="$ctrl.colorChannels.green"
 				ng-change="$ctrl.onUpdateColorChannel({line: $ctrl.colorChannels.green, color:'green'})">
-				<option value="">Search Color Channels</option>
+				<option value="">_________________</option>
 				<option value="None">None</option>
 				<option ng-repeat="line in $ctrl.lines" ng-value="'{{::line}}'">
 					{{::line}}
 				</option>
 			</select>
+			<input type="range" class="green-overlay slider"
+				ng-show="$ctrl.colorChannels.green!='None'" min="0" max="90" 
+        ng-change="$ctrl.onUpdateOpacity({val:
+				$ctrl.colorChannelOpacities.green,	color:'green'})"
+				ng-model="$ctrl.colorChannelOpacities.green"/>
 
 			<select select-directive class="ui search dropdown blue"
 				ng-model="$ctrl.colorChannels.blue"
 				ng-change="$ctrl.onUpdateColorChannel({line: $ctrl.colorChannels.blue, color:'blue'})">
-				<option value="">Search Color Channels</option>
+				<option value="">_________________</option>
 				<option value="None">None</option>
 				<option ng-repeat="line in $ctrl.lines" ng-value="'{{::line}}'">
 					{{::line}}
 				</option>
 			</select>
+			<input type="range" class="blue-overlay slider"
+				ng-show="$ctrl.colorChannels.blue!='None'"
+        ng-change="$ctrl.onUpdateOpacity({val:
+				$ctrl.colorChannelOpacities.blue, color:'blue'})"	
+        ng-model="$ctrl.colorChannelOpacities.blue"/>
 
 		</div>
 	</div>

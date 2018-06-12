@@ -86,18 +86,25 @@ body {
     color: #fdfdfd;
     background: linear-gradient(#3388cc 0px, #146ec8 100%);
     border: none; }
+    .sidebar .download-line:hover {
+      border: 1px solid #ffffff88; }
+  .sidebar .img-modify-input {
+    border: 1px inset #88888833; }
+    .sidebar .img-modify-input:focus {
+      outline: none; }
   .sidebar .overview-button {
     margin: 15px 0 0 -10px;
     min-width: 180px;
     min-height: 28px;
     color: #49d;
-    text-shadow: 0 0 2px #fff;
+    text-shadow: 0 0 2px #ffffff88;
     background: linear-gradient(#eee 0px, #ddd);
-    border: none;
-    transition: all .2s ease; }
+    border: 0px solid #aaaaaa00;
+    transition: all .2s ease;
+    box-shadow: 0 0 5px -2px #88888888; }
     .sidebar .overview-button:hover {
-      border: 1px solid #aaa;
-      font-size: 1.05em; }
+      border: 1px solid #aaaaaa44;
+      box-shadow: 0 0 6px -2px #88888888; }
   .sidebar form button {
     color: #111;
     border: none;
@@ -127,7 +134,7 @@ body {
   .sidebar .ui.search.dropdown.text {
     width: 150px !important; }
   .sidebar .slider {
-    margin: 3px 0 5px 1px !important;
+    margin: 10px 0 10px 1px !important;
     width: 190px !important; }
 
 .viewer {

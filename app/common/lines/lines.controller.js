@@ -22,7 +22,7 @@ class LinesController {
 		}
 		this.spinnerTarget = document.getElementById('spin');
 		this.spinner = new Spinner(this.spinnerOpts).spin(this.spinnerTarget).stop();
-		this.colorChannelOpacities = { cyan: .5, magenta: .5, green: .5, yellow: .5};
+		this.colorChannelOpacities = { 'red': .5, 'green': .5, 'blue': .5};
 	}
 
 	$onInit() {

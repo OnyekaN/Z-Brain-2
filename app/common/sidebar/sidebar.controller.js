@@ -8,18 +8,23 @@ class SidebarController {
 		this.slice = 90;
 		this.selected = 'Elavl3-H2BRFP';
 		this.current = 'Elavl3-H2BRFP';
-		this.opacity = '50';
 		this.masks = {
-			cyan: 'none',
-			green: 'none',
-			magenta: 'none',
-			yellow: 'none'
+			cyan: 'None',
+			green: 'None',
+			magenta: 'None',
+			yellow: 'None'
 		}
 
 		this.colorChannels = {
-			red: 'none',
-			green: 'none',
-			blue: 'none'
+			red: 'None',
+			green: 'None',
+			blue: 'None'
+		}
+
+		this.colorChannelOpacities = {
+			red: 50,
+			green: 50,
+			blue: 50
 		}
 	}
 

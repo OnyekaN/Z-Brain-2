@@ -7924,7 +7924,7 @@ class LinesController {
 		}
 		this.spinnerTarget = document.getElementById('spin');
 		this.spinner = new Spinner(this.spinnerOpts).spin(this.spinnerTarget).stop();
-		this.colorChannelOpacities = { cyan: .5, magenta: .5, green: .5, yellow: .5};
+		this.colorChannelOpacities = { 'red': .5, 'green': .5, 'blue': .5};
 	}
 
 	$onInit() {
@@ -8350,18 +8350,23 @@ class SidebarController {
 		this.slice = 90;
 		this.selected = 'Elavl3-H2BRFP';
 		this.current = 'Elavl3-H2BRFP';
-		this.opacity = '50';
 		this.masks = {
-			cyan: 'none',
-			green: 'none',
-			magenta: 'none',
-			yellow: 'none'
+			cyan: 'None',
+			green: 'None',
+			magenta: 'None',
+			yellow: 'None'
 		}
 
 		this.colorChannels = {
-			red: 'none',
-			green: 'none',
-			blue: 'none'
+			red: 'None',
+			green: 'None',
+			blue: 'None'
+		}
+
+		this.colorChannelOpacities = {
+			red: 50,
+			green: 50,
+			blue: 50
 		}
 	}
 
@@ -8537,10 +8542,6 @@ class ViewerController {
 		/* On new set of lines images load, update display
 		 * lineImages << LinesComponent
 		 */
-
-		console.log(changes)
-
-
 		if ( this.lineImages.length ) {
 			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
 			this.currentLineName = this.lineName || 'Elavl3-H2BRFP';
@@ -8586,7 +8587,6 @@ class ViewerController {
 	/* On slider change, update display with new slice number
 	 */
 	updateSlice() {
-		console.log(this.colorChannelOpacities);
 
 		// update displayed slice image
 		this.onUpdateIndex({sliceIndex:this.sliceIndex});
