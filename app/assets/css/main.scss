@@ -114,7 +114,7 @@ body {
 	}
 
 	.img-modify-input {
-		border: 1px inset #88888833;
+	//	border: 1px inset #88888833;
 		&:focus { outline: none }
 	}
 	.overview-button {
@@ -550,6 +550,11 @@ body {
 			width: 80%;
 			margin-bottom: 10px;
 		}
+		.slider {
+			margin: 10px 0 15px 1px !important;
+			width: 265px !important;
+		}
+
 	}
 
 	.viewer {
@@ -681,6 +686,11 @@ body {
 		}
 
 		.ui.search.dropdown { width: 100% !important; }
+
+		.slider {
+			margin: 10px 0 15px 4px !important;
+			width: 310px !important;
+		}
 	}
 
 	.viewer {

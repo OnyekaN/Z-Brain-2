@@ -101,7 +101,7 @@ input[type=range].red-overlay::-webkit-slider-runnable-track {
   height: 14px;
   cursor: pointer;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5), 0px 0px 1px rgba(13, 13, 13, 0.5);
-  background: linear-gradient(to right, transparent, #ff000022,#ff000044);;
+  background: linear-gradient(to right, transparent, #ff000033,#ff000055);;
   border-radius: 0px;
   border: 0px solid #010101;
 }
@@ -124,7 +124,7 @@ input[type=range].red-overlay::-moz-range-track {
   height: 14px;
   cursor: pointer;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5), 0px 0px 1px rgba(13, 13, 13, 0.5);
-  background: linear-gradient(to right, transparent, #ff000022,#ff000044);;
+  background: linear-gradient(to right, transparent, #ff000033,#ff000055);;
   border-radius: 0px;
   border: 0px solid #010101;
 }
@@ -146,13 +146,13 @@ input[type=range].red-overlay::-ms-track {
   color: transparent;
 }
 input[type=range].red-overlay::-ms-fill-lower {
-  background: linear-gradient(to right, transparent, #ff000022,#ff000044);;
+  background: linear-gradient(to right, transparent, #ff000033,#ff000055);;
   border: 0px solid #010101;
   border-radius: 0px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5), 0px 0px 1px rgba(13, 13, 13, 0.5);
 }
 input[type=range].red-overlay::-ms-fill-upper {
-  background: linear-gradient(to right, transparent, #ff000022,#ff000044);;
+  background: linear-gradient(to right, transparent, #ff000033,#ff000055);;
   border: 0px solid #010101;
   border-radius: 0px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5), 0px 0px 1px rgba(13, 13, 13, 0.5);
@@ -168,10 +168,10 @@ input[type=range].red-overlay::-ms-thumb {
   height: 14px;
 }
 input[type=range].red-overlay:focus::-ms-fill-lower {
-  background: linear-gradient(to right, transparent, #ff000033,#ff000055);
+  background: linear-gradient(to right, transparent, #ff000044,#ff000066);
 }
 input[type=range].red-overlay:focus::-ms-fill-upper {
-  background: linear-gradient(to right, transparent, #ff000033,#ff000055);
+  background: linear-gradient(to right, transparent, #ff000044,#ff000066);
 }
 
 

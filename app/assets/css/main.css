@@ -88,10 +88,8 @@ body {
     border: none; }
     .sidebar .download-line:hover {
       border: 1px solid #ffffff88; }
-  .sidebar .img-modify-input {
-    border: 1px inset #88888833; }
-    .sidebar .img-modify-input:focus {
-      outline: none; }
+  .sidebar .img-modify-input:focus {
+    outline: none; }
   .sidebar .overview-button {
     margin: 15px 0 0 -10px;
     min-width: 180px;
@@ -428,6 +426,9 @@ body {
     .sidebar .img-modify-input {
       width: 80%;
       margin-bottom: 10px; }
+    .sidebar .slider {
+      margin: 10px 0 15px 1px !important;
+      width: 265px !important; }
 
   .viewer {
     min-height: 680px;
@@ -528,6 +529,9 @@ body {
       margin-right: 40px; }
     .sidebar .ui.search.dropdown {
       width: 100% !important; }
+    .sidebar .slider {
+      margin: 10px 0 15px 4px !important;
+      width: 310px !important; }
 
   .viewer {
     min-height: 900px;
