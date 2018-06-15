@@ -77,8 +77,8 @@ body {
   .sidebar .inner {
     padding-left: 10px; }
   .sidebar button {
-    font-family: Helvetica, sans-serif;
-    border-radius: 00px; }
+    font-family: "Open Sans", helvetica, sans-serif;
+    border-radius: 0px; }
   .sidebar .download-line {
     margin: 7px 0 0 20px;
     min-width: 160px;
@@ -127,6 +127,7 @@ body {
   .sidebar .blue i {
     box-shadow: 3px 0px 1px -1px rgba(0, 0, 255, 0.6); }
   .sidebar .ui.search.dropdown {
+    margin-bottom: 3px;
     width: 100px !important;
     text-overflow: ellipsis; }
   .sidebar .ui.search.dropdown.text {
@@ -271,7 +272,7 @@ body {
 .annotations {
   background-color: #fffcfa;
   margin: 90px 0 100px 0;
-  width: 1424px;
+  width: 1427px;
   box-shadow: 0px -2px 4px -4px #bbb;
   font-size: .9em; }
   .annotations tr {
@@ -284,7 +285,8 @@ body {
     -webkit-border-radius: 5px;
     border-collapse: separate !important; }
   .annotations .headers {
-    height: 45px;
+    height: 35px;
+    line-height: 0;
     background: linear-gradient(to bottom, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff, #f2f8ff); }
   .annotations .headers:first-of-type {
     max-width: 80px; }
@@ -294,7 +296,7 @@ body {
     padding: 8px;
     text-align: center;
     border-bottom: 2px solid #49d;
-    border-right: 2px solid #fffcfa;
+    border-right: 1px solid #49d;
     text-shadow: 1px 1px 2px #eee;
     color: #333;
     font-size: 1.1em; }

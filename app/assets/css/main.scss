@@ -99,8 +99,8 @@ body {
 	.inner { padding-left: 10px; }
 
 	button {
-		font-family: Helvetica, sans-serif;
-		border-radius: 00px;
+		font-family: "Open Sans", helvetica, sans-serif;
+		border-radius: 0px;
 	}
 
 	.download-line {
@@ -164,6 +164,7 @@ body {
 	.blue i { box-shadow: 3px 0px 1px -1px rgba(0,0,255,0.6); }
 
 	.ui.search.dropdown {
+			margin-bottom: 3px;
 			width: 100px !important;
 			text-overflow: ellipsis;
 		}
@@ -344,7 +345,7 @@ body {
 .annotations {
 	background-color: #fffcfa;
 	margin: 90px 0 100px 0;
-	width: 1424px;
+	width: 1427px;
 	box-shadow: 0px -2px 4px -4px #bbb;
 	font-size: .9em;
 
@@ -362,7 +363,8 @@ body {
 	}
 
 	.headers {
-		height: 45px;
+		height: 35px;
+		line-height: 0;
 		background: linear-gradient(to bottom, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff, #f2f8ff);
 		//background-color: #f2f8ff;
 	}
@@ -377,7 +379,7 @@ body {
 		padding: 8px;
 		text-align: center;
 		border-bottom: 2px solid #49d;
-		border-right: 2px solid #fffcfa;
+		border-right: 1px solid #49d; //fffcfa;
 		text-shadow: 1px 1px 2px #eee;
 		color: #333;
 		font-size: 1.1em;
