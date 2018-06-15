@@ -7,5 +7,6 @@ downloads/
 routes/connectionString.js
 bin/www
 *.tif
-.sass_cache/
+.sass_cache/*
 .ipynb_checkpoints/
+.sass_cache

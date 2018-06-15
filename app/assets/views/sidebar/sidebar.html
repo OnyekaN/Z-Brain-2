@@ -71,7 +71,7 @@
 			<select select-directive class="ui search dropdown magenta"
 				ng-model="$ctrl.masks.magenta"
 				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.magenta, color:'magenta'})">
-				<option value="">……………………………</option>
+				<option value="">--------------------------------</option>
 				<option value="None">None</option>
 				<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
 					{{::mask}}
@@ -82,7 +82,7 @@
 				ng-model="$ctrl.masks.green"
 				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.green, color:
 				'green'})">
-				<option value="">……………………………</option>
+				<option value="">--------------------------------</option>
 				<option value="None">None</option>
 				<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
 					{{::mask}}
@@ -92,7 +92,7 @@
 			<select select-directive class="ui search dropdown yellow"
 				ng-model="$ctrl.masks.yellow"
 				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.yellow, color:'yellow'})">
-				<option value="">……………………………</option>
+				<option value="">--------------------------------</option>
 				<option value="None">None</option>
 				<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
 					{{::mask}}
@@ -125,7 +125,7 @@
 			<select select-directive class="ui search dropdown green"
 				ng-model="$ctrl.colorChannels.green"
 				ng-change="$ctrl.onUpdateColorChannel({line: $ctrl.colorChannels.green, color:'green'})">
-				<option value="">……………………………</option>
+				<option value="">--------------------------------</option>
 				<option value="None">None</option>
 				<option ng-repeat="line in $ctrl.lines" ng-value="'{{::line}}'">
 					{{::line}}
@@ -140,7 +140,7 @@
 			<select select-directive class="ui search dropdown blue"
 				ng-model="$ctrl.colorChannels.blue"
 				ng-change="$ctrl.onUpdateColorChannel({line: $ctrl.colorChannels.blue, color:'blue'})">
-				<option value="">……………………………</option>
+				<option value="">--------------------------------</option>
 				<option value="None">None</option>
 				<option ng-repeat="line in $ctrl.lines" ng-value="'{{::line}}'">
 					{{::line}}
