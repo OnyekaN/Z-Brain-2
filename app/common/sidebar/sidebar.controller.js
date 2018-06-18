@@ -36,6 +36,10 @@ class SidebarController {
 		this.selected = this.current;
 	}
 
+	onUpdateMaskWrapper({mask, color}) {
+		/* try reset to default instead of 'None' */
+	}
+
 	resetValues() {
 		this.brightness = 1;
 		this.gamma = 1;
