@@ -48,7 +48,7 @@ class LinesService {
 			let masks = response.data.map(obj => {
 				let img = new Image();
 				img.src = `images/2-Masks/${color}/${obj.mask_image_path}`;
-				return img;
+				return {'img':img, 'size':obj.mask_image_size};
 			});
 			return masks;
 		})

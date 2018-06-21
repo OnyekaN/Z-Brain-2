@@ -51,6 +51,7 @@ let viewerComponentTemplate =`
 						line-images="$ctrl.lineImages"
 						mask-images="$ctrl.maskImages"
 						mask-color="$ctrl.maskColor"
+						slice-index="$ctrl.sliceIndex"
 						color-channel-images="$ctrl.colorChannelImages"
 						color-channel-color="$ctrl.colorChannelColor"
 						color-channel-opacities="$ctrl.colorChannelOpacities"

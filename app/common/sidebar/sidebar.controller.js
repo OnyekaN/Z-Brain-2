@@ -34,7 +34,6 @@ class SidebarController {
 	$onChanges() {
 		this.mainLines = this.lines.slice()
 		this.mainLines.unshift('Upload (Image Slices)');
-		console.log(this.mainLines);
 	}
 
 	onUpdateLineWrapper(line) {

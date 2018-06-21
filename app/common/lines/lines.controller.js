@@ -2,9 +2,10 @@
 'use strict'
 
 class LinesController {
-	constructor(LinesService, Upload) {
+	constructor(LinesService, Upload, $timeout) {
 		this.LinesService = LinesService;
 		this.Upload = Upload;
+		this.$timeout = $timeout;
 		this.selected = undefined;
 		this.lines = [];
 		this.masks = [];
@@ -89,30 +90,36 @@ class LinesController {
 
 		// cache mask images for viewer component
 	updateMask(mask, color) {
+		if ( mask ) {
+			this.LinesService.cacheMask(mask, color).then(response => {
+												let [max, maxIndex] = [response[this.sliceIndex].size, this.sliceIndex];
+												this.maskImages = response.map((obj, i) => {
+													if ( obj.size > max )
+														[max, maxIndex]= [obj.size, i];
+													return obj.img
+												});
+												this.maskColor = color;
+												this.$timeout(() => {this.updateIndex(maxIndex)}, 100);
+											});
 
-		if ( mask === 'None' ) {
+		} else {
 			this.maskImages = 'None';
 			this.maskColor = color;
 			return;
-		} else {
-		this.LinesService.cacheMask(mask, color).then(response => {
-												this.maskImages = response;
-												this.maskColor = color;
-											});
 		}
 	}
 
 		// get color channel for viewer component
 	updateColorChannel(line, color) {
-		if ( line === 'None' ) {
-			this.colorChannelImages = 'None';
-			this.colorChannelColor = color;
-			return;
-		} else {
+		if ( line ) {
 			this.LinesService.cacheColorChannel(line, color).then(response => {
 													this.colorChannelImages = response;
 													this.colorChannelColor = color;
 												});
+		} else {
+			this.colorChannelImages = 'None';
+			this.colorChannelColor = color;
+			return;
 		}
 	}
 
@@ -190,7 +197,7 @@ class LinesController {
 
 }
 
-LinesController.$inject = ['LinesService', 'Upload'];
+LinesController.$inject = ['LinesService', 'Upload', '$timeout'];
 
 
 

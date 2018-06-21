@@ -10,6 +10,7 @@ const ViewerComponent = {
 		lineName: '<',
 		maskImages: '<',
 		maskColor: '<',
+		sliceIndex: '<',
 		colorChannelImages: '<',
 		colorChannelColor: '<',
 		colorChannelOpacities: '<',

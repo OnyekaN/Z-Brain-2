@@ -125,7 +125,10 @@ body {
     width: 200px !important; }
     .sidebar .ui-select-bootstrap .glyphicon {
       left: 18px;
-      line-height: 1.5; }
+      line-height: 1.5;
+      color: #ccc; }
+      .sidebar .ui-select-bootstrap .glyphicon:hover {
+        color: #cc5858; }
   .sidebar .btn-default {
     transition: all 0.1s ease-out; }
     .sidebar .btn-default:hover {
@@ -147,17 +150,21 @@ body {
   .sidebar .ui-select-container.lines {
     margin-bottom: 10px; }
   .sidebar .search-dropdown.lines > div > span {
+    height: 40px !important;
+    line-height: 2;
+    border-top: 1px outset #4499cc88;
+    border-left: 1px outset #4499cc88;
     border-bottom: 1px outset #ffffff66;
     border-right: 1px outset #ffffff66; }
   .sidebar .search-dropdown.cyan > div > span {
-    border-bottom: 1px outset #00ffff66;
-    border-right: 1px outset #00ffff66; }
+    border-bottom: 1px outset #00ffff44;
+    border-right: 1px outset #00ffff44; }
   .sidebar .search-dropdown.magenta > div > span {
-    border-bottom: 1px outset #ff00ff66;
-    border-right: 1px outset #ff00ff66; }
+    border-bottom: 1px outset #ff00ff44;
+    border-right: 1px outset #ff00ff44; }
   .sidebar .search-dropdown.green > div > span {
-    border-bottom: 1px outset #00aa0066;
-    border-right: 1px outset #00aa0066; }
+    border-bottom: 1px outset #00aa0044;
+    border-right: 1px outset #00aa0044; }
   .sidebar .search-dropdown.yellow > div > span {
     border-bottom: 1px outset #ffff0066;
     border-right: 1px outset #ffff0066; }
@@ -165,11 +172,11 @@ body {
     border-bottom: 1px outset #0000ff44;
     border-right: 1px outset #0000ff44; }
   .sidebar .search-dropdown.red > div > span {
-    border-bottom: 1px outset #ff000066;
-    border-right: 1px outset #ff000066; }
+    border-bottom: 1px outset #ff000055;
+    border-right: 1px outset #ff000055; }
   .sidebar .slider {
-    margin: 10px 0 10px 1px !important;
-    width: 190px !important; }
+    margin: 10px 0 10px 2px !important;
+    width: 195px !important; }
 
 .viewer {
   display: inline-block;
@@ -238,7 +245,8 @@ body {
     background-color: #fffffffc;
     border: 1px outset #ccc;
     border-radius: 2px;
-    opacity: 1; }
+    opacity: 1;
+    box-shadow: 0 0 30px -5px #22222255; }
   .upload .upload-info {
     white-space: normal;
     font-family: 'Raleway', Helvetica, Sans-serif; }
@@ -250,8 +258,8 @@ body {
     position: absolute;
     top: 8px;
     right: 8px;
-    background: linear-gradient(#eee 0px, #ddd);
-    border-radius: 20px;
+    background: linear-gradient(#fee 0px, #edd);
+    border-radius: 5px;
     font-family: verdana;
     border: None;
     transition: all 200ms ease; }
@@ -330,11 +338,14 @@ body {
     min-width: 200px;
     padding: 8px;
     text-align: center;
-    border-bottom: 2px solid #49d;
-    border-right: 1px solid #49d;
+    border-top: 1px solid #4499ddff;
+    border-bottom: 1px inset #4499dddd;
+    border-left: 1px solid #4499dddd;
     text-shadow: 1px 1px 2px #eee;
     color: #333;
     font-size: 1.1em; }
+    .annotations th:last-child {
+      border-right: 1px solid #4499dddd; }
   .annotations td {
     overflow: auto;
     padding: 3px 0 15px 0;
@@ -507,7 +518,7 @@ body {
 
   .annotations {
     width: 95%;
-    min-width: calc(1513px + 5vw);
+    min-width: calc(1600px + 5vw);
     margin-top: 80px;
     margin-bottom: 130px; }
     .annotations .notes {

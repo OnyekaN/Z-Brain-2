@@ -11,8 +11,7 @@
 			<div class="ui-select-container lines">
 				<ui-select class="search-dropdown lines"
 					ng-model="$ctrl.selected"
-					on-select="$ctrl.onUpdateLineWrapper({line: $ctrl.selected});$ctrl.gaEvent()"
-					on-remove="console.log('removed')">
+					on-select="$ctrl.onUpdateLineWrapper({line: $ctrl.selected});$ctrl.gaEvent()">
 					<ui-select-match placeholder="Search Lines">
 						{{$ctrl.selected}}
 					</ui-select-match>
@@ -66,7 +65,7 @@
 				<ui-select class="search-dropdown cyan"
 					ng-model="$ctrl.selectedMasks.cyan"
 					on-select="$ctrl.onUpdateMask({mask: $ctrl.selectedMasks.cyan, color:'cyan'})"
-					on-remove="console.log('removed')">
+					on-remove="$ctrl.onUpdateMask({mask: $ctrl.selectedMasks.cyan, color:'cyan'})">
 					<ui-select-match placeholder="Search Regions" allow-clear="true">
 						{{$ctrl.selectedMasks.cyan}}
 					</ui-select-match>
@@ -78,8 +77,10 @@
 			<div class="ui-select-container">
 				<ui-select class="search-dropdown magenta"
 					ng-model="$ctrl.selectedMasks.magenta"
-					on-select="$ctrl.onUpdateMask({mask: $ctrl.selectedMasks.magenta, color:'magenta'})"
-					on-remove="console.log('removed')">
+					on-select="$ctrl.onUpdateMask({mask: 
+					$ctrl.selectedMasks.magenta, color:'magenta'})"
+					on-remove="$ctrl.onUpdateMask({mask: 
+					$ctrl.selectedMasks.magenta, color:'magenta'})">
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
 						{{$ctrl.selectedMasks.magenta}}
 					</ui-select-match>
@@ -91,8 +92,10 @@
 			<div class="ui-select-container">
 				<ui-select class="search-dropdown green"
 					ng-model="$ctrl.selectedMasks.green"
-					on-select="$ctrl.onUpdateMask({mask: $ctrl.selectedMasks.green, color:'green'})"
-					on-remove="console.log('removed')">
+					on-select="$ctrl.onUpdateMask({mask: 
+					$ctrl.selectedMasks.green, color:'green'})"
+					on-remove="$ctrl.onUpdateMask({mask:
+					$ctrl.selectedMasks.green, color:'green'})">
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
 						{{$ctrl.selectedMasks.green}}
 					</ui-select-match>
@@ -104,8 +107,10 @@
 			<div class="ui-select-container">
 				<ui-select class="search-dropdown yellow"
 					ng-model="$ctrl.selectedMasks.yellow"
-					on-select="$ctrl.onUpdateMask({mask: $ctrl.selectedMasks.yellow, color:'yellow'})"
-					on-remove="console.log('removed')">
+					on-select="$ctrl.onUpdateMask({mask: 
+					$ctrl.selectedMasks.yellow, color:'yellow'})"
+					on-remove="$ctrl.onUpdateMask({mask: 
+					$ctrl.selectedMasks.yellow, color:'yellow'})">
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
 						{{$ctrl.selectedMasks.yellow}}
 					</ui-select-match>
@@ -121,8 +126,10 @@
 			<div class="ui-select-container">
 				<ui-select class="search-dropdown red"
 					ng-model="$ctrl.selectedColorChannels.red"
-					on-select="$ctrl.onUpdateColorChannel({line: $ctrl.selectedColorChannels.red, color:'red'})"
-					on-remove="console.log('removed')">
+					on-select="$ctrl.onUpdateColorChannel({line: 
+					$ctrl.selectedColorChannels.red, color:'red'})"
+					on-remove="$ctrl.onUpdateColorChannel({line: 
+					$ctrl.selectedColorChannels.red, color:'red'})">
 					<ui-select-match placeholder="Search Color Channels" allow-clear="true">
 						{{$ctrl.selectedColorChannels.red}}
 					</ui-select-match>
@@ -139,8 +146,10 @@
 			<div class="ui-select-container">
 				<ui-select class="search-dropdown blue"
 					ng-model="$ctrl.selectedColorChannels.blue"
-					on-select="$ctrl.onUpdateColorChannel({line: $ctrl.selectedColorChannels.blue, color:'blue'})"
-					on-remove="console.log('removed')">
+					on-select="$ctrl.onUpdateColorChannel({line: 
+					$ctrl.selectedColorChannels.blue, color:'blue'})"
+					on-remove="$ctrl.onUpdateColorChannel({line: 
+					$ctrl.selectedColorChannels.blue, color:'blue'})">
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
 						{{$ctrl.selectedColorChannels.blue}}
 					</ui-select-match>
@@ -157,8 +166,10 @@
 			<div class="ui-select-container">
 				<ui-select class="search-dropdown green"
 					ng-model="$ctrl.selectedColorChannels.green"
-					on-select="$ctrl.onUpdateColorChannel({line: $ctrl.selectedColorChannels.green, color:'green'})"
-					on-remove="console.log('removed')">
+					on-select="$ctrl.onUpdateColorChannel({line: 
+						$ctrl.selectedColorChannels.green, color:'green'})"
+					on-remove="$ctrl.onUpdateColorChannel({line: 
+						$ctrl.selectedColorChannels.green, color:'green'})">
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
 						{{$ctrl.selectedColorChannels.green}}
 					</ui-select-match>
