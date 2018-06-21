@@ -121,9 +121,10 @@ router.get('/api/lines', (req, res, next) => {
 								GROUP BY line_name
 								ORDER BY line_name ASC; `
 
-		let query = client.query(querySQL);
+		let [ query, index ] = [ client.query(querySQL), 1	];
 
 		query.on('row', (row) => {
+			row['id'] = index++;
 			results.push(row);
 		});
 
@@ -150,9 +151,9 @@ router.get('/api/masks', (req, res, next) => {
 								GROUP BY mask_name
 								ORDER BY mask_name ASC; `
 
-		let query = client.query(querySQL);
-
+		let [ query, index ] = [ client.query(querySQL), 1 ];
 		query.on('row', (row) => {
+			row['id'] = index++;
 			results.push(row);
 		});
 

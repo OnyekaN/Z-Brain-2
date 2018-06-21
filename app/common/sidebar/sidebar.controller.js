@@ -2,23 +2,26 @@
 'use strict'
 
 class SidebarController {
-	constructor() {
+	constructor($timeout) {
+		this.$timeout = $timeout;
 		this.brightness = 1;
 		this.gamma = 1;
 		this.slice = 90;
-		this.selected = 'Elavl3-H2BRFP';
+		this.selected = undefined;
 		this.current = 'Elavl3-H2BRFP';
-		this.masks = {
-			cyan: 'None',
-			green: 'None',
-			magenta: 'None',
-			yellow: 'None'
+		this.placeholder = '';
+		this.sel = false;
+		this.selectedMasks = {
+			cyan: undefined,
+			green: undefined,
+			magenta: undefined,
+			yellow: undefined
 		}
 
-		this.colorChannels = {
-			red: 'None',
-			green: 'None',
-			blue: 'None'
+		this.selectedColorChannels = {
+			red: undefined,
+			green: undefined,
+			blue: undefined
 		}
 
 		this.colorChannelOpacities = {
@@ -26,6 +29,12 @@ class SidebarController {
 			green: 50,
 			blue: 50
 		}
+	}
+
+	$onChanges() {
+		this.mainLines = this.lines.slice()
+		this.mainLines.unshift('Upload (Image Slices)');
+		console.log(this.mainLines);
 	}
 
 	onUpdateLineWrapper(line) {
@@ -56,5 +65,6 @@ class SidebarController {
 	}
 }
 
+SidebarController.$inject = ['$timeout'];
 
 export default SidebarController;

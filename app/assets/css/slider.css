@@ -117,7 +117,7 @@ input[type=range].red-overlay::-webkit-slider-thumb {
   margin-top: -2px;
 }
 input[type=range].red-overlay:focus::-webkit-slider-runnable-track {
-  background: linear-gradient(to right, transparent, #ff000033,#ff000055);
+  background: linear-gradient(to right, transparent, #ff000044,#ff000066);
 }
 input[type=range].red-overlay::-moz-range-track {
   width: 100%;

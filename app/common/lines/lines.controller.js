@@ -192,4 +192,7 @@ class LinesController {
 
 LinesController.$inject = ['LinesService', 'Upload'];
 
+
+
+
 export default LinesController;

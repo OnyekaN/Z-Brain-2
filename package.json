@@ -28,7 +28,8 @@
     "node-natural-sort": "^0.8.6",
     "pg": "^6.4.2",
     "semantic-ui-dropdown": "^2.3.0",
-    "serve-favicon": "^2.4.5"
+    "serve-favicon": "^2.4.5",
+    "ui-select": "^0.19.8"
   },
   "description": "Engert Lab Z-Brain Website (2018)",
   "main": "server.js",

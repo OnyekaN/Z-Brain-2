@@ -25,7 +25,7 @@ const Lines = angular
 			})
 
 			$stateProvider.state('home.line', {
-				url: '/line/{id}',
+				url: '/line/{id}?cy-mask',
 				template: viewerComponentTemplate,
 				resolve: {
 					resolvedLineImages: [
@@ -36,7 +36,7 @@ const Lines = angular
 					],
 					resolvedLineName: [
 						'$stateParams',
-						($stateParams) => { return $stateParams.id }
+						($stateParams) => { console.log($stateParams); return $stateParams.id }
 					],
 				},
 			});

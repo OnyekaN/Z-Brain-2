@@ -5,18 +5,22 @@
 	</div>
 
 	<div class="inner">
-		<div class="lines-ctrls" style="padding:10px 10px 30px 10px;">	
-			<select select-directive class="ui search dropdown"
-				ng-model="$ctrl.selected"
-				ng-change="$ctrl.onUpdateLineWrapper({line:
-				$ctrl.selected});$ctrl.gaEvent()">
-				<option value="">Search Lines</option>
-				<option value="{{'Upload' + Date.toString()}}" style="font-weight:bold">
-					Upload (Image Slices)</option>
-				<option ng-repeat="line in $ctrl.lines" ng-value="'{{::line}}'">
-					{{::line}}
-				</option>	
-			</select>
+
+		<div class="lines-ctrls">	
+
+			<div class="ui-select-container lines">
+				<ui-select class="search-dropdown lines"
+					ng-model="$ctrl.selected"
+					on-select="$ctrl.onUpdateLineWrapper({line: $ctrl.selected});$ctrl.gaEvent()"
+					on-remove="console.log('removed')">
+					<ui-select-match placeholder="Search Lines">
+						{{$ctrl.selected}}
+					</ui-select-match>
+					<ui-select-choices repeat="line in $ctrl.mainLines | filter:$select.search" 
+						value="'{{::line}}'">{{::line}}</ui-select-choices>
+				</ui-select>
+			</div>
+
 			<input type="file" id="upload" name="pic" accept="image/*" 
 				style="display:none" multiple/>
 
@@ -57,100 +61,116 @@
 		</div>
 
 		<div class="regions-ctrls"> 
-			
-			<select select-directive class="ui search dropdown cyan"
-				ng-model="$ctrl.masks.cyan"
-				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.cyan, color:'cyan'})">
-				<option value="">Search Regions</option>
-				<option value="None">None</option>
-				<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
-					{{::mask}}
-				</option>
-			</select>
-			
-			<select select-directive class="ui search dropdown magenta"
-				ng-model="$ctrl.masks.magenta"
-				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.magenta, color:'magenta'})">
-				<option value="">--------------------------------</option>
-				<option value="None">None</option>
-				<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
-					{{::mask}}
-				</option>
-			</select>
-			
-			<select select-directive class="ui search dropdown green"
-				ng-model="$ctrl.masks.green"
-				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.green, color:
-				'green'})">
-				<option value="">--------------------------------</option>
-				<option value="None">None</option>
-				<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
-					{{::mask}}
-				</option>
-			</select>
 
-			<select select-directive class="ui search dropdown yellow"
-				ng-model="$ctrl.masks.yellow"
-				ng-change="$ctrl.onUpdateMask({mask: $ctrl.masks.yellow, color:'yellow'})">
-				<option value="">--------------------------------</option>
-				<option value="None">None</option>
-				<option ng-repeat="mask in $ctrl.masks" ng-value="'{{::mask}}'">
-					{{::mask}}
-				</option>
-			</select>
+			<div class="ui-select-container">
+				<ui-select class="search-dropdown cyan"
+					ng-model="$ctrl.selectedMasks.cyan"
+					on-select="$ctrl.onUpdateMask({mask: $ctrl.selectedMasks.cyan, color:'cyan'})"
+					on-remove="console.log('removed')">
+					<ui-select-match placeholder="Search Regions" allow-clear="true">
+						{{$ctrl.selectedMasks.cyan}}
+					</ui-select-match>
+					<ui-select-choices repeat="mask in $ctrl.masks | filter:$select.search" 
+						value="'{{::mask}}'">{{::mask}}</ui-select-choices>
+				</ui-select>
+			</div>
+
+			<div class="ui-select-container">
+				<ui-select class="search-dropdown magenta"
+					ng-model="$ctrl.selectedMasks.magenta"
+					on-select="$ctrl.onUpdateMask({mask: $ctrl.selectedMasks.magenta, color:'magenta'})"
+					on-remove="console.log('removed')">
+					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
+						{{$ctrl.selectedMasks.magenta}}
+					</ui-select-match>
+					<ui-select-choices repeat="mask in $ctrl.masks | filter:$select.search" 
+						value="'{{::mask}}'">{{::mask}}</ui-select-choices>
+				</ui-select>
+			</div>
+
+			<div class="ui-select-container">
+				<ui-select class="search-dropdown green"
+					ng-model="$ctrl.selectedMasks.green"
+					on-select="$ctrl.onUpdateMask({mask: $ctrl.selectedMasks.green, color:'green'})"
+					on-remove="console.log('removed')">
+					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
+						{{$ctrl.selectedMasks.green}}
+					</ui-select-match>
+					<ui-select-choices repeat="mask in $ctrl.masks | filter:$select.search" 
+						value="'{{::mask}}'">{{::mask}}</ui-select-choices>
+				</ui-select>
+			</div>
+
+			<div class="ui-select-container">
+				<ui-select class="search-dropdown yellow"
+					ng-model="$ctrl.selectedMasks.yellow"
+					on-select="$ctrl.onUpdateMask({mask: $ctrl.selectedMasks.yellow, color:'yellow'})"
+					on-remove="console.log('removed')">
+					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
+						{{$ctrl.selectedMasks.yellow}}
+					</ui-select-match>
+					<ui-select-choices repeat="mask in $ctrl.masks | filter:$select.search" 
+						value="'{{::mask}}'">{{::mask}}</ui-select-choices>
+				</ui-select>
+			</div>
 
 		</div>
 
-		<div class="channel-ctrls" style="padding:10px 10px 30px 10px;
-			margin-bottom: 50px;">		
-
-			<select select-directive class="ui search dropdown red"
-				ng-model="$ctrl.colorChannels.red"
-				ng-change="$ctrl.onUpdateColorChannel({line: $ctrl.colorChannels.red, color:'red'})">
-				<option value="">Search Color Channels</option>
-				<option value="None">None</option>
-				<option ng-repeat="line in $ctrl.lines" ng-value="'{{::line}}'">
-					{{::line}}
-				</option>
-			</select>	
-			<div>
-			<input type="range" class="red-overlay slider"
-				ng-show="$ctrl.colorChannels.red!='None'"
-				ng-change="$ctrl.onUpdateOpacity({val: $ctrl.colorChannelOpacities.red, color:'red'})"	
-        ng-model="$ctrl.colorChannelOpacities.red"
-				min="0" max="90" value="50"/>
-				
+		<div class="channel-ctrls">	
+		
+			<div class="ui-select-container">
+				<ui-select class="search-dropdown red"
+					ng-model="$ctrl.selectedColorChannels.red"
+					on-select="$ctrl.onUpdateColorChannel({line: $ctrl.selectedColorChannels.red, color:'red'})"
+					on-remove="console.log('removed')">
+					<ui-select-match placeholder="Search Color Channels" allow-clear="true">
+						{{$ctrl.selectedColorChannels.red}}
+					</ui-select-match>
+					<ui-select-choices repeat="line in $ctrl.lines | filter:$select.search" 
+						value="'{{::line}}'">{{::line}}</ui-select-choices>
+				</ui-select>
+				<input type="range" class="red-overlay slider"
+					ng-show="!!$ctrl.selectedColorChannels.red" min="0" max="90" 
+					ng-change="$ctrl.onUpdateOpacity({val:
+					$ctrl.colorChannelOpacities.red,	color:'red'})"
+					ng-model="$ctrl.colorChannelOpacities.red"/>
 			</div>
 
-			<select select-directive class="ui search dropdown green"
-				ng-model="$ctrl.colorChannels.green"
-				ng-change="$ctrl.onUpdateColorChannel({line: $ctrl.colorChannels.green, color:'green'})">
-				<option value="">--------------------------------</option>
-				<option value="None">None</option>
-				<option ng-repeat="line in $ctrl.lines" ng-value="'{{::line}}'">
-					{{::line}}
-				</option>
-			</select>
-			<input type="range" class="green-overlay slider"
-				ng-show="$ctrl.colorChannels.green!='None'" min="0" max="90" 
-        ng-change="$ctrl.onUpdateOpacity({val:
-				$ctrl.colorChannelOpacities.green,	color:'green'})"
-				ng-model="$ctrl.colorChannelOpacities.green"/>
+			<div class="ui-select-container">
+				<ui-select class="search-dropdown blue"
+					ng-model="$ctrl.selectedColorChannels.blue"
+					on-select="$ctrl.onUpdateColorChannel({line: $ctrl.selectedColorChannels.blue, color:'blue'})"
+					on-remove="console.log('removed')">
+					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
+						{{$ctrl.selectedColorChannels.blue}}
+					</ui-select-match>
+					<ui-select-choices repeat="line in $ctrl.lines | filter:$select.search" 
+						value="'{{::line}}'">{{::line}}</ui-select-choices>
+				</ui-select>
+				<input type="range" class="blue-overlay slider"
+					ng-show="!!$ctrl.selectedColorChannels.blue" min="0" max="90" 
+					ng-change="$ctrl.onUpdateOpacity({val:
+					$ctrl.colorChannelOpacities.blue,	color:'blue'})"
+					ng-model="$ctrl.colorChannelOpacities.blue"/>
+			</div>
 
-			<select select-directive class="ui search dropdown blue"
-				ng-model="$ctrl.colorChannels.blue"
-				ng-change="$ctrl.onUpdateColorChannel({line: $ctrl.colorChannels.blue, color:'blue'})">
-				<option value="">--------------------------------</option>
-				<option value="None">None</option>
-				<option ng-repeat="line in $ctrl.lines" ng-value="'{{::line}}'">
-					{{::line}}
-				</option>
-			</select>
-			<input type="range" class="blue-overlay slider"
-				ng-show="$ctrl.colorChannels.blue!='None'"
-        ng-change="$ctrl.onUpdateOpacity({val:
-				$ctrl.colorChannelOpacities.blue, color:'blue'})"	
-        ng-model="$ctrl.colorChannelOpacities.blue"/>
+			<div class="ui-select-container">
+				<ui-select class="search-dropdown green"
+					ng-model="$ctrl.selectedColorChannels.green"
+					on-select="$ctrl.onUpdateColorChannel({line: $ctrl.selectedColorChannels.green, color:'green'})"
+					on-remove="console.log('removed')">
+					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
+						{{$ctrl.selectedColorChannels.green}}
+					</ui-select-match>
+					<ui-select-choices repeat="line in $ctrl.lines | filter:$select.search" 
+						value="'{{::line}}'">{{::line}}</ui-select-choices>
+				</ui-select>
+				<input type="range" class="green-overlay slider"
+					ng-show="!!$ctrl.selectedColorChannels.green" min="0" max="90" 
+					ng-change="$ctrl.onUpdateOpacity({val:
+					$ctrl.colorChannelOpacities.green,	color:'green'})"
+					ng-model="$ctrl.colorChannelOpacities.green"/>
+			</div>
 
 		</div>
 	</div>
