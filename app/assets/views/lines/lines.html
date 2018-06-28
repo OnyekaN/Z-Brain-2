@@ -3,7 +3,9 @@
 
 	<div class="sidebar">
 
-		<sidebar-component
+		<div ui-view="sidebar">
+		</div>
+		<!--sidebar-component
 			lines="$ctrl.lines"
 			masks="$ctrl.masks"
 			on-update-line="$ctrl.updateLine(line)"
@@ -11,7 +13,7 @@
 			on-update-color-channel="$ctrl.updateColorChannel(line, color)"
 			on-update-opacity="$ctrl.updateOpacity(val, color)"
 			on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)">
-		</sidebar-component>
+		</sidebar-component-->
 
 	</div>
 
@@ -20,10 +22,8 @@
 		<div id="spin">
 		</div>
 
-		<ui-view>
-			<!--viewer-component inserted here-->
-			<!--viewer-component bindings in ./index.js-->
-		</ui-view>
+		<div ui-view="viewer">
+		</div>
 
 	</div>
 

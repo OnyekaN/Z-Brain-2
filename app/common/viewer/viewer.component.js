@@ -4,8 +4,6 @@ import ViewerController from './viewer.controller.js';
 
 const ViewerComponent = {
 	bindings: {
-		resolvedLineName: '<',
-		resolvedLineImages: '<',
 		lineImages: '<',
 		lineName: '<',
 		maskImages: '<',
@@ -15,6 +13,10 @@ const ViewerComponent = {
 		colorChannelColor: '<',
 		colorChannelOpacities: '<',
 		onUpdateIndex: '&',
+		resolvedLineName: '<',
+		resolvedLineImages: '<',
+		resolvedMaskImages: '<',
+		resolvedColorChannelImages: '<',
 	},
 	controller: ViewerController,
 	templateUrl: 'views/viewer/viewer.html'

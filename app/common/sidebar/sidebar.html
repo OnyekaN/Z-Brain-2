@@ -1,7 +1,7 @@
 <div>
 
-	<div class="menu-title" style="z-index:1000;background-color:#ddd;padding-left:5px;">
-		<span style="color:black;font-family:serif;"><b>Menu</b></span>
+	<div class="sidebar-title">
+		<span>Menu</span>
 	</div>
 
 	<div class="inner">
@@ -15,7 +15,7 @@
 					<ui-select-match placeholder="Search Lines">
 						{{$ctrl.selected}}
 					</ui-select-match>
-					<ui-select-choices repeat="line in $ctrl.mainLines | filter:$select.search" 
+					<ui-select-choices repeat="line in $ctrl.searchLines | filter:$select.search" 
 						value="'{{::line}}'">{{::line}}</ui-select-choices>
 				</ui-select>
 			</div>

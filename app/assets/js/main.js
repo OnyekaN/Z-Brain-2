@@ -7831,24 +7831,36 @@ const Lines = angular
 
 			$stateProvider.state('home.default', {
 				url: '/',
-				template: viewerComponentTemplate,
+				views: {
+					'sidebar': {
+						template: sidebarComponentTemplate,
+					},
+					'viewer': {
+						template: viewerComponentTemplate,
+					},
+				},
 				resolve: {
+					resolvedLineName: [() => { return 'Elavl3-H2BRFP' }],
 					resolvedLineImages: [ 'LinesService', (LinesService) => {
 						return LinesService.cacheLine('Elavl3-H2BRFP')
 					}],
-					resolvedLineName: [() => { return 'Elavl3-H2BRFP' }],
 				},
 			})
 
 			$stateProvider.state('home.line', {
-				url: '/line/{id}?cy-mask&mg-mask&gr-mask&yl-mask&red-chl&bl-chl&gr-chl',
-				template: viewerComponentTemplate,
+				url: '/line/{id}?cy_mask&mg_mask&gr_mask&yl_mask&red_chl&bl_chl&gr_chl',
+				views: {
+					'sidebar': {
+						template: sidebarComponentTemplate,
+					},
+					'viewer': {
+						template: viewerComponentTemplate,
+					},
+				},
 				resolve: {
 					resolvedLineName: [
 						'$stateParams', 'LinesService',
 						($stateParams, LinesService) => {
-							//console.log(LinesService.getNameOfLine($stateParams.id));
-							//return $stateParams.id;
 							return LinesService.getNameOfLine($stateParams.id);
 						}
 					],
@@ -7861,7 +7873,12 @@ const Lines = angular
 					resolvedMaskImages: [
 						'$stateParams', 'LinesService',
 						($stateParams, LinesService) => {
-							return LinesService.cacheLine($stateParams.id);
+							return LinesService.cacheMultipleMasks({
+								cyan: $stateParams.cy_mask,
+								magenta: $stateParams.mg_mask,
+								yellow: $stateParams.yl_mask,
+								green: $stateParams.gr_mask
+							});
 						}
 					],
 
@@ -7872,8 +7889,6 @@ const Lines = angular
 
 let viewerComponentTemplate =`
 					<viewer-component
-						resolved-line-name="$resolve.resolvedLineName"
-						resolved-line-images="$resolve.resolvedLineImages"
 						line-name="$ctrl.lineName"
 						line-images="$ctrl.lineImages"
 						mask-images="$ctrl.maskImages"
@@ -7882,8 +7897,27 @@ let viewerComponentTemplate =`
 						color-channel-images="$ctrl.colorChannelImages"
 						color-channel-color="$ctrl.colorChannelColor"
 						color-channel-opacities="$ctrl.colorChannelOpacities"
-						on-update-index="$ctrl.updateIndex(sliceIndex)">
+						on-update-index="$ctrl.updateIndex(sliceIndex)"
+						resolved-line-name="$resolve.resolvedLineName"
+						resolved-line-images="$resolve.resolvedLineImages"
+						resolved-mask-images="$resolve.resolvedMaskImages"
+						resolved-color-channel-images="">
 					</viewer-component>
+`;
+
+let sidebarComponentTemplate = `
+					<sidebar-component
+						lines="$ctrl.lines"
+						masks="$ctrl.masks"
+						on-update-line="$ctrl.updateLine(line)"
+						on-update-mask="$ctrl.updateMask(mask, color)"
+						on-update-color-channel="$ctrl.updateColorChannel(line, color)"
+						on-update-opacity="$ctrl.updateOpacity(val, color)"
+						on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)"
+						resolved-line-name="$resolve.resolvedLineName"
+						resolved-mask-names=""
+						resolved-color-channel-names="">
+					</sidebar-component>
 `;
 
 /* harmony default export */ __webpack_exports__["a"] = (Lines);
@@ -8196,6 +8230,38 @@ class LinesService {
 		.catch(e => console.log(e));
 	}
 
+	cacheMultipleMasks(options) {
+
+		if ( !options )
+			return;
+
+		let [maskPromises, colors, masks] = [new Array, new Array, new Object];
+
+		if ( options.cyan ) {
+			maskPromises.push(this.cacheMask(options.cyan, 'cyan'));
+			colors.push('cyan');
+		}
+		if ( options.magenta) {
+			maskPromises.push(this.cacheMask(options.magenta, 'magenta'));
+			colors.push('magenta');
+		}
+		if ( options.green ) {
+			maskPromises.push(this.cacheMask(options.green, 'green'));
+			colors.push('green');
+		}
+		if ( options.yellow ) {
+			maskPromises.push(this.cacheMask(options.yellow, 'yellow'));
+			colors.push('yellow');
+		}
+
+		Promise.all(maskPromises).then(values => {
+			for ( let i = 0; i < values.length; i++ ) {
+				masks[colors[i]] = values[i].map(obj=>obj.img);
+			}
+		})
+		return masks;
+	}
+
 	cacheColorChannel(line, color) {
 		return this.$http({
 						method: 'GET',
@@ -8365,6 +8431,7 @@ const SidebarComponent = {
 		onUpdateColorChannel: '&',
 		onUpdateOpacity: '&',
 		onAdjustLine: '&',
+		resolvedLineName: '<',
 	},
 	controller: __WEBPACK_IMPORTED_MODULE_0__sidebar_controller__["a" /* default */],
 	templateUrl: 'views/sidebar/sidebar.html'
@@ -8412,8 +8479,14 @@ class SidebarController {
 	}
 
 	$onChanges() {
-		this.mainLines = this.lines.slice()
-		this.mainLines.unshift('Upload (Image Slices)');
+		/* add 'Upload' option to search Lines dropdown */
+		this.searchLines = this.lines.slice()
+		this.searchLines.unshift('Upload (Image Slices)');
+
+		/* handle route resolve of line */
+		if ( this.resolvedLineName != 'Elavl3-H2BRFP' ) {
+			this.selected = this.resolvedLineName;
+		}
 	}
 
 	onUpdateLineWrapper(line) {
@@ -8509,8 +8582,6 @@ const Viewer = angular
 
 const ViewerComponent = {
 	bindings: {
-		resolvedLineName: '<',
-		resolvedLineImages: '<',
 		lineImages: '<',
 		lineName: '<',
 		maskImages: '<',
@@ -8520,6 +8591,10 @@ const ViewerComponent = {
 		colorChannelColor: '<',
 		colorChannelOpacities: '<',
 		onUpdateIndex: '&',
+		resolvedLineName: '<',
+		resolvedLineImages: '<',
+		resolvedMaskImages: '<',
+		resolvedColorChannelImages: '<',
 	},
 	controller: __WEBPACK_IMPORTED_MODULE_0__viewer_controller_js__["a" /* default */],
 	templateUrl: 'views/viewer/viewer.html'
@@ -8549,6 +8624,7 @@ class ViewerController {
 			// initial display image, #viewer#primary-line-image[src]
 		this.currentDisplayImage = 'images/0-Lines/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg';
 
+			// array stores colors of active masks
 		this.activeMasks = [];
 			// object stores arrays of mask images
 		this.maskArrays = {
@@ -8587,6 +8663,15 @@ class ViewerController {
 			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
 			this.currentLineName = this.resolvedLineName;
 		} */
+		if ( this.resolvedMaskImages ) {
+			let colors = Object.keys(this.resolvedMaskImages);
+			for ( let i = 0; i < colors.length; i++ ) {
+				this.maskArrays[colors[i]] = this.resolvedMaskImages[colors[i]];
+			}
+			this.activeMasks = colors.slice();
+			this.maskImages = true;
+			this.updateSlice();
+		}
 	}
 
 	$onChanges(changes) {
@@ -8607,7 +8692,8 @@ class ViewerController {
 		/* On new set of mask images load, update display
 		 * maskImages << LinesComponent
 		 */
-		if ( this.maskImages ) {
+
+		if ( Array.isArray(this.maskImages) ) {
 			let color = this.maskColor;
 			if ( !this.activeMasks.includes(color) )
 				this.activeMasks.push(color)

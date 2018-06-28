@@ -67,6 +67,38 @@ class LinesService {
 		.catch(e => console.log(e));
 	}
 
+	cacheMultipleMasks(options) {
+
+		if ( !options )
+			return;
+
+		let [maskPromises, colors, masks] = [new Array, new Array, new Object];
+
+		if ( options.cyan ) {
+			maskPromises.push(this.cacheMask(options.cyan, 'cyan'));
+			colors.push('cyan');
+		}
+		if ( options.magenta) {
+			maskPromises.push(this.cacheMask(options.magenta, 'magenta'));
+			colors.push('magenta');
+		}
+		if ( options.green ) {
+			maskPromises.push(this.cacheMask(options.green, 'green'));
+			colors.push('green');
+		}
+		if ( options.yellow ) {
+			maskPromises.push(this.cacheMask(options.yellow, 'yellow'));
+			colors.push('yellow');
+		}
+
+		Promise.all(maskPromises).then(values => {
+			for ( let i = 0; i < values.length; i++ ) {
+				masks[colors[i]] = values[i].map(obj=>obj.img);
+			}
+		})
+		return masks;
+	}
+
 	cacheColorChannel(line, color) {
 		return this.$http({
 						method: 'GET',

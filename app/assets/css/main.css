@@ -44,10 +44,10 @@ body {
   width: 100%;
   min-width: 1410px;
   position: relative;
-  box-shadow: -10px 15px 25px #eee;
   margin-bottom: 40px;
   font-family: "Raleway", sans-serif !important;
-  margin-left: -15px; }
+  margin-left: -15px;
+  box-shadow: -10px 15px 25px -3px #eeeeee55; }
 
 .title {
   top: 10px;
@@ -74,8 +74,19 @@ body {
   width: 240px;
   vertical-align: top;
   margin-right: 30px;
+  border-top: 1px solid #eee;
+  border-radius: 2px;
   background-color: #eee;
-  box-shadow: 1px 1px 2px #bbb; }
+  box-shadow: 0px 0px 15px -2px #bbbbbb55; }
+  .sidebar .sidebar-title {
+    z-index: 1000;
+    padding-left: 5px;
+    background-color: #e5e5e5;
+    box-shadow: 0px 2px 10px -1px #4499cc11; }
+    .sidebar .sidebar-title span {
+      color: black;
+      font-family: Serif;
+      font-weight: bold; }
   .sidebar .inner {
     padding-left: 10px; }
   .sidebar button {
@@ -205,7 +216,17 @@ body {
   position: relative;
   height: 600px;
   min-width: 1150px;
-  box-shadow: -2px 2px 2px #bbb; }
+  border-radius: 2px;
+  border-top: 1px solid #ddd;
+  box-shadow: 0px 0px 15px -2px #bbbbbb55; }
+  .viewer .viewer-title {
+    background-color: #ddd;
+    padding-left: 5px;
+    box-shadow: 0px 2px 10px -1px #ffffff55; }
+    .viewer .viewer-title span {
+      color: black;
+      font-family: Serif;
+      font-weight: bold; }
   .viewer .viewer-ctrl-panel {
     position: absolute;
     top: 40px;
@@ -335,10 +356,10 @@ body {
   opacity: 1; }
 
 .annotations {
-  background-color: #fffcfa;
-  margin: 90px 0 100px 0;
   width: 1427px;
-  box-shadow: 0px -2px 10px -4px #bbb;
+  margin: 70px 0 100px 0;
+  padding-top: 20px;
+  background-color: #fffcfa;
   font-size: .9em; }
   .annotations tr {
     width: 100%; }
@@ -348,7 +369,8 @@ body {
     text-align: center;
     border-radius: 5px;
     -webkit-border-radius: 5px;
-    border-collapse: separate !important; }
+    border-collapse: separate !important;
+    box-shadow: 0px -2px 20px -4px #bbbbbb44; }
   .annotations .headers {
     height: 35px;
     line-height: 0;
@@ -369,7 +391,7 @@ body {
     .annotations th:last-child {
       border-right: 1px solid #4499dddd; }
   .annotations td {
-    border-left: 1px solid #eeeeeecc;
+    border-left: 1px solid #eeeeee88;
     overflow: auto;
     padding: 3px 0 10px 0;
     text-align: center;

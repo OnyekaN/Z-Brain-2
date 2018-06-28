@@ -58,10 +58,10 @@ body {
 	width: 100%;
 	min-width: 1410px;
 	position: relative;
-	box-shadow: -10px 15px 25px #eee;
 	margin-bottom: 40px;
 	font-family: "Raleway", sans-serif !important;
 	margin-left:-15px;
+	box-shadow: -10px 15px 25px -3px #eeeeee55;
 }
 
 .title {
@@ -100,8 +100,22 @@ body {
 	width: 240px;
 	vertical-align: top;
 	margin-right: 30px;
+	border-top: 1px solid #eee;
+	border-radius: 2px;
 	background-color: #eee;
-	box-shadow: 1px 1px 2px #bbb;
+	box-shadow: 0px 0px 15px -2px #bbbbbb55;
+
+	.sidebar-title {
+		z-index: 1000;
+  	padding-left: 5px;
+		background-color: #e5e5e5;
+		box-shadow: 0px 2px 10px -1px #4499cc11;
+		span {
+			color: black;
+			font-family: Serif;
+			font-weight: bold;
+		}
+	}
 
 	.inner { padding-left: 10px; }
 
@@ -261,8 +275,20 @@ body {
 	position: relative;
 	height: 600px;
 	min-width: 1150px;
-	box-shadow: -2px 2px 2px #bbb;
+	border-radius: 2px;
+	border-top: 1px solid #ddd;
+	box-shadow: 0px 0px 15px -2px #bbbbbb55;
 
+	.viewer-title {
+		background-color: #ddd;
+		padding-left: 5px;
+		box-shadow: 0px 2px 10px -1px #ffffff55;
+		span {
+			color: black;
+			font-family: Serif;
+			font-weight: bold;
+		}
+	}
 	.viewer-ctrl-panel {
 		position: absolute;
 		top: 40px;
@@ -419,10 +445,11 @@ body {
 }
 
 .annotations {
-	background-color: #fffcfa;
-	margin: 90px 0 100px 0;
 	width: 1427px;
-	box-shadow: 0px -2px 10px -4px #bbb;
+	margin: 70px 0 100px 0;
+	padding-top: 20px;
+	background-color: #fffcfa;
+	//box-shadow: 0px -2px 20px -4px #bbbbbb44;
 	font-size: .9em;
 
 	tr {
@@ -436,13 +463,13 @@ body {
 		border-radius: 5px;
 		-webkit-border-radius: 5px;
 		border-collapse: separate !important;
+		box-shadow: 0px -2px 20px -4px #bbbbbb44;
 	}
 
 	.headers {
 		height: 35px;
 		line-height: 0;
 		background: linear-gradient(to bottom, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff, #f2f8ff);
-		//background-color: #f2f8ff;
 	}
 
 	.headers:first-of-type {
@@ -464,7 +491,7 @@ body {
 	}
 
 	td {
-		border-left: 1px solid #eeeeeecc;
+		border-left: 1px solid #eeeeee88;
 		overflow: auto;
 		padding: 3px 0 10px 0;
 		text-align: center;

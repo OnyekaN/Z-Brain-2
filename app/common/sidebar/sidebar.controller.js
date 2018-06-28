@@ -32,8 +32,14 @@ class SidebarController {
 	}
 
 	$onChanges() {
-		this.mainLines = this.lines.slice()
-		this.mainLines.unshift('Upload (Image Slices)');
+		/* add 'Upload' option to search Lines dropdown */
+		this.searchLines = this.lines.slice()
+		this.searchLines.unshift('Upload (Image Slices)');
+
+		/* handle route resolve of line */
+		if ( this.resolvedLineName != 'Elavl3-H2BRFP' ) {
+			this.selected = this.resolvedLineName;
+		}
 	}
 
 	onUpdateLineWrapper(line) {

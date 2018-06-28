@@ -12,6 +12,7 @@ class ViewerController {
 			// initial display image, #viewer#primary-line-image[src]
 		this.currentDisplayImage = 'images/0-Lines/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg';
 
+			// array stores colors of active masks
 		this.activeMasks = [];
 			// object stores arrays of mask images
 		this.maskArrays = {
@@ -50,6 +51,15 @@ class ViewerController {
 			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
 			this.currentLineName = this.resolvedLineName;
 		} */
+		if ( this.resolvedMaskImages ) {
+			let colors = Object.keys(this.resolvedMaskImages);
+			for ( let i = 0; i < colors.length; i++ ) {
+				this.maskArrays[colors[i]] = this.resolvedMaskImages[colors[i]];
+			}
+			this.activeMasks = colors.slice();
+			this.maskImages = true;
+			this.updateSlice();
+		}
 	}
 
 	$onChanges(changes) {
@@ -70,7 +80,8 @@ class ViewerController {
 		/* On new set of mask images load, update display
 		 * maskImages << LinesComponent
 		 */
-		if ( this.maskImages ) {
+
+		if ( Array.isArray(this.maskImages) ) {
 			let color = this.maskColor;
 			if ( !this.activeMasks.includes(color) )
 				this.activeMasks.push(color)

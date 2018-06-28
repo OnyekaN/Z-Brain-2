@@ -11,6 +11,7 @@ const SidebarComponent = {
 		onUpdateColorChannel: '&',
 		onUpdateOpacity: '&',
 		onAdjustLine: '&',
+		resolvedLineName: '<',
 	},
 	controller: SidebarController,
 	templateUrl: 'views/sidebar/sidebar.html'
