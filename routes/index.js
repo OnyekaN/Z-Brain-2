@@ -49,7 +49,7 @@ router.get('/', function(req, res, next) {
 
 /* GET entire imagesdb database as json */
 router.get('/api/imagesdb', (req, res, next) => {
-	const results = [];
+	let results = [];
 
 	pool.connect((err, client, done) => {
 		if (err) {
@@ -58,7 +58,7 @@ router.get('/api/imagesdb', (req, res, next) => {
 			return res.status(500).json({success: false, data: err});
 		}
 
-		const query = client.query('SELECT * FROM images ORDER BY image_id ASC;');
+		let query = client.query('SELECT * FROM images ORDER BY image_id ASC;');
 
 		query.on('row', (row) => {
 			results.push(row);
@@ -85,8 +85,16 @@ router.param('line', (req, res, next, id) => {
 			return res.status(500).json({success:false, data: err});
 		}
 
-		let querySQL = `SELECT * FROM images
+		let querySQL;
+
+		if ( isNaN(id) ) {
+			querySQL = `SELECT * FROM images
 								WHERE line_name='${id}'`
+		} else {
+			querySQL = `SELECT * FROM images
+								WHERE line_id='${id}'`
+		}
+
 		let query = client.query(querySQL);
 
 		query.on('row', (row) => {
@@ -105,6 +113,13 @@ router.param('line', (req, res, next, id) => {
 /* GET single line metadata as json */
 router.get('/api/lines/:line', (req, res, next) => {
 	res.json(req.line);
+});
+
+router.get('/api/lines/nameof/:line', (req, res, next) => {
+	if ( req.line.length )
+		res.send(req.line[0].line_name);
+	else
+		res.status(500).send({message: 'Not a database entry'});
 });
 
 router.get('/api/lines', (req, res, next) => {
@@ -147,13 +162,12 @@ router.get('/api/masks', (req, res, next) => {
 			res.status(500).json({success: false, data:err});
 		}
 
-		querySQL = `SELECT mask_name FROM masks
-								GROUP BY mask_name
+		querySQL = `SELECT mask_name, mask_id FROM masks
+								GROUP BY mask_name, mask_id
 								ORDER BY mask_name ASC; `
 
-		let [ query, index ] = [ client.query(querySQL), 1 ];
+		let [ query, index ] = [ client.query(querySQL), 1001 ];
 		query.on('row', (row) => {
-			row['id'] = index++;
 			results.push(row);
 		});
 
@@ -175,9 +189,18 @@ router.param('mask', (req, res, next, id) => {
 			console.log(err);
 			return res.status(500).json({success: false, data: err});
 		}
+		let querySQL;
 
-		querySQL = `SELECT * FROM masks
-								WHERE mask_name='${id}'`
+		if ( isNaN(id) ) {
+			querySQL = `SELECT * FROM masks
+									WHERE mask_name='${id}'
+									ORDER BY mask_img_id;`
+		} else {
+			querySQL = `SELECT * FROM masks
+									WHERE mask_id='${id}'
+									ORDER BY mask_img_id;`
+		}
+
 		let query = client.query(querySQL);
 
 		query.on('row', (row) => {
@@ -197,6 +220,13 @@ router.param('mask', (req, res, next, id) => {
 router.get('/api/masks/:mask', (req, res, next) => {
 	res.json(req.mask);
 	return next();
+});
+
+router.get('/api/masks/nameof/:mask', (req, res, next) => {
+	if ( req.mask.length )
+		res.send(req.mask[0].mask_name);
+	else
+		res.status(500).send({message: 'Not a database entry'});
 });
 
 /* query db for colorChannel overlay for one line and one color */

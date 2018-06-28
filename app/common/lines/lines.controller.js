@@ -45,8 +45,11 @@ class LinesController {
 											});
 
 		this.LinesService.getMaskNames().then(response => {
-													this.masks = response.map(obj => obj.mask_name
-																				.replace("'", "&quot"));
+													this.masks = response.map(obj => {
+																				let name = obj.mask_name.replace("'", "&quot"),
+																							id = obj.mask_id;
+																				return { 'id': parseInt(id), 'name': name }
+																				});
 												});
 
 		this.LinesService.getAnnotations().then(response => {
@@ -130,7 +133,7 @@ class LinesController {
 		// change the brightness or gamma settings on the displayed line image
 	adjustLine(line, brightness, gamma) {
 		this.spinner.spin(this.spinnerTarget);
-		this.LinesService.adjustLine(line, brightness, gamma, this.sliceIndex)
+		this.LinesService.adjustLine(line||'Elavl3-H2BRFP', brightness, gamma, this.sliceIndex)
 			.then(response => {
 												this.lineImages = response;
 												this.spinner.stop();

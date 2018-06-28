@@ -64,13 +64,15 @@
 			<div class="ui-select-container">
 				<ui-select class="search-dropdown cyan"
 					ng-model="$ctrl.selectedMasks.cyan"
-					on-select="$ctrl.onUpdateMask({mask: $ctrl.selectedMasks.cyan, color:'cyan'})"
-					on-remove="$ctrl.onUpdateMask({mask: $ctrl.selectedMasks.cyan, color:'cyan'})">
+					on-select="$ctrl.onUpdateMask({mask:
+					$ctrl.selectedMasks.cyan.name, color:'cyan'})"
+					on-remove="$ctrl.onUpdateMask({mask:
+					$ctrl.selectedMasks.cyan.name, color:'cyan'})">
 					<ui-select-match placeholder="Search Regions" allow-clear="true">
-						{{$ctrl.selectedMasks.cyan}}
+						{{$ctrl.selectedMasks.cyan.name}}
 					</ui-select-match>
 					<ui-select-choices repeat="mask in $ctrl.masks | filter:$select.search" 
-						value="'{{::mask}}'">{{::mask}}</ui-select-choices>
+						value="'{{::mask.name}}'">{{::mask.name}} <span class="num">{{::mask.id}}</span></ui-select-choices>
 				</ui-select>
 			</div>
 
@@ -78,14 +80,14 @@
 				<ui-select class="search-dropdown magenta"
 					ng-model="$ctrl.selectedMasks.magenta"
 					on-select="$ctrl.onUpdateMask({mask: 
-					$ctrl.selectedMasks.magenta, color:'magenta'})"
+					$ctrl.selectedMasks.magenta.name, color:'magenta'})"
 					on-remove="$ctrl.onUpdateMask({mask: 
-					$ctrl.selectedMasks.magenta, color:'magenta'})">
+					$ctrl.selectedMasks.magenta.name, color:'magenta'})">
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
-						{{$ctrl.selectedMasks.magenta}}
+						{{$ctrl.selectedMasks.magenta.name}}
 					</ui-select-match>
 					<ui-select-choices repeat="mask in $ctrl.masks | filter:$select.search" 
-						value="'{{::mask}}'">{{::mask}}</ui-select-choices>
+						value="'{{::mask.name}}'">{{::mask.name}} <span class="num">{{::mask.id}}</span></ui-select-choices>
 				</ui-select>
 			</div>
 
@@ -93,14 +95,14 @@
 				<ui-select class="search-dropdown green"
 					ng-model="$ctrl.selectedMasks.green"
 					on-select="$ctrl.onUpdateMask({mask: 
-					$ctrl.selectedMasks.green, color:'green'})"
+					$ctrl.selectedMasks.green.name, color:'green'})"
 					on-remove="$ctrl.onUpdateMask({mask:
-					$ctrl.selectedMasks.green, color:'green'})">
+					$ctrl.selectedMasks.green.name, color:'green'})">
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
-						{{$ctrl.selectedMasks.green}}
+						{{$ctrl.selectedMasks.green.name}}
 					</ui-select-match>
 					<ui-select-choices repeat="mask in $ctrl.masks | filter:$select.search" 
-						value="'{{::mask}}'">{{::mask}}</ui-select-choices>
+						value="'{{::mask.name}}'">{{::mask.name}} <span class="num">{{::mask.id}}</span></ui-select-choices>
 				</ui-select>
 			</div>
 
@@ -108,14 +110,14 @@
 				<ui-select class="search-dropdown yellow"
 					ng-model="$ctrl.selectedMasks.yellow"
 					on-select="$ctrl.onUpdateMask({mask: 
-					$ctrl.selectedMasks.yellow, color:'yellow'})"
+					$ctrl.selectedMasks.yellow.name, color:'yellow'})"
 					on-remove="$ctrl.onUpdateMask({mask: 
-					$ctrl.selectedMasks.yellow, color:'yellow'})">
+					$ctrl.selectedMasks.yellow.name, color:'yellow'})">
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
-						{{$ctrl.selectedMasks.yellow}}
+						{{$ctrl.selectedMasks.yellow.name}}
 					</ui-select-match>
 					<ui-select-choices repeat="mask in $ctrl.masks | filter:$select.search" 
-						value="'{{::mask}}'">{{::mask}}</ui-select-choices>
+						value="'{{::mask.name}}'">{{::mask.name}} <span class="num">{{::mask.id}}</span></ui-select-choices>
 				</ui-select>
 			</div>
 

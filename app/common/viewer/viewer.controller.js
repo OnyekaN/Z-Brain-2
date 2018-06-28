@@ -45,11 +45,11 @@ class ViewerController {
 
 	$onInit() {
 		/* Handle URL resolve */
-		if ( this.resolvedLineImages.length ) {
-			this.lineImages = this.resolvedLineImages;
+/*		if ( this.resolvedLineImages.length ) {
+			this.lineImages = this.resolvedLineImages.slice();
 			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
 			this.currentLineName = this.resolvedLineName;
-		}
+		} */
 	}
 
 	$onChanges(changes) {
@@ -58,6 +58,11 @@ class ViewerController {
 		 * lineImages << LinesComponent
 		 */
 		if ( this.lineImages.length ) {
+			if ( Array.isArray(this.resolvedLineImages) && this.resolvedLineImages.length ) {
+				this.lineName = this.resolvedLineName;
+				this.lineImages = this.resolvedLineImages;
+				this.resolvedLineName = this.resolvedLineImages = undefined;
+			}
 			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
 			this.currentLineName = this.lineName || 'Elavl3-H2BRFP';
 		}
@@ -97,11 +102,21 @@ class ViewerController {
 				this.currentDisplayColorChannels[color] = this.colorChannelArrays[color][this.sliceIndex].src;
 			}
 		}
+
+		/* On change slice index update display imagesel images load, update display
+		 * sliceIndex << LinesComponent << SidebarComponent
+		 */
+		if ( this.sliceIndex ) {
+			this.updateSlice();
+		}
 	}
 
 	/* On slider change, update display with new slice number
 	 */
-	updateSlice() {
+	updateSlice()	{
+
+		if ( !Array.isArray(this.lineImages) || !this.lineImages.length )
+			return;
 
 		// update displayed slice image
 		this.onUpdateIndex({sliceIndex:this.sliceIndex});
@@ -124,6 +139,7 @@ class ViewerController {
 		 * update display image if loaded, otherwise skip
 		 */
 		let imageLoaded = this.lineImages[this.sliceIndex].naturalHeight;
+
 		if ( imageLoaded ) {
 			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
 		} else {

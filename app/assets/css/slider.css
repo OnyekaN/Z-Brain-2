@@ -280,7 +280,7 @@ input[type=range].green-overlay::-webkit-slider-runnable-track {
   height: 14px;
   cursor: pointer;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5), 0px 0px 1px rgba(13, 13, 13, 0.5);
-  background: linear-gradient(to right, transparent, #00ff0022,#00ff0044);
+  background: linear-gradient(to right, transparent, #00cc0022,#00cc0044);
   border-radius: 0px;
   border: 0px solid #010101;
 }
@@ -296,14 +296,14 @@ input[type=range].green-overlay::-webkit-slider-thumb {
   margin-top: -2px;
 }
 input[type=range].green-overlay:focus::-webkit-slider-runnable-track {
-  background: linear-gradient(to right, transparent, #00ff0033,#00ff0055);
+  background: linear-gradient(to right, transparent, #00cc0033,#00cc0055);
 }
 input[type=range].green-overlay::-moz-range-track {
   width: 100%;
   height: 14px;
   cursor: pointer;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5), 0px 0px 1px rgba(13, 13, 13, 0.5);
-  background: linear-gradient(to right, transparent, #00ff0022,#00ff0044);
+  background: linear-gradient(to right, transparent, #00cc0022,#00cc0044);
   border-radius: 0px;
   border: 0px solid #010101;
 }
@@ -331,7 +331,7 @@ input[type=range].green-overlay::-ms-fill-lower {
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5), 0px 0px 1px rgba(13, 13, 13, 0.5);
 }
 input[type=range].green-overlay::-ms-fill-upper {
-  background: linear-gradient(to right, transparent, #00ff0022,#00ff0044);
+  background: linear-gradient(to right, transparent, #00cc0022,#00cc0044);
   border: 0px solid #010101;
   border-radius: 0px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5), 0px 0px 1px rgba(13, 13, 13, 0.5);
@@ -347,8 +347,8 @@ input[type=range].green-overlay::-ms-thumb {
   height: 14px;
 }
 input[type=range].green-overlay:focus::-ms-fill-lower {
-  background: linear-gradient(to right, transparent, #00ff0022,#00ff0044);
+  background: linear-gradient(to right, transparent, #00cc0022,#00cc0044);
 }
 input[type=range].green-overlay:focus::-ms-fill-upper {
-  background: linear-gradient(to right, transparent, #00ff0033,#00ff0055);
+  background: linear-gradient(to right, transparent, #00cc0033,#00cc0055);
 }

@@ -7841,19 +7841,30 @@ const Lines = angular
 			})
 
 			$stateProvider.state('home.line', {
-				url: '/line/{id}?cy-mask',
+				url: '/line/{id}?cy-mask&mg-mask&gr-mask&yl-mask&red-chl&bl-chl&gr-chl',
 				template: viewerComponentTemplate,
 				resolve: {
+					resolvedLineName: [
+						'$stateParams', 'LinesService',
+						($stateParams, LinesService) => {
+							//console.log(LinesService.getNameOfLine($stateParams.id));
+							//return $stateParams.id;
+							return LinesService.getNameOfLine($stateParams.id);
+						}
+					],
 					resolvedLineImages: [
 						'$stateParams', 'LinesService',
 						($stateParams, LinesService) => {
 							return LinesService.cacheLine($stateParams.id);
 						}
 					],
-					resolvedLineName: [
-						'$stateParams',
-						($stateParams) => { console.log($stateParams); return $stateParams.id }
+					resolvedMaskImages: [
+						'$stateParams', 'LinesService',
+						($stateParams, LinesService) => {
+							return LinesService.cacheLine($stateParams.id);
+						}
 					],
+
 				},
 			});
 		}])
@@ -7948,8 +7959,11 @@ class LinesController {
 											});
 
 		this.LinesService.getMaskNames().then(response => {
-													this.masks = response.map(obj => obj.mask_name
-																				.replace("'", "&quot"));
+													this.masks = response.map(obj => {
+																				let name = obj.mask_name.replace("'", "&quot"),
+																							id = obj.mask_id;
+																				return { 'id': parseInt(id), 'name': name }
+																				});
 												});
 
 		this.LinesService.getAnnotations().then(response => {
@@ -8033,7 +8047,7 @@ class LinesController {
 		// change the brightness or gamma settings on the displayed line image
 	adjustLine(line, brightness, gamma) {
 		this.spinner.spin(this.spinnerTarget);
-		this.LinesService.adjustLine(line, brightness, gamma, this.sliceIndex)
+		this.LinesService.adjustLine(line||'Elavl3-H2BRFP', brightness, gamma, this.sliceIndex)
 			.then(response => {
 												this.lineImages = response;
 												this.spinner.stop();
@@ -8127,8 +8141,20 @@ class LinesService {
 						.catch(e => console.log(e));
 	}
 
+	getNameOfLine(line) {
+		return this.$http.get(`api/lines/nameof/${line}`)
+						.then(response => response.data)
+						.catch(e => console.log(e));
+	}
+
 	getMaskNames() {
 		return this.$http.get('api/masks/')
+						.then(response => response.data)
+						.catch(e => console.log(e));
+	}
+
+	getNameOfMask(mask) {
+		return this.$http.get(`api/masks/nameof/${mask}`)
 						.then(response => response.data)
 						.catch(e => console.log(e));
 	}
@@ -8556,11 +8582,11 @@ class ViewerController {
 
 	$onInit() {
 		/* Handle URL resolve */
-		if ( this.resolvedLineImages.length ) {
-			this.lineImages = this.resolvedLineImages;
+/*		if ( this.resolvedLineImages.length ) {
+			this.lineImages = this.resolvedLineImages.slice();
 			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
 			this.currentLineName = this.resolvedLineName;
-		}
+		} */
 	}
 
 	$onChanges(changes) {
@@ -8569,6 +8595,11 @@ class ViewerController {
 		 * lineImages << LinesComponent
 		 */
 		if ( this.lineImages.length ) {
+			if ( Array.isArray(this.resolvedLineImages) && this.resolvedLineImages.length ) {
+				this.lineName = this.resolvedLineName;
+				this.lineImages = this.resolvedLineImages;
+				this.resolvedLineName = this.resolvedLineImages = undefined;
+			}
 			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
 			this.currentLineName = this.lineName || 'Elavl3-H2BRFP';
 		}
@@ -8608,11 +8639,21 @@ class ViewerController {
 				this.currentDisplayColorChannels[color] = this.colorChannelArrays[color][this.sliceIndex].src;
 			}
 		}
+
+		/* On change slice index update display imagesel images load, update display
+		 * sliceIndex << LinesComponent << SidebarComponent
+		 */
+		if ( this.sliceIndex ) {
+			this.updateSlice();
+		}
 	}
 
 	/* On slider change, update display with new slice number
 	 */
-	updateSlice() {
+	updateSlice()	{
+
+		if ( !Array.isArray(this.lineImages) || !this.lineImages.length )
+			return;
 
 		// update displayed slice image
 		this.onUpdateIndex({sliceIndex:this.sliceIndex});
@@ -8635,6 +8676,7 @@ class ViewerController {
 		 * update display image if loaded, otherwise skip
 		 */
 		let imageLoaded = this.lineImages[this.sliceIndex].naturalHeight;
+
 		if ( imageLoaded ) {
 			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
 		} else {

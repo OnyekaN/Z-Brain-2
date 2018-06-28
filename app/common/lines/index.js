@@ -25,19 +25,30 @@ const Lines = angular
 			})
 
 			$stateProvider.state('home.line', {
-				url: '/line/{id}?cy-mask',
+				url: '/line/{id}?cy-mask&mg-mask&gr-mask&yl-mask&red-chl&bl-chl&gr-chl',
 				template: viewerComponentTemplate,
 				resolve: {
+					resolvedLineName: [
+						'$stateParams', 'LinesService',
+						($stateParams, LinesService) => {
+							//console.log(LinesService.getNameOfLine($stateParams.id));
+							//return $stateParams.id;
+							return LinesService.getNameOfLine($stateParams.id);
+						}
+					],
 					resolvedLineImages: [
 						'$stateParams', 'LinesService',
 						($stateParams, LinesService) => {
 							return LinesService.cacheLine($stateParams.id);
 						}
 					],
-					resolvedLineName: [
-						'$stateParams',
-						($stateParams) => { console.log($stateParams); return $stateParams.id }
+					resolvedMaskImages: [
+						'$stateParams', 'LinesService',
+						($stateParams, LinesService) => {
+							return LinesService.cacheLine($stateParams.id);
+						}
 					],
+
 				},
 			});
 		}])

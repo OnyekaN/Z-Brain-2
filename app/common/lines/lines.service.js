@@ -12,8 +12,20 @@ class LinesService {
 						.catch(e => console.log(e));
 	}
 
+	getNameOfLine(line) {
+		return this.$http.get(`api/lines/nameof/${line}`)
+						.then(response => response.data)
+						.catch(e => console.log(e));
+	}
+
 	getMaskNames() {
 		return this.$http.get('api/masks/')
+						.then(response => response.data)
+						.catch(e => console.log(e));
+	}
+
+	getNameOfMask(mask) {
+		return this.$http.get(`api/masks/nameof/${mask}`)
 						.then(response => response.data)
 						.catch(e => console.log(e));
 	}
