@@ -9,7 +9,8 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li ng-repeat="page in $ctrl.pages">
+				<li ng-repeat="page in $ctrl.pages" ng-click="$ctrl.updateNav(page.link)"
+					ng-class="{active: page.active}">
 					<a href="{{page.link}}">
 						{{page.name}}
 					</a>

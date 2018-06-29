@@ -7870,6 +7870,17 @@ const Lines = angular
 							return LinesService.cacheLine($stateParams.id);
 						}
 					],
+					resolvedMaskNames: [
+						'$stateParams', 'LinesService',
+						($stateParams, LinesService) => {
+							return LinesService.getNamesOfMasks({
+								cyan: $stateParams.cy_mask,
+								magenta: $stateParams.mg_mask,
+								yellow: $stateParams.yl_mask,
+								green: $stateParams.gr_mask
+							});
+						}
+					],
 					resolvedMaskImages: [
 						'$stateParams', 'LinesService',
 						($stateParams, LinesService) => {
@@ -7881,7 +7892,6 @@ const Lines = angular
 							});
 						}
 					],
-
 				},
 			});
 		}])
@@ -8193,6 +8203,38 @@ class LinesService {
 						.catch(e => console.log(e));
 	}
 
+	getNamesOfMasks(options) {
+
+		if ( !options )
+			return;
+
+		let [maskPromises, colors, selectedMasks] = [new Array, new Array, new Object];
+
+		if ( options.cyan ) {
+			maskPromises.push(this.getNameOfMask(options.cyan));
+			colors.push('cyan');
+		}
+		if ( options.magenta ) {
+			maskPromises.push(this.getNameOfMask(options.magenta));
+			colors.push('magenta');
+		}
+		if ( options.green ) {
+			maskPromises.push(this.getNameOfMask(options.green));
+			colors.push('green');
+		}
+		if ( options.yellow ) {
+			maskPromises.push(this.getNameOfMask(options.yellow));
+			colors.push('yellow');
+		}
+
+		Promise.all(maskPromises).then(values => {
+			for ( let i = 0; i < values.length; i++ ) {
+				selectedMasks[colors[i]] = values[i];
+			}
+		});
+		return selectedMasks;
+	}
+
 	getAnnotations() {
 		return this.$http.get('api/annotations/')
 						.then(response => response.data)
@@ -8241,7 +8283,7 @@ class LinesService {
 			maskPromises.push(this.cacheMask(options.cyan, 'cyan'));
 			colors.push('cyan');
 		}
-		if ( options.magenta) {
+		if ( options.magenta ) {
 			maskPromises.push(this.cacheMask(options.magenta, 'magenta'));
 			colors.push('magenta');
 		}
@@ -8258,7 +8300,7 @@ class LinesService {
 			for ( let i = 0; i < values.length; i++ ) {
 				masks[colors[i]] = values[i].map(obj=>obj.img);
 			}
-		})
+		});
 		return masks;
 	}
 
@@ -8350,12 +8392,28 @@ const NavComponent = {
 
 
 class NavController {
-	constructor(NavService) {
+	constructor($location, NavService) {
+		this.$location = $location;
 		this.pages = NavService.pages;
+	}
+	$onInit() {
+		let link = this.$location.path();
+		this.updateNav(link);
+	}
+	updateNav(link) {
+		let page = link.split('/')[1]
+		if ( page === "" )
+			return;
+		for ( let i = 0; i < this.pages.length; i++ ) {
+			if ( this.pages[i].link.indexOf(page) != -1 )
+				this.pages[i].active = true;
+			else
+				this.pages[i].active = false;
+		}
 	}
 }
 
-NavController.$inject = ['NavService'];
+NavController.$inject = ['$location', 'NavService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (NavController);
 
@@ -8371,14 +8429,14 @@ NavController.$inject = ['NavService'];
 class NavService {
 	constructor() {
 		this.pages = [
-			{ name: 'Home', link: '#/home' },
-			{ name: 'About', link: '#/about' },
-			{ name: 'Contributing to the Z-Brain', link: '#/contributing' },
-			{ name: 'FAQ', link: '#/faq' },
-			{ name: 'Downloads', link: '#/downloads' },
-			{ name: 'Zebrafish EM', link: 'http://hildebrand16.neurodata.io/catmaid/?pid=6&zp=537540&yp=351910.65&xp=303051.45&tool=tracingtool&sg=2&sgs=4' },
-			{ name: 'Multiscale Virtual Fish', link: 'http://www.zib.de/projects/multiscale-virtual-fish'},
-			{ name: 'Enhancer-Trap Lines', link: 'http://engertlab.fas.harvard.edu/Enhancer-Trap/'},
+			{ name: 'Home', active: false, link: '#/home' },
+			{ name: 'About', active: false, link: '#/about' },
+			{ name: 'Contributing to the Z-Brain', active: false, link: '#/contributing' },
+			{ name: 'FAQ', active: false, link: '#/faq' },
+			{ name: 'Downloads', active: false, link: '#/downloads' },
+			{ name: 'Zebrafish EM', active: false, link: 'http://hildebrand16.neurodata.io/catmaid/?pid=6&zp=537540&yp=351910.65&xp=303051.45&tool=tracingtool&sg=2&sgs=4' },
+			{ name: 'Multiscale Virtual Fish', active: false, link: 'http://www.zib.de/projects/multiscale-virtual-fish'},
+			{ name: 'Enhancer-Trap Lines', active: false, link: 'http://engertlab.fas.harvard.edu/Enhancer-Trap/'},
 		]
 	}
 	getActive() {

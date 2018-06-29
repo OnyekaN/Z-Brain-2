@@ -6,11 +6,8 @@
 	<div class="viewer-ctrl-panel">
 		<div class="current-text">
 			<!--span style="color:#bbb;font-size:1em"--> 
-				<span style="margin-left:60px;color:#49d;font-size:1.1em">
-					<b>{{$ctrl.currentLineName}}</b>
-					<span style="font-size:0.8em;color:#ffffffcc;">-&nbsp{{$ctrl.sliceIndex}}</span>
-				</span>
-			</span>
+			<span class="line-name">{{$ctrl.currentLineName}}<span>
+			<span class="line-number">-&nbsp{{$ctrl.sliceIndex}}</span>
 		</div>
 		<div class="z-index-div"> 
 			<input class="z-index-slider" type="range"

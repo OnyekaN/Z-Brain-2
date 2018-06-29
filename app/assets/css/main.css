@@ -7,6 +7,10 @@ body {
   min-height: 900px;
   width: 1420px;
   background-color: #fffcfa !important; }
+  body .content {
+    padding: 30px 50px 0 60px; }
+    body .content h1 {
+      font-family: 'Raleway', Helvetica, sans-serif !important; }
 
 .navbar {
   min-width: 1450px;
@@ -25,17 +29,24 @@ body {
     display: inline;
     height: 40px !important;
     margin-right: 10px;
-    border-radius: 2px;
+    border-bottom-left-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
     transition: all 0.3s ease;
-    transition-delay: 0.2s; }
+    transition-delay: 0.1s; }
     .navbar li a {
       line-height: 1 !important;
-      color: #49d !important;
-      transition: all 0.2s ease; }
+      color: #49d !important; }
+  .navbar .active a {
+    color: white !important;
+    background-color: #11111111 !important;
+    border-bottom-left-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+    text-shadow: 1px 1px #11111155; }
   .navbar li:hover {
     background-color: #4499dd99; }
     .navbar li:hover a {
-      color: white !important; }
+      color: white !important;
+      font-weight: bold !important; }
 
 .navbar-header h4 {
   color: #38c;
@@ -242,6 +253,19 @@ body {
     .viewer .viewer-ctrl-panel .current-text {
       font-family: Helvetica;
       margin-left: 130px; }
+      .viewer .viewer-ctrl-panel .current-text .line-name {
+        margin-left: 60px;
+        color: #49d;
+        font-size: 1.2em;
+        font-family: "Lucida Console", Monaco, monospace;
+        font-weight: bold; }
+      .viewer .viewer-ctrl-panel .current-text .line-number {
+        color: #ffffffcc;
+        color: #49d;
+        opacity: 0.50;
+        font-size: 0.6em;
+        text-shadow: 1px 1px 2px #ffffff99;
+        font-weight: 100; }
     .viewer .viewer-ctrl-panel .z-index-div {
       margin: 10px 0 20px 55px;
       z-index: 2000; }

@@ -54,6 +54,17 @@ const Lines = angular
 							return LinesService.cacheLine($stateParams.id);
 						}
 					],
+					resolvedMaskNames: [
+						'$stateParams', 'LinesService',
+						($stateParams, LinesService) => {
+							return LinesService.getNamesOfMasks({
+								cyan: $stateParams.cy_mask,
+								magenta: $stateParams.mg_mask,
+								yellow: $stateParams.yl_mask,
+								green: $stateParams.gr_mask
+							});
+						}
+					],
 					resolvedMaskImages: [
 						'$stateParams', 'LinesService',
 						($stateParams, LinesService) => {
@@ -65,7 +76,6 @@ const Lines = angular
 							});
 						}
 					],
-
 				},
 			});
 		}])
