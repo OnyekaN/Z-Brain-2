@@ -8539,22 +8539,25 @@ class SidebarController {
 	}
 
 	$onInit() {
-		/* handle route resolve of masks */
+
+		/* handle route resolve for masks */
 		let setMaskDropdowns = this.$interval(() => {
-			let colors = Object.keys(this.resolvedMaskNames);
-			if ( colors.length && this.masks.length ) {
+			if ( this.resolvedMaskNames && Object.keys(this.resolvedMaskNames)
+						&& this.masks.length ) {
+				let colors = Object.keys(this.resolvedMaskNames);
 				for ( let i = 0; i < colors.length; i++ ) {
 					this.selectedMasks[colors[i]] = this.masks.filter(mask => {
 						return mask.name == this.resolvedMaskNames[colors[i]];
 					})[0];
 				}
-			}
 			this.$interval.cancel(setMaskDropdowns);
+			}
 		}, 200, 5);
 
 	}
 
 	$onChanges(changes) {
+
 		/* add 'Upload' option to search Lines dropdown */
 		this.searchLines = this.lines.slice()
 		this.searchLines.unshift('Upload (Image Slices)');
@@ -8563,28 +8566,6 @@ class SidebarController {
 		if ( this.resolvedLineName != 'Elavl3-H2BRFP' ) {
 			this.selected = this.resolvedLineName;
 		}
-
-		/* handle route resolve of masks */
-		if ( false ) {
-			if ( changes.resolvedMaskNames.isFirstChange() ) {
-				console.log('firstChange');
-				let colors = Object.keys(this.resolvedMaskNames);
-				for ( let i = 0; i < colors.length; i++ ) {
-					this.selectedMasks[colors[i]] = this.masks.filter(mask => {
-						return mask.name == this.resolvedMaskNames[colors[i]];
-					})[0];
-				}
-			} else {
-				console.log(this.selectedMasks);
-			}
-		}
-	}
-
-	testValues() {
-		console.log("selected");
-		console.log(this.selectedMasks)
-		console.log("resolved");
-		console.log(this.resolvedMaskNames)
 	}
 
 	onUpdateLineWrapper(line) {
@@ -8597,8 +8578,8 @@ class SidebarController {
 
 	onUpdateMaskWrapper(mask, color) {
 		this.onUpdateMask(mask, color);
-		this.resolvedMaskNames = undefined;
 	}
+
 	resetValues() {
 		this.brightness = 1;
 		this.gamma = 1;
@@ -8612,14 +8593,6 @@ class SidebarController {
 			eventAction: 'select',
 			eventLabel: 'Search Line'
 		});
-	}
-	/*utility function */
-	isEmpty(obj) {
-    for ( var key in obj ) {
-        if (obj.hasOwnProperty(key))
-            return false;
-    }
-    return true;
 	}
 
 }
@@ -8721,8 +8694,8 @@ const ViewerComponent = {
 
 
 class ViewerController {
-	constructor(ViewerService) {
-
+	constructor($interval, ViewerService) {
+		this.$interval = $interval;
 		this.ViewerService = ViewerService;
 			// initial (page load) z-slice number [range 0-137]
 		this.sliceIndex = 90;
@@ -8765,15 +8738,19 @@ class ViewerController {
 
 	$onInit() {
 
-		if ( this.resolvedMaskImages ) {
-			let colors = Object.keys(this.resolvedMaskImages);
-			for ( let i = 0; i < colors.length; i++ ) {
-				this.maskArrays[colors[i]] = this.resolvedMaskImages[colors[i]];
+		/* handle route resolve for masks */
+		let setDisplayMasks = this.$interval(() => {
+			if ( this.resolvedMaskImages && Object.keys(this.resolvedMaskImages) ) {
+				let colors = Object.keys(this.resolvedMaskImages);
+				for ( let i = 0; i < colors.length; i++ ) {
+					this.maskArrays[colors[i]] = this.resolvedMaskImages[colors[i]];
+				}
+				this.activeMasks = colors.slice();
+				this.maskImages = true;
+				this.updateSlice();
+				this.$interval.cancel(setDisplayMasks);
 			}
-			this.activeMasks = colors.slice();
-			this.maskImages = true;
-			this.updateSlice();
-		}
+		}, 200, 5);
 	}
 
 	$onChanges(changes) {
@@ -8875,7 +8852,7 @@ class ViewerController {
 
 }
 
-ViewerController.$inject = ['ViewerService'];
+ViewerController.$inject = ['$timeout', 'ViewerService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ViewerController);
 

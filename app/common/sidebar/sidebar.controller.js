@@ -32,22 +32,25 @@ class SidebarController {
 	}
 
 	$onInit() {
-		/* handle route resolve of masks */
+
+		/* handle route resolve for masks */
 		let setMaskDropdowns = this.$interval(() => {
-			let colors = Object.keys(this.resolvedMaskNames);
-			if ( colors.length && this.masks.length ) {
+			if ( this.resolvedMaskNames && Object.keys(this.resolvedMaskNames)
+						&& this.masks.length ) {
+				let colors = Object.keys(this.resolvedMaskNames);
 				for ( let i = 0; i < colors.length; i++ ) {
 					this.selectedMasks[colors[i]] = this.masks.filter(mask => {
 						return mask.name == this.resolvedMaskNames[colors[i]];
 					})[0];
 				}
-			}
 			this.$interval.cancel(setMaskDropdowns);
+			}
 		}, 200, 5);
 
 	}
 
 	$onChanges(changes) {
+
 		/* add 'Upload' option to search Lines dropdown */
 		this.searchLines = this.lines.slice()
 		this.searchLines.unshift('Upload (Image Slices)');
@@ -56,28 +59,6 @@ class SidebarController {
 		if ( this.resolvedLineName != 'Elavl3-H2BRFP' ) {
 			this.selected = this.resolvedLineName;
 		}
-
-		/* handle route resolve of masks */
-		if ( false && !this.isEmpty(this.resolvedMaskNames) ) {
-			if ( changes.resolvedMaskNames.isFirstChange() ) {
-				console.log('firstChange');
-				let colors = Object.keys(this.resolvedMaskNames);
-				for ( let i = 0; i < colors.length; i++ ) {
-					this.selectedMasks[colors[i]] = this.masks.filter(mask => {
-						return mask.name == this.resolvedMaskNames[colors[i]];
-					})[0];
-				}
-			} else {
-				console.log(this.selectedMasks);
-			}
-		}
-	}
-
-	testValues() {
-		console.log("selected");
-		console.log(this.selectedMasks)
-		console.log("resolved");
-		console.log(this.resolvedMaskNames)
 	}
 
 	onUpdateLineWrapper(line) {
@@ -90,8 +71,8 @@ class SidebarController {
 
 	onUpdateMaskWrapper(mask, color) {
 		this.onUpdateMask(mask, color);
-		this.resolvedMaskNames = undefined;
 	}
+
 	resetValues() {
 		this.brightness = 1;
 		this.gamma = 1;
@@ -105,14 +86,6 @@ class SidebarController {
 			eventAction: 'select',
 			eventLabel: 'Search Line'
 		});
-	}
-	/*utility function */
-	isEmpty(obj) {
-    for ( var key in obj ) {
-        if (obj.hasOwnProperty(key))
-            return false;
-    }
-    return true;
 	}
 
 }

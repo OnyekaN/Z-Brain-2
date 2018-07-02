@@ -2,8 +2,8 @@
 'use strict'
 
 class ViewerController {
-	constructor(ViewerService) {
-
+	constructor($interval, ViewerService) {
+		this.$interval = $interval;
 		this.ViewerService = ViewerService;
 			// initial (page load) z-slice number [range 0-137]
 		this.sliceIndex = 90;
@@ -46,15 +46,19 @@ class ViewerController {
 
 	$onInit() {
 
-		if ( this.resolvedMaskImages ) {
-			let colors = Object.keys(this.resolvedMaskImages);
-			for ( let i = 0; i < colors.length; i++ ) {
-				this.maskArrays[colors[i]] = this.resolvedMaskImages[colors[i]];
+		/* handle route resolve for masks */
+		let setDisplayMasks = this.$interval(() => {
+			if ( this.resolvedMaskImages && Object.keys(this.resolvedMaskImages) ) {
+				let colors = Object.keys(this.resolvedMaskImages);
+				for ( let i = 0; i < colors.length; i++ ) {
+					this.maskArrays[colors[i]] = this.resolvedMaskImages[colors[i]];
+				}
+				this.activeMasks = colors.slice();
+				this.maskImages = true;
+				this.updateSlice();
+				this.$interval.cancel(setDisplayMasks);
 			}
-			this.activeMasks = colors.slice();
-			this.maskImages = true;
-			this.updateSlice();
-		}
+		}, 200, 5);
 	}
 
 	$onChanges(changes) {
@@ -156,6 +160,6 @@ class ViewerController {
 
 }
 
-ViewerController.$inject = ['ViewerService'];
+ViewerController.$inject = ['$timeout', 'ViewerService'];
 
 export default ViewerController;
