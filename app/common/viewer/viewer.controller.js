@@ -45,12 +45,7 @@ class ViewerController {
 	}
 
 	$onInit() {
-		/* Handle URL resolve */
-/*		if ( this.resolvedLineImages.length ) {
-			this.lineImages = this.resolvedLineImages.slice();
-			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
-			this.currentLineName = this.resolvedLineName;
-		} */
+
 		if ( this.resolvedMaskImages ) {
 			let colors = Object.keys(this.resolvedMaskImages);
 			for ( let i = 0; i < colors.length; i++ ) {
@@ -86,7 +81,7 @@ class ViewerController {
 			if ( !this.activeMasks.includes(color) )
 				this.activeMasks.push(color)
 
-			if ( this.maskImages === 'None' ) {
+			if ( !this.maskImages.length ) {
 				this.activeMasks.splice(this.activeMasks.indexOf(color));
 				this.maskArrays[color] = undefined;
 				this.currentDisplayMasks[color] = 'images/blank.png';

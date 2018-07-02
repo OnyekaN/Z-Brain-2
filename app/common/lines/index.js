@@ -109,7 +109,7 @@ let sidebarComponentTemplate = `
 						on-update-opacity="$ctrl.updateOpacity(val, color)"
 						on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)"
 						resolved-line-name="$resolve.resolvedLineName"
-						resolved-mask-names=""
+						resolved-mask-names="$resolve.resolvedMaskNames"
 						resolved-color-channel-names="">
 					</sidebar-component>
 `;

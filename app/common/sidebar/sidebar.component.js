@@ -12,6 +12,7 @@ const SidebarComponent = {
 		onUpdateOpacity: '&',
 		onAdjustLine: '&',
 		resolvedLineName: '<',
+		resolvedMaskNames: '<',
 	},
 	controller: SidebarController,
 	templateUrl: 'views/sidebar/sidebar.html'

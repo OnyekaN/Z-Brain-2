@@ -80,7 +80,8 @@ class LinesController {
 
 		// cache selected line images for viewer component
 	updateLine(line) {
-
+		if ( !line )
+			return;
 		if ( line.startsWith('Upload') ){
 			this.openUploadDialog();
 		} else {
@@ -106,7 +107,7 @@ class LinesController {
 											});
 
 		} else {
-			this.maskImages = 'None';
+			this.maskImages = [];
 			this.maskColor = color;
 			return;
 		}

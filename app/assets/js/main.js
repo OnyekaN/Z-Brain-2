@@ -7925,7 +7925,7 @@ let sidebarComponentTemplate = `
 						on-update-opacity="$ctrl.updateOpacity(val, color)"
 						on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)"
 						resolved-line-name="$resolve.resolvedLineName"
-						resolved-mask-names=""
+						resolved-mask-names="$resolve.resolvedMaskNames"
 						resolved-color-channel-names="">
 					</sidebar-component>
 `;
@@ -8038,7 +8038,8 @@ class LinesController {
 
 		// cache selected line images for viewer component
 	updateLine(line) {
-
+		if ( !line )
+			return;
 		if ( line.startsWith('Upload') ){
 			this.openUploadDialog();
 		} else {
@@ -8064,7 +8065,7 @@ class LinesController {
 											});
 
 		} else {
-			this.maskImages = 'None';
+			this.maskImages = [];
 			this.maskColor = color;
 			return;
 		}
@@ -8490,6 +8491,7 @@ const SidebarComponent = {
 		onUpdateOpacity: '&',
 		onAdjustLine: '&',
 		resolvedLineName: '<',
+		resolvedMaskNames: '<',
 	},
 	controller: __WEBPACK_IMPORTED_MODULE_0__sidebar_controller__["a" /* default */],
 	templateUrl: 'views/sidebar/sidebar.html'
@@ -8507,26 +8509,25 @@ const SidebarComponent = {
 
 
 class SidebarController {
-	constructor($timeout) {
-		this.$timeout = $timeout;
+	constructor($interval) {
+		this.$interval = $interval;
 		this.brightness = 1;
 		this.gamma = 1;
 		this.slice = 90;
 		this.selected = undefined;
 		this.current = 'Elavl3-H2BRFP';
 		this.placeholder = '';
-		this.sel = false;
 		this.selectedMasks = {
-			cyan: undefined,
-			green: undefined,
-			magenta: undefined,
-			yellow: undefined
+			cyan: null,
+			green: null,
+			magenta: null,
+			yellow: null
 		}
 
 		this.selectedColorChannels = {
-			red: undefined,
-			green: undefined,
-			blue: undefined
+			red: null,
+			green: null,
+			blue: null
 		}
 
 		this.colorChannelOpacities = {
@@ -8534,9 +8535,26 @@ class SidebarController {
 			green: 50,
 			blue: 50
 		}
+
 	}
 
-	$onChanges() {
+	$onInit() {
+		/* handle route resolve of masks */
+		let setMaskDropdowns = this.$interval(() => {
+			let colors = Object.keys(this.resolvedMaskNames);
+			if ( colors.length && this.masks.length ) {
+				for ( let i = 0; i < colors.length; i++ ) {
+					this.selectedMasks[colors[i]] = this.masks.filter(mask => {
+						return mask.name == this.resolvedMaskNames[colors[i]];
+					})[0];
+				}
+			}
+			this.$interval.cancel(setMaskDropdowns);
+		}, 200, 5);
+
+	}
+
+	$onChanges(changes) {
 		/* add 'Upload' option to search Lines dropdown */
 		this.searchLines = this.lines.slice()
 		this.searchLines.unshift('Upload (Image Slices)');
@@ -8545,6 +8563,28 @@ class SidebarController {
 		if ( this.resolvedLineName != 'Elavl3-H2BRFP' ) {
 			this.selected = this.resolvedLineName;
 		}
+
+		/* handle route resolve of masks */
+		if ( false ) {
+			if ( changes.resolvedMaskNames.isFirstChange() ) {
+				console.log('firstChange');
+				let colors = Object.keys(this.resolvedMaskNames);
+				for ( let i = 0; i < colors.length; i++ ) {
+					this.selectedMasks[colors[i]] = this.masks.filter(mask => {
+						return mask.name == this.resolvedMaskNames[colors[i]];
+					})[0];
+				}
+			} else {
+				console.log(this.selectedMasks);
+			}
+		}
+	}
+
+	testValues() {
+		console.log("selected");
+		console.log(this.selectedMasks)
+		console.log("resolved");
+		console.log(this.resolvedMaskNames)
 	}
 
 	onUpdateLineWrapper(line) {
@@ -8555,10 +8595,10 @@ class SidebarController {
 		this.selected = this.current;
 	}
 
-	onUpdateMaskWrapper({mask, color}) {
-		/* try reset to default instead of 'None' */
+	onUpdateMaskWrapper(mask, color) {
+		this.onUpdateMask(mask, color);
+		this.resolvedMaskNames = undefined;
 	}
-
 	resetValues() {
 		this.brightness = 1;
 		this.gamma = 1;
@@ -8573,9 +8613,18 @@ class SidebarController {
 			eventLabel: 'Search Line'
 		});
 	}
+	/*utility function */
+	isEmpty(obj) {
+    for ( var key in obj ) {
+        if (obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+	}
+
 }
 
-SidebarController.$inject = ['$timeout'];
+SidebarController.$inject = ['$interval'];
 
 /* harmony default export */ __webpack_exports__["a"] = (SidebarController);
 
@@ -8715,12 +8764,7 @@ class ViewerController {
 	}
 
 	$onInit() {
-		/* Handle URL resolve */
-/*		if ( this.resolvedLineImages.length ) {
-			this.lineImages = this.resolvedLineImages.slice();
-			this.currentDisplayImage = this.lineImages[this.sliceIndex].src;
-			this.currentLineName = this.resolvedLineName;
-		} */
+
 		if ( this.resolvedMaskImages ) {
 			let colors = Object.keys(this.resolvedMaskImages);
 			for ( let i = 0; i < colors.length; i++ ) {
@@ -8756,7 +8800,7 @@ class ViewerController {
 			if ( !this.activeMasks.includes(color) )
 				this.activeMasks.push(color)
 
-			if ( this.maskImages === 'None' ) {
+			if ( !this.maskImages.length ) {
 				this.activeMasks.splice(this.activeMasks.indexOf(color));
 				this.maskArrays[color] = undefined;
 				this.currentDisplayMasks[color] = 'images/blank.png';
