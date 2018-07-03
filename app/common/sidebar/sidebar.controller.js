@@ -34,6 +34,7 @@ class SidebarController {
 	$onInit() {
 
 		/* handle route resolve for masks */
+
 		let setMaskDropdowns = this.$interval(() => {
 			if ( this.resolvedMaskNames && Object.keys(this.resolvedMaskNames)
 						&& this.masks.length ) {
@@ -46,6 +47,19 @@ class SidebarController {
 			this.$interval.cancel(setMaskDropdowns);
 			}
 		}, 200, 5);
+
+		/* handle route resolve for color channels */
+
+		let setColorChannelDropdowns = this.$interval(() => {
+			if ( this.resolvedColorChannelNames && Object.keys(this.resolvedColorChannelNames) ) {
+				let colors = Object.keys(this.resolvedColorChannelNames);
+				for ( let i = 0; i < colors.length; i++ ) {
+					this.selectedColorChannels[colors[i]] = this.resolvedColorChannelNames[colors[i]];
+				}
+			this.$interval.cancel(setColorChannelDropdowns);
+			}
+		}, 200, 5);
+
 
 	}
 

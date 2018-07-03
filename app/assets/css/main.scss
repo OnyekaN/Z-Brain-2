@@ -48,7 +48,7 @@ body {
 
 	.active {
 		a {
-			border-bottom: 1px solid #49c;
+			border-bottom: 2px solid #49c;
 			border-right: 1px solid #49c;
 			border-left: 1px solid #49c;
 			color: #eee !important;
@@ -478,10 +478,11 @@ body {
 
 	.input-line-name {
 		width: 185px;
+		min-width: 90%;
 		height: 30px;
 		padding: 5px;
 		border: 1px inset #4499cc55;
-		border-radius: 5px;
+		border-radius: 1px;
 		text-indent: 10px;
 		margin-top: 8px;
 		&::placeholder { color: #ccc; }
@@ -501,7 +502,6 @@ body {
 	margin: 70px 0 100px 0;
 	padding-top: 20px;
 	background-color: #fffcfa;
-	// box-shadow: 0px -2px 20px -4px #bbbbbb44;
 	font-size: .9em;
 
 	tr {
@@ -510,7 +510,6 @@ body {
 
 	table {
 		width: 100%;
-		//padding-right: 20px;
 		font-family: "Raleway", "Open Sans", sans-serif;
 		text-align: center;
 		border-radius: 5px;
@@ -522,7 +521,7 @@ body {
 		box-shadow: 0px -10px 30px -7px #bbbbbb45;
 	}
 	.bottom-table {
-		box-shadow: 0px 10px 30px -7px #bbbbbb15;
+		box-shadow: 0px 10px 30px -7px #bbbbbb20;
 	}
 
 	.headers {
@@ -564,7 +563,7 @@ body {
 
 		div {
 			padding-top: 12px;
-			height: 40px;
+			height: 45px;
 			overflow: scroll;
 		}
 	}

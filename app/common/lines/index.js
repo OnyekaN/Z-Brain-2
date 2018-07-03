@@ -12,6 +12,7 @@ const Lines = angular
 		($stateProvider, $urlRouterProvider) => {
 
 			$urlRouterProvider.when('/home', '/home/');
+			$urlRouterProvider.when('/home/line/', '/home/');
 
 			$stateProvider.state('home.default', {
 				url: '/',
@@ -32,7 +33,7 @@ const Lines = angular
 			})
 
 			$stateProvider.state('home.line', {
-				url: '/line/{id}?cy_mask&mg_mask&gr_mask&yl_mask&red_chl&bl_chl&gr_chl',
+				url: '/line/{id}?cy_mask&mg_mask&gr_mask&yl_mask&red_ch&blu_ch&gre_ch',
 				views: {
 					'sidebar': {
 						template: sidebarComponentTemplate,
@@ -76,12 +77,32 @@ const Lines = angular
 							});
 						}
 					],
+					resolvedColorChannelNames: [
+						'$stateParams', 'LinesService',
+						($stateParams, LinesService) => {
+							return LinesService.getNamesOfLines({
+								red: $stateParams.red_ch,
+								blue: $stateParams.blu_ch,
+								green: $stateParams.gre_ch,
+							});
+						}
+					],
+					resolvedColorChannelImages: [
+						'$stateParams', 'LinesService',
+						($stateParams, LinesService) => {
+							return LinesService.cacheMultipleColorChannels({
+								red: $stateParams.red_ch,
+								blue: $stateParams.blu_ch,
+								green: $stateParams.gre_ch,
+							});
+						}
+					],
 				},
 			});
 		}])
 	.name;
 
-let viewerComponentTemplate =`
+let viewerComponentTemplate = `
 					<viewer-component
 						line-name="$ctrl.lineName"
 						line-images="$ctrl.lineImages"
@@ -95,7 +116,7 @@ let viewerComponentTemplate =`
 						resolved-line-name="$resolve.resolvedLineName"
 						resolved-line-images="$resolve.resolvedLineImages"
 						resolved-mask-images="$resolve.resolvedMaskImages"
-						resolved-color-channel-images="">
+						resolved-color-channel-images="$resolve.resolvedColorChannelImages">
 					</viewer-component>
 `;
 
@@ -110,7 +131,7 @@ let sidebarComponentTemplate = `
 						on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)"
 						resolved-line-name="$resolve.resolvedLineName"
 						resolved-mask-names="$resolve.resolvedMaskNames"
-						resolved-color-channel-names="">
+						resolved-color-channel-names="$resolve.resolvedColorChannelNames">
 					</sidebar-component>
 `;
 

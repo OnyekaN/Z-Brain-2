@@ -28,7 +28,7 @@ class LinesController {
 
 	$onInit() {
 			// GET line and mask names for sidebar
-		this.LinesService.getLineNames().then(response => {
+		this.LinesService.getAllLineNames().then(response => {
 												let names = response.map(obj => {
 													let name = obj.line_name;
 													if ( name.indexOf('MH_') !== -1 )
@@ -121,7 +121,7 @@ class LinesController {
 													this.colorChannelColor = color;
 												});
 		} else {
-			this.colorChannelImages = 'None';
+			this.colorChannelImages = [];
 			this.colorChannelColor = color;
 			return;
 		}

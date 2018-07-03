@@ -242,8 +242,9 @@ router.param('colorchannel', (req, res, next, id) => {
 		}
 
 		let querySQL = `SELECT * FROM colorChannels
-								WHERE channel_name='${channel.name}'
-								AND channel_color='${channel.color}';`
+									WHERE channel_name='${channel.name}'
+									AND channel_color='${channel.color}';`
+
 		let query = client.query(querySQL);
 
 		query.on('row', (row) => {

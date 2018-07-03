@@ -39,7 +39,7 @@ body {
       line-height: 1 !important;
       color: #49d !important; }
   .navbar .active a {
-    border-bottom: 1px solid #49c;
+    border-bottom: 2px solid #49c;
     border-right: 1px solid #49c;
     border-left: 1px solid #49c;
     color: #eee !important;
@@ -384,10 +384,11 @@ body {
       cursor: pointer; }
   .upload .input-line-name {
     width: 185px;
+    min-width: 90%;
     height: 30px;
     padding: 5px;
     border: 1px inset #4499cc55;
-    border-radius: 5px;
+    border-radius: 1px;
     text-indent: 10px;
     margin-top: 8px; }
     .upload .input-line-name::placeholder {
@@ -417,7 +418,7 @@ body {
   .annotations .top-table {
     box-shadow: 0px -10px 30px -7px #bbbbbb45; }
   .annotations .bottom-table {
-    box-shadow: 0px 10px 30px -7px #bbbbbb15; }
+    box-shadow: 0px 10px 30px -7px #bbbbbb20; }
   .annotations .headers {
     height: 35px;
     line-height: 0;
@@ -448,7 +449,7 @@ body {
     max-width: 350px; }
     .annotations .notes div {
       padding-top: 12px;
-      height: 40px;
+      height: 45px;
       overflow: scroll; }
   .annotations .notice {
     margin: 30px 0 0 5px; }

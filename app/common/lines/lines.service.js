@@ -6,7 +6,7 @@ class LinesService {
 		this.$http = $http;
 	}
 
-	getLineNames() {
+	getAllLineNames() {
 		return this.$http.get('api/lines/')
 						.then(response => response.data)
 						.catch(e => console.log(e));
@@ -17,6 +17,35 @@ class LinesService {
 						.then(response => response.data)
 						.catch(e => console.log(e));
 	}
+
+	getNamesOfLines(options) {
+
+		if ( !options )
+			return;
+
+		let [linesPromises, colors, lineNames] = [new Array, new Array, new Object];
+
+		if ( options.red ) {
+			linesPromises.push(this.getNameOfLine(options.red));
+			colors.push('red');
+		}
+		if ( options.blue ) {
+			linesPromises.push(this.getNameOfLine(options.blue));
+			colors.push('blue');
+		}
+		if ( options.green ) {
+			linesPromises.push(this.getNameOfLine(options.green));
+			colors.push('green');
+		}
+
+		Promise.all(linesPromises).then(values => {
+			for ( let i = 0; i < values.length; i++ ) {
+				lineNames[colors[i]] = values[i];
+			}
+		});
+		return lineNames;
+	}
+
 
 	getMaskNames() {
 		return this.$http.get('api/masks/')
@@ -132,18 +161,49 @@ class LinesService {
 	}
 
 	cacheColorChannel(line, color) {
-		return this.$http({
+
+		return this.getNameOfLine(line).then(name => {
+			return this.$http({
 						method: 'GET',
-						url: `api/colorchannels/{"name":"${line}","color":"${color}"}`,
+						url: `api/colorchannels/{"name":"${name}","color":"${color}"}`,
 						cache: true
-		}).then(response => {
-			let overlays = response.data.map(obj => {
-				let img = new Image();
-				img.src = obj.channel_image_path;
-				return img;
-			});
-			return overlays;
-		}).catch(e => console.log(e));
+			}).then(response => {
+				let overlays = response.data.map(obj => {
+					let img = new Image();
+					img.src = obj.channel_image_path;
+					return img;
+				});
+				return overlays;
+			}).catch(e => console.log(e));
+		});
+	}
+
+	cacheMultipleColorChannels(options) {
+
+		if ( !options )
+			return;
+
+		let [ccPromises, colors, colorChannels] = [new Array, new Array, new Object];
+
+		if ( options.red ) {
+			ccPromises.push(this.cacheColorChannel(options.red, 'red'));
+			colors.push('red');
+		}
+		if ( options.blue ) {
+			ccPromises.push(this.cacheColorChannel(options.blue, 'blue'));
+			colors.push('blue');
+		}
+		if ( options.green ) {
+			ccPromises.push(this.cacheColorChannel(options.green, 'green'));
+			colors.push('green');
+		}
+
+		Promise.all(ccPromises).then(values => {
+			for ( let i = 0; i < values.length; i++ ) {
+				colorChannels[colors[i]] = values[i];
+			}
+		});
+		return colorChannels;
 	}
 
 	adjustLine(line, brightness, gamma, slice) {

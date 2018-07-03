@@ -2,16 +2,24 @@
 'use strict'
 
 class NavController {
-	constructor($location, NavService) {
+	constructor($location, $scope, NavService) {
 		this.$location = $location;
+		this.$scope = $scope;
 		this.pages = NavService.pages;
 	}
 	$onInit() {
 		let link = this.$location.path();
 		this.updateNav(link);
+
+		const navCtrl = this;
+		this.$scope.$watch(function() {
+				return navCtrl.$location.path();
+			}, function(link) {
+				navCtrl.updateNav(link);
+		})
 	}
 	updateNav(link) {
-		let page = link.split('/')[1]
+		let page = link.split('/')[1];
 		if ( page === "" )
 			return;
 		for ( let i = 0; i < this.pages.length; i++ ) {
@@ -23,6 +31,6 @@ class NavController {
 	}
 }
 
-NavController.$inject = ['$location', 'NavService'];
+NavController.$inject = ['$location', '$scope', 'NavService'];
 
 export default NavController;

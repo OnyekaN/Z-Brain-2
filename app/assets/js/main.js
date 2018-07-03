@@ -7828,6 +7828,7 @@ const Lines = angular
 		($stateProvider, $urlRouterProvider) => {
 
 			$urlRouterProvider.when('/home', '/home/');
+			$urlRouterProvider.when('/home/line/', '/home/');
 
 			$stateProvider.state('home.default', {
 				url: '/',
@@ -7848,7 +7849,7 @@ const Lines = angular
 			})
 
 			$stateProvider.state('home.line', {
-				url: '/line/{id}?cy_mask&mg_mask&gr_mask&yl_mask&red_chl&bl_chl&gr_chl',
+				url: '/line/{id}?cy_mask&mg_mask&gr_mask&yl_mask&red_ch&blu_ch&gre_ch',
 				views: {
 					'sidebar': {
 						template: sidebarComponentTemplate,
@@ -7892,12 +7893,32 @@ const Lines = angular
 							});
 						}
 					],
+					resolvedColorChannelNames: [
+						'$stateParams', 'LinesService',
+						($stateParams, LinesService) => {
+							return LinesService.getNamesOfLines({
+								red: $stateParams.red_ch,
+								blue: $stateParams.blu_ch,
+								green: $stateParams.gre_ch,
+							});
+						}
+					],
+					resolvedColorChannelImages: [
+						'$stateParams', 'LinesService',
+						($stateParams, LinesService) => {
+							return LinesService.cacheMultipleColorChannels({
+								red: $stateParams.red_ch,
+								blue: $stateParams.blu_ch,
+								green: $stateParams.gre_ch,
+							});
+						}
+					],
 				},
 			});
 		}])
 	.name;
 
-let viewerComponentTemplate =`
+let viewerComponentTemplate = `
 					<viewer-component
 						line-name="$ctrl.lineName"
 						line-images="$ctrl.lineImages"
@@ -7911,7 +7932,7 @@ let viewerComponentTemplate =`
 						resolved-line-name="$resolve.resolvedLineName"
 						resolved-line-images="$resolve.resolvedLineImages"
 						resolved-mask-images="$resolve.resolvedMaskImages"
-						resolved-color-channel-images="">
+						resolved-color-channel-images="$resolve.resolvedColorChannelImages">
 					</viewer-component>
 `;
 
@@ -7926,7 +7947,7 @@ let sidebarComponentTemplate = `
 						on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)"
 						resolved-line-name="$resolve.resolvedLineName"
 						resolved-mask-names="$resolve.resolvedMaskNames"
-						resolved-color-channel-names="">
+						resolved-color-channel-names="$resolve.resolvedColorChannelNames">
 					</sidebar-component>
 `;
 
@@ -7986,7 +8007,7 @@ class LinesController {
 
 	$onInit() {
 			// GET line and mask names for sidebar
-		this.LinesService.getLineNames().then(response => {
+		this.LinesService.getAllLineNames().then(response => {
 												let names = response.map(obj => {
 													let name = obj.line_name;
 													if ( name.indexOf('MH_') !== -1 )
@@ -8079,7 +8100,7 @@ class LinesController {
 													this.colorChannelColor = color;
 												});
 		} else {
-			this.colorChannelImages = 'None';
+			this.colorChannelImages = [];
 			this.colorChannelColor = color;
 			return;
 		}
@@ -8180,7 +8201,7 @@ class LinesService {
 		this.$http = $http;
 	}
 
-	getLineNames() {
+	getAllLineNames() {
 		return this.$http.get('api/lines/')
 						.then(response => response.data)
 						.catch(e => console.log(e));
@@ -8191,6 +8212,35 @@ class LinesService {
 						.then(response => response.data)
 						.catch(e => console.log(e));
 	}
+
+	getNamesOfLines(options) {
+
+		if ( !options )
+			return;
+
+		let [linesPromises, colors, lineNames] = [new Array, new Array, new Object];
+
+		if ( options.red ) {
+			linesPromises.push(this.getNameOfLine(options.red));
+			colors.push('red');
+		}
+		if ( options.blue ) {
+			linesPromises.push(this.getNameOfLine(options.blue));
+			colors.push('blue');
+		}
+		if ( options.green ) {
+			linesPromises.push(this.getNameOfLine(options.green));
+			colors.push('green');
+		}
+
+		Promise.all(linesPromises).then(values => {
+			for ( let i = 0; i < values.length; i++ ) {
+				lineNames[colors[i]] = values[i];
+			}
+		});
+		return lineNames;
+	}
+
 
 	getMaskNames() {
 		return this.$http.get('api/masks/')
@@ -8306,18 +8356,49 @@ class LinesService {
 	}
 
 	cacheColorChannel(line, color) {
-		return this.$http({
+
+		return this.getNameOfLine(line).then(name => {
+			return this.$http({
 						method: 'GET',
-						url: `api/colorchannels/{"name":"${line}","color":"${color}"}`,
+						url: `api/colorchannels/{"name":"${name}","color":"${color}"}`,
 						cache: true
-		}).then(response => {
-			let overlays = response.data.map(obj => {
-				let img = new Image();
-				img.src = obj.channel_image_path;
-				return img;
-			});
-			return overlays;
-		}).catch(e => console.log(e));
+			}).then(response => {
+				let overlays = response.data.map(obj => {
+					let img = new Image();
+					img.src = obj.channel_image_path;
+					return img;
+				});
+				return overlays;
+			}).catch(e => console.log(e));
+		});
+	}
+
+	cacheMultipleColorChannels(options) {
+
+		if ( !options )
+			return;
+
+		let [ccPromises, colors, colorChannels] = [new Array, new Array, new Object];
+
+		if ( options.red ) {
+			ccPromises.push(this.cacheColorChannel(options.red, 'red'));
+			colors.push('red');
+		}
+		if ( options.blue ) {
+			ccPromises.push(this.cacheColorChannel(options.blue, 'blue'));
+			colors.push('blue');
+		}
+		if ( options.green ) {
+			ccPromises.push(this.cacheColorChannel(options.green, 'green'));
+			colors.push('green');
+		}
+
+		Promise.all(ccPromises).then(values => {
+			for ( let i = 0; i < values.length; i++ ) {
+				colorChannels[colors[i]] = values[i];
+			}
+		});
+		return colorChannels;
 	}
 
 	adjustLine(line, brightness, gamma, slice) {
@@ -8393,16 +8474,24 @@ const NavComponent = {
 
 
 class NavController {
-	constructor($location, NavService) {
+	constructor($location, $scope, NavService) {
 		this.$location = $location;
+		this.$scope = $scope;
 		this.pages = NavService.pages;
 	}
 	$onInit() {
 		let link = this.$location.path();
 		this.updateNav(link);
+
+		const navCtrl = this;
+		this.$scope.$watch(function() {
+				return navCtrl.$location.path();
+			}, function(link) {
+				navCtrl.updateNav(link);
+		})
 	}
 	updateNav(link) {
-		let page = link.split('/')[1]
+		let page = link.split('/')[1];
 		if ( page === "" )
 			return;
 		for ( let i = 0; i < this.pages.length; i++ ) {
@@ -8414,7 +8503,7 @@ class NavController {
 	}
 }
 
-NavController.$inject = ['$location', 'NavService'];
+NavController.$inject = ['$location', '$scope', 'NavService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (NavController);
 
@@ -8492,6 +8581,7 @@ const SidebarComponent = {
 		onAdjustLine: '&',
 		resolvedLineName: '<',
 		resolvedMaskNames: '<',
+		resolvedColorChannelNames: '<',
 	},
 	controller: __WEBPACK_IMPORTED_MODULE_0__sidebar_controller__["a" /* default */],
 	templateUrl: 'views/sidebar/sidebar.html'
@@ -8541,6 +8631,7 @@ class SidebarController {
 	$onInit() {
 
 		/* handle route resolve for masks */
+
 		let setMaskDropdowns = this.$interval(() => {
 			if ( this.resolvedMaskNames && Object.keys(this.resolvedMaskNames)
 						&& this.masks.length ) {
@@ -8553,6 +8644,19 @@ class SidebarController {
 			this.$interval.cancel(setMaskDropdowns);
 			}
 		}, 200, 5);
+
+		/* handle route resolve for color channels */
+
+		let setColorChannelDropdowns = this.$interval(() => {
+			if ( this.resolvedColorChannelNames && Object.keys(this.resolvedColorChannelNames) ) {
+				let colors = Object.keys(this.resolvedColorChannelNames);
+				for ( let i = 0; i < colors.length; i++ ) {
+					this.selectedColorChannels[colors[i]] = this.resolvedColorChannelNames[colors[i]];
+				}
+			this.$interval.cancel(setColorChannelDropdowns);
+			}
+		}, 200, 5);
+
 
 	}
 
@@ -8708,10 +8812,10 @@ class ViewerController {
 		this.activeMasks = [];
 			// object stores arrays of mask images
 		this.maskArrays = {
-			cyan: undefined,
-			green: undefined,
-			magenta: undefined,
-			yellow: undefined,
+			cyan: null,
+			green: null,
+			magenta: null,
+			yellow: null,
 		}
 			// currently displayed mask images (each uses image src)
 		this.currentDisplayMasks = {
@@ -8739,18 +8843,46 @@ class ViewerController {
 	$onInit() {
 
 		/* handle route resolve for masks */
+
 		let setDisplayMasks = this.$interval(() => {
-			if ( this.resolvedMaskImages && Object.keys(this.resolvedMaskImages) ) {
-				let colors = Object.keys(this.resolvedMaskImages);
-				for ( let i = 0; i < colors.length; i++ ) {
-					this.maskArrays[colors[i]] = this.resolvedMaskImages[colors[i]];
-				}
-				this.activeMasks = colors.slice();
-				this.maskImages = true;
-				this.updateSlice();
+			if ( this.resolvedMaskImages && Object.keys(this.resolvedMaskImages).length ) {
+				let keys = Object.keys(this.resolvedMaskImages);
+				let colors = ['cyan', 'magenta', 'green', 'yellow'];
+				colors.forEach(color => {
+					if ( this.resolvedMaskImages[color] ) {
+						this.maskArrays[color] = this.resolvedMaskImages[color];
+					} else {
+						this.maskArrays[color] = null;
+					}
+				});
+				this.maskImages = null;
+				this.activeMasks = keys;
+				this.updateMasksSlice();
 				this.$interval.cancel(setDisplayMasks);
 			}
 		}, 200, 5);
+
+		/* handle route resolve for color channels */
+
+		let setDisplayColorChannels = this.$interval(() => {
+			let keys = Object.keys(this.resolvedColorChannelImages).slice();
+			if ( this.resolvedColorChannelImages
+			&& Object.keys(this.resolvedColorChannelImages).length ) {
+				let colors = ['red', 'blue', 'green'];
+				colors.forEach(color => {
+					if ( this.resolvedColorChannelImages[color] ) {
+						this.colorChannelArrays[color] = this.resolvedColorChannelImages[color];
+					} else {
+						this.colorChannelArrays[color] = null;
+					}
+				})
+				this.activeChannels = keys;
+				this.colorChannelImages = null;
+				this.updateColorChannelsSlice();
+				this.$interval.cancel(setDisplayColorChannels);
+			}
+		}, 200, 5);
+
 	}
 
 	$onChanges(changes) {
@@ -8774,34 +8906,35 @@ class ViewerController {
 
 		if ( Array.isArray(this.maskImages) ) {
 			let color = this.maskColor;
-			if ( !this.activeMasks.includes(color) )
-				this.activeMasks.push(color)
 
-			if ( !this.maskImages.length ) {
-				this.activeMasks.splice(this.activeMasks.indexOf(color));
-				this.maskArrays[color] = undefined;
-				this.currentDisplayMasks[color] = 'images/blank.png';
-			} else {
+			if ( this.maskImages.length ) {
+				if ( !this.activeMasks.includes(color) ) {
+					this.activeMasks.push(color)
+				}
 				this.maskArrays[color] = this.maskImages;
 				this.currentDisplayMasks[color] = this.maskArrays[color][this.sliceIndex].src;
+			} else {
+				this.maskArrays[color] = null;
+				this.currentDisplayMasks[color] = 'images/blank.png';
 			}
 		}
 
 		/* On new set of color channel images load, update display
 		 * colorChannelImages << LinesComponent
 		 */
-		if ( this.colorChannelImages ) {
+		if ( Array.isArray(this.colorChannelImages) ) {
 			let color = this.colorChannelColor;
-			if ( !this.activeChannels.includes(color) )
-				this.activeChannels.push(color)
 
-			if ( this.colorChannelImages === 'None') {
-				this.activeChannels.splice(this.activeChannels.indexOf(color));
-				this.colorChannelArrays[color] = undefined;
-				this.currentDisplayColorChannels[color] = 'images/blank.png';
-			} else {
+			if ( this.colorChannelImages.length ) {
+				if ( !this.activeChannels.includes(color) ) {
+					this.activeChannels.push(color)
+				}
 				this.colorChannelArrays[color] = this.colorChannelImages;
-				this.currentDisplayColorChannels[color] = this.colorChannelArrays[color][this.sliceIndex].src;
+				this.currentDisplayColorChannels[color] =
+					this.colorChannelArrays[color][this.sliceIndex].src;
+			} else {
+				this.colorChannelArrays[color] = null;
+				this.currentDisplayColorChannels[color] = 'images/blank.png';
 			}
 		}
 
@@ -8822,20 +8955,8 @@ class ViewerController {
 
 		// update displayed slice image
 		this.onUpdateIndex({sliceIndex:this.sliceIndex});
-
-		// update active displayed masks
-		this.activeMasks.forEach((color) => {
-			if ( Array.isArray(this.maskArrays[color]) ) {
-				this.currentDisplayMasks[color] = this.maskArrays[color][this.sliceIndex].src;
-			}
-		});
-
-		// update active displayed color channels
-		this.activeChannels.forEach((color) => {
-			if ( Array.isArray(this.colorChannelArrays[color]) ) {
-				this.currentDisplayColorChannels[color] = this.colorChannelArrays[color][this.sliceIndex].src;
-			}
-		});
+		this.updateMasksSlice();
+		this.updateColorChannelsSlice();
 
 		/* When brightness/gamma adjustments,
 		 * update display image if loaded, otherwise skip
@@ -8848,11 +8969,37 @@ class ViewerController {
 			this.ViewerService.forceImgReload(this.lineImages[this.sliceIndex],
 													false, { height: 1406, width: 621 }, false);
 		}
+
+	}
+
+	updateMasksSlice() {
+		// update active displayed masks
+		this.activeMasks.forEach((color) => {
+			if ( Array.isArray(this.maskArrays[color]) ) {
+				this.currentDisplayMasks[color] = this.maskArrays[color][this.sliceIndex].src;
+			} else {
+				this.activeMasks.splice(this.activeMasks.indexOf(color), 1);
+				this.currentDisplayMasks[color] = 'images/blank.png';
+			}
+		});
+	}
+
+		// update active displayed color channels
+	updateColorChannelsSlice() {
+
+		this.activeChannels.forEach((color) => {
+			if ( Array.isArray(this.colorChannelArrays[color]) ) {
+				this.currentDisplayColorChannels[color] = this.colorChannelArrays[color][this.sliceIndex].src;
+			} else {
+				//this.activeChannels.splice(this.activeChannels.indexOf(color), 1);
+				this.currentDisplayColorChannels[color] = 'images/blank.png';
+			}
+		});
 	}
 
 }
 
-ViewerController.$inject = ['$timeout', 'ViewerService'];
+ViewerController.$inject = ['$interval', 'ViewerService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ViewerController);
 

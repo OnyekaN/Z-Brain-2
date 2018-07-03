@@ -13,6 +13,7 @@ const SidebarComponent = {
 		onAdjustLine: '&',
 		resolvedLineName: '<',
 		resolvedMaskNames: '<',
+		resolvedColorChannelNames: '<',
 	},
 	controller: SidebarController,
 	templateUrl: 'views/sidebar/sidebar.html'
