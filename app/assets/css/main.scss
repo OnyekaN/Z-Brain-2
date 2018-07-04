@@ -48,13 +48,15 @@ body {
 
 	.active {
 		a {
-			border-bottom: 2px solid #49c;
-			border-right: 1px solid #49c;
-			border-left: 1px solid #49c;
-			color: #eee !important;
-			background-color: #333!important;
+			border-bottom: 1px solid #4499cc88;
+			border-right: 1px solid #4499cc88;
+			border-left: 1px solid #4499cc88;
+			background-color: #11244b03 !important; //#1e2437f1 !important;
 			border-radius: 4px !important;
+			border-top-right-radius: 2px !important;
+			border-top-left-radius: 2px !important;
 			transition: all 0.2s ease;
+			text-shadow: 1px 1px 0px #ffffff33;
 			&:hover {
 				border-radius: 4px !important;
 				color: #fff !important;
@@ -113,7 +115,7 @@ body {
 .main {
 
 	$main-width: 1500px;
-	$main-inner-margin: 25px;
+	$main-inner-margin: 40px;
 	background-color: transparent;
 	width: $main-width;
 
@@ -335,12 +337,13 @@ body {
 		.current-text {
 			font-family: Helvetica;
 			margin-left: 130px;
+			transition: all 400ms ease;
 			.line-name {
 				margin-left: 60px;
 				color: #49d;
-				font-size: 1.2em;
-				font-family: "Lucida Console", Monaco, monospace;
-				font-weight: bold;
+				font-size: 1.5em;
+				font-family: Helvetica, Monaco, monospace;
+				font-weight: 400;
 			}
 			.line-number {
 				color: #ffffffcc;
@@ -349,7 +352,13 @@ body {
 				font-size: 0.6em;
 				text-shadow: 1px 1px 2px #ffffff99;
 				font-weight: 100;
+				transition: all 300ms ease;
+				transition-delay: 1s;
 			}
+		}
+
+		&:hover .line-number {
+			opacity: 0.5;
 		}
 
 		.z-index-div {
@@ -720,9 +729,17 @@ body {
 			height: 32px;
 		}
 
-		.ui.search.dropdown {
+		.ui-select-bootstrap {
 			width: 100% !important;
 			margin-bottom: 5px;
+			.glyphicon {
+				left: 20px;
+				line-height: 1;
+			}
+		}
+		.ui-select-match-text span {
+			width: 230px !important;
+			text-overflow: ellipsis;
 		}
 
 		.img-modify-input {
@@ -863,8 +880,18 @@ body {
 			margin-right: 40px;
 		}
 
-		.ui.search.dropdown { width: 100% !important; }
+		.ui-select-bootstrap {
+			width: 100% !important;
+			.glyphicon {
+				left: 20px;
+				line-height: 1;
+			}
+	 	}
 
+		.ui-select-match-text span {
+			width: 280px !important;
+			text-overflow: ellipsis;
+		}
 		.slider {
 			margin: 10px 0 15px 4px !important;
 			width: 310px !important;

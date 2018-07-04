@@ -8865,9 +8865,9 @@ class ViewerController {
 		/* handle route resolve for color channels */
 
 		let setDisplayColorChannels = this.$interval(() => {
-			let keys = Object.keys(this.resolvedColorChannelImages).slice();
 			if ( this.resolvedColorChannelImages
 			&& Object.keys(this.resolvedColorChannelImages).length ) {
+				let keys = Object.keys(this.resolvedColorChannelImages).slice();
 				let colors = ['red', 'blue', 'green'];
 				colors.forEach(color => {
 					if ( this.resolvedColorChannelImages[color] ) {
