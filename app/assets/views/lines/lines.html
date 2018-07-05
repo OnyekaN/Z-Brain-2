@@ -5,16 +5,20 @@
 
 		<div ui-view="sidebar">
 		</div>
-		<!--sidebar-component
-			lines="$ctrl.lines"
-			masks="$ctrl.masks"
-			on-update-line="$ctrl.updateLine(line)"
-			on-update-mask="$ctrl.updateMask(mask, color)"
-			on-update-color-channel="$ctrl.updateColorChannel(line, color)"
-			on-update-opacity="$ctrl.updateOpacity(val, color)"
-			on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)">
-		</sidebar-component-->
 
+	</div>
+
+	<div class="share">
+		<div class="share-header">
+			<span>Copy paste to share this configuration</span>
+		</div>
+		<hr>
+		<div class="share-content">
+			<p>Shortened Link: <a href=$ctrl.shortShareLink">{{$ctrl.shortShareLink}}</a></p>
+			<p>Full Link: <a href=$ctrl.fullShareLink">{{$ctrl.fullShareLink}}</a></p>
+		</div>
+		<hr>
+			<button ng-click="$ctrl.closeShareDialog()">OK</button>
 	</div>
 
 	<div class="viewer">
@@ -67,6 +71,10 @@
 				</form>
 			</div>
 		</div>
+	
+	</div>
+
+	<div class="share">
 
 	</div>
 

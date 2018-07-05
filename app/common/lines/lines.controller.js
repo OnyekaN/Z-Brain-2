@@ -10,6 +10,8 @@ class LinesController {
 		this.lines = [];
 		this.masks = [];
 		this.files = [];
+		this.shortLink = '';
+		this.fullLink = '';
 		this.sliceIndex = 90;
 		this.lineImages = [];
 		this.lineName = "";
@@ -30,16 +32,20 @@ class LinesController {
 			// GET line and mask names for sidebar
 		this.LinesService.getAllLineNames().then(response => {
 												let names = response.map(obj => {
-													let name = obj.line_name;
+													let [name, id] = [obj.line_name, obj.line_id];
 													if ( name.indexOf('MH_') !== -1 )
 														name = "Z1" + name; // prefix it to end up near the bottom after sort
-													return name;
+													return { 'name': name, 'id': id };
 												});
-												names = names.sort();
-												names = names.map(name => {
-													if ( name.indexOf('Z1') !== -1 )
-														name = name.substring(2); // strip prefix
-													return name;
+												names = names.sort((a,b) => {
+													if ( a.name < b.name ) return -1;
+													if ( a.name > b.name ) return 1;
+													return 0;
+												});
+												names = names.map(line => {
+													if ( line.name.indexOf('Z1') !== -1 )
+														line.name = line.name.substring(2); // strip prefix
+													return line;
 												});
 												this.lines = names;
 											});
@@ -139,6 +145,18 @@ class LinesController {
 												this.lineImages = response;
 												this.spinner.stop();
 												});
+	}
+
+	openShareDialog(short, full) {
+		this.shortShareLink = short;
+		this.fullShareLink = full;
+		let el = document.getElementsByClassName('share')[0];
+		el.className += " share-active";
+	}
+
+	closeShareDialog() {
+		let el = document.getElementsByClassName('share')[0];
+		el.className = el.className.replace('share-active', '');
 	}
 
 	 // open and close upload dialog

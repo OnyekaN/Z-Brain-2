@@ -17,29 +17,37 @@
 						{{$ctrl.selected}}
 					</ui-select-match>
 					<ui-select-choices repeat="line in $ctrl.searchLines | filter:$select.search" 
-						value="'{{::line}}'">{{::line}}</ui-select-choices>
+						value="'{{::line.name}}'">{{::line.name}}</ui-select-choices>
 				</ui-select>
 			</div>
 
 			<input type="file" id="upload" name="pic" accept="image/*" 
 				style="display:none" multiple/>
 
+			<a href="#/overview">
+				<button class="overview-button">Lines Overview</button>
+			</a>
+
 			<a href="images/4-TiffStacks/{{$ctrl.selected}}.tif" download>
 				<button class="download-line">Download</button>
 			</a>			
+
+			<button class="share-button"
+			ng-click="$ctrl.onOpenShareDialogWrapper()">Share</button>
+
 			<div style="margin-left:20px;margin-top:10px;">
 				<form autocomplete="off" ng-submit="$ctrl.onAdjustLine({line: $ctrl.selected,
 						brightness: $ctrl.brightness, gamma: $ctrl.gamma})">
 
-					<span style="font-size: 0.8em"><em>Adjust Brightness</em></span>
 					<div>
+						<span class="img-modify-span">Brightness</span><br>
 						<input type="number" step="any"
 					 	id="brightness-input" class="img-modify-input"  
 					 	ng-model="$ctrl.brightness">
 					</div>	
 
-					<span style="font-size: 0.8em"><em>Adjust Gamma</em></span>
 					<div>
+						<span class="img-modify-span">Gamma</span><br>
 						<input type="number" step="any"
 					 	id="gamma-input" class="img-modify-input"
 					 	ng-model="$ctrl.gamma"/>
@@ -48,15 +56,10 @@
 					<div style="margin-top:0.2em">
 						<button ng-hide="true" ng-click="$ctrl.onAdjustLine({line: $ctrl.selected,
 							brightness: $ctrl.brightness, gamma: $ctrl.gamma})">Submit</button>
-						<button
-						style="border-radius:1px;margin-left:0px;margin-top:10px;min-width:70px;""color:#146ec8dd;"
-							ng-click="$ctrl.resetValues()">Reset</button>
+						<button class="reset-button" ng-click="$ctrl.resetValues()">Reset</button>
 					</div>				
-				</form>
-		
-				<a href="#/overview">
-					<button class="overview-button">Lines Overview</button>
-				</a>
+				</form>		
+
 			</div>
 		</div>
 
@@ -129,14 +132,14 @@
 				<ui-select class="search-dropdown red"
 					ng-model="$ctrl.selectedColorChannels.red"
 					on-select="$ctrl.onUpdateColorChannel({line: 
-					$ctrl.selectedColorChannels.red, color:'red'})"
+					$ctrl.selectedColorChannels.red.name, color:'red'})"
 					on-remove="$ctrl.onUpdateColorChannel({line: 
-					$ctrl.selectedColorChannels.red, color:'red'})">
+					$ctrl.selectedColorChannels.red.name, color:'red'})">
 					<ui-select-match placeholder="Search Color Channels" allow-clear="true">
-						{{$ctrl.selectedColorChannels.red}}
+						{{$ctrl.selectedColorChannels.red.name}}
 					</ui-select-match>
 					<ui-select-choices repeat="line in $ctrl.lines | filter:$select.search" 
-						value="'{{::line}}'">{{::line}}</ui-select-choices>
+						value="'{{::line}}'">{{::line.name}}</ui-select-choices>
 				</ui-select>
 				<input type="range" class="red-overlay slider"
 					ng-show="!!$ctrl.selectedColorChannels.red" min="0" max="90" 
@@ -149,14 +152,14 @@
 				<ui-select class="search-dropdown blue"
 					ng-model="$ctrl.selectedColorChannels.blue"
 					on-select="$ctrl.onUpdateColorChannel({line: 
-					$ctrl.selectedColorChannels.blue, color:'blue'})"
+					$ctrl.selectedColorChannels.blue.name, color:'blue'})"
 					on-remove="$ctrl.onUpdateColorChannel({line: 
-					$ctrl.selectedColorChannels.blue, color:'blue'})">
+					$ctrl.selectedColorChannels.blue.name, color:'blue'})">
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
-						{{$ctrl.selectedColorChannels.blue}}
+						{{$ctrl.selectedColorChannels.blue.name}}
 					</ui-select-match>
 					<ui-select-choices repeat="line in $ctrl.lines | filter:$select.search" 
-						value="'{{::line}}'">{{::line}}</ui-select-choices>
+						value="'{{::line}}'">{{::line.name}}</ui-select-choices>
 				</ui-select>
 				<input type="range" class="blue-overlay slider"
 					ng-show="!!$ctrl.selectedColorChannels.blue" min="0" max="90" 
@@ -169,14 +172,14 @@
 				<ui-select class="search-dropdown green"
 					ng-model="$ctrl.selectedColorChannels.green"
 					on-select="$ctrl.onUpdateColorChannel({line: 
-						$ctrl.selectedColorChannels.green, color:'green'})"
+						$ctrl.selectedColorChannels.green.name, color:'green'})"
 					on-remove="$ctrl.onUpdateColorChannel({line: 
-						$ctrl.selectedColorChannels.green, color:'green'})">
+						$ctrl.selectedColorChannels.green.name, color:'green'})">
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
-						{{$ctrl.selectedColorChannels.green}}
+						{{$ctrl.selectedColorChannels.green.name}}
 					</ui-select-match>
 					<ui-select-choices repeat="line in $ctrl.lines | filter:$select.search" 
-						value="'{{::line}}'">{{::line}}</ui-select-choices>
+						value="'{{::line}}'">{{::line.name}}</ui-select-choices>
 				</ui-select>
 				<input type="range" class="green-overlay slider"
 					ng-show="!!$ctrl.selectedColorChannels.green" min="0" max="90" 

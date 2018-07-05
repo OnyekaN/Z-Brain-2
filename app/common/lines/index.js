@@ -129,6 +129,7 @@ let sidebarComponentTemplate = `
 						on-update-color-channel="$ctrl.updateColorChannel(line, color)"
 						on-update-opacity="$ctrl.updateOpacity(val, color)"
 						on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)"
+						on-open-share-dialog="$ctrl.openShareDialog(short, full)"
 						resolved-line-name="$resolve.resolvedLineName"
 						resolved-mask-names="$resolve.resolvedMaskNames"
 						resolved-color-channel-names="$resolve.resolvedColorChannelNames">

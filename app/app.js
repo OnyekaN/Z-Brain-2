@@ -29,7 +29,7 @@ import Common from './common/index';
 											</overview-component>`,
 					resolve: {
 						lines: ['LinesService', (LinesService) => {
-							return LinesService.getLineNames();
+							return LinesService.getAllLineNames();
 						}],
 						annotations: ['LinesService', (LinesService) => {
 							return LinesService.getAnnotations();

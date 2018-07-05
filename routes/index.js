@@ -132,8 +132,8 @@ router.get('/api/lines', (req, res, next) => {
 			return res.status(500).json({success: false, data: err});
 		}
 
-		let querySQL = `SELECT line_name FROM images
-								GROUP BY line_name
+		let querySQL = `SELECT line_name, line_id FROM images
+								GROUP BY line_name, line_id
 								ORDER BY line_name ASC; `
 
 		let [ query, index ] = [ client.query(querySQL), 1	];

@@ -135,7 +135,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 											</overview-component>`,
 					resolve: {
 						lines: ['LinesService', (LinesService) => {
-							return LinesService.getLineNames();
+							return LinesService.getAllLineNames();
 						}],
 						annotations: ['LinesService', (LinesService) => {
 							return LinesService.getAnnotations();
@@ -7945,6 +7945,7 @@ let sidebarComponentTemplate = `
 						on-update-color-channel="$ctrl.updateColorChannel(line, color)"
 						on-update-opacity="$ctrl.updateOpacity(val, color)"
 						on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)"
+						on-open-share-dialog="$ctrl.openShareDialog(short, full)"
 						resolved-line-name="$resolve.resolvedLineName"
 						resolved-mask-names="$resolve.resolvedMaskNames"
 						resolved-color-channel-names="$resolve.resolvedColorChannelNames">
@@ -7989,6 +7990,8 @@ class LinesController {
 		this.lines = [];
 		this.masks = [];
 		this.files = [];
+		this.shortLink = '';
+		this.fullLink = '';
 		this.sliceIndex = 90;
 		this.lineImages = [];
 		this.lineName = "";
@@ -8009,16 +8012,20 @@ class LinesController {
 			// GET line and mask names for sidebar
 		this.LinesService.getAllLineNames().then(response => {
 												let names = response.map(obj => {
-													let name = obj.line_name;
+													let [name, id] = [obj.line_name, obj.line_id];
 													if ( name.indexOf('MH_') !== -1 )
 														name = "Z1" + name; // prefix it to end up near the bottom after sort
-													return name;
+													return { 'name': name, 'id': id };
 												});
-												names = names.sort();
-												names = names.map(name => {
-													if ( name.indexOf('Z1') !== -1 )
-														name = name.substring(2); // strip prefix
-													return name;
+												names = names.sort((a,b) => {
+													if ( a.name < b.name ) return -1;
+													if ( a.name > b.name ) return 1;
+													return 0;
+												});
+												names = names.map(line => {
+													if ( line.name.indexOf('Z1') !== -1 )
+														line.name = line.name.substring(2); // strip prefix
+													return line;
 												});
 												this.lines = names;
 											});
@@ -8118,6 +8125,18 @@ class LinesController {
 												this.lineImages = response;
 												this.spinner.stop();
 												});
+	}
+
+	openShareDialog(short, full) {
+		this.shortShareLink = short;
+		this.fullShareLink = full;
+		let el = document.getElementsByClassName('share')[0];
+		el.className += " share-active";
+	}
+
+	closeShareDialog() {
+		let el = document.getElementsByClassName('share')[0];
+		el.className = el.className.replace('share-active', '');
 	}
 
 	 // open and close upload dialog
@@ -8579,6 +8598,7 @@ const SidebarComponent = {
 		onUpdateColorChannel: '&',
 		onUpdateOpacity: '&',
 		onAdjustLine: '&',
+		onOpenShareDialog: '&',
 		resolvedLineName: '<',
 		resolvedMaskNames: '<',
 		resolvedColorChannelNames: '<',
@@ -8601,11 +8621,13 @@ const SidebarComponent = {
 class SidebarController {
 	constructor($interval) {
 		this.$interval = $interval;
-		this.brightness = 1;
-		this.gamma = 1;
+		this.brightness = 1.0;
+		this.gamma = 1.;
 		this.slice = 90;
 		this.selected = undefined;
 		this.current = 'Elavl3-H2BRFP';
+		this.shortShareLink = 'https://engertlab.fas.harvard.edu/Z-Brain/#/home/';
+		this.fullShareLink = 'https://engertlab.fas.harvard.edu/Z-Brain/#/home/';
 		this.placeholder = '';
 		this.selectedMasks = {
 			cyan: null,
@@ -8625,7 +8647,6 @@ class SidebarController {
 			green: 50,
 			blue: 50
 		}
-
 	}
 
 	$onInit() {
@@ -8636,11 +8657,11 @@ class SidebarController {
 			if ( this.resolvedMaskNames && Object.keys(this.resolvedMaskNames)
 						&& this.masks.length ) {
 				let colors = Object.keys(this.resolvedMaskNames);
-				for ( let i = 0; i < colors.length; i++ ) {
-					this.selectedMasks[colors[i]] = this.masks.filter(mask => {
-						return mask.name == this.resolvedMaskNames[colors[i]];
+				colors.forEach(color => {
+					this.selectedMasks[color] = this.masks.filter(mask => {
+						return mask.name == this.resolvedMaskNames[color];
 					})[0];
-				}
+				});
 			this.$interval.cancel(setMaskDropdowns);
 			}
 		}, 200, 5);
@@ -8650,13 +8671,16 @@ class SidebarController {
 		let setColorChannelDropdowns = this.$interval(() => {
 			if ( this.resolvedColorChannelNames && Object.keys(this.resolvedColorChannelNames) ) {
 				let colors = Object.keys(this.resolvedColorChannelNames);
-				for ( let i = 0; i < colors.length; i++ ) {
-					this.selectedColorChannels[colors[i]] = this.resolvedColorChannelNames[colors[i]];
-				}
+				colors.forEach(color => {
+					this.selectedColorChannels[color] = this.lines.filter(line => {
+						return line.name == this.resolvedColorChannelNames[color];
+					})[0];
+				});
 			this.$interval.cancel(setColorChannelDropdowns);
 			}
 		}, 200, 5);
 
+		this.createShareLinks();
 
 	}
 
@@ -8664,7 +8688,7 @@ class SidebarController {
 
 		/* add 'Upload' option to search Lines dropdown */
 		this.searchLines = this.lines.slice()
-		this.searchLines.unshift('Upload (Image Slices)');
+		this.searchLines.unshift({name:'Upload (Image Slices)', id: 0});
 
 		/* handle route resolve of line */
 		if ( this.resolvedLineName != 'Elavl3-H2BRFP' ) {
@@ -8673,10 +8697,10 @@ class SidebarController {
 	}
 
 	onUpdateLineWrapper(line) {
-		if ( !line.line.startsWith('Upload') ) {
-			this.current = line.line;
+		if ( !line.line.name.startsWith('Upload') ) {
+			this.current = line.line.name;
 		}
-		this.onUpdateLine({line: this.selected});
+		this.onUpdateLine({line: this.selected.name});
 		this.selected = this.current;
 	}
 
@@ -8684,10 +8708,62 @@ class SidebarController {
 		this.onUpdateMask(mask, color);
 	}
 
+	onOpenShareDialogWrapper() {
+		this.createShareLinks();
+		this.onOpenShareDialog({short: this.shortShareLink, full: this.fullShareLink});
+	}
 	resetValues() {
-		this.brightness = 1;
-		this.gamma = 1;
+		this.brightness = 1.0;
+		this.gamma = 1.0;
 		this.onUpdateLine({line: this.selected});
+	}
+
+	createShareLinks() {
+		let base = `https://engertlab.fas.harvard.edu/Z-Brain/#/home/line/${this.selected||'Elavl3-H2BRFP'}`,
+				byId = [],
+				byName = [];
+
+		if ( this.selectedMasks.cyan ) {
+			byId.push(`cy_mask=${this.selectedMasks.cyan.id}`);
+			byName.push(`cy_mask=${this.selectedMasks.cyan.name}`);
+		}
+		if ( this.selectedMasks.magenta ) {
+			byId.push(`mg_mask=${this.selectedMasks.magenta.id}`);
+			byName.push(`mg_mask=${this.selectedMasks.magenta.name}`);
+		}
+		if ( this.selectedMasks.green ) {
+			byId.push(`gr_mask=${this.selectedMasks.green.id}`);
+			byName.push(`gr_mask=${this.selectedMasks.green.name}`);
+		}
+		if ( this.selectedMasks.yellow ) {
+			byId.push(`yl_mask=${this.selectedMasks.yellow.id}`);
+			byName.push(`yl_mask=${this.selectedMasks.yellow.name}`);
+		}
+
+
+		if ( this.selectedColorChannels.red ) {
+			byId.push(`red_ch=${this.selectedColorChannels.red.id}`);
+			byName.push(`red_ch=${this.selectedColorChannels.red.name}`);
+		}
+		if ( this.selectedColorChannels.blue ) {
+			byId.push(`blu_ch=${this.selectedColorChannels.blue.id}`);
+			byName.push(`blu_ch=${this.selectedColorChannels.blue.name}`);
+		}
+		if ( this.selectedColorChannels.green ) {
+			byId.push(`gre_ch=${this.selectedColorChannels.green.id}`);
+			byName.push(`gre_ch=${this.selectedColorChannels.green.name}`);
+		}
+
+		if ( byId.length || byName.length ) {
+			byId = byId.join('&');
+			byName = byName.join('&');
+			let [shortShareLink, fullShareLink] = [base+'?'+byId, base+'?'+byName];
+			this.shortShareLink = shortShareLink;
+			this.fullShareLink = fullShareLink;
+		} else {
+			this.shortShareLink = this.fullShareLink = base;
+		}
+
 	}
 
 	gaEvent() {

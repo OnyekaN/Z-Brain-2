@@ -11,6 +11,7 @@ const SidebarComponent = {
 		onUpdateColorChannel: '&',
 		onUpdateOpacity: '&',
 		onAdjustLine: '&',
+		onOpenShareDialog: '&',
 		resolvedLineName: '<',
 		resolvedMaskNames: '<',
 		resolvedColorChannelNames: '<',
