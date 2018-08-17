@@ -16,6 +16,7 @@ const ViewerComponent = {
 		resolvedLineName: '<',
 		resolvedLineImages: '<',
 		resolvedMaskImages: '<',
+		resolvedSliceIndex: '<',
 		resolvedColorChannelImages: '<',
 	},
 	controller: ViewerController,

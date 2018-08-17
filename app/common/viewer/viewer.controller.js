@@ -87,6 +87,12 @@ class ViewerController {
 			}
 		}, 200, 5);
 
+		if ( this.resolvedSliceIndex ) {
+			this.sliceIndex = this.resolvedSliceIndex;
+			this.updateSlice()
+		}
+
+
 	}
 
 	$onChanges(changes) {

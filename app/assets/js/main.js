@@ -7849,7 +7849,7 @@ const Lines = angular
 			})
 
 			$stateProvider.state('home.line', {
-				url: '/line/{id}?cy_mask&mg_mask&gr_mask&yl_mask&red_ch&blu_ch&gre_ch',
+				url: '/line/{id}?cy_mask&mg_mask&gr_mask&yl_mask&red_ch&blu_ch&gre_ch&slice_i',
 				views: {
 					'sidebar': {
 						template: sidebarComponentTemplate,
@@ -7859,6 +7859,11 @@ const Lines = angular
 					},
 				},
 				resolve: {
+					resolvedSliceIndex: [
+						'$stateParams', ($stateParams) => {
+							return $stateParams.slice_i
+						}
+					],
 					resolvedLineName: [
 						'$stateParams', 'LinesService',
 						($stateParams, LinesService) => {
@@ -7929,6 +7934,7 @@ let viewerComponentTemplate = `
 						color-channel-color="$ctrl.colorChannelColor"
 						color-channel-opacities="$ctrl.colorChannelOpacities"
 						on-update-index="$ctrl.updateIndex(sliceIndex)"
+						resolved-slice-index="$resolve.resolvedSliceIndex"
 						resolved-line-name="$resolve.resolvedLineName"
 						resolved-line-images="$resolve.resolvedLineImages"
 						resolved-mask-images="$resolve.resolvedMaskImages"
@@ -7940,6 +7946,7 @@ let sidebarComponentTemplate = `
 					<sidebar-component
 						lines="$ctrl.lines"
 						masks="$ctrl.masks"
+						slice-index="$ctrl.sliceIndex"
 						on-update-line="$ctrl.updateLine(line)"
 						on-update-mask="$ctrl.updateMask(mask, color)"
 						on-update-color-channel="$ctrl.updateColorChannel(line, color)"
@@ -8593,6 +8600,7 @@ const SidebarComponent = {
 	bindings: {
 		lines: '<',
 		masks: '<',
+		sliceIndex: '<',
 		onUpdateLine: '&',
 		onUpdateMask: '&',
 		onUpdateColorChannel: '&',
@@ -8721,7 +8729,8 @@ class SidebarController {
 	createShareLinks() {
 		let base = `https://engertlab.fas.harvard.edu/Z-Brain/#/home/line/${this.selected||'Elavl3-H2BRFP'}`,
 				byId = [],
-				byName = [];
+				byName = [],
+				sliceIndex = `&slice_i=${this.sliceIndex}`;
 
 		if ( this.selectedMasks.cyan ) {
 			byId.push(`cy_mask=${this.selectedMasks.cyan.id}`);
@@ -8757,12 +8766,14 @@ class SidebarController {
 		if ( byId.length || byName.length ) {
 			byId = byId.join('&');
 			byName = byName.join('&');
-			let [shortShareLink, fullShareLink] = [base+'?'+byId, base+'?'+byName];
+			let [shortShareLink, fullShareLink] = [base+'?'+byId+sliceIndex,
+					base+'?'+byName+sliceIndex];
 			this.shortShareLink = shortShareLink;
 			this.fullShareLink = fullShareLink;
 		} else {
 			this.shortShareLink = this.fullShareLink = base;
 		}
+		console.log(this.sliceIndex);
 
 	}
 
@@ -8854,6 +8865,7 @@ const ViewerComponent = {
 		resolvedLineName: '<',
 		resolvedLineImages: '<',
 		resolvedMaskImages: '<',
+		resolvedSliceIndex: '<',
 		resolvedColorChannelImages: '<',
 	},
 	controller: __WEBPACK_IMPORTED_MODULE_0__viewer_controller_js__["a" /* default */],
@@ -8958,6 +8970,12 @@ class ViewerController {
 				this.$interval.cancel(setDisplayColorChannels);
 			}
 		}, 200, 5);
+
+		if ( this.resolvedSliceIndex ) {
+			this.sliceIndex = this.resolvedSliceIndex;
+			this.updateSlice()
+		}
+
 
 	}
 

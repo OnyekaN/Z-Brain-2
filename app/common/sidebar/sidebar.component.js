@@ -6,6 +6,7 @@ const SidebarComponent = {
 	bindings: {
 		lines: '<',
 		masks: '<',
+		sliceIndex: '<',
 		onUpdateLine: '&',
 		onUpdateMask: '&',
 		onUpdateColorChannel: '&',

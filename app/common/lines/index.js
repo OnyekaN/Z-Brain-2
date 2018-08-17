@@ -33,7 +33,7 @@ const Lines = angular
 			})
 
 			$stateProvider.state('home.line', {
-				url: '/line/{id}?cy_mask&mg_mask&gr_mask&yl_mask&red_ch&blu_ch&gre_ch',
+				url: '/line/{id}?cy_mask&mg_mask&gr_mask&yl_mask&red_ch&blu_ch&gre_ch&slice_i',
 				views: {
 					'sidebar': {
 						template: sidebarComponentTemplate,
@@ -43,6 +43,11 @@ const Lines = angular
 					},
 				},
 				resolve: {
+					resolvedSliceIndex: [
+						'$stateParams', ($stateParams) => {
+							return $stateParams.slice_i
+						}
+					],
 					resolvedLineName: [
 						'$stateParams', 'LinesService',
 						($stateParams, LinesService) => {
@@ -113,6 +118,7 @@ let viewerComponentTemplate = `
 						color-channel-color="$ctrl.colorChannelColor"
 						color-channel-opacities="$ctrl.colorChannelOpacities"
 						on-update-index="$ctrl.updateIndex(sliceIndex)"
+						resolved-slice-index="$resolve.resolvedSliceIndex"
 						resolved-line-name="$resolve.resolvedLineName"
 						resolved-line-images="$resolve.resolvedLineImages"
 						resolved-mask-images="$resolve.resolvedMaskImages"
@@ -124,6 +130,7 @@ let sidebarComponentTemplate = `
 					<sidebar-component
 						lines="$ctrl.lines"
 						masks="$ctrl.masks"
+						slice-index="$ctrl.sliceIndex"
 						on-update-line="$ctrl.updateLine(line)"
 						on-update-mask="$ctrl.updateMask(mask, color)"
 						on-update-color-channel="$ctrl.updateColorChannel(line, color)"
