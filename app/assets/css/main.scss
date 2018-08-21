@@ -674,7 +674,7 @@ body {
 		width: 200px;
 		font-size: 0.8em;
 		background-color: rgb(255, 252, 250);
-		box-shadow: 1px 1px 2px #444;
+		box-shadow: 0 0 10px 4px #cccccc44;
 		border: 1px solid #888;
 		border-left: None;
 		border-top: None;
@@ -687,23 +687,28 @@ body {
 			opacity: 0.9;
 			border-left: None;
 			border-top: None;
-			box-shadow: 1px 1px 4px #aaa;
+			//box-shadow: 1px 1px 4px #aaa;
 		}
 
 		select {
 			border: 1px solid black;
+			padding: 10px 5px 5px 10px;
 			width: 100%;
 			height: 100%;
 			background-color: transparent;
-
+			overflow: auto;
 			//option:nth-child(even) { background-color: #ccc #f0f8ff }
-			option:hover { background-color: #ddd}
+			option:hover{
+				//background-color: #ddd;
+				font-weight: bold;
+			}
 		}
 
 		select:focus { outline: None; }
 	}
 
 	.overview-tiles {
+		width: 90%;
 		margin: 30px 0 0 250px;
 		display: flex;
 		flex-wrap: wrap;
@@ -711,15 +716,21 @@ body {
 	}
 
 	.overview-tile {
+		background-color: rgba(60,150,210,0.05);
 		position: relative;
-		padding: 10px 10px 10px 10px;
+		padding: 10px 15px 10px 15px;
 		margin-bottom: 30px;
-		height: 300px;
-		width: 390px;
-		box-shadow: 1px 1px 2px #bbb;
+		height: 240px;
+		width: 400px;
+		box-shadow: 0px 0px 30px -10px #bbbbbbbb;
+		border-radius: 1px;
 		overflow: scroll;
 		cursor: pointer;
 		transition: all .4s ease;
+		&:hover {
+			box-shadow: 1px 1px 30px -10px #111111ee;
+			z-index: 100;
+		}
 
 		h2 {
 			position: absolute;
@@ -729,7 +740,7 @@ body {
 			font-family: "Helvetica";
 			font-weight: bold;
 			white-space: nowrap;
-			color: rgb(51, 122, 183)
+			color: rgba(51, 122, 183, 0.5)
 
 		}
 
@@ -740,6 +751,11 @@ body {
 			border-radius: 2px;
 		}
 
+		span {
+			font-family: "Trebuchet MS", Helvetica, sans-serif;
+			font-weight: 100;
+			font-size: 0.8em;
+		}
 		ul {
 			min-height: 100px;
 			margin-top: 10px;
@@ -748,11 +764,6 @@ body {
 			list-style-type: none;
 		}
 		li { margin-bottom: 2px; }
-	}
-
-	.overview-tile:hover {
-		box-shadow: 1px 1px 10px #bbb;
-		z-index: 100;
 	}
 }
 

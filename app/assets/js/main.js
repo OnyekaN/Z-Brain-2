@@ -8773,7 +8773,6 @@ class SidebarController {
 		} else {
 			this.shortShareLink = this.fullShareLink = base;
 		}
-		console.log(this.sliceIndex);
 
 	}
 
@@ -8886,7 +8885,8 @@ const ViewerComponent = {
 
 
 class ViewerController {
-	constructor($interval, ViewerService) {
+	constructor($location, $interval, ViewerService) {
+		this.$location = $location;
 		this.$interval = $interval;
 		this.ViewerService = ViewerService;
 			// initial (page load) z-slice number [range 0-137]
@@ -8931,6 +8931,7 @@ class ViewerController {
 	$onInit() {
 
 		/* handle route resolve for masks */
+		this.$location.url(this.$location.url().replace('#top', ''));
 
 		let setDisplayMasks = this.$interval(() => {
 			if ( this.resolvedMaskImages && Object.keys(this.resolvedMaskImages).length ) {
@@ -9093,7 +9094,7 @@ class ViewerController {
 
 }
 
-ViewerController.$inject = ['$interval', 'ViewerService'];
+ViewerController.$inject = ['$location', '$interval', 'ViewerService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ViewerController);
 
@@ -9356,10 +9357,11 @@ class OverviewController {
 	}
 
 	selectLine(line) {
-		this.$window.location.href = '#/home/line/' + line;
+		this.$window.location.href = `#/home/line/${line}#top`;
 	}
 
 }
+
 
 OverviewController.$inject = ['$window', 'LinesService'];
 

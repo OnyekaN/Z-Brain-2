@@ -538,7 +538,7 @@ body {
     width: 200px;
     font-size: 0.8em;
     background-color: #fffcfa;
-    box-shadow: 1px 1px 2px #444;
+    box-shadow: 0 0 10px 4px #cccccc44;
     border: 1px solid #888;
     border-left: None;
     border-top: None;
@@ -549,32 +549,39 @@ body {
     .overview .overview-keywords-bank:hover {
       opacity: 0.9;
       border-left: None;
-      border-top: None;
-      box-shadow: 1px 1px 4px #aaa; }
+      border-top: None; }
     .overview .overview-keywords-bank select {
       border: 1px solid black;
+      padding: 10px 5px 5px 10px;
       width: 100%;
       height: 100%;
-      background-color: transparent; }
+      background-color: transparent;
+      overflow: auto; }
       .overview .overview-keywords-bank select option:hover {
-        background-color: #ddd; }
+        font-weight: bold; }
     .overview .overview-keywords-bank select:focus {
       outline: None; }
   .overview .overview-tiles {
+    width: 90%;
     margin: 30px 0 0 250px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around; }
   .overview .overview-tile {
+    background-color: rgba(60, 150, 210, 0.05);
     position: relative;
-    padding: 10px 10px 10px 10px;
+    padding: 10px 15px 10px 15px;
     margin-bottom: 30px;
-    height: 300px;
-    width: 390px;
-    box-shadow: 1px 1px 2px #bbb;
+    height: 240px;
+    width: 400px;
+    box-shadow: 0px 0px 30px -10px #bbbbbbbb;
+    border-radius: 1px;
     overflow: scroll;
     cursor: pointer;
     transition: all .4s ease; }
+    .overview .overview-tile:hover {
+      box-shadow: 1px 1px 30px -10px #111111ee;
+      z-index: 100; }
     .overview .overview-tile h2 {
       position: absolute;
       margin: 8px 0 0 8px;
@@ -583,12 +590,16 @@ body {
       font-family: "Helvetica";
       font-weight: bold;
       white-space: nowrap;
-      color: #337ab7; }
+      color: rgba(51, 122, 183, 0.5); }
     .overview .overview-tile img {
       width: 370px;
       height: 160px;
       margin-bottom: 5px;
       border-radius: 2px; }
+    .overview .overview-tile span {
+      font-family: "Trebuchet MS", Helvetica, sans-serif;
+      font-weight: 100;
+      font-size: 0.8em; }
     .overview .overview-tile ul {
       min-height: 100px;
       margin-top: 10px;
@@ -597,9 +608,6 @@ body {
       list-style-type: none; }
     .overview .overview-tile li {
       margin-bottom: 2px; }
-  .overview .overview-tile:hover {
-    box-shadow: 1px 1px 10px #bbb;
-    z-index: 100; }
 
 @media screen and (min-width: 1601px) and (max-width: 2299px) {
   body {

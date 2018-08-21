@@ -2,7 +2,8 @@
 'use strict'
 
 class ViewerController {
-	constructor($interval, ViewerService) {
+	constructor($location, $interval, ViewerService) {
+		this.$location = $location;
 		this.$interval = $interval;
 		this.ViewerService = ViewerService;
 			// initial (page load) z-slice number [range 0-137]
@@ -47,6 +48,7 @@ class ViewerController {
 	$onInit() {
 
 		/* handle route resolve for masks */
+		this.$location.url(this.$location.url().replace('#top', ''));
 
 		let setDisplayMasks = this.$interval(() => {
 			if ( this.resolvedMaskImages && Object.keys(this.resolvedMaskImages).length ) {
@@ -209,6 +211,6 @@ class ViewerController {
 
 }
 
-ViewerController.$inject = ['$interval', 'ViewerService'];
+ViewerController.$inject = ['$location', '$interval', 'ViewerService'];
 
 export default ViewerController;

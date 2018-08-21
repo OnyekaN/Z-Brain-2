@@ -65,10 +65,11 @@ class OverviewController {
 	}
 
 	selectLine(line) {
-		this.$window.location.href = '#/home/line/' + line;
+		this.$window.location.href = `#/home/line/${line}#top`;
 	}
 
 }
+
 
 OverviewController.$inject = ['$window', 'LinesService'];
 

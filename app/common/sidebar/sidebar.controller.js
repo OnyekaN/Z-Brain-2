@@ -148,7 +148,6 @@ class SidebarController {
 		} else {
 			this.shortShareLink = this.fullShareLink = base;
 		}
-		console.log(this.sliceIndex);
 
 	}
 
