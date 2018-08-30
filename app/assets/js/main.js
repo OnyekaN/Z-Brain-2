@@ -8726,6 +8726,14 @@ class SidebarController {
 		this.onUpdateLine({line: this.selected});
 	}
 
+	masksGroupFn(mask) {
+		if ( mask.name.indexOf('Diencephalon') == 0 ) {
+			return 'Diencephalon';
+		} else {
+			return 'Not';
+		}
+	}
+
 	createShareLinks() {
 		let base = `https://engertlab.fas.harvard.edu/Z-Brain/#/home/line/${this.selected||'Elavl3-H2BRFP'}`,
 				byId = [],
@@ -8885,12 +8893,14 @@ const ViewerComponent = {
 
 
 class ViewerController {
-	constructor($location, $interval, ViewerService) {
-		this.$location = $location;
+	constructor($interval, $timeout, ViewerService) {
 		this.$interval = $interval;
+		this.$timeout = $timeout;
 		this.ViewerService = ViewerService;
 			// initial (page load) z-slice number [range 0-137]
 		this.sliceIndex = 90;
+			// actively updating slice ? true : false;
+		this.updating = true;
 			// initial display line
 		this.currentLineName = 'Elavl3-H2BRFP';
 			// initial display image, #viewer#primary-line-image[src]
@@ -8930,8 +8940,8 @@ class ViewerController {
 
 	$onInit() {
 
+		window.scrollTo(0, 0);
 		/* handle route resolve for masks */
-		this.$location.url(this.$location.url().replace('#top', ''));
 
 		let setDisplayMasks = this.$interval(() => {
 			if ( this.resolvedMaskImages && Object.keys(this.resolvedMaskImages).length ) {
@@ -9033,7 +9043,7 @@ class ViewerController {
 			}
 		}
 
-		/* On change slice index update display imagesel images load, update display
+		/* On change slice index update display images
 		 * sliceIndex << LinesComponent << SidebarComponent
 		 */
 		if ( this.sliceIndex ) {
@@ -9043,7 +9053,18 @@ class ViewerController {
 
 	/* On slider change, update display with new slice number
 	 */
-	updateSlice()	{
+	updateSlice(indexChange=true)	{
+
+		let lineNumber = document.getElementsByClassName('line-number')[0];
+		if ( this.updating && indexChange ) {
+			this.updating = false;
+			lineNumber.className = 'line-number updating';
+			this.$timeout(() => {
+				console.log('updated');
+				lineNumber.className = 'line-number';
+				this.updating = true;
+			}, 2000);
+		}
 
 		if ( !Array.isArray(this.lineImages) || !this.lineImages.length )
 			return;
@@ -9052,6 +9073,7 @@ class ViewerController {
 		this.onUpdateIndex({sliceIndex:this.sliceIndex});
 		this.updateMasksSlice();
 		this.updateColorChannelsSlice();
+
 
 		/* When brightness/gamma adjustments,
 		 * update display image if loaded, otherwise skip
@@ -9086,7 +9108,6 @@ class ViewerController {
 			if ( Array.isArray(this.colorChannelArrays[color]) ) {
 				this.currentDisplayColorChannels[color] = this.colorChannelArrays[color][this.sliceIndex].src;
 			} else {
-				//this.activeChannels.splice(this.activeChannels.indexOf(color), 1);
 				this.currentDisplayColorChannels[color] = 'images/blank.png';
 			}
 		});
@@ -9094,7 +9115,7 @@ class ViewerController {
 
 }
 
-ViewerController.$inject = ['$location', '$interval', 'ViewerService'];
+ViewerController.$inject = ['$location', '$interval', '$timeout', 'ViewerService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ViewerController);
 
@@ -9294,9 +9315,10 @@ const Overview = angular
 
 
 class OverviewController {
-	constructor($window, LinesService) {
+	constructor($window, $timeout, LinesService) {
 		this.LinesService = LinesService;
 		this.$window = $window;
+		this.$timeout = $timeout;
 		this.line = "test";
 		this.selectedKeywords = [];
 		this.allLines = [];
@@ -9336,16 +9358,28 @@ class OverviewController {
 			});
 		});
 		this.keywords.sort();
+		this.container = document.getElementsByClassName('overview-tiles')[0];
+		this.tiles = Array.from(document.getElementsByClassName('overview-tile'));
+
+		let keywordsBank = document.getElementsByClassName('overview-keywords-bank')[0];
+		this.$timeout(() => {
+			//keywordsBank.style.opacity = '0.4';
+		}, 2000);
+
+		window.scrollTo(0, 0);
+
 	}
 
 	filterLines(selections) {
-		console.log(selections);
+		window.scrollTo(0, 0);
 		if ( !selections || !String(selections) ) {
+			this.container.style.justifyContent = 'space-around';
+			this.tiles.forEach((tile) => { tile.style.marginRight = '0'; });
 			this.activeLines = this.allLines;
-			return
-		}
-
-		else {
+			return;
+		} else {
+			this.container.style.justifyContent = 'flex-start';
+			this.tiles.forEach((tile) => { tile.style.marginRight = '50px'; });
 			this.activeLines = this.allLines.filter(obj => {
 				for ( let item in selections ) {
 					if ( obj['keywords'].includes(selections[item]) ) {
@@ -9357,13 +9391,13 @@ class OverviewController {
 	}
 
 	selectLine(line) {
-		this.$window.location.href = `#/home/line/${line}#top`;
+		this.$window.location.href = `#/home/line/${line}`;
 	}
 
 }
 
 
-OverviewController.$inject = ['$window', 'LinesService'];
+OverviewController.$inject = ['$window', '$timeout', 'LinesService'];
 
 
 /* harmony default export */ __webpack_exports__["a"] = (OverviewController);

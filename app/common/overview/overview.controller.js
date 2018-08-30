@@ -2,9 +2,10 @@
 'use strict'
 
 class OverviewController {
-	constructor($window, LinesService) {
+	constructor($window, $timeout, LinesService) {
 		this.LinesService = LinesService;
 		this.$window = $window;
+		this.$timeout = $timeout;
 		this.line = "test";
 		this.selectedKeywords = [];
 		this.allLines = [];
@@ -44,16 +45,28 @@ class OverviewController {
 			});
 		});
 		this.keywords.sort();
+		this.container = document.getElementsByClassName('overview-tiles')[0];
+		this.tiles = Array.from(document.getElementsByClassName('overview-tile'));
+
+		let keywordsBank = document.getElementsByClassName('overview-keywords-bank')[0];
+		this.$timeout(() => {
+			//keywordsBank.style.opacity = '0.4';
+		}, 2000);
+
+		window.scrollTo(0, 0);
+
 	}
 
 	filterLines(selections) {
-		console.log(selections);
+		window.scrollTo(0, 0);
 		if ( !selections || !String(selections) ) {
+			this.container.style.justifyContent = 'space-around';
+			this.tiles.forEach((tile) => { tile.style.marginRight = '0'; });
 			this.activeLines = this.allLines;
-			return
-		}
-
-		else {
+			return;
+		} else {
+			this.container.style.justifyContent = 'flex-start';
+			this.tiles.forEach((tile) => { tile.style.marginRight = '50px'; });
 			this.activeLines = this.allLines.filter(obj => {
 				for ( let item in selections ) {
 					if ( obj['keywords'].includes(selections[item]) ) {
@@ -65,13 +78,13 @@ class OverviewController {
 	}
 
 	selectLine(line) {
-		this.$window.location.href = `#/home/line/${line}#top`;
+		this.$window.location.href = `#/home/line/${line}`;
 	}
 
 }
 
 
-OverviewController.$inject = ['$window', 'LinesService'];
+OverviewController.$inject = ['$window', '$timeout', 'LinesService'];
 
 
 export default OverviewController;

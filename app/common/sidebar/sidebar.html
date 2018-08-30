@@ -24,7 +24,7 @@
 			<input type="file" id="upload" name="pic" accept="image/*" 
 				style="display:none" multiple/>
 
-			<a href="#/overview#top">
+			<a href="#/overview">
 				<button class="overview-button">Lines Overview</button>
 			</a>
 
@@ -75,7 +75,8 @@
 					<ui-select-match placeholder="Search Regions" allow-clear="true">
 						{{$ctrl.selectedMasks.cyan.name}}
 					</ui-select-match>
-					<ui-select-choices repeat="mask in $ctrl.masks | filter:$select.search" 
+					<ui-select-choices group-by="$ctrl.masksGroupFn"
+						repeat="mask in $ctrl.masks | filter:$select.search" 
 						value="'{{::mask.name}}'">{{::mask.name}} <span class="num">{{::mask.id}}</span></ui-select-choices>
 				</ui-select>
 			</div>

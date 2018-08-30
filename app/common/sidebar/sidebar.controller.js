@@ -101,6 +101,14 @@ class SidebarController {
 		this.onUpdateLine({line: this.selected});
 	}
 
+	masksGroupFn(mask) {
+		if ( mask.name.indexOf('Diencephalon') == 0 ) {
+			return 'Diencephalon';
+		} else {
+			return 'Not';
+		}
+	}
+
 	createShareLinks() {
 		let base = `https://engertlab.fas.harvard.edu/Z-Brain/#/home/line/${this.selected||'Elavl3-H2BRFP'}`,
 				byId = [],

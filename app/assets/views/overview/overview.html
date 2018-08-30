@@ -15,10 +15,7 @@
 		 ng-click="Overview.selectLine(line.name)">
 			<h2 align="">{{line.name}}</h2>
 			<img alt="{{line.name}}" src="{{line.src}}"/>
-			<!--ul>
-			 <li ng-repeat="keyword in line.keywords">{{keyword}}</li>
-			</ul-->
 			<span ng-hide="line.name == '0-Reference-Brain'">
-				{{line.keywords.join(', ')||"In Progress"}}<span>
+				{{line.keywords.join(' | ')||"In Progress"}}<span>
 		</div>
 	</div>

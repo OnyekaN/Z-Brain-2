@@ -5,13 +5,11 @@
 	</div>
 	<div class="viewer-ctrl-panel">
 		<div class="current-text">
-			<!--span style="color:#bbb;font-size:1em"--> 
 			<span class="line-name">{{$ctrl.currentLineName}}<span>
-			<span class="line-number">-&nbsp&nbsp{{$ctrl.sliceIndex}}</span>
+			<span class="line-number">&nbsp&nbsp{{$ctrl.sliceIndex}}</span><span class="line-number">/137</span>
 		</div>
 		<div class="z-index-div"> 
-			<input class="z-index-slider" type="range"
-			orient="horizontal"
+			<input class="z-index-slider" type="range" orient="horizontal"
 			 ng-change="$ctrl.updateSlice()"
 			 ng-model="$ctrl.sliceIndex" 
 			 ng-touchmove="$ctrl.updateSlice()"	
