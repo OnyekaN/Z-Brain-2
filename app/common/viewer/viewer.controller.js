@@ -169,7 +169,6 @@ class ViewerController {
 			this.updating = false;
 			lineNumber.className = 'line-number updating';
 			this.$timeout(() => {
-				console.log('updated');
 				lineNumber.className = 'line-number';
 				this.updating = true;
 			}, 2000);
@@ -224,6 +223,6 @@ class ViewerController {
 
 }
 
-ViewerController.$inject = ['$location', '$interval', '$timeout', 'ViewerService'];
+ViewerController.$inject = ['$interval', '$timeout', 'ViewerService'];
 
 export default ViewerController;
