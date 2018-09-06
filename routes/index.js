@@ -34,11 +34,11 @@ const pool = new Pool({
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	if (app.get('env') === 'development') {
-	  res.render('index', { title: 'Z-Brain Atlas',
+	  res.render('index', { title: 'Z Brain Atlas',
 													main: 'js/main.js' });
 	}
 	if (app.get('env') === 'production') {
-		res.render('index', { title: 'Z-Brain Atlas',
+		res.render('index', { title: 'Z Brain Atlas',
 													main: 'js/main.min.js' });
 	}
 

@@ -91,7 +91,8 @@
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
 						{{$ctrl.selectedMasks.magenta.name}}
 					</ui-select-match>
-					<ui-select-choices repeat="mask in $ctrl.masks | filter:$select.search" 
+					<ui-select-choices group-by="$ctrl.masksGroupFn"
+					repeat="mask in $ctrl.masks | filter:$select.search" 
 						value="'{{::mask.name}}'">{{::mask.name}} <span class="num">{{::mask.id}}</span></ui-select-choices>
 				</ui-select>
 			</div>
@@ -105,7 +106,8 @@
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
 						{{$ctrl.selectedMasks.green.name}}
 					</ui-select-match>
-					<ui-select-choices repeat="mask in $ctrl.masks | filter:$select.search" 
+					<ui-select-choices group-by="$ctrl.masksGroupFn"
+						repeat="mask in $ctrl.masks | filter:$select.search" 
 						value="'{{::mask.name}}'">{{::mask.name}} <span class="num">{{::mask.id}}</span></ui-select-choices>
 				</ui-select>
 			</div>
@@ -120,7 +122,8 @@
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
 						{{$ctrl.selectedMasks.yellow.name}}
 					</ui-select-match>
-					<ui-select-choices repeat="mask in $ctrl.masks | filter:$select.search" 
+					<ui-select-choices group-by="$ctrl.masksGroupFn"
+						repeat="mask in $ctrl.masks | filter:$select.search" 
 						value="'{{::mask.name}}'">{{::mask.name}} <span class="num">{{::mask.id}}</span></ui-select-choices>
 				</ui-select>
 			</div>

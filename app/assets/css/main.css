@@ -251,6 +251,11 @@ body {
     .sidebar .ui-select-choices-row .num {
       font-size: 0.6em;
       color: white; }
+  .sidebar .ui-select-choices-group-label {
+    margin-left: -12px !important;
+    font-size: 1.1em !important;
+    font-weight: bold !important;
+    color: #4499cc33; }
   .sidebar .ui-select-match-text span {
     width: 163px !important;
     text-overflow: ellipsis; }

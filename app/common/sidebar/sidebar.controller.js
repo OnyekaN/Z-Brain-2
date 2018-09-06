@@ -104,8 +104,18 @@ class SidebarController {
 	masksGroupFn(mask) {
 		if ( mask.name.indexOf('Diencephalon') == 0 ) {
 			return 'Diencephalon';
+		} else if ( mask.name.indexOf('Ganglia') == 0 ) {
+			return 'Ganglia';
+		} else if ( mask.name.indexOf('Mesencephalon') == 0 ) {
+			return 'Mesencephalon';
+		} else if ( mask.name.indexOf('Rhombencephalon') == 0 ) {
+			return 'Rhombencephalon';
+		} else if ( mask.name.indexOf('Spinal Cord') == 0 ) {
+			return 'Spinal Cord';
+		} else if ( mask.name.indexOf('Spinal Cord') == 0 ) {
+			return 'Telencephalon';
 		} else {
-			return 'Not';
+			return 'Brain';
 		}
 	}
 
