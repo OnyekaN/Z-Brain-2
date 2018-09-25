@@ -9366,7 +9366,10 @@ class OverviewController {
 				}
 			});
 		});
-		this.keywords.sort();
+		this.keywords.sort(function (a, b) {
+			return a.toLowerCase().localeCompare(b.toLowerCase());
+		});
+
 		this.container = document.getElementsByClassName('overview-tiles')[0];
 		this.tiles = Array.from(document.getElementsByClassName('overview-tile'));
 
