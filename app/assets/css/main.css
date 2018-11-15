@@ -523,6 +523,33 @@ body {
       padding-top: 12px;
       height: 45px;
       overflow: scroll; }
+  .annotations .annotations-search {
+    margin-bottom: 50px; }
+    .annotations .annotations-search .annotations-search-input {
+      height: 25px;
+      width: 30%;
+      padding-left: 20px;
+      background-color: rgba(220, 245, 255, 0.15);
+      border: 1px solid rgba(50, 50, 50, 0.2);
+      border-radius: 3px;
+      font-weight: 400;
+      transition: background 350ms ease;
+      color: #323232 !important; }
+      .annotations .annotations-search .annotations-search-input::-ms-input-placeholder, .annotations .annotations-search .annotations-search-input::-webkit-input-placeholder, .annotations .annotations-search .annotations-search-input::-moz-input-placeholder {
+        color: rgba(50, 50, 50, 0.2) !important; }
+      .annotations .annotations-search .annotations-search-input:hover, .annotations .annotations-search .annotations-search-input:focus {
+        outline: none;
+        background: rgba(255, 255, 255, 0.9);
+        color: black; }
+        .annotations .annotations-search .annotations-search-input:hover::-ms-input-placeholder, .annotations .annotations-search .annotations-search-input:hover::-webkit-input-placeholder, .annotations .annotations-search .annotations-search-input:hover::-moz-input-placeholder, .annotations .annotations-search .annotations-search-input:focus::-ms-input-placeholder, .annotations .annotations-search .annotations-search-input:focus::-webkit-input-placeholder, .annotations .annotations-search .annotations-search-input:focus::-moz-input-placeholder {
+          color: #333 !important; }
+    .annotations .annotations-search .annotations-search-results {
+      height: 150px;
+      background-color: #aaaaaabb; }
+      .annotations .annotations-search .annotations-search-results ul {
+        height: 100%;
+        overflow-x: hide;
+        overflow-y: scroll; }
   .annotations .notice {
     margin: 30px 0 0 5px; }
     .annotations .notice span {
@@ -626,7 +653,9 @@ body {
     min-width: 100vw; }
 
   .navbar li {
-    margin-right: 40px !important; }
+    margin-right: 30px !important; }
+    .navbar li a {
+      font-size: 1.2em; }
 
   .navbar-header h4 {
     margin-right: 210px; }
@@ -651,7 +680,6 @@ body {
     min-width: 350px;
     min-height: 680px;
     margin-right: 5vw !important;
-    box-shadow: 1px 1px 4px #bbb;
     white-space: normal; }
     .sidebar .inner {
       padding: 0 30px 0 30px !important; }
@@ -687,8 +715,7 @@ body {
 
   .viewer {
     min-height: 680px;
-    min-width: 1250px;
-    box-shadow: -2px 2px 4px #bbb; }
+    min-width: 1250px; }
     .viewer .viewer-ctrl-panel {
       top: 40px;
       left: 270px; }
@@ -747,6 +774,8 @@ body {
 
   .navbar li {
     margin-right: 60px !important; }
+    .navbar li a {
+      font-size: 1.5em; }
 
   .navbar-header h4 {
     font-size: 3.5em !important;
@@ -757,7 +786,9 @@ body {
 
   .header {
     min-width: 110vw;
-    min-height: 7vw !important; }
+    min-height: 7vw !important;
+    margin-top: 60px;
+    margin-bottom: 100px; }
 
   .title {
     min-width: 700px;
@@ -776,8 +807,9 @@ body {
     min-width: 400px;
     min-height: 900px;
     margin-right: 2vw !important;
-    margin-left: 3vw !important;
-    box-shadow: 1px 1px 4px #bbb; }
+    margin-left: 3vw !important; }
+    .sidebar .sidebar-title {
+      height: 25px; }
     .sidebar .inner {
       padding: 0 30px 0 30px !important; }
     .sidebar .overview-button {
@@ -814,8 +846,9 @@ body {
 
   .viewer {
     min-height: 900px;
-    min-width: 1820px !important;
-    box-shadow: -2px 2px 4px #bbb; }
+    min-width: 1820px !important; }
+    .viewer .viewer-title {
+      height: 25px; }
     .viewer .viewer-ctrl-panel {
       top: 60px;
       left: 400px; }

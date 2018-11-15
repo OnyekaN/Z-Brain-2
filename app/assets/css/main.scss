@@ -658,6 +658,47 @@ body {
 		}
 	}
 
+	.annotations-search {
+		margin-bottom: 50px;
+
+		.annotations-search-input {
+			height: 25px;
+			width: 30%;
+			padding-left: 20px;
+			background-color: rgba(220, 245, 255, 0.15);
+			border: 1px solid rgba(50, 50, 50, 0.2);
+  		border-radius: 3px;
+			font-weight: 400;
+			transition: background 350ms ease;
+			color: rgba(50, 50, 50, 1) !important;
+
+			&::-ms-input-placeholder, &::-webkit-input-placeholder, &::-moz-input-placeholder {
+				color: rgba(50, 50, 50, 0.2) !important;
+			}
+
+			&:hover, &:focus {
+				outline: none;
+				background: rgba(255, 255, 255, 0.9);
+				color: black;
+				&::-ms-input-placeholder, &::-webkit-input-placeholder, &::-moz-input-placeholder {
+					color: #333 !important;
+				}
+			}
+
+		}
+
+		.annotations-search-results {
+			height: 150px;
+			background-color: #aaaaaabb;
+			ul {
+				height: 100%;
+				overflow-x: hide;
+				overflow-y: scroll;
+			}
+		}
+	}
+
+
 	.notice {
 		margin: 30px 0 0 5px;
  		span {
@@ -789,7 +830,10 @@ body {
 	}
 
 	.navbar {
-	 	li { margin-right: 40px !important; }
+	 	li {
+			margin-right: 30px !important;
+			a { font-size: 1.2em; }
+		}
 	}
 	.navbar-header h4 {
 		margin-right: 210px;
@@ -820,7 +864,7 @@ body {
 		min-width: 350px;
 		min-height: 680px;
 		margin-right: 5vw !important;
-		box-shadow: 1px 1px 4px #bbb;
+		//box-shadow: 1px 1px 4px #bbb;
 		white-space: normal;
 
 		.inner { padding: 0 30px 0 30px !important; }
@@ -870,7 +914,7 @@ body {
 	.viewer {
 		min-height: 680px;
 		min-width: 1250px;
-		box-shadow: -2px 2px 4px #bbb;
+		//box-shadow: -2px 2px 4px #bbb;
 
 		.viewer-ctrl-panel {
 			top: 40px;
@@ -949,7 +993,10 @@ body {
 	}
 
 	.navbar {
-	 	li { margin-right: 60px !important; }
+	 	li {
+			margin-right: 60px !important;
+			a { font-size: 1.5em; }
+		}
 	}
 
 	.navbar-header h4 {
@@ -964,6 +1011,8 @@ body {
 	.header {
 		min-width: $media-xl-min-width;
 		min-height: 7vw !important;
+		margin-top: 60px;
+		margin-bottom: 100px;
 	}
 
 	.title {
@@ -987,7 +1036,9 @@ body {
 		min-height: 900px;
 		margin-right: 2vw !important;
 		margin-left: 3vw !important;
-		box-shadow: 1px 1px 4px #bbb;
+		//box-shadow: 1px 1px 4px #bbb;
+
+		.sidebar-title { height: 25px; }
 
 		.inner { padding: 0 30px 0 30px !important; }
 
@@ -1037,7 +1088,9 @@ body {
 	.viewer {
 		min-height: 900px;
 		min-width: 1820px !important;
-		box-shadow: -2px 2px 4px #bbb;
+		//box-shadow: -2px 2px 4px #bbb;
+
+		.viewer-title { height: 25px; }
 
 		.viewer-ctrl-panel {
 			top: 60px;
