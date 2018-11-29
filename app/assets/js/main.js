@@ -9277,6 +9277,7 @@ class AnnotationsController {
 
 	constructor() {
 		this.first = true;
+		this.searchResultsActive = false;
 		this.linesVals = {};
 		this.searchTerm = undefined;
 	}
@@ -9312,27 +9313,41 @@ class AnnotationsController {
 	handleSearch() {
 		this.results = [];
 		if ( this.searchTerm ) {
+			this.openSearchDialog();
 			this.searchTerm = this.searchTerm.toLowerCase();
 			Object.keys(this.linesVals).forEach((line) => {
 				if ( this.linesVals[line].toLowerCase().indexOf(this.searchTerm) != -1 ) {
 					this.results.push(line);
 				}
 			})
+			if ( !this.results.length ) {
+				this.results = ["None"]
+			}
 		}
-		console.log(this.results);
 	}
 
 	onUpdateLineWrapper(line) {
 		if ( line ) {
 			this.onUpdateLine(line);
 		}
+		this.closeSearchDialog();
 	}
 
 	openSearchDialog() {
-	}
-	closeSearchDialog() {
+    let el = document.getElementsByClassName('annotations-search-results')[0];
+		if ( el.classList.contains("search-results-hidden") ) {
+			el.classList.remove("search-results-hidden");
+			el.classList.add("search-results-active");
+		}
 	}
 
+	closeSearchDialog() {
+    let el = document.getElementsByClassName('annotations-search-results')[0];
+		if ( el.classList.contains("search-results-active") ) {
+			el.classList.remove("search-results-active");
+			el.classList.add("search-results-hidden");
+		}
+	}
 
 }
 

@@ -1,14 +1,17 @@
 <div ng-show="$ctrl.annotations">
 
 	<div class="annotations-search">
-		<input type="text" class="annotations-search-input"
-			placeholder="Search by lines by annotation (e.g. 'Pan Neuronal')" 
-			ng-model="$ctrl.searchTerm" ng-change="$ctrl.handleSearch()">	
-		<div class="annotations-search-results" ng-show="$ctrl.results.length">
+		<div class="annotations-search-bar">
+			<span class="annotations-search-icon"><i class="fas fa-search"></i></span>
+			<input type="text" class="annotations-search-input"
+				placeholder="Search by lines by annotation (e.g. 'Pan Neuronal')" 
+				ng-model="$ctrl.searchTerm" ng-change="$ctrl.handleSearch()">	
+		</div>
+		<div class="annotations-search-results search-results-hidden">
 			<ul>	
 				<li ng-repeat="result in $ctrl.results"
 					ng-click="$ctrl.onUpdateLineWrapper({line:result})">
-					{{ result }}
+					&nbsp&nbsp {{ result }}
 				</li>
 			</ul>
 		</div>
@@ -54,10 +57,10 @@
 
 	<div class="notice">
 		<span>
-		Annotations are a work in progress.  We welcome any
-		suggestions / corrections / modifications. <br>Please contact Owen
-		Randlett <a style="opacity:0.7" href="mailto:owen.randlett@gmail.com">( owen.randlett@gmail.com )</a>
-	 	for details.</span>
+			Annotations are a work in progress.  We welcome any
+			suggestions / corrections / modifications. <br>Please contact Owen
+			Randlett <a style="opacity:0.7" href="mailto:owen.randlett@gmail.com">( owen.randlett@gmail.com )</a>
+	 		for details.</span>
 		</span>
 	</div>	
 
