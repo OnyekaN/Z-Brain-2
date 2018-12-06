@@ -683,10 +683,10 @@ body {
 			border-radius: 4px;
 			font-weight: 400;
 			transition: background 350ms ease;
-			color: rgba(50, 50, 50, 1) !important;
+			color: rgba(50, 50, 50, 0.7) !important;
 
 			&::-ms-input-placeholder, &::-webkit-input-placeholder, &::-moz-input-placeholder {
-				color: rgba(50, 50, 50, 0.2) !important;
+				color: rgba(50, 50, 50, 0.1) !important;
 			}
 
 			&:hover, &:focus {
@@ -694,13 +694,13 @@ body {
 				background: rgba(255, 255, 255, 0.9);
 				color: black;
 				&::-ms-input-placeholder, &::-webkit-input-placeholder, &::-moz-input-placeholder {
-					color: #333 !important;
+					color: #33333333 !important;
 				}
 			}
 		}
 
 		.annotations-search-results {
-			margin-top: 5px;
+			margin-top: 11px;
 			//max-height: 0px;
 			background-color: rgba(240, 250, 255, 0.2);
 			//opacity: .01;
@@ -711,19 +711,19 @@ body {
 				font-family: Helvetica;
 				font-weight: 100;
 				padding-left: 10px;
-				max-height: 150px;
+				max-height: 160px;
 				overflow-x: hidden;
 				overflow-y: auto;
 				list-style-type: none;
 			}
 
 			li {
-				border-radius: 4px;
+				padding: 1px 5px 10px 10px;
+				border-radius: 2px;
 				cursor: pointer;
+				transition: all 200ms ease-out;
 				&:hover {
-					font-weight: 400;
-					color: black;
-					background-color: #4499cc22;
+					background-color: #4499cc15;
 				}
 			}
 		}

@@ -2,11 +2,14 @@
 
 class AnnotationsController {
 
-	constructor() {
+	constructor($timeout) {
+		this.$timeout = $timeout;
 		this.first = true;
 		this.searchResultsActive = false;
 		this.linesVals = {};
 		this.searchTerm = undefined;
+		this.searchOpen = false;
+    this.searchResEl = document.getElementsByClassName('annotations-search-results')[0];
 	}
 
 
@@ -19,7 +22,9 @@ class AnnotationsController {
 			Object.keys(this.annotations).forEach((line) => {
 				this.linesVals[line] = "";
 				Object.keys(this.annotations[line]).forEach((key) => {
-					this.linesVals[line] += `${this.annotations[line][key]};`;
+					if ( !!this.annotations[line][key] ) {
+						this.linesVals[line] += `${this.annotations[line][key]} | `;
+					}
 				});
 			});
 			this.first = false;
@@ -37,46 +42,63 @@ class AnnotationsController {
 		}
 	}
 
+	onUpdateLineWrapper(line) {
+		if ( line ) {
+			if ( line.line == 'No Matches' )
+				return;
+			this.onUpdateLine(line);
+		}
+		this.searchTerm = '';
+		this.closeSearchResults();
+	}
+
 	handleSearch() {
 		this.results = [];
 		if ( this.searchTerm ) {
-			this.openSearchDialog();
+			this.openSearchResults();
 			this.searchTerm = this.searchTerm.toLowerCase();
 			Object.keys(this.linesVals).forEach((line) => {
 				if ( this.linesVals[line].toLowerCase().indexOf(this.searchTerm) != -1 ) {
-					this.results.push(line);
+					let lineName = this.linesVals[line].split(' | ')[1];
+					if ( this.annotations[lineName] ) {
+						this.results.push(this.annotations[lineName]);
+					}
 				}
 			})
 			if ( !this.results.length ) {
-				this.results = ["None"]
+				this.results = []
 			}
+		} else {
+			this.closeSearchResults();
+		}
+
+	}
+
+	openSearchResults() {
+		if ( !!this.searchTerm && this.searchResEl.classList.contains('search-results-hidden') ) {
+			this.searchResEl.classList.remove('search-results-hidden');
+			this.searchResEl.classList.add('search-results-active');
 		}
 	}
 
-	onUpdateLineWrapper(line) {
-		if ( line ) {
-			this.onUpdateLine(line);
-		}
-		this.closeSearchDialog();
-	}
-
-	openSearchDialog() {
-    let el = document.getElementsByClassName('annotations-search-results')[0];
-		if ( el.classList.contains("search-results-hidden") ) {
-			el.classList.remove("search-results-hidden");
-			el.classList.add("search-results-active");
+	closeSearchResults() {
+		if ( this.searchResEl.classList.contains('search-results-active') ) {
+			this.searchResEl.classList.remove('search-results-active');
+			this.searchResEl.classList.add('search-results-hidden');
 		}
 	}
 
-	closeSearchDialog() {
-    let el = document.getElementsByClassName('annotations-search-results')[0];
-		if ( el.classList.contains("search-results-active") ) {
-			el.classList.remove("search-results-active");
-			el.classList.add("search-results-hidden");
-		}
+	delayCloseSearchResults(delay) {
+		this.searchOpen = false;
+		this.$timeout(() => {
+			if ( !this.searchOpen ) {
+				this.closeSearchResults();
+			}
+		}, delay);
 	}
 
 }
+AnnotationsController.$inject = ['$timeout'];
 
 export default AnnotationsController;
 

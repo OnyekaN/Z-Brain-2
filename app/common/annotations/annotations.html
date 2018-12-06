@@ -1,18 +1,27 @@
 <div ng-show="$ctrl.annotations">
 
-	<div class="annotations-search">
-		<div class="annotations-search-bar">
+	<div class="annotations-search" ng-mouseleave="$ctrl.delayCloseSearchResults(8000)"
+		ng-mouseover="$ctrl.searchOpen=true;">
+		<div class="annotations-search-bar" ng-click="$ctrl.openSearchResults()" >
 			<span class="annotations-search-icon"><i class="fas fa-search"></i></span>
 			<input type="text" class="annotations-search-input"
 				placeholder="Search by lines by annotation (e.g. 'Pan Neuronal')" 
 				ng-model="$ctrl.searchTerm" ng-change="$ctrl.handleSearch()">	
 		</div>
 		<div class="annotations-search-results search-results-hidden">
-			<ul>	
+			<ul ng-show="$ctrl.results.length">	
 				<li ng-repeat="result in $ctrl.results"
-					ng-click="$ctrl.onUpdateLineWrapper({line:result})">
-					&nbsp&nbsp {{ result }}
+					ng-click="$ctrl.onUpdateLineWrapper({line:result.line_name})">
+					<h4 style="margin-bottom:3px;">{{result.line_name}}</h4>
+					<span ng-repeat="(key, value) in result" ng-if="value">
+						<span style="text-transform:uppercase;color:#888888cc">{{key}}:</span>
+						<span>{{value}} </span>
+						<span style="">&nbsp&nbsp</span>
+					</span>
 				</li>
+			</ul>
+			<ul ng-show="!$ctrl.results.length && $ctrl.searchTerm">
+				<h4 style="opacity:0.3">No Results</h4>
 			</ul>
 		</div>
 	</div>
