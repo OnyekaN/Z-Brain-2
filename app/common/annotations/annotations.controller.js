@@ -10,6 +10,17 @@ class AnnotationsController {
 		this.searchTerm = undefined;
 		this.searchOpen = false;
     this.searchResEl = document.getElementsByClassName('annotations-search-results')[0];
+		this.fuse = undefined;
+		this.fuseVals = []
+		this.fuseOptions = {
+			shouldSort: false,
+			findAllMatches: true,
+			includeMatches: true,
+			threshold: 0.3,
+			maxPatternLength: 32,
+			minMatchCharLength: 1,
+			keys: [],
+		}
 	}
 
 
@@ -20,6 +31,7 @@ class AnnotationsController {
 	$onChanges(changes) {
 		if ( this.first && this.annotations ) {
 			Object.keys(this.annotations).forEach((line) => {
+				this.fuseVals.push(this.annotations[line]);
 				this.linesVals[line] = "";
 				Object.keys(this.annotations[line]).forEach((key) => {
 					if ( !!this.annotations[line][key] ) {
@@ -28,7 +40,8 @@ class AnnotationsController {
 				});
 			});
 			this.first = false;
-		console.log(this.linesVals);
+			this.fuseOptions['keys'] = Object.keys(this.annotations['Elavl3-H2BRFP']);
+			this.fuse = new Fuse(this.fuseVals, this.fuseOptions);
 		}
 
 
@@ -56,7 +69,8 @@ class AnnotationsController {
 		this.results = [];
 		if ( this.searchTerm ) {
 			this.openSearchResults();
-			this.searchTerm = this.searchTerm.toLowerCase();
+			this.results = this.fuse.search(this.searchTerm);
+			/*this.searchTerm = this.searchTerm.toLowerCase();
 			Object.keys(this.linesVals).forEach((line) => {
 				if ( this.linesVals[line].toLowerCase().indexOf(this.searchTerm) != -1 ) {
 					let lineName = this.linesVals[line].split(' | ')[1];
@@ -64,7 +78,7 @@ class AnnotationsController {
 						this.results.push(this.annotations[lineName]);
 					}
 				}
-			})
+			})*/
 			if ( !this.results.length ) {
 				this.results = []
 			}

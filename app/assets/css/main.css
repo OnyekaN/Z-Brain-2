@@ -545,18 +545,19 @@ body {
       font-weight: 400;
       transition: background 350ms ease;
       color: rgba(50, 50, 50, 0.7) !important; }
-      .annotations .annotations-search .annotations-search-input::-ms-input-placeholder, .annotations .annotations-search .annotations-search-input::-webkit-input-placeholder, .annotations .annotations-search .annotations-search-input::-moz-input-placeholder {
-        color: rgba(50, 50, 50, 0.1) !important; }
+      .annotations .annotations-search .annotations-search-input::placeholder, .annotations .annotations-search .annotations-search-input::-ms-input-placeholder {
+        color: rgba(50, 50, 50, 0.3) !important; }
       .annotations .annotations-search .annotations-search-input:hover, .annotations .annotations-search .annotations-search-input:focus {
         outline: none;
         background: rgba(255, 255, 255, 0.9);
         color: black; }
-        .annotations .annotations-search .annotations-search-input:hover::-ms-input-placeholder, .annotations .annotations-search .annotations-search-input:hover::-webkit-input-placeholder, .annotations .annotations-search .annotations-search-input:hover::-moz-input-placeholder, .annotations .annotations-search .annotations-search-input:focus::-ms-input-placeholder, .annotations .annotations-search .annotations-search-input:focus::-webkit-input-placeholder, .annotations .annotations-search .annotations-search-input:focus::-moz-input-placeholder {
+        .annotations .annotations-search .annotations-search-input:hover::placeholder, .annotations .annotations-search .annotations-search-input:hover::-ms-input-placeholder, .annotations .annotations-search .annotations-search-input:focus::placeholder, .annotations .annotations-search .annotations-search-input:focus::-ms-input-placeholder {
           color: #33333333 !important; }
     .annotations .annotations-search .annotations-search-results {
       margin-top: 11px;
       background-color: rgba(240, 250, 255, 0.2);
-      transition: all 300ms ease; }
+      transition: all 300ms ease;
+      transition-delay: 100ms; }
       .annotations .annotations-search .annotations-search-results ul {
         font-family: Helvetica;
         font-weight: 100;
@@ -572,6 +573,11 @@ body {
         transition: all 200ms ease-out; }
         .annotations .annotations-search .annotations-search-results li:hover {
           background-color: #4499cc15; }
+      .annotations .annotations-search .annotations-search-results h4 {
+        margin-bottom: 7px;
+        color: #22222299;
+        font-family: "Open Sans" Helvetica;
+        text-shadow: 1px 1px #33333322; }
     .annotations .annotations-search .search-results-active {
       max-height: 150px !important;
       visibility: visible;

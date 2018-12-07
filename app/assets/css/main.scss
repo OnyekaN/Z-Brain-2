@@ -685,15 +685,15 @@ body {
 			transition: background 350ms ease;
 			color: rgba(50, 50, 50, 0.7) !important;
 
-			&::-ms-input-placeholder, &::-webkit-input-placeholder, &::-moz-input-placeholder {
-				color: rgba(50, 50, 50, 0.1) !important;
+			&::placeholder, &::-ms-input-placeholder {
+				color: rgba(50, 50, 50, 0.3) !important;
 			}
 
 			&:hover, &:focus {
 				outline: none;
 				background: rgba(255, 255, 255, 0.9);
 				color: black;
-				&::-ms-input-placeholder, &::-webkit-input-placeholder, &::-moz-input-placeholder {
+				&::placeholder, &::-ms-input-placeholder {
 					color: #33333333 !important;
 				}
 			}
@@ -706,6 +706,7 @@ body {
 			//opacity: .01;
 			//visibility: hidden;
 			transition: all 300ms ease;
+			transition-delay: 100ms;
 
 			ul {
 				font-family: Helvetica;
@@ -725,6 +726,13 @@ body {
 				&:hover {
 					background-color: #4499cc15;
 				}
+			}
+
+			h4 {
+				margin-bottom: 7px;
+				color: #22222299;
+				font-family: "Open Sans" Helvetica;
+				text-shadow: 1px 1px #33333322;
 			}
 		}
 
