@@ -529,15 +529,15 @@ body {
     margin-bottom: 50px; }
     .annotations .annotations-search .annotations-search-icon {
       position: absolute;
-      top: 4px;
+      top: 8px;
       left: 14px;
       z-index: 10;
-      color: #bbbbbbbb; }
+      color: #4499ddff; }
     .annotations .annotations-search .annotations-search-input:hover ~ .annotations-search-icon {
       color: blue !important; }
     .annotations .annotations-search .annotations-search-input {
-      height: 25px;
-      width: 30%;
+      height: 30px;
+      width: 35%;
       padding-left: 35px;
       background-color: rgba(220, 245, 255, 0.15);
       border: 1px solid rgba(50, 50, 50, 0.2);
@@ -567,17 +567,18 @@ body {
         overflow-y: auto;
         list-style-type: none; }
       .annotations .annotations-search .annotations-search-results li {
+        margin-bottom: 3px;
         padding: 1px 5px 10px 10px;
-        border-radius: 2px;
+        border-radius: 5px;
         cursor: pointer;
         transition: all 200ms ease-out; }
         .annotations .annotations-search .annotations-search-results li:hover {
-          background-color: #4499cc15; }
+          background-color: #33333311; }
       .annotations .annotations-search .annotations-search-results h4 {
         margin-bottom: 7px;
         color: #22222299;
-        font-family: "Open Sans" Helvetica;
-        text-shadow: 1px 1px #33333322; }
+        font-weight: 700;
+        text-shadow: 0px 0px 3px #33333311; }
     .annotations .annotations-search .search-results-active {
       max-height: 150px !important;
       visibility: visible;
@@ -689,7 +690,7 @@ body {
     min-width: 100vw; }
 
   .navbar li {
-    margin-right: 30px !important; }
+    margin-right: 25px !important; }
     .navbar li a {
       font-size: 1.2em; }
 
