@@ -12,6 +12,7 @@ class SidebarController {
 		this.shortShareLink = 'https://engertlab.fas.harvard.edu/Z-Brain/#/home/';
 		this.fullShareLink = 'https://engertlab.fas.harvard.edu/Z-Brain/#/home/';
 		this.placeholder = '';
+		this.meceMask = null,
 		this.selectedMasks = {
 			cyan: null,
 			green: null,

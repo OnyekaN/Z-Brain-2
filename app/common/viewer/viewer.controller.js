@@ -18,6 +18,7 @@ class ViewerController {
 			// array stores colors of active masks
 		this.activeMasks = [];
 			// object stores arrays of mask images
+		this.meceMaskArray = null;
 		this.maskArrays = {
 			cyan: null,
 			green: null,
@@ -25,6 +26,7 @@ class ViewerController {
 			yellow: null,
 		}
 			// currently displayed mask images (each uses image src)
+		this.meceDisplayMask = 'images/blank.png';
 		this.currentDisplayMasks = {
 			cyan: 'images/blank.png',
 			green: 'images/blank.png',
@@ -133,6 +135,17 @@ class ViewerController {
 			}
 		}
 
+		if ( Array.isArray(this.meceMaskImages) ) {
+			console.log(this.meceMaskImages);
+			if ( this.meceMaskImages.length ) {
+				this.meceMaskArray = this.meceMaskImages;
+				this.meceDisplayMask = this.meceMaskArray[this.sliceIndex].src;
+			} else {
+				this.meceMaskArray = null;
+				this.meceDisplayMask = 'images/blank.png';
+			}
+		}
+
 		/* On new set of color channel images load, update display
 		 * colorChannelImages << LinesComponent
 		 */
@@ -207,6 +220,12 @@ class ViewerController {
 				this.currentDisplayMasks[color] = 'images/blank.png';
 			}
 		});
+
+		if ( Array.isArray(this.meceMaskArray) ) {
+			this.meceDisplayMask = this.meceMaskArray[this.sliceIndex].src;
+		} else {
+			this.meceDisplayMask = 'images/blank.png';
+		}
 	}
 
 		// update active displayed color channels

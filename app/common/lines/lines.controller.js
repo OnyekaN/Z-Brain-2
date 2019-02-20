@@ -58,6 +58,14 @@ class LinesController {
 																				});
 												});
 
+		this.LinesService.getMeceMaskNames().then(response => {
+													this.meceMasks = response.map(obj => {
+																				let name = obj.mask_name.replace("'", "&quot"),
+																							id = obj.mask_id;
+																				return { 'id': parseInt(id), 'name': name }
+																				});
+												});
+
 		this.LinesService.getAnnotations().then(response => {
 													this.annotations = response;
 												});
@@ -101,7 +109,19 @@ class LinesController {
 		// cache mask images for viewer component
 	updateMask(mask, color) {
 		if ( mask ) {
-			this.LinesService.cacheMask(mask, color).then(response => {
+
+			if ( color === 'grey' ) {
+				this.LinesService.cacheMeceMask(mask).then(response => {
+											let [max, maxIndex] = [response[this.sliceIndex].size, this.sliceIndex];
+												this.meceMaskImages = response.map((obj, i) => {
+													if ( obj.size > max )
+														[max, maxIndex]= [obj.size, i];
+													return obj.img
+												});
+												this.$timeout(() => {this.updateIndex(maxIndex)}, 100);
+											});
+			} else {
+				this.LinesService.cacheMask(mask, color).then(response => {
 												let [max, maxIndex] = [response[this.sliceIndex].size, this.sliceIndex];
 												this.maskImages = response.map((obj, i) => {
 													if ( obj.size > max )
@@ -111,7 +131,7 @@ class LinesController {
 												this.maskColor = color;
 												this.$timeout(() => {this.updateIndex(maxIndex)}, 100);
 											});
-
+			}
 		} else {
 			this.maskImages = [];
 			this.maskColor = color;

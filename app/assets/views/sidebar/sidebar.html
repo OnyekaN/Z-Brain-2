@@ -66,6 +66,23 @@
 		<div class="regions-ctrls"> 
 
 			<div class="ui-select-container">
+				<ui-select class="search-dropdown grey"
+					ng-model="$ctrl.meceMask"
+					on-select="$ctrl.onUpdateMaskWrapper({mask:
+					$ctrl.meceMask.name, color:'grey'})"
+					on-remove="$ctrl.onUpdateMaskWrapper({mask:
+					$ctrl.meceMask.name, color:'grey'})">
+					<ui-select-match placeholder="Search Regions (MECE)" allow-clear="true">
+						{{$ctrl.meceMask.name}}
+					</ui-select-match>
+					<ui-select-choices group-by="$ctrl.masksGroupFn"
+						repeat="mask in $ctrl.meceMasks | filter:$select.search" 
+						value="'{{::mask.name}}'">{{::mask.name}} <span class="num">{{::mask.id}}</span></ui-select-choices>
+				</ui-select>
+			</div>
+
+
+			<div class="ui-select-container">
 				<ui-select class="search-dropdown cyan"
 					ng-model="$ctrl.selectedMasks.cyan"
 					on-select="$ctrl.onUpdateMaskWrapper({mask:

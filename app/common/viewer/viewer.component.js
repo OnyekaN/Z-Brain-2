@@ -7,6 +7,7 @@ const ViewerComponent = {
 		lineImages: '<',
 		lineName: '<',
 		maskImages: '<',
+		meceMaskImages: '<',
 		maskColor: '<',
 		sliceIndex: '<',
 		colorChannelImages: '<',

@@ -179,6 +179,33 @@ router.get('/api/masks', (req, res, next) => {
 
 });
 
+router.get('/api/mece', (req, res, next) => {
+	let results = [];
+
+	pool.connect((err, client, done) => {
+		if (err) {
+			done();
+			console.log(err);
+			res.status(500).json({success: false, data:err});
+		}
+
+		querySQL = `SELECT mask_name, mask_id FROM meceMasks
+								GROUP BY mask_name, mask_id
+								ORDER BY mask_name ASC; `
+
+		let [ query, index ] = [ client.query(querySQL), 1001 ];
+		query.on('row', (row) => {
+			results.push(row);
+		});
+
+		query.on('end', () => {
+			done();
+			res.json(results);
+		});
+	});
+
+});
+
 /* query db for one mask */
 router.param('mask', (req, res, next, id) => {
 	let results = [];
@@ -216,8 +243,50 @@ router.param('mask', (req, res, next, id) => {
 
 });
 
+router.param('mecemask', (req, res, next, id) => {
+	let results = [];
+
+	pool.connect((err, client, done) => {
+		if (err) {
+			done();
+			console.log(err);
+			return res.status(500).json({success: false, data: err});
+		}
+		let querySQL;
+
+		if ( isNaN(id) ) {
+			querySQL = `SELECT * FROM meceMasks
+									WHERE mask_name='${id}'
+									ORDER BY mask_img_id;`
+		} else {
+			querySQL = `SELECT * FROM meceMasks
+									WHERE mask_id='${id}'
+									ORDER BY mask_img_id;`
+		}
+
+		let query = client.query(querySQL);
+
+		query.on('row', (row) => {
+			results.push(row);
+		});
+
+		query.on('end', () => {
+			done();
+			req.mask = results;
+			return next();
+		});
+	});
+
+});
+
+
 /* GET single mask metadata as json */
 router.get('/api/masks/:mask', (req, res, next) => {
+	res.json(req.mask);
+	return next();
+});
+
+router.get('/api/mece/:mecemask', (req, res, next) => {
 	res.json(req.mask);
 	return next();
 });
@@ -228,6 +297,7 @@ router.get('/api/masks/nameof/:mask', (req, res, next) => {
 	else
 		res.status(500).send({message: 'Not a database entry'});
 });
+
 
 /* query db for colorChannel overlay for one line and one color */
 router.param('colorchannel', (req, res, next, id) => {

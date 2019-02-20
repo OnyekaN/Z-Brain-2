@@ -2,10 +2,10 @@
 
 	<div class="annotations-search" ng-mouseleave="$ctrl.delayCloseSearchResults(8000)"
 		ng-mouseover="$ctrl.searchOpen=true;">
-		<div class="annotations-search-bar" ng-click="$ctrl.openSearchResults()" >
+		<div class="annotations-search-bar" ng-click="$ctrl.openSearchResults()">
 			<span class="annotations-search-icon"><i class="fas fa-search"></i></span>
 			<input type="text" class="annotations-search-input"
-				placeholder="Search lines by annotation (e.g. 'Pan Neuronal', 'a154Tg', 'Randlett')" 
+				placeholder="Search lines by annotation (e.g. 'pan neuronal', 'millipore')" 
 				ng-model="$ctrl.searchTerm" ng-change="$ctrl.handleSearch()">	
 		</div>
 		<div class="annotations-search-results search-results-hidden">
@@ -63,13 +63,13 @@
 		</tr>
 	</table>	
 
-	<div class="notice">
+	<!--div class="notice">
 		<span>
 			Annotations are a work in progress.  We welcome any
 			suggestions / corrections / modifications. <br>Please contact Owen
 			Randlett <a style="opacity:0.7" href="mailto:owen.randlett@gmail.com">( owen.randlett@gmail.com )</a>
 	 		for details.</span>
 		</span>
-	</div>	
+	</div-->	
 
 </div>

@@ -53,6 +53,12 @@ class LinesService {
 						.catch(e => console.log(e));
 	}
 
+	getMeceMaskNames() {
+		return this.$http.get('api/mece/')
+						.then(response => response.data)
+						.catch(e => console.log(e));
+	}
+
 	getNameOfMask(mask) {
 		return this.$http.get(`api/masks/nameof/${mask}`)
 						.then(response => response.data)
@@ -128,6 +134,21 @@ class LinesService {
 		.catch(e => console.log(e));
 	}
 
+	cacheMeceMask(mask) {
+		return this.$http({
+						method: 'GET',
+						url: `api/mece/${mask}`,
+						cache: true
+		}).then(response => {
+			let masks = response.data.map(obj => {
+				let img = new Image();
+				img.src = `images/8-MeceMasks/${mask}/${obj.mask_image_path}`;
+				return {'img': img, 'size': obj.mask_image_size};
+			});
+			return masks;
+		})
+		.catch(e => console.log(e));
+	}
 	cacheMultipleMasks(options) {
 
 		if ( !options )
@@ -215,6 +236,7 @@ class LinesService {
 			let images = response.data.map(obj => {
 				let img = new Image();
 				let date = new Date().getTime()
+
 				img.src = obj.image_path;
 				return img;
 			});

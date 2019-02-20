@@ -107,11 +107,31 @@ const Lines = angular
 		}])
 	.name;
 
+let sidebarComponentTemplate = `
+					<sidebar-component
+						lines="$ctrl.lines"
+						masks="$ctrl.masks"
+						mece-masks="$ctrl.meceMasks"
+						slice-index="$ctrl.sliceIndex"
+						on-update-line="$ctrl.updateLine(line)"
+						on-update-mask="$ctrl.updateMask(mask, color)"
+						on-update-color-channel="$ctrl.updateColorChannel(line, color)"
+						on-update-opacity="$ctrl.updateOpacity(val, color)"
+						on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)"
+						on-open-share-dialog="$ctrl.openShareDialog(short, full)"
+						resolved-line-name="$resolve.resolvedLineName"
+						resolved-mask-names="$resolve.resolvedMaskNames"
+						resolved-color-channel-names="$resolve.resolvedColorChannelNames">
+					</sidebar-component>
+`;
+
+
 let viewerComponentTemplate = `
 					<viewer-component
 						line-name="$ctrl.lineName"
 						line-images="$ctrl.lineImages"
 						mask-images="$ctrl.maskImages"
+						mece-mask-images="$ctrl.meceMaskImages"
 						mask-color="$ctrl.maskColor"
 						slice-index="$ctrl.sliceIndex"
 						color-channel-images="$ctrl.colorChannelImages"
@@ -124,23 +144,6 @@ let viewerComponentTemplate = `
 						resolved-mask-images="$resolve.resolvedMaskImages"
 						resolved-color-channel-images="$resolve.resolvedColorChannelImages">
 					</viewer-component>
-`;
-
-let sidebarComponentTemplate = `
-					<sidebar-component
-						lines="$ctrl.lines"
-						masks="$ctrl.masks"
-						slice-index="$ctrl.sliceIndex"
-						on-update-line="$ctrl.updateLine(line)"
-						on-update-mask="$ctrl.updateMask(mask, color)"
-						on-update-color-channel="$ctrl.updateColorChannel(line, color)"
-						on-update-opacity="$ctrl.updateOpacity(val, color)"
-						on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)"
-						on-open-share-dialog="$ctrl.openShareDialog(short, full)"
-						resolved-line-name="$resolve.resolvedLineName"
-						resolved-mask-names="$resolve.resolvedMaskNames"
-						resolved-color-channel-names="$resolve.resolvedColorChannelNames">
-					</sidebar-component>
 `;
 
 export default Lines;

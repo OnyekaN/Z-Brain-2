@@ -75,7 +75,6 @@ body {
 
 }
 
-
 .navbar-header h4 {
 	color: #38c;
 	font-family: 'Arial', 'Helvetica Neue';
@@ -86,15 +85,14 @@ body {
 	text-shadow: 1px 1px 2px #aaaaaaaa;
 }
 
-
 .header {
 	height: 120px;
 	width: 100%;
 	min-width: 1410px;
 	position: relative;
-	margin-bottom: 40px;
+	margin-bottom: 30px;
 	font-family: "Raleway", sans-serif !important;
-	margin-left:-15px;
+	margin-left: -15px;
 	box-shadow: -10px 15px 25px -3px #eeeeee55;
 }
 
@@ -104,12 +102,11 @@ body {
 	width: 400px;
 	position: relative;
 	font-family: Raleway, sans-serif;
+	font-weight: 100;
 	font-size: 4.5em;
-	color:#333;
-	text-shadow: 2px 2px 4px #ccc;
+	color: #333;
+	text-shadow: 0px 0px 10px #cccccc77;
 }
-
-
 
 .main {
 
@@ -265,7 +262,9 @@ body {
  	}
 
 	form span {
-		font-family: monospace;
+		color: #fff;
+		text-shadow: 1px 1px 1px #33333366;
+		font-family: serif;
 		font-size: 0.7em;
 		font-style: italic;
 	}
@@ -278,6 +277,7 @@ body {
 
 	.channel-ctrls {
 		padding: 10px 10px 30px 10px;
+
 		margin-bottom: 50px;
 	}
 
@@ -665,29 +665,23 @@ body {
 
 		.annotations-search-icon {
 			position: absolute;
-			top: 8px;
-			left: 14px;
+			top: 7px;
+			left: 13px;
 			z-index: 10;
-			color: #33333388;
+			color: #4499dddd;
 		}
 
-		.annotations-search-input:hover ~ .annotations-search-icon {
-			color: blue !important;
-		}
 		.annotations-search-input {
 			height: 30px;
 			width: 35%;
 			padding-left: 35px;
 			background-color: rgba(220, 245, 255, 0.15);
-			border: 1px solid rgba(50, 50, 50, 0.2);
-			border-radius: 4px;
+			border: 1px solid #4499dd55;
+			border-radius: 10px;
 			font-weight: 400;
 			transition: background 350ms ease;
 			color: rgba(50, 50, 50, 0.7) !important;
-
-			&::placeholder, &::-ms-input-placeholder {
-				color: rgba(50, 50, 50, 0.3) !important;
-			}
+			box-shadow: 0px 0px 15px -2px #bbbbbb35;
 
 			&:hover, &:focus {
 				outline: none;
@@ -699,12 +693,14 @@ body {
 			}
 		}
 
+		::placeholder, ::-webkit-input-placeholder, ::-ms-input-placeholder {
+				//color: #33333333 !important;
+				color: blue !important;
+		}
+
 		.annotations-search-results {
 			margin-top: 11px;
-			//max-height: 0px;
 			background-color: rgba(240, 250, 255, 0.2);
-			//opacity: .01;
-			//visibility: hidden;
 			transition: all 300ms ease;
 			transition-delay: 100ms;
 
@@ -723,7 +719,7 @@ body {
 				padding: 1px 5px 10px 10px;
 				border-radius: 5px;
 				cursor: pointer;
-				transition: all 200ms ease-out;
+				transition: all 300ms ease;
 				&:hover {
 					background-color: #33333311;
 				}
@@ -759,7 +755,6 @@ body {
 			font-size: 0.7em;
 			font-family: 'Open Sans';
 			color: #ccc;
-			// box-shadow:0 0 15px -4px #111;
 			text-shadow: 1px 1px 3px #88888844;
 		}
 	}
@@ -792,7 +787,6 @@ body {
 			border-top: None;
 			background-color: #ffffffbb;
 			box-shadow: none;
-			//box-shadow: 1px 1px 4px #aaa;
 		}
 
 		select {
@@ -916,7 +910,6 @@ body {
 		min-width: 350px;
 		min-height: 680px;
 		margin-right: 5vw !important;
-		//box-shadow: 1px 1px 4px #bbb;
 		white-space: normal;
 
 		.inner { padding: 0 30px 0 30px !important; }
@@ -966,7 +959,6 @@ body {
 	.viewer {
 		min-height: 680px;
 		min-width: 1250px;
-		//box-shadow: -2px 2px 4px #bbb;
 
 		.viewer-ctrl-panel {
 			top: 40px;
@@ -1008,7 +1000,7 @@ body {
 	}
 
 	.annotations {
-		width: 95%;
+		width: 90%;
 		min-width: calc(1600px + 5vw);
 		margin-top: 80px;
 		margin-bottom: 130px;
@@ -1063,7 +1055,7 @@ body {
 	.header {
 		min-width: $media-xl-min-width;
 		min-height: 7vw !important;
-		margin-top: 60px;
+		margin-top: 50px;
 		margin-bottom: 100px;
 	}
 
@@ -1088,7 +1080,6 @@ body {
 		min-height: 900px;
 		margin-right: 2vw !important;
 		margin-left: 3vw !important;
-		//box-shadow: 1px 1px 4px #bbb;
 
 		.sidebar-title { height: 25px; }
 
@@ -1140,7 +1131,6 @@ body {
 	.viewer {
 		min-height: 900px;
 		min-width: 1820px !important;
-		//box-shadow: -2px 2px 4px #bbb;
 
 		.viewer-title { height: 25px; }
 
@@ -1201,6 +1191,16 @@ body {
 		margin: 90px 0 130px 3vw;
 		width: 2277px;
 
+		.annotations-search {
+			margin-bottom: 80px;
+			.annotations-search-icon { top: 12px; }
+			.annotations-search-input { height: 40px; }
+			.annotations-search-results { margin-top: 30px }
+			ul, .search-results-active {
+				max-height: 200px !important;
+			}
+		}
+
 		.notes {
 			min-width: 200px;
 			max-width: 450px;
@@ -1209,6 +1209,7 @@ body {
 				height: 60px;
 			}
 		}
+
 	}
 
 	.overview {

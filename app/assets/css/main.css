@@ -73,7 +73,7 @@ body {
   width: 100%;
   min-width: 1410px;
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   font-family: "Raleway", sans-serif !important;
   margin-left: -15px;
   box-shadow: -10px 15px 25px -3px #eeeeee55; }
@@ -84,9 +84,10 @@ body {
   width: 400px;
   position: relative;
   font-family: Raleway, sans-serif;
+  font-weight: 100;
   font-size: 4.5em;
   color: #333;
-  text-shadow: 2px 2px 4px #ccc; }
+  text-shadow: 0px 0px 10px #cccccc77; }
 
 .main {
   background-color: transparent;
@@ -209,7 +210,9 @@ body {
     margin-right: 16px;
     background: linear-gradient(white 0px, #fafafa 100%); }
   .sidebar form span {
-    font-family: monospace;
+    color: #fff;
+    text-shadow: 1px 1px 1px #33333366;
+    font-family: serif;
     font-size: 0.7em;
     font-style: italic; }
   .sidebar button:focus {
@@ -529,30 +532,29 @@ body {
     margin-bottom: 50px; }
     .annotations .annotations-search .annotations-search-icon {
       position: absolute;
-      top: 8px;
-      left: 14px;
+      top: 7px;
+      left: 13px;
       z-index: 10;
-      color: #33333388; }
-    .annotations .annotations-search .annotations-search-input:hover ~ .annotations-search-icon {
-      color: blue !important; }
+      color: #4499dddd; }
     .annotations .annotations-search .annotations-search-input {
       height: 30px;
       width: 35%;
       padding-left: 35px;
       background-color: rgba(220, 245, 255, 0.15);
-      border: 1px solid rgba(50, 50, 50, 0.2);
-      border-radius: 4px;
+      border: 1px solid #4499dd55;
+      border-radius: 10px;
       font-weight: 400;
       transition: background 350ms ease;
-      color: rgba(50, 50, 50, 0.7) !important; }
-      .annotations .annotations-search .annotations-search-input::placeholder, .annotations .annotations-search .annotations-search-input::-ms-input-placeholder {
-        color: rgba(50, 50, 50, 0.3) !important; }
+      color: rgba(50, 50, 50, 0.7) !important;
+      box-shadow: 0px 0px 15px -2px #bbbbbb35; }
       .annotations .annotations-search .annotations-search-input:hover, .annotations .annotations-search .annotations-search-input:focus {
         outline: none;
         background: rgba(255, 255, 255, 0.9);
         color: black; }
         .annotations .annotations-search .annotations-search-input:hover::placeholder, .annotations .annotations-search .annotations-search-input:hover::-ms-input-placeholder, .annotations .annotations-search .annotations-search-input:focus::placeholder, .annotations .annotations-search .annotations-search-input:focus::-ms-input-placeholder {
           color: #33333333 !important; }
+    .annotations .annotations-search ::placeholder, .annotations .annotations-search ::-webkit-input-placeholder, .annotations .annotations-search ::-ms-input-placeholder {
+      color: blue !important; }
     .annotations .annotations-search .annotations-search-results {
       margin-top: 11px;
       background-color: rgba(240, 250, 255, 0.2);
@@ -571,7 +573,7 @@ body {
         padding: 1px 5px 10px 10px;
         border-radius: 5px;
         cursor: pointer;
-        transition: all 200ms ease-out; }
+        transition: all 300ms ease; }
         .annotations .annotations-search .annotations-search-results li:hover {
           background-color: #33333311; }
       .annotations .annotations-search .annotations-search-results h4 {
@@ -788,7 +790,7 @@ body {
     text-indent: 15px; }
 
   .annotations {
-    width: 95%;
+    width: 90%;
     min-width: calc(1600px + 5vw);
     margin-top: 80px;
     margin-bottom: 130px; }
@@ -824,7 +826,7 @@ body {
   .header {
     min-width: 110vw;
     min-height: 7vw !important;
-    margin-top: 60px;
+    margin-top: 50px;
     margin-bottom: 100px; }
 
   .title {
@@ -934,6 +936,16 @@ body {
   .annotations {
     margin: 90px 0 130px 3vw;
     width: 2277px; }
+    .annotations .annotations-search {
+      margin-bottom: 80px; }
+      .annotations .annotations-search .annotations-search-icon {
+        top: 12px; }
+      .annotations .annotations-search .annotations-search-input {
+        height: 40px; }
+      .annotations .annotations-search .annotations-search-results {
+        margin-top: 30px; }
+      .annotations .annotations-search ul, .annotations .annotations-search .search-results-active {
+        max-height: 200px !important; }
     .annotations .notes {
       min-width: 200px;
       max-width: 450px; }
