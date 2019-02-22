@@ -136,7 +136,6 @@ class ViewerController {
 		}
 
 		if ( Array.isArray(this.meceMaskImages) ) {
-			console.log(this.meceMaskImages);
 			if ( this.meceMaskImages.length ) {
 				this.meceMaskArray = this.meceMaskImages;
 				this.meceDisplayMask = this.meceMaskArray[this.sliceIndex].src;

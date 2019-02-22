@@ -8123,7 +8123,11 @@ class LinesController {
 											});
 			}
 		} else {
-			this.maskImages = [];
+			if ( color === 'grey' ) {
+				this.meceMaskImages = [];
+			} else {
+				this.maskImages = [];
+			}
 			this.maskColor = color;
 			return;
 		}
@@ -8760,6 +8764,7 @@ class SidebarController {
 	}
 
 	onUpdateMaskWrapper(mask, color) {
+		//console.log(color);
 		this.onUpdateMask(mask, color);
 	}
 
@@ -9085,7 +9090,6 @@ class ViewerController {
 		}
 
 		if ( Array.isArray(this.meceMaskImages) ) {
-			console.log(this.meceMaskImages);
 			if ( this.meceMaskImages.length ) {
 				this.meceMaskArray = this.meceMaskImages;
 				this.meceDisplayMask = this.meceMaskArray[this.sliceIndex].src;

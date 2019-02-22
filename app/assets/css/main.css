@@ -211,10 +211,9 @@ body {
     background: linear-gradient(white 0px, #fafafa 100%); }
   .sidebar form span {
     color: #fff;
-    text-shadow: 1px 1px 1px #33333366;
-    font-family: serif;
-    font-size: 0.7em;
-    font-style: italic; }
+    text-shadow: 1px 1px 1px #33333322;
+    font-family: monospace;
+    font-size: 0.7em; }
   .sidebar button:focus {
     outline: none; }
   .sidebar .lines-ctrls {
@@ -271,6 +270,12 @@ body {
     border-left: 1px outset #4499cc88;
     border-bottom: 1px outset #ffffff66;
     border-right: 1px outset #ffffff66; }
+  .sidebar .search-dropdown.grey > div > span {
+    border: 1px outset #11111188;
+    border-bottom: 1px outset #11111155;
+    border-right: 1px outset #11111155; }
+    .sidebar .search-dropdown.grey > div > span .glyphicon:hover {
+      color: black; }
   .sidebar .search-dropdown.cyan > div > span {
     border-bottom: 1px outset #00ffff55;
     border-right: 1px outset #00ffff55; }
@@ -545,7 +550,7 @@ body {
       border-radius: 10px;
       font-weight: 400;
       transition: background 350ms ease;
-      color: rgba(50, 50, 50, 0.7) !important;
+      color: #111111aa;
       box-shadow: 0px 0px 15px -2px #bbbbbb35; }
       .annotations .annotations-search .annotations-search-input:hover, .annotations .annotations-search .annotations-search-input:focus {
         outline: none;

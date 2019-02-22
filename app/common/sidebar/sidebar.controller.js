@@ -89,6 +89,7 @@ class SidebarController {
 	}
 
 	onUpdateMaskWrapper(mask, color) {
+		//console.log(color);
 		this.onUpdateMask(mask, color);
 	}
 

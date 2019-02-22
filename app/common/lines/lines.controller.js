@@ -133,7 +133,11 @@ class LinesController {
 											});
 			}
 		} else {
-			this.maskImages = [];
+			if ( color === 'grey' ) {
+				this.meceMaskImages = [];
+			} else {
+				this.maskImages = [];
+			}
 			this.maskColor = color;
 			return;
 		}
