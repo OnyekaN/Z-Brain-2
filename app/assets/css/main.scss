@@ -31,11 +31,11 @@ body {
 
 	li {
 		display: inline;
-		height: 40px !important;
+		height: 42px !important;
 		margin-right: 10px;
 		border-bottom-left-radius: 1px !important;
 		border-bottom-right-radius: 1px !important;
-		border-radius: 2px !important;
+		border-radius: 4px !important;
 		transition: all 0.3s ease;
 		a {
 			border-left: 1px solid transparent;
@@ -164,7 +164,6 @@ body {
 		}
 
 	}
-
 }
 
 
@@ -195,7 +194,10 @@ body {
 		}
 	}
 
-	.inner { padding-left: 10px; }
+	.inner {
+		padding-left: 10px;
+		padding-top: 10px;
+	}
 
 	button {
 		font-family: "Open Sans", helvetica, sans-serif;
@@ -203,7 +205,7 @@ body {
 	}
 
 	.overview-button {
-		margin: 10px 0 5px 20px;
+		margin: 20px 0 5px 20px;
 		min-width: 160px;
 		min-height: 28px;
 		color: #49d;
@@ -327,9 +329,10 @@ body {
 
 	.ui-select-choices-group-label {
 		font-family: monospace;
-		text-shadow: 1px 1px 1px #3399dd22;
+		font-weight: bold;
+		text-shadow: 1px 1px 1px #3399dd44;
 		margin: 2px 0 5px -10px !important;
-		font-size: 1.4em !important;
+		font-size: 1.3em !important;
 		color: #222222dd;
 	}
 
@@ -397,7 +400,7 @@ body {
 
 .viewer {
 	display: inline-block;
-	background-color: #000;
+	background-color: #000000;
 	vertical-align: top;
 	position: relative;
 	height: 600px;
@@ -422,14 +425,16 @@ body {
 	}
 	.viewer-ctrl-panel {
 		position: absolute;
+		height: 200px;
+		width: 500px;
 		top: 40px;
 		left: 200px;
 		z-index: 1000;
 
 		.current-text {
 			font-family: Helvetica;
-			margin-left: 130px;
 			transition: all 400ms ease;
+			text-align: center;
 			.line-name {
 				margin-left: 60px;
 				color: #49d;
@@ -783,7 +788,7 @@ body {
 		left: 20px;
 		width: 200px;
 		font-size: 0.8em;
-		box-shadow: 0 0 10px 4px #cccccc44;
+		box-shadow: 0 0 15px -4px #cccccc22;
 		border: 1px solid #888;
 		border-left: None;
 		border-top: None;
@@ -833,21 +838,23 @@ body {
 	}
 
 	.overview-tile {
-		background-color: rgba(60,150,210,0.05);
+		background-color: rgba(60, 150, 210, 0.05);
 		position: relative;
-		padding: 10px 15px 10px 15px;
+		padding: 20px 15px 10px 15px;
 		margin-bottom: 30px;
 		margin-right: 10px;
 		height: 240px;
 		width: 400px;
 		box-shadow: 0px 0px 30px -10px #bbbbbbbb;
-		border-radius: 1px;
+		border: 1px solid #11111100;
+		border-radius: 3px;
 		overflow: auto;
 		cursor: pointer;
-		transition: all .4s ease;
+		transition: all 400ms ease;
 		&:hover {
 			box-shadow: 1px 1px 30px -10px #111111ee;
 			z-index: 100;
+			border: 1px solid #11111144;
 		}
 
 		h2 {
@@ -889,7 +896,8 @@ body {
 
 	.navbar {
 	 	li {
-			margin-right: 25px !important;
+			height: 46px !important;
+			margin-right: 22px !important;
 			a { font-size: 1.2em; }
 		}
 	}
@@ -979,7 +987,7 @@ body {
 
 		@mixin viewer-img-pos() {
 			top: 130px;
-			left: 090px;
+			left: 120px;
 		}
 
 		.primary-line-image { @include viewer-img-pos() }
@@ -994,9 +1002,10 @@ body {
 			height: 550px;
 			width: 550px;
 			padding: 50px;
-			padding-top: 50px;
+			padding-top: 60px;
 		}
 		.upload-info { font-size: 1.3em; }
+
 		.upload-form { margin-top: 30px; }
 		.input-upload-button {
 			font-size: 1.5em !important;
@@ -1050,6 +1059,7 @@ body {
 
 	.navbar {
 	 	li {
+			height: 48px !important;
 			margin-right: 60px !important;
 			a { font-size: 1.5em; }
 		}
@@ -1149,8 +1159,7 @@ body {
 		.viewer-ctrl-panel {
 			top: 60px;
 			left: 400px;
-
-			.current-text { margin-left: 230px !important; }
+			width: 800px;
 
 			.z-index-div { margin-left: 50px !important; }
 

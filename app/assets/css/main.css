@@ -27,11 +27,11 @@ body {
     margin-right: 20px; }
   .navbar li {
     display: inline;
-    height: 40px !important;
+    height: 42px !important;
     margin-right: 10px;
     border-bottom-left-radius: 1px !important;
     border-bottom-right-radius: 1px !important;
-    border-radius: 2px !important;
+    border-radius: 4px !important;
     transition: all 0.3s ease; }
     .navbar li a {
       border-left: 1px solid transparent;
@@ -156,12 +156,13 @@ body {
       font-weight: 100;
       font-size: 0.8em; }
   .sidebar .inner {
-    padding-left: 10px; }
+    padding-left: 10px;
+    padding-top: 10px; }
   .sidebar button {
     font-family: "Open Sans", helvetica, sans-serif;
     border-radius: 0px; }
   .sidebar .overview-button {
-    margin: 10px 0 5px 20px;
+    margin: 20px 0 5px 20px;
     min-width: 160px;
     min-height: 28px;
     color: #49d;
@@ -259,9 +260,10 @@ body {
       color: white; }
   .sidebar .ui-select-choices-group-label {
     font-family: monospace;
-    text-shadow: 1px 1px 1px #3399dd22;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #3399dd44;
     margin: 2px 0 5px -10px !important;
-    font-size: 1.4em !important;
+    font-size: 1.3em !important;
     color: #222222dd; }
   .sidebar .ui-select-match-text span {
     width: 163px !important;
@@ -317,7 +319,7 @@ body {
 
 .viewer {
   display: inline-block;
-  background-color: #000;
+  background-color: #000000;
   vertical-align: top;
   position: relative;
   height: 600px;
@@ -339,13 +341,15 @@ body {
       font-size: 0.8em; }
   .viewer .viewer-ctrl-panel {
     position: absolute;
+    height: 200px;
+    width: 500px;
     top: 40px;
     left: 200px;
     z-index: 1000; }
     .viewer .viewer-ctrl-panel .current-text {
       font-family: Helvetica;
-      margin-left: 130px;
-      transition: all 400ms ease; }
+      transition: all 400ms ease;
+      text-align: center; }
       .viewer .viewer-ctrl-panel .current-text .line-name {
         margin-left: 60px;
         color: #49d;
@@ -619,7 +623,7 @@ body {
     left: 20px;
     width: 200px;
     font-size: 0.8em;
-    box-shadow: 0 0 10px 4px #cccccc44;
+    box-shadow: 0 0 15px -4px #cccccc22;
     border: 1px solid #888;
     border-left: None;
     border-top: None;
@@ -661,19 +665,21 @@ body {
   .overview .overview-tile {
     background-color: rgba(60, 150, 210, 0.05);
     position: relative;
-    padding: 10px 15px 10px 15px;
+    padding: 20px 15px 10px 15px;
     margin-bottom: 30px;
     margin-right: 10px;
     height: 240px;
     width: 400px;
     box-shadow: 0px 0px 30px -10px #bbbbbbbb;
-    border-radius: 1px;
+    border: 1px solid #11111100;
+    border-radius: 3px;
     overflow: auto;
     cursor: pointer;
-    transition: all .4s ease; }
+    transition: all 400ms ease; }
     .overview .overview-tile:hover {
       box-shadow: 1px 1px 30px -10px #111111ee;
-      z-index: 100; }
+      z-index: 100;
+      border: 1px solid #11111144; }
     .overview .overview-tile h2 {
       position: absolute;
       margin: 10px 0 0 12px;
@@ -702,7 +708,8 @@ body {
     min-width: 100vw; }
 
   .navbar li {
-    margin-right: 25px !important; }
+    height: 46px !important;
+    margin-right: 22px !important; }
     .navbar li a {
       font-size: 1.2em; }
 
@@ -770,13 +777,13 @@ body {
       left: 270px; }
     .viewer .primary-line-image {
       top: 130px;
-      left: 090px; }
+      left: 120px; }
     .viewer .mask-img {
       top: 130px;
-      left: 090px; }
+      left: 120px; }
     .viewer .color-channel {
       top: 130px;
-      left: 090px; }
+      left: 120px; }
 
   .upload .upload-container {
     top: 20%;
@@ -784,7 +791,7 @@ body {
     height: 550px;
     width: 550px;
     padding: 50px;
-    padding-top: 50px; }
+    padding-top: 60px; }
   .upload .upload-info {
     font-size: 1.3em; }
   .upload .upload-form {
@@ -822,6 +829,7 @@ body {
     min-width: 100vw; }
 
   .navbar li {
+    height: 48px !important;
     margin-right: 60px !important; }
     .navbar li a {
       font-size: 1.5em; }
@@ -900,9 +908,8 @@ body {
       height: 25px; }
     .viewer .viewer-ctrl-panel {
       top: 60px;
-      left: 400px; }
-      .viewer .viewer-ctrl-panel .current-text {
-        margin-left: 230px !important; }
+      left: 400px;
+      width: 800px; }
       .viewer .viewer-ctrl-panel .z-index-div {
         margin-left: 50px !important; }
       .viewer .viewer-ctrl-panel .z-index-slider {

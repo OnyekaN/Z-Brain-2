@@ -8048,14 +8048,6 @@ class LinesController {
 																				});
 												});
 
-		/*this.LinesService.getMeceMaskNames().then(response => {
-													this.meceMasks = response.map(obj => {
-																				let name = obj.mask_name.replace("'", "&quot"),
-																							id = obj.mask_id;
-																				return { 'id': parseInt(id), 'name': name }
-																				});
-												});*/
-
 		this.LinesService.getAnnotations().then(response => {
 													this.annotations = response;
 												});
