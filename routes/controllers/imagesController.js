@@ -2,8 +2,6 @@ const path = require('path');
 const { Pool } = require('pg');
 const c = require('../connectionString').connectionString;
 const connectionString = process.env.DATABASE_URL || c;
-//const pool = new Pool({ connectionString: connectionString });
-
 
 // GET entire imagesdb database
 exports.get_images = (req, res, next) => {
@@ -69,7 +67,7 @@ exports.get_line = (req, res, next, id) => {
 
 exports.get_lines = (req, res, next) => {
 	let pool = new Pool({ connectionString: connectionString }),
-			results = [];	
+			results = [];
 
 	pool.connect((err, client, done) => {
 		if (err) {
@@ -101,7 +99,7 @@ exports.get_lines = (req, res, next) => {
 // GET all masks from masks table
 exports.get_masks = (req, res, next) => {
 	let pool = new Pool({ connectionString: connectionString }),
-			results = [];	
+			results = [];
 
 	pool.connect((err, client, done) => {
 		if (err) {
@@ -126,10 +124,10 @@ exports.get_masks = (req, res, next) => {
 	});
 }
 
-// GET all MECE masks from meceMasks table 
+// GET all MECE masks from meceMasks table
 exports.get_mece_masks = (req, res, next) => {
 	let pool = new Pool({ connectionString: connectionString }),
-			results = [];	
+			results = [];
 
 	pool.connect((err, client, done) => {
 		if (err) {
@@ -157,7 +155,7 @@ exports.get_mece_masks = (req, res, next) => {
 // GET single mask from masks table
 exports.get_mask = (req, res, next, id) => {
 	let pool = new Pool({ connectionString: connectionString }),
-			results = [];	
+			results = [];
 
 	pool.connect((err, client, done) => {
 		if (err) {

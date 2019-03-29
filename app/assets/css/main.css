@@ -195,8 +195,10 @@ body {
     box-shadow: 0 0 5px -2px #88888888; }
     .sidebar .share-button:hover {
       border: 1px solid #ffffff88; }
-  .sidebar .img-modify-input:focus {
-    outline: none; }
+  .sidebar .img-modify-input {
+    color: #111111; }
+    .sidebar .img-modify-input:focus {
+      outline: none; }
   .sidebar .reset-button {
     border-radius: 4px;
     margin-left: 0px;
@@ -211,7 +213,7 @@ body {
     background: linear-gradient(white 0px, #fafafa 100%); }
   .sidebar form span {
     color: #fff;
-    text-shadow: 1px 1px 1px #33333322;
+    text-shadow: 1px 1px 1px #3399dd77;
     font-family: monospace;
     font-size: 0.7em; }
   .sidebar button:focus {
@@ -221,12 +223,13 @@ body {
   .sidebar .regions-ctrls {
     padding: 0 10px 30px 10px; }
   .sidebar .channel-ctrls {
-    padding: 10px 10px 30px 10px;
-    margin-bottom: 50px; }
+    padding: 10px 10px 10px 10px;
+    margin: 0 0 30px 0; }
   .sidebar .ui-select-container {
     margin-bottom: 6px !important; }
   .sidebar .ui-select-bootstrap {
-    width: 200px !important; }
+    width: 200px !important;
+    font-weight: 100; }
     .sidebar .ui-select-bootstrap .glyphicon {
       left: 18px;
       line-height: 1.5;
@@ -234,7 +237,8 @@ body {
       .sidebar .ui-select-bootstrap .glyphicon:hover {
         color: #cc5858; }
   .sidebar .btn-default {
-    transition: all 0.1s ease-out; }
+    transition: all 0.1s ease-out;
+    font-weight: 100; }
     .sidebar .btn-default:hover {
       background-color: #fbfbfb; }
   .sidebar .btn-default-focus {
@@ -254,10 +258,11 @@ body {
       font-size: 0.6em;
       color: white; }
   .sidebar .ui-select-choices-group-label {
-    margin-left: -12px !important;
-    font-size: 1.1em !important;
-    font-weight: bold !important;
-    color: #4499cc33; }
+    font-family: monospace;
+    text-shadow: 1px 1px 1px #3399dd22;
+    margin: 2px 0 5px -10px !important;
+    font-size: 1.4em !important;
+    color: #222222dd; }
   .sidebar .ui-select-match-text span {
     width: 163px !important;
     text-overflow: ellipsis; }
@@ -742,8 +747,8 @@ body {
       width: 100% !important;
       margin-bottom: 5px; }
       .sidebar .ui-select-bootstrap .glyphicon {
-        left: 20px;
-        line-height: 1; }
+        left: 18px;
+        line-height: -1; }
     .sidebar .ui-select-match-text span {
       width: 230px !important;
       text-overflow: ellipsis; }
@@ -879,8 +884,8 @@ body {
     .sidebar .ui-select-bootstrap {
       width: 100% !important; }
       .sidebar .ui-select-bootstrap .glyphicon {
-        left: 20px;
-        line-height: 1; }
+        left: 18px;
+        line-height: -1; }
     .sidebar .ui-select-match-text span {
       width: 280px !important;
       text-overflow: ellipsis; }
