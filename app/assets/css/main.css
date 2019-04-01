@@ -342,16 +342,16 @@ body {
   .viewer .viewer-ctrl-panel {
     position: absolute;
     height: 200px;
-    width: 500px;
+    width: 450px;
     top: 40px;
     left: 200px;
     z-index: 1000; }
     .viewer .viewer-ctrl-panel .current-text {
       font-family: Helvetica;
       transition: all 400ms ease;
-      text-align: center; }
+      text-align: center;
+      margin-left: 90px; }
       .viewer .viewer-ctrl-panel .current-text .line-name {
-        margin-left: 60px;
         color: #49d;
         font-size: 1.5em;
         font-family: Helvetica, Monaco, monospace;
