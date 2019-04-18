@@ -657,7 +657,6 @@ body {
 	}
 
 	td {
-		//border-left: 1px solid #eeeeee88;
 		overflow: auto;
 		padding: 3px 0 10px 0;
 		text-align: center;
@@ -704,16 +703,12 @@ body {
 				outline: none;
 				background: rgba(255, 255, 255, 0.9);
 				color: black;
-				&::placeholder, &::-ms-input-placeholder {
-					color: #33333333 !important;
-				}
 			}
-		}
 
-		::placeholder, ::-webkit-input-placeholder, ::-ms-input-placeholder {
-				//color: #33333333 !important;
-				color: blue !important;
 		}
+			.placeholder-text {
+				color: black !important;
+			}
 
 		.annotations-search-results {
 			margin-top: 11px;

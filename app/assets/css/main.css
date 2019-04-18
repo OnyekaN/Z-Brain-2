@@ -565,10 +565,8 @@ body {
         outline: none;
         background: rgba(255, 255, 255, 0.9);
         color: black; }
-        .annotations .annotations-search .annotations-search-input:hover::placeholder, .annotations .annotations-search .annotations-search-input:hover::-ms-input-placeholder, .annotations .annotations-search .annotations-search-input:focus::placeholder, .annotations .annotations-search .annotations-search-input:focus::-ms-input-placeholder {
-          color: #33333333 !important; }
-    .annotations .annotations-search ::placeholder, .annotations .annotations-search ::-webkit-input-placeholder, .annotations .annotations-search ::-ms-input-placeholder {
-      color: blue !important; }
+    .annotations .annotations-search .placeholder-text {
+      color: black !important; }
     .annotations .annotations-search .annotations-search-results {
       margin-top: 11px;
       background-color: rgba(240, 250, 255, 0.2);
