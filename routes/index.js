@@ -9,6 +9,7 @@ const findRemoveSync = require('find-remove');
 const naturalSort = require('node-natural-sort');
 const imagesController = require('./controllers/imagesController');
 const multer = require('multer');
+
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
 		cb(null, './app/assets/images/1-TemporaryLineImages')
@@ -17,6 +18,7 @@ const storage = multer.diskStorage({
 		cb(null, file.originalname)
 	}
 });
+
 const upload = multer({
 	storage: storage,
 	fileFilter: (req, file, callback) => {
@@ -27,11 +29,9 @@ const upload = multer({
 			callback(null, true)
 	},
 });
-const pool = new Pool({
-	connectionString: connectionString
-});
 
 /* GET home page. */
+
 router.get('/', function(req, res, next) {
 	if (app.get('env') === 'development') {
 	  res.render('index', { title: 'Z Brain Atlas',
@@ -42,14 +42,14 @@ router.get('/', function(req, res, next) {
 													main: 'js/main.min.js' });
 	}
 
-	res.locals.pool = pool;
-
 	// remove temporary linejpgs if > 6 mins old
 	let tmp = path.join(__dirname, '../app/assets/images/1-TemporaryLineImages');
 	let result = findRemoveSync(tmp, {age: {seconds: 360}, extensions: ['.jpg', '.jpeg', '.png']	});
 });
 
+
 /* GET imagesdb as json */
+
 router.get('/api/imagesdb/', imagesController.get_images);
 
 
@@ -58,7 +58,7 @@ router.get('/api/imagesdb/', imagesController.get_images);
 router.param('line', imagesController.get_line);
 
 router.get('/api/lines/:line', (req, res, next) => {
-	res.json(req.line); 
+	res.json(req.line);
 });
 
 router.get('/api/lines/nameof/:line', (req, res, next) => {
@@ -67,6 +67,7 @@ router.get('/api/lines/nameof/:line', (req, res, next) => {
 	else
 		res.status(500).send({message: 'Not a database entry'});
 });
+
 
 /* GET metadata for all lines */
 
@@ -77,20 +78,22 @@ router.get('/api/lines', imagesController.get_lines);
 
 router.get('/api/masks', imagesController.get_masks);
 
-router.get('/api/mece-masks', imagesController.get_mece_masks);
+router.get('/api/regions', imagesController.get_regions);
+
 
 /* GET metadata for single mask */
+
 router.param('mask', imagesController.get_mask);
 
-router.param('mecemask', imagesController.get_mece_mask); 
+router.param('region', imagesController.get_regions);
 
 router.get('/api/masks/:mask', (req, res, next) => {
 	res.json(req.mask);
 	return next();
 });
 
-router.get('/api/mece/:mecemask', (req, res, next) => {
-	res.json(req.mask);
+router.get('/api/regions/:region', (req, res, next) => {
+	res.json(req.region);
 	return next();
 });
 
@@ -101,8 +104,16 @@ router.get('/api/masks/nameof/:mask', (req, res, next) => {
 		res.status(500).send({message: 'Not a database entry'});
 });
 
+router.get('/api/regions/nameof/:region', (req, res, next) => {
+	if ( req.region.length )
+		res.send(req.region[0].region_name);
+	else
+		res.status(500).send({message: 'Not a database entry'});
+});
+
 
 /* GET metadata for single color & line colorchannel */
+
 router.param('colorchannel', imagesController.get_color_channel);
 
 router.get('/api/colorchannels/:colorchannel', (req, res, next) => {
@@ -111,14 +122,17 @@ router.get('/api/colorchannels/:colorchannel', (req, res, next) => {
 
 
 /* GET metadata for all line annotations */
+
 router.get('/api/annotations', imagesController.get_annotations);
 
 
 /* GET python adjusted dataset images */
+
 router.get('/api/adjust/:line', imagesController.get_adjusted_line);
 
 
 /* POST user image slices for viewing */
+
 router.post('/api/upload', upload.array('files', 138), (req, res, next) => {
 
 	// remove temporary linejpgs/pngs if > 30s old

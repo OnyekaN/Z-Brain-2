@@ -124,8 +124,8 @@ exports.get_masks = (req, res, next) => {
 	});
 }
 
-// GET all MECE masks from meceMasks table
-exports.get_mece_masks = (req, res, next) => {
+// GET all regions from regions table
+exports.get_regions = (req, res, next) => {
 	let pool = new Pool({ connectionString: connectionString }),
 			results = [];
 
@@ -136,9 +136,9 @@ exports.get_mece_masks = (req, res, next) => {
 			res.status(500).json({success: false, data:err});
 		}
 
-		querySQL = `SELECT mask_name, mask_id FROM meceMasks
-								GROUP BY mask_name, mask_id
-								ORDER BY mask_name ASC; `
+		querySQL = `SELECT region_name, region_id FROM regions
+								GROUP BY region_name, region_id
+								ORDER BY region_name ASC; `
 
 		let [ query, index ] = [ client.query(querySQL), 1001 ];
 		query.on('row', (row) => {
@@ -189,10 +189,10 @@ exports.get_mask = (req, res, next, id) => {
 	});
 }
 
-// GET single mask from meceMasks Table
-exports.get_mece_mask = (req, res, next, id) => {
+// GET single region from regions Table
+exports.get_region = (req, res, next, id) => {
 	let pool = new Pool({ connectionString: connectionString }),
-			results = [];	
+			results = [];
 
 	pool.connect((err, client, done) => {
 		if (err) {
@@ -204,13 +204,13 @@ exports.get_mece_mask = (req, res, next, id) => {
 		let querySQL;
 
 		if ( isNaN(id) ) {
-			querySQL = `SELECT * FROM meceMasks
-									WHERE mask_name='${id}'
-									ORDER BY mask_img_id;`
+			querySQL = `SELECT * FROM regions
+									WHERE region_name='${id}'
+									ORDER BY region_img_id;`
 		} else {
-			querySQL = `SELECT * FROM meceMasks
-									WHERE mask_id='${id}'
-									ORDER BY mask_img_id;`
+			querySQL = `SELECT * FROM regions
+									WHERE region_id='${id}'
+									ORDER BY region_img_id;`
 		}
 
 		let query = client.query(querySQL);
@@ -227,11 +227,11 @@ exports.get_mece_mask = (req, res, next, id) => {
 	});
 }
 
-// GET single color channel from meceMasks Table
+// GET single color channel from color channels Table
 exports.get_color_channel = (req, res, next, id) => {
 	let pool = new Pool({ connectionString: connectionString }),
 			channel = JSON.parse(id),
-			results = [];	
+			results = [];
 
 	pool.connect((err, client, done) => {
 		if (err) {
@@ -334,7 +334,7 @@ exports.get_adjusted_line = (req, res, next) => {
 exports.post_line = (req, res, next) => {
 
 	// Remove temporary linejpgs/pngs if > 30s old
-	
+
 	let tmp = path.join(__dirname, '../../app/assets/images/1-TemporaryLineImages');
 	let result = findRemoveSync(tmp, {age: {seconds: 30}, extensions: ['.jpg', '.jpeg', '.png']});
 
