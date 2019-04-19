@@ -74,34 +74,18 @@ router.get('/api/lines/nameof/:line', (req, res, next) => {
 router.get('/api/lines', imagesController.get_lines);
 
 
-/* GET metadata for all masks */
-
-router.get('/api/masks', imagesController.get_masks);
+/* GET metadata for all regions */
 
 router.get('/api/regions', imagesController.get_regions);
 
 
-/* GET metadata for single mask */
+/* GET metadata for single region */
 
-router.param('mask', imagesController.get_mask);
-
-router.param('region', imagesController.get_regions);
-
-router.get('/api/masks/:mask', (req, res, next) => {
-	res.json(req.mask);
-	return next();
-});
+router.param('region', imagesController.get_region);
 
 router.get('/api/regions/:region', (req, res, next) => {
 	res.json(req.region);
 	return next();
-});
-
-router.get('/api/masks/nameof/:mask', (req, res, next) => {
-	if ( req.mask.length )
-		res.send(req.mask[0].mask_name);
-	else
-		res.status(500).send({message: 'Not a database entry'});
 });
 
 router.get('/api/regions/nameof/:region', (req, res, next) => {

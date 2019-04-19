@@ -46,50 +46,6 @@ class LinesService {
 		return lineNames;
 	}
 
-	getMaskNames() {
-		return this.$http.get('api/masks/')
-						.then(response => response.data)
-						.catch(e => console.log(e));
-	}
-
-	getNameOfMask(mask) {
-		return this.$http.get(`api/masks/nameof/${mask}`)
-						.then(response => response.data)
-						.catch(e => console.log(e));
-	}
-
-	getNamesOfMasks(options) {
-
-		if ( !options )
-			return;
-
-		let [maskPromises, colors, selectedMasks] = [new Array, new Array, new Object];
-
-		if ( options.cyan ) {
-			maskPromises.push(this.getNameOfMask(options.cyan));
-			colors.push('cyan');
-		}
-		if ( options.magenta ) {
-			maskPromises.push(this.getNameOfMask(options.magenta));
-			colors.push('magenta');
-		}
-		if ( options.green ) {
-			maskPromises.push(this.getNameOfMask(options.green));
-			colors.push('green');
-		}
-		if ( options.yellow ) {
-			maskPromises.push(this.getNameOfMask(options.yellow));
-			colors.push('yellow');
-		}
-
-		Promise.all(maskPromises).then(values => {
-			for ( let i = 0; i < values.length; i++ ) {
-				selectedMasks[colors[i]] = values[i];
-			}
-		});
-		return selectedMasks;
-	}
-
 	getAllRegionNames() {
 		return this.$http.get('api/regions/')
 						.then(response => response.data)
@@ -152,54 +108,6 @@ class LinesService {
 			return images;
 		})
 		.catch(e => console.log(e));
-	}
-
-	cacheMask(mask, color) {
-		return this.$http({
-						method: 'GET',
-						url: `api/masks/${mask}`,
-						cache: true
-		}).then(response => {
-			let masks = response.data.map(obj => {
-				let img = new Image();
-				img.src = `images/2-Masks/${color}/${obj.mask_image_path}`;
-				return {'img':img, 'size':obj.mask_image_size};
-			});
-			return masks;
-		})
-		.catch(e => console.log(e));
-	}
-
-	cacheMultipleMasks(options) {
-
-		if ( !options )
-			return;
-
-		let [maskPromises, colors, masks] = [new Array, new Array, new Object];
-
-		if ( options.cyan ) {
-			maskPromises.push(this.cacheMask(options.cyan, 'cyan'));
-			colors.push('cyan');
-		}
-		if ( options.magenta ) {
-			maskPromises.push(this.cacheMask(options.magenta, 'magenta'));
-			colors.push('magenta');
-		}
-		if ( options.green ) {
-			maskPromises.push(this.cacheMask(options.green, 'green'));
-			colors.push('green');
-		}
-		if ( options.yellow ) {
-			maskPromises.push(this.cacheMask(options.yellow, 'yellow'));
-			colors.push('yellow');
-		}
-
-		Promise.all(maskPromises).then(values => {
-			for ( let i = 0; i < values.length; i++ ) {
-				masks[colors[i]] = values[i].map(obj=>obj.img);
-			}
-		});
-		return masks;
 	}
 
 	cacheRegion(region, color) {

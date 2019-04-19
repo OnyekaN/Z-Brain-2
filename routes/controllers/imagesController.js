@@ -96,34 +96,6 @@ exports.get_lines = (req, res, next) => {
 }
 
 
-// GET all masks from masks table
-exports.get_masks = (req, res, next) => {
-	let pool = new Pool({ connectionString: connectionString }),
-			results = [];
-
-	pool.connect((err, client, done) => {
-		if (err) {
-			done();
-			console.log(err);
-			res.status(500).json({success: false, data:err});
-		}
-
-		querySQL = `SELECT mask_name, mask_id FROM masks
-								GROUP BY mask_name, mask_id
-								ORDER BY mask_name ASC; `
-
-		let [ query, index ] = [ client.query(querySQL), 1001 ];
-		query.on('row', (row) => {
-			results.push(row);
-		});
-
-		query.on('end', () => {
-			done();
-			res.json(results);
-		});
-	});
-}
-
 // GET all regions from regions table
 exports.get_regions = (req, res, next) => {
 	let pool = new Pool({ connectionString: connectionString }),
@@ -136,8 +108,8 @@ exports.get_regions = (req, res, next) => {
 			res.status(500).json({success: false, data:err});
 		}
 
-		querySQL = `SELECT region_name, region_id FROM regions
-								GROUP BY region_name, region_id
+		querySQL = `SELECT region_name, region_id, bool_or(region_is_mece) FROM regions
+								GROUP BY region_name, region_id, bool_or(region_is_mece)
 								ORDER BY region_name ASC; `
 
 		let [ query, index ] = [ client.query(querySQL), 1001 ];
@@ -152,44 +124,8 @@ exports.get_regions = (req, res, next) => {
 	});
 }
 
-// GET single mask from masks table
-exports.get_mask = (req, res, next, id) => {
-	let pool = new Pool({ connectionString: connectionString }),
-			results = [];
 
-	pool.connect((err, client, done) => {
-		if (err) {
-			done();
-			console.log(err);
-			return res.status(500).json({success: false, data: err});
-		}
-		let querySQL;
-
-		if ( isNaN(id) ) {
-			querySQL = `SELECT * FROM masks
-									WHERE mask_name='${id}'
-									ORDER BY mask_img_id;`
-		} else {
-			querySQL = `SELECT * FROM masks
-									WHERE mask_id='${id}'
-									ORDER BY mask_img_id;`
-		}
-
-		let query = client.query(querySQL);
-
-		query.on('row', (row) => {
-			results.push(row);
-		});
-
-		query.on('end', () => {
-			done();
-			req.mask = results;
-			return next();
-		});
-	});
-}
-
-// GET single region from regions Table
+// GET single region from regions table
 exports.get_region = (req, res, next, id) => {
 	let pool = new Pool({ connectionString: connectionString }),
 			results = [];
@@ -221,7 +157,7 @@ exports.get_region = (req, res, next, id) => {
 
 		query.on('end', () => {
 			done();
-			req.mask = results;
+			req.region = results;
 			return next();
 		});
 	});

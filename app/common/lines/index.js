@@ -33,7 +33,7 @@ const Lines = angular
 			})
 
 			$stateProvider.state('home.line', {
-				url: '/line/{id}?cy_mask&mg_mask&gr_mask&yl_mask&red_ch&blu_ch&gre_ch&slice_i',
+				url: '/line/{id}?cy_region&mg_region&gr_region&yl_region&red_ch&blu_ch&gre_ch&slice_i',
 				views: {
 					'sidebar': {
 						template: sidebarComponentTemplate,
@@ -60,25 +60,25 @@ const Lines = angular
 							return LinesService.cacheLine($stateParams.id);
 						}
 					],
-					resolvedMaskNames: [
+					resolvedRegionNames: [
 						'$stateParams', 'LinesService',
 						($stateParams, LinesService) => {
-							return LinesService.getNamesOfMasks({
-								cyan: $stateParams.cy_mask,
-								magenta: $stateParams.mg_mask,
-								yellow: $stateParams.yl_mask,
-								green: $stateParams.gr_mask
+							return LinesService.getNamesOfRegions({
+								cyan: $stateParams.cy_region,
+								magenta: $stateParams.mg_region,
+								yellow: $stateParams.yl_region,
+								green: $stateParams.gr_region
 							});
 						}
 					],
-					resolvedMaskImages: [
+					resolvedRegionImages: [
 						'$stateParams', 'LinesService',
 						($stateParams, LinesService) => {
-							return LinesService.cacheMultipleMasks({
-								cyan: $stateParams.cy_mask,
-								magenta: $stateParams.mg_mask,
-								yellow: $stateParams.yl_mask,
-								green: $stateParams.gr_mask
+							return LinesService.cacheMultipleRegions({
+								cyan: $stateParams.cy_region,
+								magenta: $stateParams.mg_region,
+								yellow: $stateParams.yl_region,
+								green: $stateParams.gr_region
 							});
 						}
 					],
@@ -110,17 +110,16 @@ const Lines = angular
 let sidebarComponentTemplate = `
 					<sidebar-component
 						lines="$ctrl.lines"
-						masks="$ctrl.masks"
-						mece-masks="$ctrl.meceMasks"
+						regions="$ctrl.regions"
 						slice-index="$ctrl.sliceIndex"
 						on-update-line="$ctrl.updateLine(line)"
-						on-update-mask="$ctrl.updateMask(mask, color)"
+						on-update-region="$ctrl.updateRegion(region, color)"
 						on-update-color-channel="$ctrl.updateColorChannel(line, color)"
 						on-update-opacity="$ctrl.updateOpacity(val, color)"
 						on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)"
 						on-open-share-dialog="$ctrl.openShareDialog(short, full)"
 						resolved-line-name="$resolve.resolvedLineName"
-						resolved-mask-names="$resolve.resolvedMaskNames"
+						resolved-region-names="$resolve.resolvedRegionNames"
 						resolved-color-channel-names="$resolve.resolvedColorChannelNames">
 					</sidebar-component>
 `;
@@ -130,9 +129,8 @@ let viewerComponentTemplate = `
 					<viewer-component
 						line-name="$ctrl.lineName"
 						line-images="$ctrl.lineImages"
-						mask-images="$ctrl.maskImages"
-						mece-mask-images="$ctrl.meceMaskImages"
-						mask-color="$ctrl.maskColor"
+						region-images="$ctrl.regionImages"
+						region-color="$ctrl.regionColor"
 						slice-index="$ctrl.sliceIndex"
 						color-channel-images="$ctrl.colorChannelImages"
 						color-channel-color="$ctrl.colorChannelColor"
@@ -141,7 +139,7 @@ let viewerComponentTemplate = `
 						resolved-slice-index="$resolve.resolvedSliceIndex"
 						resolved-line-name="$resolve.resolvedLineName"
 						resolved-line-images="$resolve.resolvedLineImages"
-						resolved-mask-images="$resolve.resolvedMaskImages"
+						resolved-region-images="$resolve.resolvedRegionImages"
 						resolved-color-channel-images="$resolve.resolvedColorChannelImages">
 					</viewer-component>
 `;

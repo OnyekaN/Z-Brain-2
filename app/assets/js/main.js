@@ -7849,7 +7849,7 @@ const Lines = angular
 			})
 
 			$stateProvider.state('home.line', {
-				url: '/line/{id}?cy_mask&mg_mask&gr_mask&yl_mask&red_ch&blu_ch&gre_ch&slice_i',
+				url: '/line/{id}?cy_region&mg_region&gr_region&yl_region&red_ch&blu_ch&gre_ch&slice_i',
 				views: {
 					'sidebar': {
 						template: sidebarComponentTemplate,
@@ -7876,25 +7876,25 @@ const Lines = angular
 							return LinesService.cacheLine($stateParams.id);
 						}
 					],
-					resolvedMaskNames: [
+					resolvedRegionNames: [
 						'$stateParams', 'LinesService',
 						($stateParams, LinesService) => {
-							return LinesService.getNamesOfMasks({
-								cyan: $stateParams.cy_mask,
-								magenta: $stateParams.mg_mask,
-								yellow: $stateParams.yl_mask,
-								green: $stateParams.gr_mask
+							return LinesService.getNamesOfRegions({
+								cyan: $stateParams.cy_region,
+								magenta: $stateParams.mg_region,
+								yellow: $stateParams.yl_region,
+								green: $stateParams.gr_region
 							});
 						}
 					],
-					resolvedMaskImages: [
+					resolvedRegionImages: [
 						'$stateParams', 'LinesService',
 						($stateParams, LinesService) => {
-							return LinesService.cacheMultipleMasks({
-								cyan: $stateParams.cy_mask,
-								magenta: $stateParams.mg_mask,
-								yellow: $stateParams.yl_mask,
-								green: $stateParams.gr_mask
+							return LinesService.cacheMultipleRegions({
+								cyan: $stateParams.cy_region,
+								magenta: $stateParams.mg_region,
+								yellow: $stateParams.yl_region,
+								green: $stateParams.gr_region
 							});
 						}
 					],
@@ -7926,17 +7926,16 @@ const Lines = angular
 let sidebarComponentTemplate = `
 					<sidebar-component
 						lines="$ctrl.lines"
-						masks="$ctrl.masks"
-						mece-masks="$ctrl.meceMasks"
+						regions="$ctrl.regions"
 						slice-index="$ctrl.sliceIndex"
 						on-update-line="$ctrl.updateLine(line)"
-						on-update-mask="$ctrl.updateMask(mask, color)"
+						on-update-region="$ctrl.updateRegion(region, color)"
 						on-update-color-channel="$ctrl.updateColorChannel(line, color)"
 						on-update-opacity="$ctrl.updateOpacity(val, color)"
 						on-adjust-line="$ctrl.adjustLine(line, brightness, gamma)"
 						on-open-share-dialog="$ctrl.openShareDialog(short, full)"
 						resolved-line-name="$resolve.resolvedLineName"
-						resolved-mask-names="$resolve.resolvedMaskNames"
+						resolved-region-names="$resolve.resolvedRegionNames"
 						resolved-color-channel-names="$resolve.resolvedColorChannelNames">
 					</sidebar-component>
 `;
@@ -7946,9 +7945,8 @@ let viewerComponentTemplate = `
 					<viewer-component
 						line-name="$ctrl.lineName"
 						line-images="$ctrl.lineImages"
-						mask-images="$ctrl.maskImages"
-						mece-mask-images="$ctrl.meceMaskImages"
-						mask-color="$ctrl.maskColor"
+						region-images="$ctrl.regionImages"
+						region-color="$ctrl.regionColor"
 						slice-index="$ctrl.sliceIndex"
 						color-channel-images="$ctrl.colorChannelImages"
 						color-channel-color="$ctrl.colorChannelColor"
@@ -7957,7 +7955,7 @@ let viewerComponentTemplate = `
 						resolved-slice-index="$resolve.resolvedSliceIndex"
 						resolved-line-name="$resolve.resolvedLineName"
 						resolved-line-images="$resolve.resolvedLineImages"
-						resolved-mask-images="$resolve.resolvedMaskImages"
+						resolved-region-images="$resolve.resolvedRegionImages"
 						resolved-color-channel-images="$resolve.resolvedColorChannelImages">
 					</viewer-component>
 `;
@@ -7998,7 +7996,7 @@ class LinesController {
 		this.$timeout = $timeout;
 		this.selected = undefined;
 		this.lines = [];
-		this.masks = [];
+		this.regions = [];
 		this.files = [];
 		this.shortLink = '';
 		this.fullLink = '';
@@ -8007,7 +8005,7 @@ class LinesController {
 		this.lineName = "";
 		this.uploadName = "";
 		this.spinnerOpts = {
-				// settings for spin.js spinner
+				// Settings for spin.js spinner
 			lines: 9, length: 40, width: 18, radius: 67, corners: 0.8,
 			scale: 1.0, color: '#fff', opacity: 0.55, rotate: 0, direction: 1,
 			speed: 1.9, trail: 90, fps: 20, zIndex: 2e9, className: 'spinner',
@@ -8019,12 +8017,12 @@ class LinesController {
 	}
 
 	$onInit() {
-			// GET line and mask names for sidebar
+			// GET line and region names for sidebar
 		this.LinesService.getAllLineNames().then(response => {
 												let names = response.map(obj => {
 													let [name, id] = [obj.line_name, obj.line_id];
 													if ( name.indexOf('MH_') !== -1 )
-														name = "Z1" + name; // prefix it to end up near the bottom after sort
+														name = "Z1" + name; // Prefix it to end up near the bottom after sort
 													return { 'name': name, 'id': id };
 												});
 												names = names.sort((a,b) => {
@@ -8040,24 +8038,30 @@ class LinesController {
 												this.lines = names;
 											});
 
-		this.LinesService.getMaskNames().then(response => {
-													this.masks = response.map(obj => {
-																				let name = obj.mask_name.replace("'", "&quot"),
-																							id = obj.mask_id;
-																				return { 'id': parseInt(id), 'name': name }
+		this.LinesService.getAllRegionNames().then(response => {
+													this.regions = response.map(obj => {
+																				let name = obj.region_name.replace("'", "&quot"),
+																					 short = name.substr(name.indexOf('-') + 2),
+																							id = obj.region_id,
+																				 is_mece = obj.region_is_mece;
+																				return { 'id': parseInt(id),
+																								 'name': name,
+																								 'short': short,
+																								 'is_mece': is_mece	}
 																				});
 												});
+
 
 		this.LinesService.getAnnotations().then(response => {
 													this.annotations = response;
 												});
 
-			// cache default line for viewer component
+			// Cache default line for viewer component
 		this.LinesService.cacheLine("Elavl3-H2BRFP").then(response => {
 			this.lineImages = response;
 		});
 
-		 // limit number of files on file input to 138
+		 // Limit number of files on file input to 138
 		var that = this;
 		$(document).ready(function() {
 			$('.input-upload').change(function() {
@@ -8069,12 +8073,12 @@ class LinesController {
 		});
 	}
 
-		// sync slice index in lines component with viewer component
+		// Sync slice index in lines component with viewer component
 	updateIndex(sliceIndex) {
 		this.sliceIndex = sliceIndex;
 	}
 
-		// cache selected line images for viewer component
+		// Cache selected line images for viewer component
 	updateLine(line) {
 		if ( !line )
 			return;
@@ -8088,44 +8092,27 @@ class LinesController {
 		}
 	}
 
-		// cache mask images for viewer component
-	updateMask(mask, color) {
-		if ( mask ) {
-
-			if ( color === 'grey' ) {
-				this.LinesService.cacheMeceMask(mask).then(response => {
-											let [max, maxIndex] = [response[this.sliceIndex].size, this.sliceIndex];
-												this.meceMaskImages = response.map((obj, i) => {
-													if ( obj.size > max )
-														[max, maxIndex]= [obj.size, i];
-													return obj.img
-												});
-												this.$timeout(() => {this.updateIndex(maxIndex)}, 100);
-											});
-			} else {
-				this.LinesService.cacheMask(mask, color).then(response => {
+		// Cache region images for viewer component
+	updateRegion(region, color) {
+		if ( region ) {
+			this.LinesService.cacheRegion(region, color).then(response => {
 												let [max, maxIndex] = [response[this.sliceIndex].size, this.sliceIndex];
-												this.maskImages = response.map((obj, i) => {
+												this.regionImages = response.map((obj, i) => {
 													if ( obj.size > max )
 														[max, maxIndex]= [obj.size, i];
 													return obj.img
 												});
-												this.maskColor = color;
+												this.regionColor = color;
 												this.$timeout(() => {this.updateIndex(maxIndex)}, 100);
 											});
-			}
 		} else {
-			if ( color === 'grey' ) {
-				this.meceMaskImages = [];
-			} else {
-				this.maskImages = [];
-			}
-			this.maskColor = color;
+			this.regionImages = [];
+			this.regionColor = color;
 			return;
 		}
 	}
 
-		// get color channel for viewer component
+		// Get color channel for viewer component
 	updateColorChannel(line, color) {
 		if ( line ) {
 			this.LinesService.cacheColorChannel(line, color).then(response => {
@@ -8143,7 +8130,7 @@ class LinesController {
 		this.colorChannelOpacities[color] = parseInt(val) / 100;
 	}
 
-		// change the brightness or gamma settings on the displayed line image
+		// Change the brightness or gamma settings on the displayed line image
 	adjustLine(line, brightness, gamma) {
 		this.spinner.spin(this.spinnerTarget);
 		this.LinesService.adjustLine(line||'Elavl3-H2BRFP', brightness, gamma, this.sliceIndex)
@@ -8165,7 +8152,7 @@ class LinesController {
 		el.className = el.className.replace('share-active', '');
 	}
 
-	 // open and close upload dialog
+	 // Open and close upload dialog
 	openUploadDialog() {
 		let el = document.getElementsByClassName('upload')[0];
 		el.className += " upload-active";
@@ -8176,7 +8163,7 @@ class LinesController {
 		el.className = el.className.replace('upload-active', '');
 	}
 
-		// handle selected files
+		// Handle selected files
 	uploadFiles() {
 		if ( this.files && this.files.length && this.files.length <= 138) {
 			this.Upload.upload({
@@ -8211,9 +8198,9 @@ class LinesController {
 		this.uploadName = "";
 	}
 
-		// helper function to create linear spaced array
+		// Helper function to create linear spaced array
 		// https://gist.github.com/joates/6584908
-		// with slight mod => Math.round()
+		// with modification: Math.round()
 	linspace(a, b, n) {
 		if ( typeof n === "undefined" )
 			n = Math.max(Math.round(b-a)+1,1);
@@ -8286,50 +8273,6 @@ class LinesService {
 		return lineNames;
 	}
 
-	getMaskNames() {
-		return this.$http.get('api/masks/')
-						.then(response => response.data)
-						.catch(e => console.log(e));
-	}
-
-	getNameOfMask(mask) {
-		return this.$http.get(`api/masks/nameof/${mask}`)
-						.then(response => response.data)
-						.catch(e => console.log(e));
-	}
-
-	getNamesOfMasks(options) {
-
-		if ( !options )
-			return;
-
-		let [maskPromises, colors, selectedMasks] = [new Array, new Array, new Object];
-
-		if ( options.cyan ) {
-			maskPromises.push(this.getNameOfMask(options.cyan));
-			colors.push('cyan');
-		}
-		if ( options.magenta ) {
-			maskPromises.push(this.getNameOfMask(options.magenta));
-			colors.push('magenta');
-		}
-		if ( options.green ) {
-			maskPromises.push(this.getNameOfMask(options.green));
-			colors.push('green');
-		}
-		if ( options.yellow ) {
-			maskPromises.push(this.getNameOfMask(options.yellow));
-			colors.push('yellow');
-		}
-
-		Promise.all(maskPromises).then(values => {
-			for ( let i = 0; i < values.length; i++ ) {
-				selectedMasks[colors[i]] = values[i];
-			}
-		});
-		return selectedMasks;
-	}
-
 	getAllRegionNames() {
 		return this.$http.get('api/regions/')
 						.then(response => response.data)
@@ -8392,54 +8335,6 @@ class LinesService {
 			return images;
 		})
 		.catch(e => console.log(e));
-	}
-
-	cacheMask(mask, color) {
-		return this.$http({
-						method: 'GET',
-						url: `api/masks/${mask}`,
-						cache: true
-		}).then(response => {
-			let masks = response.data.map(obj => {
-				let img = new Image();
-				img.src = `images/2-Masks/${color}/${obj.mask_image_path}`;
-				return {'img':img, 'size':obj.mask_image_size};
-			});
-			return masks;
-		})
-		.catch(e => console.log(e));
-	}
-
-	cacheMultipleMasks(options) {
-
-		if ( !options )
-			return;
-
-		let [maskPromises, colors, masks] = [new Array, new Array, new Object];
-
-		if ( options.cyan ) {
-			maskPromises.push(this.cacheMask(options.cyan, 'cyan'));
-			colors.push('cyan');
-		}
-		if ( options.magenta ) {
-			maskPromises.push(this.cacheMask(options.magenta, 'magenta'));
-			colors.push('magenta');
-		}
-		if ( options.green ) {
-			maskPromises.push(this.cacheMask(options.green, 'green'));
-			colors.push('green');
-		}
-		if ( options.yellow ) {
-			maskPromises.push(this.cacheMask(options.yellow, 'yellow'));
-			colors.push('yellow');
-		}
-
-		Promise.all(maskPromises).then(values => {
-			for ( let i = 0; i < values.length; i++ ) {
-				masks[colors[i]] = values[i].map(obj=>obj.img);
-			}
-		});
-		return masks;
 	}
 
 	cacheRegion(region, color) {
@@ -8710,17 +8605,16 @@ const Sidebar = angular
 const SidebarComponent = {
 	bindings: {
 		lines: '<',
-		masks: '<',
-		meceMasks: '<',
+		regions: '<',
 		sliceIndex: '<',
 		onUpdateLine: '&',
-		onUpdateMask: '&',
+		onUpdateRegion: '&',
 		onUpdateColorChannel: '&',
 		onUpdateOpacity: '&',
 		onAdjustLine: '&',
 		onOpenShareDialog: '&',
 		resolvedLineName: '<',
-		resolvedMaskNames: '<',
+		resolvedRegionNames: '<',
 		resolvedColorChannelNames: '<',
 	},
 	controller: __WEBPACK_IMPORTED_MODULE_0__sidebar_controller__["a" /* default */],
@@ -8749,8 +8643,8 @@ class SidebarController {
 		this.shortShareLink = 'https://engertlab.fas.harvard.edu/Z-Brain/#/home/';
 		this.fullShareLink = 'https://engertlab.fas.harvard.edu/Z-Brain/#/home/';
 		this.placeholder = '';
-		this.meceMask = null,
-		this.selectedMasks = {
+
+		this.selectedRegions = {
 			cyan: null,
 			green: null,
 			magenta: null,
@@ -8772,18 +8666,18 @@ class SidebarController {
 
 	$onInit() {
 
-		/* handle route resolve for masks */
+		/* handle route resolve for regions */
 
-		let setMaskDropdowns = this.$interval(() => {
-			if ( this.resolvedMaskNames && Object.keys(this.resolvedMaskNames)
-						&& this.masks.length ) {
-				let colors = Object.keys(this.resolvedMaskNames);
+		let setRegionDropdowns = this.$interval(() => {
+			if ( this.resolvedRegionNames && Object.keys(this.resolvedRegionNames)
+						&& this.regions.length ) {
+				let colors = Object.keys(this.resolvedRegionNames);
 				colors.forEach(color => {
-					this.selectedMasks[color] = this.masks.filter(mask => {
-						return mask.name == this.resolvedMaskNames[color];
+					this.selectedRegions[color] = this.regions.filter(region => {
+						return region.name == this.resolvedRegionNames[color];
 					})[0];
 				});
-			this.$interval.cancel(setMaskDropdowns);
+			this.$interval.cancel(setRegionDropdowns);
 			}
 		}, 200, 5);
 
@@ -8807,6 +8701,7 @@ class SidebarController {
 
 	$onChanges(changes) {
 
+		console.log(this.regions);
 		/* add 'Upload' option to search Lines dropdown */
 		this.searchLines = this.lines.slice()
 		this.searchLines.unshift({name:'Upload (Image Slices)', id: 0});
@@ -8825,9 +8720,8 @@ class SidebarController {
 		this.selected = this.current;
 	}
 
-	onUpdateMaskWrapper(mask, color) {
-		//console.log(color);
-		this.onUpdateMask(mask, color);
+	onUpdateRegionWrapper(region, color) {
+		this.onUpdateRegion(region, color);
 	}
 
 	onOpenShareDialogWrapper() {
@@ -8840,21 +8734,19 @@ class SidebarController {
 		this.onUpdateLine({line: this.selected});
 	}
 
-	masksGroupFn(mask) {
-		if ( mask.name.indexOf('Diencephalon') == 0 ) {
-			return 'Diencephalon';
-		} else if ( mask.name.indexOf('Ganglia') == 0 ) {
+	regionsGroupFn(region) {
+		if ( region.name.indexOf('Forebrain') == 0 ) {
+			return 'Forebrain';
+		} else if ( region.name.indexOf('Midbrain') == 0 ) {
+			return 'Midbrain';
+		} else if ( region.name.indexOf('Hindbrain') == 0 ) {
+			return 'Hindbrain';
+		} else if ( region.name.indexOf('Ganglia') == 0 ) {
 			return 'Ganglia';
-		} else if ( mask.name.indexOf('Mesencephalon') == 0 ) {
-			return 'Mesencephalon';
-		} else if ( mask.name.indexOf('Rhombencephalon') == 0 ) {
-			return 'Rhombencephalon';
-		} else if ( mask.name.indexOf('Spinal Cord') == 0 ) {
+		} else if ( region.name.indexOf('Spinal Cord') == 0 ) {
 			return 'Spinal Cord';
-		} else if ( mask.name.indexOf('Spinal Cord') == 0 ) {
-			return 'Telencephalon';
 		} else {
-			return 'Brain';
+			return 'Other';
 		}
 	}
 
@@ -8864,21 +8756,21 @@ class SidebarController {
 				byName = [],
 				sliceIndex = `&slice_i=${this.sliceIndex}`;
 
-		if ( this.selectedMasks.cyan ) {
-			byId.push(`cy_mask=${this.selectedMasks.cyan.id}`);
-			byName.push(`cy_mask=${this.selectedMasks.cyan.name}`);
+		if ( this.selectedRegions.cyan ) {
+			byId.push(`cy_region=${this.selectedRegions.cyan.id}`);
+			byName.push(`cy_region=${this.selectedRegions.cyan.name}`);
 		}
-		if ( this.selectedMasks.magenta ) {
-			byId.push(`mg_mask=${this.selectedMasks.magenta.id}`);
-			byName.push(`mg_mask=${this.selectedMasks.magenta.name}`);
+		if ( this.selectedRegions.magenta ) {
+			byId.push(`mg_region=${this.selectedRegions.magenta.id}`);
+			byName.push(`mg_region=${this.selectedRegions.magenta.name}`);
 		}
-		if ( this.selectedMasks.green ) {
-			byId.push(`gr_mask=${this.selectedMasks.green.id}`);
-			byName.push(`gr_mask=${this.selectedMasks.green.name}`);
+		if ( this.selectedRegions.green ) {
+			byId.push(`gr_region=${this.selectedRegions.green.id}`);
+			byName.push(`gr_region=${this.selectedRegions.green.name}`);
 		}
-		if ( this.selectedMasks.yellow ) {
-			byId.push(`yl_mask=${this.selectedMasks.yellow.id}`);
-			byName.push(`yl_mask=${this.selectedMasks.yellow.name}`);
+		if ( this.selectedRegions.yellow ) {
+			byId.push(`yl_region=${this.selectedRegions.yellow.id}`);
+			byName.push(`yl_region=${this.selectedRegions.yellow.name}`);
 		}
 
 
@@ -8986,9 +8878,8 @@ const ViewerComponent = {
 	bindings: {
 		lineImages: '<',
 		lineName: '<',
-		maskImages: '<',
-		meceMaskImages: '<',
-		maskColor: '<',
+		regionImages: '<',
+		regionColor: '<',
 		sliceIndex: '<',
 		colorChannelImages: '<',
 		colorChannelColor: '<',
@@ -8996,7 +8887,7 @@ const ViewerComponent = {
 		onUpdateIndex: '&',
 		resolvedLineName: '<',
 		resolvedLineImages: '<',
-		resolvedMaskImages: '<',
+		resolvedRegionImages: '<',
 		resolvedSliceIndex: '<',
 		resolvedColorChannelImages: '<',
 	},
@@ -9031,19 +8922,19 @@ class ViewerController {
 			// initial display image, #viewer#primary-line-image[src]
 		this.currentDisplayImage = 'images/0-Lines/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg';
 
-			// array stores colors of active masks
-		this.activeMasks = [];
-			// object stores arrays of mask images
-		this.meceMaskArray = null;
-		this.maskArrays = {
+			// array stores colors of active regions
+		this.activeRegions = [];
+			// object stores arrays of region images
+		this.meceRegionArray = null;
+		this.regionArrays = {
 			cyan: null,
 			green: null,
 			magenta: null,
 			yellow: null,
 		}
-			// currently displayed mask images (each uses image src)
-		this.meceDisplayMask = 'images/blank.png';
-		this.currentDisplayMasks = {
+			// currently displayed region images (each uses image src)
+		this.meceDisplayRegion = 'images/blank.png';
+		this.currentDisplayRegions = {
 			cyan: 'images/blank.png',
 			green: 'images/blank.png',
 			magenta: 'images/blank.png',
@@ -9057,7 +8948,7 @@ class ViewerController {
 			green: undefined,
 			blue: undefined,
 		}
-			// currently displayed mask image slices (each uses image src)
+			// currently displayed region image slices (each uses image src)
 		this.currentDisplayColorChannels = {
 			red: 'images/blank.png',
 			green: 'images/blank.png',
@@ -9068,23 +8959,23 @@ class ViewerController {
 	$onInit() {
 
 		window.scrollTo(0, 0);
-		/* handle route resolve for masks */
+		/* handle route resolve for regions */
 
-		let setDisplayMasks = this.$interval(() => {
-			if ( this.resolvedMaskImages && Object.keys(this.resolvedMaskImages).length ) {
-				let keys = Object.keys(this.resolvedMaskImages);
+		let setDisplayRegions = this.$interval(() => {
+			if ( this.resolvedRegionImages && Object.keys(this.resolvedRegionImages).length ) {
+				let keys = Object.keys(this.resolvedRegionImages);
 				let colors = ['cyan', 'magenta', 'green', 'yellow'];
 				colors.forEach(color => {
-					if ( this.resolvedMaskImages[color] ) {
-						this.maskArrays[color] = this.resolvedMaskImages[color];
+					if ( this.resolvedRegionImages[color] ) {
+						this.regionArrays[color] = this.resolvedRegionImages[color];
 					} else {
-						this.maskArrays[color] = null;
+						this.regionArrays[color] = null;
 					}
 				});
-				this.maskImages = null;
-				this.activeMasks = keys;
-				this.updateMasksSlice();
-				this.$interval.cancel(setDisplayMasks);
+				this.regionImages = null;
+				this.activeRegions = keys;
+				this.updateRegionsSlice();
+				this.$interval.cancel(setDisplayRegions);
 			}
 		}, 200, 5);
 
@@ -9132,32 +9023,32 @@ class ViewerController {
 			this.currentLineName = this.lineName || 'Elavl3-H2BRFP';
 		}
 
-		/* On new set of mask images load, update display
-		 * maskImages << LinesComponent
+		/* On new set of region images load, update display
+		 * regionImages << LinesComponent
 		 */
 
-		if ( Array.isArray(this.maskImages) ) {
-			let color = this.maskColor;
+		if ( Array.isArray(this.regionImages) ) {
+			let color = this.regionColor;
 
-			if ( this.maskImages.length ) {
-				if ( !this.activeMasks.includes(color) ) {
-					this.activeMasks.push(color)
+			if ( this.regionImages.length ) {
+				if ( !this.activeRegions.includes(color) ) {
+					this.activeRegions.push(color)
 				}
-				this.maskArrays[color] = this.maskImages;
-				this.currentDisplayMasks[color] = this.maskArrays[color][this.sliceIndex].src;
+				this.regionArrays[color] = this.regionImages;
+				this.currentDisplayRegions[color] = this.regionArrays[color][this.sliceIndex].src;
 			} else {
-				this.maskArrays[color] = null;
-				this.currentDisplayMasks[color] = 'images/blank.png';
+				this.regionArrays[color] = null;
+				this.currentDisplayRegions[color] = 'images/blank.png';
 			}
 		}
 
-		if ( Array.isArray(this.meceMaskImages) ) {
-			if ( this.meceMaskImages.length ) {
-				this.meceMaskArray = this.meceMaskImages;
-				this.meceDisplayMask = this.meceMaskArray[this.sliceIndex].src;
+		if ( Array.isArray(this.meceRegionImages) ) {
+			if ( this.meceRegionImages.length ) {
+				this.meceRegionArray = this.meceRegionImages;
+				this.meceDisplayRegion = this.meceRegionArray[this.sliceIndex].src;
 			} else {
-				this.meceMaskArray = null;
-				this.meceDisplayMask = 'images/blank.png';
+				this.meceRegionArray = null;
+				this.meceDisplayRegion = 'images/blank.png';
 			}
 		}
 
@@ -9207,7 +9098,7 @@ class ViewerController {
 
 		// update displayed slice image
 		this.onUpdateIndex({sliceIndex:this.sliceIndex});
-		this.updateMasksSlice();
+		this.updateRegionsSlice();
 		this.updateColorChannelsSlice();
 
 
@@ -9225,22 +9116,16 @@ class ViewerController {
 
 	}
 
-	updateMasksSlice() {
-		// update active displayed masks
-		this.activeMasks.forEach((color) => {
-			if ( Array.isArray(this.maskArrays[color]) ) {
-				this.currentDisplayMasks[color] = this.maskArrays[color][this.sliceIndex].src;
+	updateRegionsSlice() {
+		// update active displayed regions
+		this.activeRegions.forEach((color) => {
+			if ( Array.isArray(this.regionArrays[color]) ) {
+				this.currentDisplayRegions[color] = this.regionArrays[color][this.sliceIndex].src;
 			} else {
-				this.activeMasks.splice(this.activeMasks.indexOf(color), 1);
-				this.currentDisplayMasks[color] = 'images/blank.png';
+				this.activeRegions.splice(this.activeRegions.indexOf(color), 1);
+				this.currentDisplayRegions[color] = 'images/blank.png';
 			}
 		});
-
-		if ( Array.isArray(this.meceMaskArray) ) {
-			this.meceDisplayMask = this.meceMaskArray[this.sliceIndex].src;
-		} else {
-			this.meceDisplayMask = 'images/blank.png';
-		}
 	}
 
 		// update active displayed color channels

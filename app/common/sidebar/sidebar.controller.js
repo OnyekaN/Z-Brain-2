@@ -12,8 +12,8 @@ class SidebarController {
 		this.shortShareLink = 'https://engertlab.fas.harvard.edu/Z-Brain/#/home/';
 		this.fullShareLink = 'https://engertlab.fas.harvard.edu/Z-Brain/#/home/';
 		this.placeholder = '';
-		this.meceMask = null,
-		this.selectedMasks = {
+
+		this.selectedRegions = {
 			cyan: null,
 			green: null,
 			magenta: null,
@@ -35,18 +35,18 @@ class SidebarController {
 
 	$onInit() {
 
-		/* handle route resolve for masks */
+		/* handle route resolve for regions */
 
-		let setMaskDropdowns = this.$interval(() => {
-			if ( this.resolvedMaskNames && Object.keys(this.resolvedMaskNames)
-						&& this.masks.length ) {
-				let colors = Object.keys(this.resolvedMaskNames);
+		let setRegionDropdowns = this.$interval(() => {
+			if ( this.resolvedRegionNames && Object.keys(this.resolvedRegionNames)
+						&& this.regions.length ) {
+				let colors = Object.keys(this.resolvedRegionNames);
 				colors.forEach(color => {
-					this.selectedMasks[color] = this.masks.filter(mask => {
-						return mask.name == this.resolvedMaskNames[color];
+					this.selectedRegions[color] = this.regions.filter(region => {
+						return region.name == this.resolvedRegionNames[color];
 					})[0];
 				});
-			this.$interval.cancel(setMaskDropdowns);
+			this.$interval.cancel(setRegionDropdowns);
 			}
 		}, 200, 5);
 
@@ -70,6 +70,7 @@ class SidebarController {
 
 	$onChanges(changes) {
 
+		console.log(this.regions);
 		/* add 'Upload' option to search Lines dropdown */
 		this.searchLines = this.lines.slice()
 		this.searchLines.unshift({name:'Upload (Image Slices)', id: 0});
@@ -88,9 +89,8 @@ class SidebarController {
 		this.selected = this.current;
 	}
 
-	onUpdateMaskWrapper(mask, color) {
-		//console.log(color);
-		this.onUpdateMask(mask, color);
+	onUpdateRegionWrapper(region, color) {
+		this.onUpdateRegion(region, color);
 	}
 
 	onOpenShareDialogWrapper() {
@@ -103,21 +103,19 @@ class SidebarController {
 		this.onUpdateLine({line: this.selected});
 	}
 
-	masksGroupFn(mask) {
-		if ( mask.name.indexOf('Diencephalon') == 0 ) {
-			return 'Diencephalon';
-		} else if ( mask.name.indexOf('Ganglia') == 0 ) {
+	regionsGroupFn(region) {
+		if ( region.name.indexOf('Forebrain') == 0 ) {
+			return 'Forebrain';
+		} else if ( region.name.indexOf('Midbrain') == 0 ) {
+			return 'Midbrain';
+		} else if ( region.name.indexOf('Hindbrain') == 0 ) {
+			return 'Hindbrain';
+		} else if ( region.name.indexOf('Ganglia') == 0 ) {
 			return 'Ganglia';
-		} else if ( mask.name.indexOf('Mesencephalon') == 0 ) {
-			return 'Mesencephalon';
-		} else if ( mask.name.indexOf('Rhombencephalon') == 0 ) {
-			return 'Rhombencephalon';
-		} else if ( mask.name.indexOf('Spinal Cord') == 0 ) {
+		} else if ( region.name.indexOf('Spinal Cord') == 0 ) {
 			return 'Spinal Cord';
-		} else if ( mask.name.indexOf('Spinal Cord') == 0 ) {
-			return 'Telencephalon';
 		} else {
-			return 'Brain';
+			return 'Other';
 		}
 	}
 
@@ -127,21 +125,21 @@ class SidebarController {
 				byName = [],
 				sliceIndex = `&slice_i=${this.sliceIndex}`;
 
-		if ( this.selectedMasks.cyan ) {
-			byId.push(`cy_mask=${this.selectedMasks.cyan.id}`);
-			byName.push(`cy_mask=${this.selectedMasks.cyan.name}`);
+		if ( this.selectedRegions.cyan ) {
+			byId.push(`cy_region=${this.selectedRegions.cyan.id}`);
+			byName.push(`cy_region=${this.selectedRegions.cyan.name}`);
 		}
-		if ( this.selectedMasks.magenta ) {
-			byId.push(`mg_mask=${this.selectedMasks.magenta.id}`);
-			byName.push(`mg_mask=${this.selectedMasks.magenta.name}`);
+		if ( this.selectedRegions.magenta ) {
+			byId.push(`mg_region=${this.selectedRegions.magenta.id}`);
+			byName.push(`mg_region=${this.selectedRegions.magenta.name}`);
 		}
-		if ( this.selectedMasks.green ) {
-			byId.push(`gr_mask=${this.selectedMasks.green.id}`);
-			byName.push(`gr_mask=${this.selectedMasks.green.name}`);
+		if ( this.selectedRegions.green ) {
+			byId.push(`gr_region=${this.selectedRegions.green.id}`);
+			byName.push(`gr_region=${this.selectedRegions.green.name}`);
 		}
-		if ( this.selectedMasks.yellow ) {
-			byId.push(`yl_mask=${this.selectedMasks.yellow.id}`);
-			byName.push(`yl_mask=${this.selectedMasks.yellow.name}`);
+		if ( this.selectedRegions.yellow ) {
+			byId.push(`yl_region=${this.selectedRegions.yellow.id}`);
+			byName.push(`yl_region=${this.selectedRegions.yellow.name}`);
 		}
 
 

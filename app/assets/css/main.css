@@ -255,6 +255,9 @@ body {
     overflow-wrap: normal; }
     .sidebar .ui-select-choices-row .ui-select-choices-row-inner {
       padding-left: 15px; }
+    .sidebar .ui-select-choices-row .mece {
+      font-size: 0.9em;
+      color: #33cc88aa; }
     .sidebar .ui-select-choices-row .num {
       font-size: 0.6em;
       color: white; }
@@ -389,7 +392,7 @@ body {
     position: absolute;
     height: 440px !important;
     width: 1050 !important; }
-  .viewer .mask-img {
+  .viewer .region-img {
     z-index: 1000;
     left: 10px;
     top: 90px;
@@ -776,7 +779,7 @@ body {
     .viewer .primary-line-image {
       top: 130px;
       left: 120px; }
-    .viewer .mask-img {
+    .viewer .region-img {
       top: 130px;
       left: 120px; }
     .viewer .color-channel {
@@ -919,7 +922,7 @@ body {
       top: 130px;
       height: 748px !important;
       width: 1785px !important; }
-    .viewer .mask-img {
+    .viewer .region-img {
       top: 130px;
       height: 748px !important;
       width: 1785px !important; }

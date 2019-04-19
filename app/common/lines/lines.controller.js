@@ -8,7 +8,7 @@ class LinesController {
 		this.$timeout = $timeout;
 		this.selected = undefined;
 		this.lines = [];
-		this.masks = [];
+		this.regions = [];
 		this.files = [];
 		this.shortLink = '';
 		this.fullLink = '';
@@ -17,7 +17,7 @@ class LinesController {
 		this.lineName = "";
 		this.uploadName = "";
 		this.spinnerOpts = {
-				// settings for spin.js spinner
+				// Settings for spin.js spinner
 			lines: 9, length: 40, width: 18, radius: 67, corners: 0.8,
 			scale: 1.0, color: '#fff', opacity: 0.55, rotate: 0, direction: 1,
 			speed: 1.9, trail: 90, fps: 20, zIndex: 2e9, className: 'spinner',
@@ -29,12 +29,12 @@ class LinesController {
 	}
 
 	$onInit() {
-			// GET line and mask names for sidebar
+			// GET line and region names for sidebar
 		this.LinesService.getAllLineNames().then(response => {
 												let names = response.map(obj => {
 													let [name, id] = [obj.line_name, obj.line_id];
 													if ( name.indexOf('MH_') !== -1 )
-														name = "Z1" + name; // prefix it to end up near the bottom after sort
+														name = "Z1" + name; // Prefix it to end up near the bottom after sort
 													return { 'name': name, 'id': id };
 												});
 												names = names.sort((a,b) => {
@@ -50,24 +50,30 @@ class LinesController {
 												this.lines = names;
 											});
 
-		this.LinesService.getMaskNames().then(response => {
-													this.masks = response.map(obj => {
-																				let name = obj.mask_name.replace("'", "&quot"),
-																							id = obj.mask_id;
-																				return { 'id': parseInt(id), 'name': name }
+		this.LinesService.getAllRegionNames().then(response => {
+													this.regions = response.map(obj => {
+																				let name = obj.region_name.replace("'", "&quot"),
+																					 short = name.substr(name.indexOf('-') + 2),
+																							id = obj.region_id,
+																				 is_mece = obj.region_is_mece;
+																				return { 'id': parseInt(id),
+																								 'name': name,
+																								 'short': short,
+																								 'is_mece': is_mece	}
 																				});
 												});
+
 
 		this.LinesService.getAnnotations().then(response => {
 													this.annotations = response;
 												});
 
-			// cache default line for viewer component
+			// Cache default line for viewer component
 		this.LinesService.cacheLine("Elavl3-H2BRFP").then(response => {
 			this.lineImages = response;
 		});
 
-		 // limit number of files on file input to 138
+		 // Limit number of files on file input to 138
 		var that = this;
 		$(document).ready(function() {
 			$('.input-upload').change(function() {
@@ -79,12 +85,12 @@ class LinesController {
 		});
 	}
 
-		// sync slice index in lines component with viewer component
+		// Sync slice index in lines component with viewer component
 	updateIndex(sliceIndex) {
 		this.sliceIndex = sliceIndex;
 	}
 
-		// cache selected line images for viewer component
+		// Cache selected line images for viewer component
 	updateLine(line) {
 		if ( !line )
 			return;
@@ -98,44 +104,27 @@ class LinesController {
 		}
 	}
 
-		// cache mask images for viewer component
-	updateMask(mask, color) {
-		if ( mask ) {
-
-			if ( color === 'grey' ) {
-				this.LinesService.cacheMeceMask(mask).then(response => {
-											let [max, maxIndex] = [response[this.sliceIndex].size, this.sliceIndex];
-												this.meceMaskImages = response.map((obj, i) => {
-													if ( obj.size > max )
-														[max, maxIndex]= [obj.size, i];
-													return obj.img
-												});
-												this.$timeout(() => {this.updateIndex(maxIndex)}, 100);
-											});
-			} else {
-				this.LinesService.cacheMask(mask, color).then(response => {
+		// Cache region images for viewer component
+	updateRegion(region, color) {
+		if ( region ) {
+			this.LinesService.cacheRegion(region, color).then(response => {
 												let [max, maxIndex] = [response[this.sliceIndex].size, this.sliceIndex];
-												this.maskImages = response.map((obj, i) => {
+												this.regionImages = response.map((obj, i) => {
 													if ( obj.size > max )
 														[max, maxIndex]= [obj.size, i];
 													return obj.img
 												});
-												this.maskColor = color;
+												this.regionColor = color;
 												this.$timeout(() => {this.updateIndex(maxIndex)}, 100);
 											});
-			}
 		} else {
-			if ( color === 'grey' ) {
-				this.meceMaskImages = [];
-			} else {
-				this.maskImages = [];
-			}
-			this.maskColor = color;
+			this.regionImages = [];
+			this.regionColor = color;
 			return;
 		}
 	}
 
-		// get color channel for viewer component
+		// Get color channel for viewer component
 	updateColorChannel(line, color) {
 		if ( line ) {
 			this.LinesService.cacheColorChannel(line, color).then(response => {
@@ -153,7 +142,7 @@ class LinesController {
 		this.colorChannelOpacities[color] = parseInt(val) / 100;
 	}
 
-		// change the brightness or gamma settings on the displayed line image
+		// Change the brightness or gamma settings on the displayed line image
 	adjustLine(line, brightness, gamma) {
 		this.spinner.spin(this.spinnerTarget);
 		this.LinesService.adjustLine(line||'Elavl3-H2BRFP', brightness, gamma, this.sliceIndex)
@@ -175,7 +164,7 @@ class LinesController {
 		el.className = el.className.replace('share-active', '');
 	}
 
-	 // open and close upload dialog
+	 // Open and close upload dialog
 	openUploadDialog() {
 		let el = document.getElementsByClassName('upload')[0];
 		el.className += " upload-active";
@@ -186,7 +175,7 @@ class LinesController {
 		el.className = el.className.replace('upload-active', '');
 	}
 
-		// handle selected files
+		// Handle selected files
 	uploadFiles() {
 		if ( this.files && this.files.length && this.files.length <= 138) {
 			this.Upload.upload({
@@ -221,9 +210,9 @@ class LinesController {
 		this.uploadName = "";
 	}
 
-		// helper function to create linear spaced array
+		// Helper function to create linear spaced array
 		// https://gist.github.com/joates/6584908
-		// with slight mod => Math.round()
+		// with modification: Math.round()
 	linspace(a, b, n) {
 		if ( typeof n === "undefined" )
 			n = Math.max(Math.round(b-a)+1,1);

@@ -67,64 +67,73 @@
 			
 			<div class="ui-select-container">
 				<ui-select class="search-dropdown cyan"
-					ng-model="$ctrl.selectedMasks.cyan"
-					on-select="$ctrl.onUpdateMaskWrapper({mask:
-					$ctrl.selectedMasks.cyan.name, color:'cyan'})"
-					on-remove="$ctrl.onUpdateMaskWrapper({mask:
-					$ctrl.selectedMasks.cyan.name, color:'cyan'})">
+					ng-model="$ctrl.selectedRegions.cyan"
+					on-select="$ctrl.onUpdateRegionWrapper({region:
+					$ctrl.selectedRegions.cyan.name, color:'cyan'})"
+					on-remove="$ctrl.onUpdateRegionWrapper({region:
+					$ctrl.selectedRegions.cyan.name, color:'cyan'})">
 					<ui-select-match placeholder="Search Regions" allow-clear="true">
-						{{$ctrl.selectedMasks.cyan.name}}
+						{{$ctrl.selectedRegions.cyan.short}}
 					</ui-select-match>
-					<ui-select-choices group-by="$ctrl.masksGroupFn"
-						repeat="mask in $ctrl.masks | filter:$select.search" 
-						value="'{{::mask.name}}'">{{::mask.name}} <span class="num">{{::mask.id}}</span></ui-select-choices>
+					<ui-select-choices group-by="$ctrl.regionsGroupFn"
+						repeat="region in $ctrl.regions | filter:$select.search" 
+						value="'{{::region.name}}'">{{::region.short}} 
+						<span class="mece" ng-show="region.is_mece"> - <b>MECE<b></span>
+						<span class="num">{{::region.id}}</span></ui-select-choices>
 				</ui-select>
 			</div>
 
 			<div class="ui-select-container">
 				<ui-select class="search-dropdown magenta"
-					ng-model="$ctrl.selectedMasks.magenta"
-					on-select="$ctrl.onUpdateMaskWrapper({mask: 
-					$ctrl.selectedMasks.magenta.name, color:'magenta'})"
-					on-remove="$ctrl.onUpdateMaskWrapper({mask: 
-					$ctrl.selectedMasks.magenta.name, color:'magenta'})">
+					ng-model="$ctrl.selectedRegions.magenta"
+					on-select="$ctrl.onUpdateRegionWrapper({region: 
+					$ctrl.selectedRegions.magenta.name, color:'magenta'})"
+					on-remove="$ctrl.onUpdateRegionWrapper({region: 
+					$ctrl.selectedRegions.magenta.name, color:'magenta'})">
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
-						{{$ctrl.selectedMasks.magenta.name}}
+						{{$ctrl.selectedRegions.magenta.short}}
 					</ui-select-match>
-					<ui-select-choices group-by="$ctrl.masksGroupFn"
-					repeat="mask in $ctrl.masks | filter:$select.search" 
-						value="'{{::mask.name}}'">{{::mask.name}} <span class="num">{{::mask.id}}</span></ui-select-choices>
+					<ui-select-choices group-by="$ctrl.regionsGroupFn"
+					repeat="region in $ctrl.regions | filter:$select.search" 
+						value="'{{::region.name}}'">{{::region.short}} 
+						<span class="mece" ng-show="region.is_mece"> - <b>MECE<b></span>
+						<span class="num">{{::region.id}}</span></ui-select-choices>
 				</ui-select>
 			</div>
 
 			<div class="ui-select-container">
 				<ui-select class="search-dropdown green"
-					ng-model="$ctrl.selectedMasks.green"
-					on-select="$ctrl.onUpdateMaskWrapper({mask: 
-					$ctrl.selectedMasks.green.name, color:'green'})"
-					on-remove="$ctrl.onUpdateMaskWrapper({mask: null, color:'green'})">
+					ng-model="$ctrl.selectedRegions.green"
+					on-select="$ctrl.onUpdateRegionWrapper({region: 
+					$ctrl.selectedRegions.green.name, color:'green'})"
+
+					on-remove="$ctrl.onUpdateRegionWrapper({region: null, color:'green'})">
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
-						{{$ctrl.selectedMasks.green.name}}
+						{{$ctrl.selectedRegions.green.short}}
 					</ui-select-match>
-					<ui-select-choices group-by="$ctrl.masksGroupFn"
-						repeat="mask in $ctrl.masks | filter:$select.search" 
-						value="'{{::mask.name}}'">{{::mask.name}} <span class="num">{{::mask.id}}</span></ui-select-choices>
+					<ui-select-choices group-by="$ctrl.regionsGroupFn"
+						repeat="region in $ctrl.regions | filter:$select.search" 
+						value="'{{::region.name}}'">{{::region.short}} 
+						<span class="mece"  ng-show="region.is_mece"> - <b>MECE<b></span>
+						<span class="num">{{::region.id}}</span></ui-select-choices>
 				</ui-select>
 			</div>
 
 			<div class="ui-select-container">
 				<ui-select class="search-dropdown yellow"
-					ng-model="$ctrl.selectedMasks.yellow"
-					on-select="$ctrl.onUpdateMaskWrapper({mask: 
-					$ctrl.selectedMasks.yellow.name, color:'yellow'})"
-					on-remove="$ctrl.onUpdateMaskWrapper({mask: 
-					$ctrl.selectedMasks.yellow.name, color:'yellow'})">
+					ng-model="$ctrl.selectedRegions.yellow"
+					on-select="$ctrl.onUpdateRegionWrapper({region: 
+					$ctrl.selectedRegions.yellow.name, color:'yellow'})"
+					on-remove="$ctrl.onUpdateRegionWrapper({region: 
+					$ctrl.selectedRegions.yellow.name, color:'yellow'})">
 					<ui-select-match placeholder="{{::$ctrl.placeholder}}" allow-clear="true">
-						{{$ctrl.selectedMasks.yellow.name}}
+						{{$ctrl.selectedRegions.yellow.short}}
 					</ui-select-match>
-					<ui-select-choices group-by="$ctrl.masksGroupFn"
-						repeat="mask in $ctrl.masks | filter:$select.search" 
-						value="'{{::mask.name}}'">{{::mask.name}} <span class="num">{{::mask.id}}</span></ui-select-choices>
+					<ui-select-choices group-by="$ctrl.regionsGroupFn"
+						repeat="region in $ctrl.regions | filter:$select.search" 
+						value="'{{::region.name}}'">{{::region.short}}
+						<span class="mece" ng-show="region.is_mece"> - <b>MECE<b></span>
+						<span class="num">{{::region.id}}</span></ui-select-choices>
 				</ui-select>
 			</div>
 

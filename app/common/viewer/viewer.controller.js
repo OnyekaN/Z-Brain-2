@@ -15,19 +15,19 @@ class ViewerController {
 			// initial display image, #viewer#primary-line-image[src]
 		this.currentDisplayImage = 'images/0-Lines/Elavl3-H2BRFP/Elavl3-H2BRFP_6dpf_MeanImageOf10Fish-90.jpg';
 
-			// array stores colors of active masks
-		this.activeMasks = [];
-			// object stores arrays of mask images
-		this.meceMaskArray = null;
-		this.maskArrays = {
+			// array stores colors of active regions
+		this.activeRegions = [];
+			// object stores arrays of region images
+		this.meceRegionArray = null;
+		this.regionArrays = {
 			cyan: null,
 			green: null,
 			magenta: null,
 			yellow: null,
 		}
-			// currently displayed mask images (each uses image src)
-		this.meceDisplayMask = 'images/blank.png';
-		this.currentDisplayMasks = {
+			// currently displayed region images (each uses image src)
+		this.meceDisplayRegion = 'images/blank.png';
+		this.currentDisplayRegions = {
 			cyan: 'images/blank.png',
 			green: 'images/blank.png',
 			magenta: 'images/blank.png',
@@ -41,7 +41,7 @@ class ViewerController {
 			green: undefined,
 			blue: undefined,
 		}
-			// currently displayed mask image slices (each uses image src)
+			// currently displayed region image slices (each uses image src)
 		this.currentDisplayColorChannels = {
 			red: 'images/blank.png',
 			green: 'images/blank.png',
@@ -52,23 +52,23 @@ class ViewerController {
 	$onInit() {
 
 		window.scrollTo(0, 0);
-		/* handle route resolve for masks */
+		/* handle route resolve for regions */
 
-		let setDisplayMasks = this.$interval(() => {
-			if ( this.resolvedMaskImages && Object.keys(this.resolvedMaskImages).length ) {
-				let keys = Object.keys(this.resolvedMaskImages);
+		let setDisplayRegions = this.$interval(() => {
+			if ( this.resolvedRegionImages && Object.keys(this.resolvedRegionImages).length ) {
+				let keys = Object.keys(this.resolvedRegionImages);
 				let colors = ['cyan', 'magenta', 'green', 'yellow'];
 				colors.forEach(color => {
-					if ( this.resolvedMaskImages[color] ) {
-						this.maskArrays[color] = this.resolvedMaskImages[color];
+					if ( this.resolvedRegionImages[color] ) {
+						this.regionArrays[color] = this.resolvedRegionImages[color];
 					} else {
-						this.maskArrays[color] = null;
+						this.regionArrays[color] = null;
 					}
 				});
-				this.maskImages = null;
-				this.activeMasks = keys;
-				this.updateMasksSlice();
-				this.$interval.cancel(setDisplayMasks);
+				this.regionImages = null;
+				this.activeRegions = keys;
+				this.updateRegionsSlice();
+				this.$interval.cancel(setDisplayRegions);
 			}
 		}, 200, 5);
 
@@ -116,32 +116,32 @@ class ViewerController {
 			this.currentLineName = this.lineName || 'Elavl3-H2BRFP';
 		}
 
-		/* On new set of mask images load, update display
-		 * maskImages << LinesComponent
+		/* On new set of region images load, update display
+		 * regionImages << LinesComponent
 		 */
 
-		if ( Array.isArray(this.maskImages) ) {
-			let color = this.maskColor;
+		if ( Array.isArray(this.regionImages) ) {
+			let color = this.regionColor;
 
-			if ( this.maskImages.length ) {
-				if ( !this.activeMasks.includes(color) ) {
-					this.activeMasks.push(color)
+			if ( this.regionImages.length ) {
+				if ( !this.activeRegions.includes(color) ) {
+					this.activeRegions.push(color)
 				}
-				this.maskArrays[color] = this.maskImages;
-				this.currentDisplayMasks[color] = this.maskArrays[color][this.sliceIndex].src;
+				this.regionArrays[color] = this.regionImages;
+				this.currentDisplayRegions[color] = this.regionArrays[color][this.sliceIndex].src;
 			} else {
-				this.maskArrays[color] = null;
-				this.currentDisplayMasks[color] = 'images/blank.png';
+				this.regionArrays[color] = null;
+				this.currentDisplayRegions[color] = 'images/blank.png';
 			}
 		}
 
-		if ( Array.isArray(this.meceMaskImages) ) {
-			if ( this.meceMaskImages.length ) {
-				this.meceMaskArray = this.meceMaskImages;
-				this.meceDisplayMask = this.meceMaskArray[this.sliceIndex].src;
+		if ( Array.isArray(this.meceRegionImages) ) {
+			if ( this.meceRegionImages.length ) {
+				this.meceRegionArray = this.meceRegionImages;
+				this.meceDisplayRegion = this.meceRegionArray[this.sliceIndex].src;
 			} else {
-				this.meceMaskArray = null;
-				this.meceDisplayMask = 'images/blank.png';
+				this.meceRegionArray = null;
+				this.meceDisplayRegion = 'images/blank.png';
 			}
 		}
 
@@ -191,7 +191,7 @@ class ViewerController {
 
 		// update displayed slice image
 		this.onUpdateIndex({sliceIndex:this.sliceIndex});
-		this.updateMasksSlice();
+		this.updateRegionsSlice();
 		this.updateColorChannelsSlice();
 
 
@@ -209,22 +209,16 @@ class ViewerController {
 
 	}
 
-	updateMasksSlice() {
-		// update active displayed masks
-		this.activeMasks.forEach((color) => {
-			if ( Array.isArray(this.maskArrays[color]) ) {
-				this.currentDisplayMasks[color] = this.maskArrays[color][this.sliceIndex].src;
+	updateRegionsSlice() {
+		// update active displayed regions
+		this.activeRegions.forEach((color) => {
+			if ( Array.isArray(this.regionArrays[color]) ) {
+				this.currentDisplayRegions[color] = this.regionArrays[color][this.sliceIndex].src;
 			} else {
-				this.activeMasks.splice(this.activeMasks.indexOf(color), 1);
-				this.currentDisplayMasks[color] = 'images/blank.png';
+				this.activeRegions.splice(this.activeRegions.indexOf(color), 1);
+				this.currentDisplayRegions[color] = 'images/blank.png';
 			}
 		});
-
-		if ( Array.isArray(this.meceMaskArray) ) {
-			this.meceDisplayMask = this.meceMaskArray[this.sliceIndex].src;
-		} else {
-			this.meceDisplayMask = 'images/blank.png';
-		}
 	}
 
 		// update active displayed color channels

@@ -321,6 +321,10 @@ body {
 		font-size: 0.8em !important;
 		overflow-wrap: normal;
 		.ui-select-choices-row-inner { padding-left: 15px }
+		.mece {
+			font-size: 0.9em;
+			color: #33cc88aa;
+		}
 		.num {
 			font-size: 0.6em;
 			color: white;
@@ -488,7 +492,7 @@ body {
 		@include viewer-image-props();
 	}
 
-	.mask-img {
+	.region-img {
 		z-index: 1000;
 		@include viewer-image-props();
 	}
@@ -986,7 +990,7 @@ body {
 		}
 
 		.primary-line-image { @include viewer-img-pos() }
-		.mask-img { @include viewer-img-pos() }
+		.region-img { @include viewer-img-pos() }
 		.color-channel { @include viewer-img-pos() }
 	}
 
@@ -1174,7 +1178,7 @@ body {
 
 		.primary-line-image { @include xl-viewer-img-props() }
 
-		.mask-img { @include xl-viewer-img-props() }
+		.region-img { @include xl-viewer-img-props() }
 
 		.color-channel { @include xl-viewer-img-props() }
 
