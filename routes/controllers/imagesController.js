@@ -109,7 +109,7 @@ exports.get_regions = (req, res, next) => {
 		}
 
 		querySQL = `SELECT region_name, region_id, bool_or(region_is_mece) FROM regions
-								GROUP BY region_name, region_id, bool_or(region_is_mece)
+								GROUP BY region_name, region_id, region_is_mece
 								ORDER BY region_name ASC; `
 
 		let [ query, index ] = [ client.query(querySQL), 1001 ];

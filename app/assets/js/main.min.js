@@ -8043,7 +8043,7 @@ class LinesController {
 																				let name = obj.region_name.replace("'", "&quot"),
 																					 short = name.substr(name.indexOf('-') + 2),
 																							id = obj.region_id,
-																				 is_mece = obj.region_is_mece;
+																				 is_mece = obj.bool_or;
 																				return { 'id': parseInt(id),
 																								 'name': name,
 																								 'short': short,
@@ -8701,7 +8701,6 @@ class SidebarController {
 
 	$onChanges(changes) {
 
-		console.log(this.regions);
 		/* add 'Upload' option to search Lines dropdown */
 		this.searchLines = this.lines.slice()
 		this.searchLines.unshift({name:'Upload (Image Slices)', id: 0});

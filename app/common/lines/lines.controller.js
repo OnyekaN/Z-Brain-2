@@ -55,7 +55,7 @@ class LinesController {
 																				let name = obj.region_name.replace("'", "&quot"),
 																					 short = name.substr(name.indexOf('-') + 2),
 																							id = obj.region_id,
-																				 is_mece = obj.region_is_mece;
+																				 is_mece = obj.bool_or;
 																				return { 'id': parseInt(id),
 																								 'name': name,
 																								 'short': short,

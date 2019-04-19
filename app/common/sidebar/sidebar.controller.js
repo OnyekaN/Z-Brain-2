@@ -70,7 +70,6 @@ class SidebarController {
 
 	$onChanges(changes) {
 
-		console.log(this.regions);
 		/* add 'Upload' option to search Lines dropdown */
 		this.searchLines = this.lines.slice()
 		this.searchLines.unshift({name:'Upload (Image Slices)', id: 0});
