@@ -8286,15 +8286,8 @@ class LinesService {
 		return lineNames;
 	}
 
-
 	getMaskNames() {
 		return this.$http.get('api/masks/')
-						.then(response => response.data)
-						.catch(e => console.log(e));
-	}
-
-	getMeceMaskNames() {
-		return this.$http.get('api/mece/')
 						.then(response => response.data)
 						.catch(e => console.log(e));
 	}
@@ -8337,6 +8330,49 @@ class LinesService {
 		return selectedMasks;
 	}
 
+	getAllRegionNames() {
+		return this.$http.get('api/regions/')
+						.then(response => response.data)
+						.catch(e => console.log(e));
+	}
+
+	getNameOfRegion(region) {
+		return this.$http.get(`api/regions/nameof/${region}`)
+						.then(response => response.data)
+						.catch(e => console.log(e));
+	}
+
+	getNamesOfRegions(options) {
+		if ( !options )
+			return;
+
+		let [regionPromises, colors, selectedRegions] = [new Array, new Array, new Object];
+
+		if ( options.cyan ) {
+			regionPromises.push(this.getNameOfRegion(options.cyan));
+			colors.push('cyan');
+		}
+		if ( options.magenta ) {
+			regionPromises.push(this.getNameOfRegion(options.magenta));
+			colors.push('magenta');
+		}
+		if ( options.green ) {
+			regionPromises.push(this.getNameOfRegion(options.green));
+			colors.push('green');
+		}
+		if ( options.yellow ) {
+			regionPromises.push(this.getNameOfRegion(options.yellow));
+			colors.push('yellow');
+		}
+
+		Promise.all(regionPromises).then(values => {
+			for ( let i = 0; i < values.length; i++ ) {
+				selectedRegions[colors[i]] = values[i];
+			}
+		});
+		return selectedRegions;
+	}
+
 	getAnnotations() {
 		return this.$http.get('api/annotations/')
 						.then(response => response.data)
@@ -8374,21 +8410,6 @@ class LinesService {
 		.catch(e => console.log(e));
 	}
 
-	cacheMeceMask(mask) {
-		return this.$http({
-						method: 'GET',
-						url: `api/mece/${mask}`,
-						cache: true
-		}).then(response => {
-			let masks = response.data.map(obj => {
-				let img = new Image();
-				img.src = `images/8-MeceMasks/${mask}/${obj.mask_image_path}`;
-				return {'img': img, 'size': obj.mask_image_size};
-			});
-			return masks;
-		})
-		.catch(e => console.log(e));
-	}
 	cacheMultipleMasks(options) {
 
 		if ( !options )
@@ -8420,6 +8441,55 @@ class LinesService {
 		});
 		return masks;
 	}
+
+	cacheRegion(region, color) {
+		return this.$http({
+						method: 'GET',
+						url: `api/regions/${region}`,
+						cache: true
+		}).then(response => {
+			let regions = response.data.map(obj => {
+				let img = new Image();
+				img.src = `images/2-Regions/${region}/${color}/${obj.region_image_path}`;
+				return {'img':img, 'size':obj.region_image_size};
+			});
+			return regions;
+		})
+		.catch(e => console.log(e));
+	}
+
+	cacheMultipleRegions(options) {
+
+		if ( !options )
+			return;
+
+		let [regionPromises, colors, regions] = [new Array, new Array, new Object];
+
+		if ( options.cyan ) {
+			regionPromises.push(this.cacheRegion(options.cyan, 'cyan'));
+			colors.push('cyan');
+		}
+		if ( options.magenta ) {
+			regionPromises.push(this.cacheRegion(options.magenta, 'magenta'));
+			colors.push('magenta');
+		}
+		if ( options.green ) {
+			regionPromises.push(this.cacheRegion(options.green, 'green'));
+			colors.push('green');
+		}
+		if ( options.yellow ) {
+			regionPromises.push(this.cacheRegion(options.yellow, 'yellow'));
+			colors.push('yellow');
+		}
+
+		Promise.all(regionPromises).then(values => {
+			for ( let i = 0; i < values.length; i++ ) {
+				regions[colors[i]] = values[i].map(obj=>obj.img);
+			}
+		});
+		return regions;
+	}
+
 
 	cacheColorChannel(line, color) {
 
