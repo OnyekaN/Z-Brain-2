@@ -131,4 +131,10 @@ router.post('/api/upload', upload.array('files', 138), (req, res, next) => {
 
 });
 
+router.get('*', function(req, res) {
+	res.redirect('/');
+});
+
+
+
 module.exports = router;
