@@ -118,7 +118,7 @@ class LinesService {
 		}).then(response => {
 			let regions = response.data.map(obj => {
 				let img = new Image();
-				img.src = `images/2-Regions/${region}/${color}/${obj.region_image_path}`;
+				img.src = `images/2-Regions/${obj.region_name}/${color}/${obj.region_image_path}`;
 				return {'img':img, 'size':obj.region_image_size};
 			});
 			return regions;

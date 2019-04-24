@@ -77,8 +77,8 @@
 					</ui-select-match>
 					<ui-select-choices group-by="$ctrl.regionsGroupFn"
 						repeat="region in $ctrl.regions | filter:$select.search" 
-						value="'{{::region.name}}'">{{::region.short}} 
-						<span class="mece" ng-show="region.is_mece"> - <b>MECE<b></span>
+						value="'{{::region.name}}'"> 
+						<span ng-class="region.is_mece">{{::region.short}}</span>
 						<span class="num">{{::region.id}}</span></ui-select-choices>
 				</ui-select>
 			</div>
@@ -95,8 +95,8 @@
 					</ui-select-match>
 					<ui-select-choices group-by="$ctrl.regionsGroupFn"
 					repeat="region in $ctrl.regions | filter:$select.search" 
-						value="'{{::region.name}}'">{{::region.short}} 
-						<span class="mece" ng-show="region.is_mece"> - <b>MECE<b></span>
+						value="'{{::region.name}}'"> 
+						<span ng-class="region.is_mece">{{::region.short}}</span>
 						<span class="num">{{::region.id}}</span></ui-select-choices>
 				</ui-select>
 			</div>
@@ -113,9 +113,10 @@
 					</ui-select-match>
 					<ui-select-choices group-by="$ctrl.regionsGroupFn"
 						repeat="region in $ctrl.regions | filter:$select.search" 
-						value="'{{::region.name}}'">{{::region.short}} 
-						<span class="mece"  ng-show="region.is_mece"> - <b>MECE<b></span>
+						value="'{{::region.name}}'">
+						<span ng-class="region.is_mece">{{::region.short}}</span>
 						<span class="num">{{::region.id}}</span></ui-select-choices>
+
 				</ui-select>
 			</div>
 
@@ -131,8 +132,8 @@
 					</ui-select-match>
 					<ui-select-choices group-by="$ctrl.regionsGroupFn"
 						repeat="region in $ctrl.regions | filter:$select.search" 
-						value="'{{::region.name}}'">{{::region.short}}
-						<span class="mece" ng-show="region.is_mece"> - <b>MECE<b></span>
+						value="'{{::region.name}}'">
+						<span ng-class="region.is_mece">{{::region.short}}</span>
 						<span class="num">{{::region.id}}</span></ui-select-choices>
 				</ui-select>
 			</div>

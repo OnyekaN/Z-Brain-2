@@ -256,11 +256,12 @@ body {
     .sidebar .ui-select-choices-row .ui-select-choices-row-inner {
       padding-left: 15px; }
     .sidebar .ui-select-choices-row .mece {
-      font-size: 0.9em;
-      color: #33cc88aa; }
+      color: #555555; }
     .sidebar .ui-select-choices-row .num {
       font-size: 0.6em;
-      color: white; }
+      color: #fff; }
+  .sidebar .ui-select-choices-row.active > span .mece {
+    color: #fff !important; }
   .sidebar .ui-select-choices-group-label {
     font-family: monospace;
     font-weight: bold;

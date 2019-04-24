@@ -104,15 +104,15 @@ class SidebarController {
 
 	regionsGroupFn(region) {
 		if ( region.name.indexOf('Forebrain') == 0 ) {
-			return 'Forebrain';
+			return !region.is_mece ? 'Forebrain': 'Forebrain [MECE]';
 		} else if ( region.name.indexOf('Midbrain') == 0 ) {
-			return 'Midbrain';
+			return !region.is_mece ? 'Midbrain': 'Midbrain [MECE]';
 		} else if ( region.name.indexOf('Hindbrain') == 0 ) {
-			return 'Hindbrain';
+			return !region.is_mece ? 'Hindbrain': 'Hindbrain [MECE]';
 		} else if ( region.name.indexOf('Ganglia') == 0 ) {
-			return 'Ganglia';
+			return !region.is_mece ? 'Ganglia': 'Ganglia [MECE]';
 		} else if ( region.name.indexOf('Spinal Cord') == 0 ) {
-			return 'Spinal Cord';
+			return !region.is_mece ? 'Spinal Cord': 'Spinal Cord [MECE]';
 		} else {
 			return 'Other';
 		}

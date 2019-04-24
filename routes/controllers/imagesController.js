@@ -145,7 +145,7 @@ exports.get_region = (req, res, next, id) => {
 									ORDER BY region_img_id;`
 		} else {
 			querySQL = `SELECT * FROM regions
-									WHERE region_id='${id}'
+									WHERE region_id='${id-1000}'
 									ORDER BY region_img_id;`
 		}
 

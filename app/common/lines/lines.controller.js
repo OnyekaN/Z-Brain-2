@@ -55,12 +55,17 @@ class LinesController {
 																				let name = obj.region_name.replace("'", "&quot"),
 																					 short = name.substr(name.indexOf('-') + 2),
 																							id = obj.region_id,
-																				 is_mece = obj.bool_or;
-																				return { 'id': parseInt(id),
+																				 is_mece = obj.bool_or ? 'mece': '';
+																				return { 'id': parseInt(id + 1000),
 																								 'name': name,
 																								 'short': short,
 																								 'is_mece': is_mece	}
 																				});
+													let regions = response.map(obj => {
+
+													});
+
+
 												});
 
 
