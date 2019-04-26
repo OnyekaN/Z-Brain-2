@@ -320,8 +320,11 @@ body {
 		width: $ui-select-choices-width;
 		font-size: 0.8em !important;
 		overflow-wrap: normal;
-		.ui-select-choices-row-inner { padding-left: 15px }
-		.mece { color: #555555; }
+		.ui-select-choices-row-inner {
+			padding-left: 15px;
+			font-weight: 100 !important;
+		}
+		.mece { color: #006600cc; }
 		.num {
 			font-size: 0.6em;
 			color: #fff;

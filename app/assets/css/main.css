@@ -254,9 +254,10 @@ body {
     font-size: 0.8em !important;
     overflow-wrap: normal; }
     .sidebar .ui-select-choices-row .ui-select-choices-row-inner {
-      padding-left: 15px; }
+      padding-left: 15px;
+      font-weight: 100 !important; }
     .sidebar .ui-select-choices-row .mece {
-      color: #555555; }
+      color: #006600cc; }
     .sidebar .ui-select-choices-row .num {
       font-size: 0.6em;
       color: #fff; }
