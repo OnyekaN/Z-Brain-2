@@ -59,7 +59,7 @@ import Common from './common/index';
 
 				$urlRouterProvider.when('/', '/home/');
 				$urlRouterProvider.otherwise('/home/');
-				$locationProvider.html5Mode(true);
+				$locationProvider.html5Mode(true).hashPrefix('!');
 
 			}])
 		.name;

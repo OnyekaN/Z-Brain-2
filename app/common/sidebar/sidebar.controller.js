@@ -78,6 +78,9 @@ class SidebarController {
 		if ( this.resolvedLineName != 'Elavl3-H2BRFP' ) {
 			this.selected = this.resolvedLineName;
 		}
+
+		this.createShareLinks();
+
 	}
 
 	onUpdateLineWrapper(line) {
@@ -119,7 +122,7 @@ class SidebarController {
 	}
 
 	createShareLinks() {
-		let base = `https://engertlab.fas.harvard.edu/Z-Brain/#/home/line/${this.selected||'Elavl3-H2BRFP'}`,
+		let base = `https://engertlab.fas.harvard.edu/Z-Brain/home/line/${this.selected||'Elavl3-H2BRFP'}`,
 				byId = [],
 				byName = [],
 				sliceIndex = `&slice_i=${this.sliceIndex}`;

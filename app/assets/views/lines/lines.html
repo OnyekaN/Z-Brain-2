@@ -10,15 +10,15 @@
 
 	<div class="share">
 		<div class="share-header">
-			<span>Copy paste to share this configuration</span>
+			<span>Paste to share this configuration</span>
 		</div>
 		<hr>
 		<div class="share-content">
+			<p>Full Link: <a ng-href={{$ctrl.fullShareLink}}>{{$ctrl.fullShareLink}}</a></p>
 			<p>Numeric Link: <a ng-href={{$ctrl.shortShareLink}}>{{$ctrl.shortShareLink}}</a></p>
-			<p>Text Link: <a ng-href={{$ctrl.fullShareLink}}>{{$ctrl.fullShareLink}}</a></p>
 		</div>
 		<hr>
-			<button ng-click="$ctrl.closeShareDialog()">OK</button>
+			<button ng-click="$ctrl.closeShareDialog()">X</button>
 	</div>
 
 	<div class="viewer">
