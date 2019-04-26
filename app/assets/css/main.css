@@ -257,7 +257,8 @@ body {
       padding-left: 15px;
       font-weight: 100 !important; }
     .sidebar .ui-select-choices-row .mece {
-      color: #006600cc; }
+      color: #888;
+      text-shadow: 1px 1px 1px #3399dd22; }
     .sidebar .ui-select-choices-row .num {
       font-size: 0.6em;
       color: #fff; }
@@ -265,7 +266,7 @@ body {
     color: #fff !important; }
   .sidebar .ui-select-choices-group-label {
     font-family: monospace;
-    font-weight: bold;
+    font-weight: 400;
     text-shadow: 1px 1px 1px #3399dd44;
     margin: 2px 0 5px -10px !important;
     font-size: 1.3em !important;
