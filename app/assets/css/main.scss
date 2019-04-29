@@ -483,10 +483,9 @@ body {
 		left: 10px;
 		top: 90px;
 		position: absolute;
-		height: 440px !important;
-		width: 1050 !important;
+		height: 480px !important;
+		width: 1090px !important;
 	}
-
 
 	.primary-line-image { @include viewer-image-props(); }
 
@@ -911,6 +910,9 @@ body {
 	.header {
 		width: 100vw !important;
 	}
+	.title {
+		left: calc(700px + 10%);
+	}
 
 	.main {
 		min-width: 100vw;
@@ -990,12 +992,28 @@ body {
 
 		@mixin viewer-img-pos() {
 			top: 130px;
-			left: 120px;
+			left: 40px;
 		}
 
-		.primary-line-image { @include viewer-img-pos() }
-		.region-img { @include viewer-img-pos() }
-		.color-channel { @include viewer-img-pos() }
+		@mixin lg-viewer-img-props() {
+			width: 1155px !important;
+			height: 506px !important;
+		}
+
+		.primary-line-image {
+			@include viewer-img-pos();
+			@include lg-viewer-img-props();
+		}
+
+		.region-img {
+			@include viewer-img-pos();
+			@include lg-viewer-img-props();
+		}
+		.color-channel {
+			@include viewer-img-pos();
+			@include lg-viewer-img-props();
+		}
+
 	}
 
 	.upload {
@@ -1163,6 +1181,18 @@ body {
 			top: 60px;
 			left: 400px;
 			width: 800px;
+
+			.current-text {
+				.line-name {
+					font-size: 2em;
+					font-weight: 400;
+				}
+				.line-number {
+					font-size: 0.8em;
+					text-shadow: 1px 1px 2px #ffffff99;
+					font-weight: 100;
+				}
+			}
 
 			.z-index-div { margin-left: 50px !important; }
 
