@@ -1,0 +1,42 @@
+h1 {
+		margin: 0 0 30px -7px;
+    font-weight: bold;
+    font-family: helvetica;
+}
+
+h2 { color: #888; }
+
+a { color: #38c; }
+
+img {
+	width: 800px;
+	height: 450px;
+}
+
+.content {
+    margin: 40px 50px 70px 50px;
+    width: 90vw;
+    text-align: justify;
+    font-family: Raleway;
+}
+
+.content p { margin-left: 10px; }
+
+.str {
+    font-weight: bold;
+    font-family: helvetica;
+}
+
+
+@media screen and (min-width:1800px) {
+
+	.content { margin: 4vh 0 0 4vw !important ; }
+
+	br { line-height: 300%; }
+
+	img {
+		width: 70vh;
+		height: auto;
+	}
+
+}
