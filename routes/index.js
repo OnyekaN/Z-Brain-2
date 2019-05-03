@@ -131,4 +131,19 @@ router.post('/api/upload', upload.array('files', 138), (req, res, next) => {
 
 });
 
+/* Catch all other routes and send to app/index.ejs */
+router.get('*', function(req, res) {
+	if (app.get('env') === 'development') {
+	  res.render('index', { title: 'Z Brain Atlas',
+													main: 'js/main.js' });
+	}
+	if (app.get('env') === 'production') {
+		res.render('index', { title: 'Z Brain Atlas',
+													main: 'js/main.min.js' });
+	}
+});
+
+
+
+
 module.exports = router;

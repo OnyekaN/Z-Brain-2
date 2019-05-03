@@ -166,7 +166,6 @@ exports.get_region = (req, res, next, id) => {
 // GET single color channel from color channels Table
 exports.get_color_channel = (req, res, next, id) => {
 	let pool = new Pool({ connectionString: connectionString }),
-			channel = JSON.parse(id),
 			results = [];
 
 	pool.connect((err, client, done) => {
@@ -176,9 +175,15 @@ exports.get_color_channel = (req, res, next, id) => {
 			return res.status(500).json({success: false, data: err});
 		}
 
-		let querySQL = `SELECT * FROM colorChannels
-									WHERE channel_name='${channel.name}'
-									AND channel_color='${channel.color}';`
+		let querySQL;
+
+		if ( isNaN(id) ) {
+			querySQL = `SELECT * FROM colorChannels
+									WHERE channel_name='${id}';`
+		} else {
+			querySQL = `SELECT * FROM colorChannels
+									WHERE channel_id='${id}';`
+		}
 
 		let query = client.query(querySQL);
 

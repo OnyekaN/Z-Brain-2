@@ -15,14 +15,14 @@ import Common from './common/index';
 			'$stateProvider',
 			'$urlRouterProvider',
 			'$locationProvider',
-			($stateProvider, $urlRouterProvider) => {
+			($stateProvider, $urlRouterProvider, $locationProvider) => {
 				$stateProvider
 				.state('home', {
 					url: '/home',
 					templateUrl: '/home.html'
 				})
-				.state('overview', {
-					url: '/overview',
+				.state('lines-overview', {
+					url: '/lines-overview',
 					template: `<overview-component
 											lines="$resolve.lines"
 											annotations="$resolve.annotations">
@@ -57,11 +57,13 @@ import Common from './common/index';
 					templateUrl: 'views/upload.html'
 				});
 
-			$urlRouterProvider.when('/', '/home/');
-			$urlRouterProvider.otherwise('/home/');
+				$urlRouterProvider.when('/', '/home/');
+				$urlRouterProvider.otherwise('/home/');
+				$locationProvider.html5Mode(true).hashPrefix('!');
+
 			}])
 		.name;
-})()
+})();
 
 
 

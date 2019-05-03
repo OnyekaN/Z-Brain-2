@@ -160,21 +160,19 @@ class LinesService {
 
 
 	cacheColorChannel(line, color) {
-
-		return this.getNameOfLine(line).then(name => {
-			return this.$http({
+		return this.$http({
 						method: 'GET',
-						url: `api/colorchannels/{"name":"${name}","color":"${color}"}`,
+						url: `api/colorchannels/${line}`,
 						cache: true
-			}).then(response => {
-				let overlays = response.data.map(obj => {
-					let img = new Image();
-					img.src = obj.channel_image_path;
+		}).then(response => {
+			let overlays = response.data.map(obj => {
+					let img = new Image(),
+						 path = obj.channel_image_path;
+					img.src = `images/3-ColorChannels/${line}/${color}/${path}`;
 					return img;
-				});
-				return overlays;
-			}).catch(e => console.log(e));
-		});
+			});
+			return overlays;
+		}).catch(e => console.log(e));
 	}
 
 	cacheMultipleColorChannels(options) {
