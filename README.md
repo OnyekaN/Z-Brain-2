@@ -1,4 +1,4 @@
-# Z-Brain Atlas (2018)
+# Z-Brain Atlas (2019)
 
 - [Repo Contents](#repo-contents)
 - [External Resources](#external-resources)
