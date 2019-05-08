@@ -77,7 +77,7 @@ class ViewerController {
 		let setDisplayColorChannels = this.$interval(() => {
 			if ( this.resolvedColorChannelImages
 			&& Object.keys(this.resolvedColorChannelImages).length ) {
-				let keys = Object.keys(this.resolvedColorChannelImages).slice();
+			let keys = Object.keys(this.resolvedColorChannelImages).slice();
 				let colors = ['red', 'blue', 'green'];
 				colors.forEach(color => {
 					if ( this.resolvedColorChannelImages[color] ) {

@@ -3,15 +3,15 @@ h1 {
 	font-weight: bold;
 }
 
-h2 {
-	color: grey;
-}
+h2 { color: grey; }
+
+h3 { font-weight: 100}
 
 a { color: #38c; }
 
 .content {
 	margin: 40px 50px 70px 50px;
-	font-family: Raleway;
+	font-family: Helvetica, sans-serif;
 	width: 90vw;
 	display: inline-block;
 }
@@ -62,3 +62,5 @@ a { color: #38c; }
 	font-size: 0.8em;
 	font-weight: 100;
 }
+
+.disable { pointer-events: none; }

@@ -154,8 +154,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					url: '/faq',
 					templateUrl: 'views/faq.html'
 				})
-				.state('downloads', {
-					url: '/downloads',
+				.state('download', {
+					url: '/download',
 					templateUrl: 'views/downloads.html'
 				})
 				.state('upload', {
@@ -8559,7 +8559,7 @@ class NavService {
 			{ name: 'Home', active: false, link: '/home' },
 			{ name: 'About', active: false, link: '/about' },
 			{ name: 'Contributing to the Z Brain', active: false, link: '/contributing' },
-			{ name: 'Downloads', active: false, link: '/downloads' },
+			{ name: 'Downloads', active: false, link: '/download' },
 			{ name: 'FAQ', active: false, link: '/faq' },
 			{ name: 'ZIB Vis Explorer', active: false, link: 'https://visual.zib.de/2018/zebrafish/visexplorer/'},
 			{ name: 'Zebrafish EM', active: false, link: 'http://hildebrand16.neurodata.io/catmaid/?pid=6&zp=537540&yp=351910.65&xp=303051.45&tool=tracingtool&sg=2&sgs=4' },
@@ -8991,7 +8991,7 @@ class ViewerController {
 		let setDisplayColorChannels = this.$interval(() => {
 			if ( this.resolvedColorChannelImages
 			&& Object.keys(this.resolvedColorChannelImages).length ) {
-				let keys = Object.keys(this.resolvedColorChannelImages).slice();
+			let keys = Object.keys(this.resolvedColorChannelImages).slice();
 				let colors = ['red', 'blue', 'green'];
 				colors.forEach(color => {
 					if ( this.resolvedColorChannelImages[color] ) {

@@ -48,8 +48,8 @@ import Common from './common/index';
 					url: '/faq',
 					templateUrl: 'views/faq.html'
 				})
-				.state('downloads', {
-					url: '/downloads',
+				.state('download', {
+					url: '/download',
 					templateUrl: 'views/downloads.html'
 				})
 				.state('upload', {
