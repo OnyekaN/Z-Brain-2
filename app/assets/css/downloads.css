@@ -1,11 +1,15 @@
 h1 {
-	font-family: helvetica;
-	font-weight: bold;
+	margin: 0 0 0 -7px;
+	font-family: Raleway, Helvetica, sans-serif;
+	font-weight: 400;
 }
 
-h2 { color: grey; }
+h2 { color: #333; }
 
-h3 { font-weight: 100}
+h3 {
+	font-weight: 100;
+	color: #888;
+}
 
 a { color: #38c; }
 

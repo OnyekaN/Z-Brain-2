@@ -82,8 +82,7 @@ body {
 	font-weight: 700;
 	margin: 9px 100px 0 10px;
 	color: #fff;
-	text-shadow: 1px 1px 2px #aaaaaaaa;
-	text-shadow: 1px 1px 2px #3388cc22;
+	text-shadow: 1px 1px 2px #3388cc33;
 }
 
 .header {
@@ -107,7 +106,7 @@ body {
 	font-size: 5.2em;
 	color: #111;
 	text-shadow: 0px 0px 3px #22222288;
-	text-shadow: 0px 0px 3px #3388cc33;
+	text-shadow: 0px 0px 3px #3388cc11;
 }
 
 .main {
@@ -912,12 +911,9 @@ body {
 		margin-right: 210px;
 	}
 
-	.header {
-		width: 100vw !important;
-	}
-	.title {
-		left: calc(700px + 10%);
-	}
+	.header { width: 100vw !important;}
+
+	.title { left: calc(680px + 10%); }
 
 	.main {
 		min-width: 100vw;
@@ -1102,14 +1098,15 @@ body {
 
 	.header {
 		min-width: $media-xl-min-width;
-		min-height: 7vw !important;
+		min-height: 180px !important;
 		margin-top: 50px;
-		margin-bottom: 100px;
+		margin-bottom: 60px;
 	}
 
 	.title {
 		min-width: 700px;
 		font-size: 6.5em !important;
+		left: calc(900px + 7%);
 	}
 
 	.lines-container {
@@ -1188,15 +1185,17 @@ body {
 			width: 800px;
 
 			.current-text {
+				margin-left: 0;
 				.line-name {
-					font-size: 2em;
+					font-size: 2.2em;
 					font-weight: 400;
 				}
 				.line-number {
-					font-size: 0.8em;
 					text-shadow: 1px 1px 2px #ffffff99;
 					font-weight: 100;
 				}
+				.updating { font-size: 0.7em; }
+
 			}
 
 			.z-index-div { margin-left: 50px !important; }

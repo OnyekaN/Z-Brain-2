@@ -4,7 +4,12 @@ h1 {
     font-family: helvetica;
 }
 
-h2 { color: #888; }
+h2 {
+	color: #888;
+	font-weight: 100;
+}
+
+h3 { color: #888; }
 
 a { color: #38c; }
 
@@ -12,6 +17,7 @@ img {
 	width: 800px;
 	height: 450px;
 }
+
 
 .content {
     margin: 40px 50px 70px 50px;

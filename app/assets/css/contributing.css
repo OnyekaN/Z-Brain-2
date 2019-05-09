@@ -3,7 +3,12 @@ h1 {
 	font-weight: bold;
 }
 
-h2 { color: grey; }
+h2 { color: #333; }
+
+h3 {
+	color: #888;
+	font-weight: 100;
+}
 
 a { color: #38c; }
 
