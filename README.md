@@ -1,4 +1,4 @@
-# Z-Brain Atlas (2018)
+# Z-Brain Atlas (2019)
 
 - [Repo Contents](#repo-contents)
 - [External Resources](#external-resources)
@@ -10,7 +10,7 @@
 - [**app**](https://github.com/OnyekaN/Z-Brain-2/tree/master/app)
 contains js scripts for the frontend (AngularJS). **assets** contains static files, **common** contains controllers.
 
-- [**bin**](https://github.com/OnyekaN/Z-Brain-2/tree/master/bin) launches the Express server (bin/www).  To launch, use `npm start` for simple node server, `npm run devel` for **nodemon** development server, or `npm run prod` for node server with production 'env'.
+- [**bin**](https://github.com/OnyekaN/Z-Brain-2/tree/master/bin) launches the Express server (bin/www).  To launch, use `npm start` for node server, `npm run devel` for **nodemon** development server, or `npm run prod` for node server with production 'env'.
 
 - [**db**](https://github.com/OnyekaN/Z-Brain-2/tree/master/db) contains **Jupyter notebooks** for a.) creation of stack/region/channel images and  b.) **PostgreSQL** database management
 
