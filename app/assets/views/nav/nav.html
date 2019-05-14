@@ -11,7 +11,7 @@
 			<ul class="nav navbar-nav">
 				<li ng-repeat="page in $ctrl.pages" ng-click="$ctrl.updateNav(page.link)"
 					ng-class="{active: page.active}">
-					<a href="{{page.link}}">
+					<a href="{{::page.link}}" target={{::page.target}}>
 						{{page.name}}
 					</a>
 				</li>
