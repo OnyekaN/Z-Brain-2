@@ -164,13 +164,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				});
 
 				$urlRouterProvider.when('/', '/home/');
+				console.log('ok');
 				$urlRouterProvider.otherwise('/home/');
-				$locationProvider.html5Mode(true).hashPrefix('!');
+				$locationProvider.html5Mode({
+					enabled: true,
+					rewriteLinks: true
+				}).hashPrefix('');
 
 			}])
 		.name;
 })();
-
 
 
 

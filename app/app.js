@@ -58,12 +58,15 @@ import Common from './common/index';
 				});
 
 				$urlRouterProvider.when('/', '/home/');
+				console.log('ok');
 				$urlRouterProvider.otherwise('/home/');
-				$locationProvider.html5Mode(true).hashPrefix('!');
+				$locationProvider.html5Mode({
+					enabled: true,
+					rewriteLinks: true
+				}).hashPrefix('');
 
 			}])
 		.name;
 })();
-
 
 

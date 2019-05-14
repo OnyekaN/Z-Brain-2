@@ -32,13 +32,15 @@ const upload = multer({
 
 /* GET home page. */
 
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
 	if (app.get('env') === 'development') {
 	  res.render('index', { title: 'Z Brain Atlas',
+													basehref: '/',
 													main: 'js/main.js' });
 	}
 	if (app.get('env') === 'production') {
 		res.render('index', { title: 'Z Brain Atlas',
+													basehref: '/Z-Brain/',
 													main: 'js/main.min.js' });
 	}
 
@@ -47,7 +49,9 @@ router.get('/', function(req, res, next) {
 	let result = findRemoveSync(tmp, {age: {seconds: 360}, extensions: ['.jpg', '.jpeg', '.png']	});
 });
 
-
+router.get('#', (req, res, next) => {
+	res.status(404).send('Not Found');
+});
 /* GET imagesdb as json */
 
 router.get('/api/imagesdb/', imagesController.get_images);

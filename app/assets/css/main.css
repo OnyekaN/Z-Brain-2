@@ -87,8 +87,7 @@ body {
   font-weight: 100;
   font-size: 5.2em;
   color: #111;
-  text-shadow: 0px 0px 3px #22222288;
-  text-shadow: 0px 0px 3px #3388cc11; }
+  text-shadow: 1px 1px 5px #33333344; }
 
 .main {
   background-color: transparent;
