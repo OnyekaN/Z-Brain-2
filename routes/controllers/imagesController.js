@@ -5,8 +5,9 @@ const connectionString = process.env.DATABASE_URL || c;
 
 // GET entire imagesdb database
 exports.get_images = (req, res, next) => {
-	let results = [];
-	let pool = new Pool({ connectionString: connectionString });
+	let pool = new Pool({ connectionString: connectionString }),
+			results = [];
+
 	pool.connect((err, client, done) => {
 		if (err) {
 			done();
@@ -14,34 +15,29 @@ exports.get_images = (req, res, next) => {
 			return res.status(500).json({success: false, data: err});
 		}
 
-		let query = client.query('SELECT * FROM images ORDER BY image_id ASC;');
+		client.query('SELECT * FROM images ORDER BY image_id ASC;')
+			.then((response) => {
+				res.json(response.rows);
+				client.end();
+			}).catch((e) => console.log(e));
 
-		query.on('row', (row) => {
-			results.push(row);
-		});
-
-		query.on('end', () => {
-			done();
-			return res.json(results);
-		});
 	});
 
 	pool.end();
-	return results;
+	return;
 }
 
 // GET single line from lines table
 exports.get_line = (req, res, next, id) => {
-	let results = [];
-	let pool = new Pool({ connectionString: connectionString });
+	let pool = new Pool({ connectionString: connectionString }),
+			querySQL;
+
 	pool.connect((err, client, done) => {
 		if (err) {
 			done();
 			console.log(err);
-			return res.status(500).json({success:false, data: err});
+			return res.status(500).json({success:false, data:err});
 		}
-
-		let querySQL;
 
 		if ( isNaN(id) ) {
 			querySQL = `SELECT * FROM images
@@ -51,23 +47,20 @@ exports.get_line = (req, res, next, id) => {
 								WHERE line_id='${id}'`
 		}
 
-		let query = client.query(querySQL);
+		client.query(querySQL)
+			.then((response) => {
+				req.line = response.rows;
+				client.end();
+				pool.end();
+				return next();
+			}).catch((e) => console.log(e));
 
-		query.on('row', (row) => {
-			results.push(row);
-		});
-
-		query.on('end', () => {
-			done();
-			req.line = results;
-			return next();
-		});
 	});
 }
 
 exports.get_lines = (req, res, next) => {
 	let pool = new Pool({ connectionString: connectionString }),
-			results = [];
+			querySQL;
 
 	pool.connect((err, client, done) => {
 		if (err) {
@@ -76,22 +69,19 @@ exports.get_lines = (req, res, next) => {
 			return res.status(500).json({success: false, data: err});
 		}
 
-		let querySQL = `SELECT line_name, line_id FROM images
+		querySQL = `SELECT line_name, line_id FROM images
 								GROUP BY line_name, line_id
-								ORDER BY line_name ASC; `
+								ORDER BY line_name ASC;`;
 
-		let [ query, index ] = [ client.query(querySQL), 1	];
+		client.query(querySQL)
+			.then((response) => {
+				res.json(response.rows);
+				client.end();
+				pool.end();
+				return;
+		}).catch((e) => console.log(e));
 
-		query.on('row', (row) => {
-			row['id'] = index++;
-			results.push(row);
-		});
-
-		query.on('end', () => {
-			done();
-			return res.json(results);
-		});
-
+		return;
 	});
 }
 
@@ -99,7 +89,7 @@ exports.get_lines = (req, res, next) => {
 // GET all regions from regions table
 exports.get_regions = (req, res, next) => {
 	let pool = new Pool({ connectionString: connectionString }),
-			results = [];
+			querySQL;
 
 	pool.connect((err, client, done) => {
 		if (err) {
@@ -110,17 +100,17 @@ exports.get_regions = (req, res, next) => {
 
 		querySQL = `SELECT region_name, region_id, bool_or(region_is_mece) FROM regions
 								GROUP BY region_name, region_id, region_is_mece
-								ORDER BY region_name ASC; `
+								ORDER BY region_name ASC;`
 
-		let [ query, index ] = [ client.query(querySQL), 1001 ];
-		query.on('row', (row) => {
-			results.push(row);
-		});
+		client.query(querySQL)
+			.then((response) => {
+				res.json(response.rows);
+				client.end();
+			}).catch((e) => console.log(e));
 
-		query.on('end', () => {
-			done();
-			res.json(results);
-		});
+		pool.end();
+		return;
+
 	});
 }
 
@@ -128,7 +118,7 @@ exports.get_regions = (req, res, next) => {
 // GET single region from regions table
 exports.get_region = (req, res, next, id) => {
 	let pool = new Pool({ connectionString: connectionString }),
-			results = [];
+			querySQL;
 
 	pool.connect((err, client, done) => {
 		if (err) {
@@ -137,7 +127,6 @@ exports.get_region = (req, res, next, id) => {
 
 			return res.status(500).json({success: false, data: err});
 		}
-		let querySQL;
 
 		if ( isNaN(id) ) {
 			querySQL = `SELECT * FROM regions
@@ -149,24 +138,21 @@ exports.get_region = (req, res, next, id) => {
 									ORDER BY region_img_id;`
 		}
 
-		let query = client.query(querySQL);
+		client.query(querySQL)
+			.then((response) => {
+				req.region = response.rows;
+				client.end();
+				pool.end();
+				return next();
+			}).catch((e) => console.log(e));
 
-		query.on('row', (row) => {
-			results.push(row);
-		});
-
-		query.on('end', () => {
-			done();
-			req.region = results;
-			return next();
-		});
 	});
 }
 
 // GET single color channel from color channels Table
 exports.get_color_channel = (req, res, next, id) => {
 	let pool = new Pool({ connectionString: connectionString }),
-			results = [];
+			querySQL;
 
 	pool.connect((err, client, done) => {
 		if (err) {
@@ -174,8 +160,6 @@ exports.get_color_channel = (req, res, next, id) => {
 			console.log(err);
 			return res.status(500).json({success: false, data: err});
 		}
-
-		let querySQL;
 
 		if ( isNaN(id) ) {
 			querySQL = `SELECT * FROM colorChannels
@@ -185,17 +169,14 @@ exports.get_color_channel = (req, res, next, id) => {
 									WHERE channel_id='${id}';`
 		}
 
-		let query = client.query(querySQL);
+		client.query(querySQL)
+			.then((response) => {
+				req.channel = response.rows;
+				client.end();
+				pool.end()
+				return next();
+			});
 
-		query.on('row', (row) => {
-			results.push(row);
-		});
-
-		query.on('end', () => {
-			done();
-			req.channel = results;
-			return next();
-		});
 	});
 }
 
@@ -203,7 +184,7 @@ exports.get_color_channel = (req, res, next, id) => {
 // GET annotations for all lines
 exports.get_annotations = (req, res, next) => {
 	let pool = new Pool({ connectionString: connectionString }),
-			results = [];
+			querySQL;
 
 	pool.connect((err, client, done) => {
 		if (err) {
@@ -212,21 +193,19 @@ exports.get_annotations = (req, res, next) => {
 			return res.status(500).json({success: false, data: err});
 		}
 
-		let querySQL = 'SELECT * FROM annotations ORDER BY line_id;';
-		let query = client.query(querySQL);
+		querySQL = 'SELECT * FROM annotations ORDER BY line_id;';
 
-		query.on('row', (row) => {
-			results.push(row);
-		});
+		client.query(querySQL)
+			.then((response) => {
+				let annotations = {}
+				response.rows.forEach((row) => {
+					annotations[row.line_name] = row });
+				res.json(annotations);
+				client.end();
+				pool.end();
+				return;
+			})
 
-		query.on('end', () => {
-			done();
-			let annotations = {};
-			results.forEach(line => {
-				annotations[line.line_name] = line;
-			});
-			return res.json(annotations);
-		});
 	});
 }
 

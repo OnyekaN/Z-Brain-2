@@ -39,6 +39,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "atob": "^2.1.2",
     "babel-cli": "^6.26.0",
     "babel-loader": "^6.4.1",
     "babel-preset-env": "^1.6.1",
