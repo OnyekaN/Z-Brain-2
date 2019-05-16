@@ -8560,7 +8560,7 @@ class NavService {
 		this.pages = [
 			{ name: 'Home', active: false, link: './home', target: '' },
 			{ name: 'About', active: false, link: './about', target: ''  },
-			{ name: 'Contributing to the Z Brain', active: false, link: './contributing', target: 'false'  },
+			{ name: 'Contributing to the Z Brain', active: false, link: './contributing', target: '' },
 			{ name: 'Downloads', active: false, link: './download', target: ''  },
 			{ name: 'FAQ', active: false, link: './faq', target: ''  },
 			{ name: 'ZIB Vis Explorer', active: false, link: 'https://visual.zib.de/2018/zebrafish/visexplorer/', target: '_blank'},
