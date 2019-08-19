@@ -6,12 +6,13 @@ const PROD = (process.env.NODE_ENV === 'production');
 
 module.exports = {
 	context: __dirname,
+	mode: 'development',
 	entry: [
 		'./app/app.js'
 	],
 	output: {
 		path: path.join(__dirname, 'app/assets/js'),
-		filename: PROD ? 'main.min.js': 'main.js'
+		filename: this.mode === 'production' ? 'main.min.js': 'main.js'
 },
 	module: {
 		rules: [
@@ -34,7 +35,7 @@ module.exports = {
 		],
 			{ copyUnmodified: false }
 		),
-		PROD && new webpack.optimize.UglifyJsPlugin({
+		this.mode == 'production' && new webpack.optimize.UglifyJsPlugin({
 							compress: { warnings: false }
 		})
 	].filter(Boolean).filter((plugin) => plugin.constructor.name !== 'UglifyJsPlugin'),

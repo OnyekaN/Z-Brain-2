@@ -24,6 +24,7 @@ const upload = multer({
 	fileFilter: (req, file, callback) => {
 		let ext = path.extname(file.originalname);
 		if ( ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg') {
+
 				return callback(new Error('Only images are allowed'));
 			}
 			callback(null, true)
@@ -49,9 +50,6 @@ router.get('/', (req, res, next) => {
 	let result = findRemoveSync(tmp, {age: {seconds: 360}, extensions: ['.jpg', '.jpeg', '.png']	});
 });
 
-router.get('#', (req, res, next) => {
-	res.status(404).send('Not Found');
-});
 /* GET imagesdb as json */
 
 router.get('/api/imagesdb/', imagesController.get_images);
@@ -69,7 +67,7 @@ router.get('/api/lines/nameof/:line', (req, res, next) => {
 	if ( req.line.length )
 		res.send(req.line[0].line_name);
 	else
-		res.status(500).send({message: 'Not a database entry'});
+		res.status(500).send({ message: 'Not a database entry' });
 });
 
 
@@ -135,19 +133,18 @@ router.post('/api/upload', upload.array('files', 138), (req, res, next) => {
 
 });
 
-/* Catch all other routes and send to app/index.ejs */
+/* Catch all other routes and send to app/index.ejs for HTML5Mode*/
 router.get('*', function(req, res) {
 	if (app.get('env') === 'development') {
 	  res.render('index', { title: 'Z Brain Atlas',
 													main: 'js/main.js' });
 	}
-	if (app.get('env') === 'production') {
+	else if (app.get('env') === 'production') {
 		res.render('index', { title: 'Z Brain Atlas',
 													main: 'js/main.min.js' });
+
 	}
 });
-
-
 
 
 module.exports = router;

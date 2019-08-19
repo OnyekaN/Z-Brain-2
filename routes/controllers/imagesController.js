@@ -50,12 +50,12 @@ exports.get_line = (req, res, next, id) => {
 		client.query(querySQL)
 			.then((response) => {
 				req.line = response.rows;
-				client.end();
-				pool.end();
 				return next();
 			}).catch((e) => console.log(e));
 
 	});
+
+	pool.end();
 }
 
 exports.get_lines = (req, res, next) => {
@@ -76,11 +76,10 @@ exports.get_lines = (req, res, next) => {
 		client.query(querySQL)
 			.then((response) => {
 				res.json(response.rows);
-				client.end();
-				pool.end();
 				return;
 		}).catch((e) => console.log(e));
 
+		pool.end();
 		return;
 	});
 }
@@ -96,6 +95,7 @@ exports.get_regions = (req, res, next) => {
 			done();
 			console.log(err);
 			res.status(500).json({success: false, data:err});
+
 		}
 
 		querySQL = `SELECT region_name, region_id, bool_or(region_is_mece) FROM regions
@@ -105,7 +105,6 @@ exports.get_regions = (req, res, next) => {
 		client.query(querySQL)
 			.then((response) => {
 				res.json(response.rows);
-				client.end();
 			}).catch((e) => console.log(e));
 
 		pool.end();
@@ -141,12 +140,11 @@ exports.get_region = (req, res, next, id) => {
 		client.query(querySQL)
 			.then((response) => {
 				req.region = response.rows;
-				client.end();
-				pool.end();
 				return next();
 			}).catch((e) => console.log(e));
 
 	});
+	pool.end();
 }
 
 // GET single color channel from color channels Table
@@ -172,12 +170,11 @@ exports.get_color_channel = (req, res, next, id) => {
 		client.query(querySQL)
 			.then((response) => {
 				req.channel = response.rows;
-				client.end();
-				pool.end()
 				return next();
 			});
 
 	});
+	pool.end()
 }
 
 
@@ -201,12 +198,11 @@ exports.get_annotations = (req, res, next) => {
 				response.rows.forEach((row) => {
 					annotations[row.line_name] = row });
 				res.json(annotations);
-				client.end();
-				pool.end();
 				return;
 			})
 
 	});
+	pool.end();
 }
 
 // GET python adjusted line images
