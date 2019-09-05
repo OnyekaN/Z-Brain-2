@@ -53,7 +53,7 @@ exports.get_line = (req, res, next, id) => {
 				req.line = response.rows;
 				return next();
 			}).catch((e) => console.log(e))
-			.finally(()=> client.end())
+			.finally(() => client.end());
 
 	});
 
@@ -81,7 +81,7 @@ exports.get_lines = (req, res, next) => {
 				res.json(response.rows);
 				return;
 		}).catch((e) => console.log(e))
-		.finally(()=> client.end())
+		.finally(() => client.end());
 
 
 		pool.end();
@@ -112,7 +112,7 @@ exports.get_regions = (req, res, next) => {
 			.then((response) => {
 				res.json(response.rows);
 			}).catch((e) => console.log(e))
-			.finally(()=> client.end())
+			.finally(() => client.end());
 
 
 		pool.end();
@@ -182,7 +182,7 @@ exports.get_color_channel = (req, res, next, id) => {
 				req.channel = response.rows;
 				return next();
 			})
-			.finally(()=> client.end());
+			.finally(() => client.end());
 
 	});
 	pool.end()
@@ -212,7 +212,7 @@ exports.get_annotations = (req, res, next) => {
 				res.json(annotations);
 				return;
 			})
-			.finally(()=> client.end())
+			.finally(() => client.end());
 
 
 	});
