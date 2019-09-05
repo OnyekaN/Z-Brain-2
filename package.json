@@ -7,7 +7,7 @@
     "devel": "node_modules/nodemon/bin/nodemon.js --ignore '**/assets/**' ./bin/www",
     "prod": "NODE_ENV=production node ./bin/www",
     "start": "node ./bin/www",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch --config ./webpack.config.js"
   },
   "dependencies": {
     "angular": "^1.6.9",

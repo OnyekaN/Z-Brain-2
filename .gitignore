@@ -12,4 +12,4 @@ bin/www
 .sass_cache
 2-Regions
 3-Regions
-
+*.p

@@ -18,8 +18,8 @@ exports.get_images = (req, res, next) => {
 		client.query('SELECT * FROM images ORDER BY image_id ASC;')
 			.then((response) => {
 				res.json(response.rows);
-				client.end();
-			}).catch((e) => console.log(e));
+			}).catch((e) => console.log(e))
+			.finally(() => client.end());
 
 	});
 
@@ -36,6 +36,7 @@ exports.get_line = (req, res, next, id) => {
 		if (err) {
 			done();
 			console.log(err);
+			client.end();
 			return res.status(500).json({success:false, data:err});
 		}
 
@@ -51,7 +52,8 @@ exports.get_line = (req, res, next, id) => {
 			.then((response) => {
 				req.line = response.rows;
 				return next();
-			}).catch((e) => console.log(e));
+			}).catch((e) => console.log(e))
+			.finally(()=> client.end())
 
 	});
 
@@ -66,6 +68,7 @@ exports.get_lines = (req, res, next) => {
 		if (err) {
 			done();
 			console.log(err);
+			client.end()
 			return res.status(500).json({success: false, data: err});
 		}
 
@@ -77,7 +80,9 @@ exports.get_lines = (req, res, next) => {
 			.then((response) => {
 				res.json(response.rows);
 				return;
-		}).catch((e) => console.log(e));
+		}).catch((e) => console.log(e))
+		.finally(()=> client.end())
+
 
 		pool.end();
 		return;
@@ -94,6 +99,7 @@ exports.get_regions = (req, res, next) => {
 		if (err) {
 			done();
 			console.log(err);
+			client.end();
 			res.status(500).json({success: false, data:err});
 
 		}
@@ -105,7 +111,9 @@ exports.get_regions = (req, res, next) => {
 		client.query(querySQL)
 			.then((response) => {
 				res.json(response.rows);
-			}).catch((e) => console.log(e));
+			}).catch((e) => console.log(e))
+			.finally(()=> client.end())
+
 
 		pool.end();
 		return;
@@ -123,7 +131,7 @@ exports.get_region = (req, res, next, id) => {
 		if (err) {
 			done();
 			console.log(err);
-
+			client.end();
 			return res.status(500).json({success: false, data: err});
 		}
 
@@ -141,7 +149,8 @@ exports.get_region = (req, res, next, id) => {
 			.then((response) => {
 				req.region = response.rows;
 				return next();
-			}).catch((e) => console.log(e));
+			}).catch((e) => console.log(e))
+			.finally(() => client.end());
 
 	});
 	pool.end();
@@ -156,6 +165,7 @@ exports.get_color_channel = (req, res, next, id) => {
 		if (err) {
 			done();
 			console.log(err);
+			client.end();
 			return res.status(500).json({success: false, data: err});
 		}
 
@@ -171,7 +181,8 @@ exports.get_color_channel = (req, res, next, id) => {
 			.then((response) => {
 				req.channel = response.rows;
 				return next();
-			});
+			})
+			.finally(()=> client.end());
 
 	});
 	pool.end()
@@ -187,6 +198,7 @@ exports.get_annotations = (req, res, next) => {
 		if (err) {
 			done();
 			console.log(err);
+			client.end()
 			return res.status(500).json({success: false, data: err});
 		}
 
@@ -200,6 +212,8 @@ exports.get_annotations = (req, res, next) => {
 				res.json(annotations);
 				return;
 			})
+			.finally(()=> client.end())
+
 
 	});
 	pool.end();

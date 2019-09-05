@@ -36,7 +36,7 @@
 			<button class="share-button"
 			ng-click="$ctrl.onOpenShareDialogWrapper()">Share</button>
 
-			<div style="margin-left:20px;margin-top:10px;">
+			<div class="white-levels">
 				<form autocomplete="off" ng-submit="$ctrl.onAdjustLine({line: $ctrl.selected,
 						brightness: $ctrl.brightness, gamma: $ctrl.gamma})">
 
@@ -54,7 +54,7 @@
 					 	ng-model="$ctrl.gamma"/>
 					</div>
 
-					<div style="margin-top:0.2em">
+					<div>
 						<button ng-hide="true" ng-click="$ctrl.onAdjustLine({line: $ctrl.selected,
 							brightness: $ctrl.brightness, gamma: $ctrl.gamma})">Submit</button>
 						<button class="reset-button" ng-click="$ctrl.resetValues()">Reset</button>

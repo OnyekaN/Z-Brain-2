@@ -210,7 +210,7 @@ class LinesController {
 		if ( this.uploadName )
 			this.lineName = this.uploadName;
 		else
-			this.lineName = "Uploaded Line";
+			this.lineName = "Upload";
 
 		this.uploadName = "";
 	}
@@ -230,6 +230,7 @@ class LinesController {
 }
 
 LinesController.$inject = ['LinesService', 'Upload', '$timeout'];
+
 
 
 

@@ -6,7 +6,6 @@ const PROD = (process.env.NODE_ENV === 'production');
 
 module.exports = {
 	context: __dirname,
-	mode: 'development',
 	entry: [
 		'./app/app.js'
 	],
