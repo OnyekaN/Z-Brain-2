@@ -20,7 +20,7 @@ body {
 	margin: 0 0 0 0;
 	margin-bottom: 0 !important;
 	min-width: 130em;
-	width: 100%;
+	width: auto;
 	ul {
 		list-style-type: none;
 		margin-right: 1.25em;
@@ -35,6 +35,8 @@ body {
 		display: inline;
 		height: $nav-item-height !important;
 		margin-right: 1em;
+		min-width: 8em;
+		text-align: center;
 		transition: all 300ms ease;
 		a {
 			border-left: 1px solid transparent;
@@ -114,8 +116,8 @@ body {
 	width: $main-width;
 
 	.lines-container {
-		box-shadow: inset 0 0 1.5em -.25em #99999922;
-		padding: 4em 0 4em 0;
+		box-shadow: inset 0 0 4em -.10em #99999922;
+		padding: 3em 3em 3em 3em;
 		margin-left: $main-inner-margin;
 		min-width: $main-width - $main-inner-margin;
 		white-space: nowrap;
@@ -178,7 +180,7 @@ body {
 	box-shadow: 0 0 1em -.25em #bbbbbb55;
 	display: inline-block;
 	height: 45em;
-	margin-right: 2em;
+	margin: 0 3em 0 0;
 	overflow: auto;
 	position: relative;
 	vertical-align: top;
@@ -187,7 +189,7 @@ body {
 	.sidebar-title {
 		background-color: #e5e5e5;
 		border-bottom: 1px solid #33333310;
-		box-shadow: 0 2px .75em -1px #4499cc11;
+		box-shadow: 0 2px .75em -.25em #cccccc11;
 		height: 1.5em;
   	padding-left: .25em;
 		z-index: 1000;
@@ -439,7 +441,7 @@ body {
 
 .viewer {
 	background-color: #000000;
-	border-radius: 2px;
+	border-radius: .25em !important;
 	border-top: 1px solid #ddd;
 	box-shadow: 0 0 1em -.25em #aaaaaa55;
 	border-top-right-radius: 2px;
@@ -448,15 +450,17 @@ body {
 	display: inline-block;
 	height: 45em;
 	min-width: 85em;
+	overflow: hide;
 	position: relative;
 	vertical-align: top;
 	white-space: normal;
 	.viewer-title {
 		background-color: #ddd;
-		border-top-right-radius: 1px;
+		border-radius: 0;
 		box-shadow: 0 2px .75em -1px #ffffff55;
 		height: 1.5em;
 		padding-left: .25em;
+		z-index: 2000;
 		span {
 			opacity: 0;
 			color: black;
@@ -653,7 +657,7 @@ body {
 	margin: 5em 0 7em 0;
 	padding: 1.5em 0 0 0;
 	position: relative;
-	width: 100em;
+	width: 107em;
 	white-space: normal;
 	tr { width: auto; }
 
@@ -666,8 +670,8 @@ body {
 		width: 100%;
 	}
 
-	.top-table { box-shadow: 0 -.75em 2em .5em #bbbbbb15; }
-	.bottom-table { box-shadow: 0 .75em 2em -.5em #bbbbbb10; }
+	//.top-table { box-shadow: 0 -.75em 2em .5em #bbbbbb15; }
+	//.bottom-table { box-shadow: 0 .75em 2em -.5em #bbbbbb10; }
 
 	.headers {
 		background: linear-gradient(to bottom, #fffcfa, #f2f8ff, #f2f8ff, #f2f8ff, #f2f8ff);
@@ -922,9 +926,12 @@ body {
 	}
 
 	.navbar {
+		min-width: 170em !important;
+		width: auto !important;
 	 	li {
 			height: 5em !important;
-			margin-right: 2.5em !important;
+			margin-right: 1em !important;
+			min-width: 12em;
 			a {
 				font-size: 1.25em;
 				line-height: 2 !important;
@@ -942,7 +949,7 @@ body {
 		margin: 0 0 3em -1em;
 		width: 100vw !important;
 		.title {
-			left: calc(656px + 10vw) !important;
+			left: 11.25em !important;
 			max-width: 640px !important;
 		}
 	}
@@ -951,10 +958,12 @@ body {
 		min-width: 100vw;
 	}
 
+	$lg-lines-container-width: 135em;
 	.lines-container {
-		padding: 4em 4em 4em 4em !important;
-		min-width: 100vw;
+		padding: 4em 4em 4em 7em !important;
+		min-width: $lg-lines-container-width !important;
 		white-space: nowrap;
+		width: auto;
 		.share {
 			bottom: 8em;
 			height: 15em !important;
@@ -967,7 +976,7 @@ body {
 	$lg-sidebar-height: 47em;
 	.sidebar {
 		height: $lg-sidebar-height;
-		margin-right: 5vw !important;
+		margin-right: 6em !important;
 		white-space: normal;
 		width: 25em;
 		.inner { padding: 0 2em 0 2em !important; }
@@ -1098,8 +1107,7 @@ body {
 
 	.annotations {
 		margin: 5em 0 8em 0;
-		min-width: calc(115em + 5vw);
-		width: 90%;
+		width: 121em;
 		.notes {
 			min-width: 10em;
 			max-width: 25em;
@@ -1149,24 +1157,25 @@ body {
 		margin-right: 6em;
 	}
 
-	$media-xl-min-width: 110vw;
+	$media-xl-min-width: 195em;
 
 	.main {	min-width: $media-xl-min-width }
 
 	.header {
 		margin: 3em 0 5em -1em;
-		min-height: 12em !important;
+		min-height: 10em !important;
 		min-width: $media-xl-min-width;
 	}
 
 	.title {
 		min-width: 640px;
-		font-size: 7em !important;
-		left: calc(960px + 7%) !important;
+		font-size: 8em !important;
+		left: 11.75em !important;
 	}
 
 	.lines-container {
 		min-width: $media-xl-min-width;
+		padding: 7em 8em 8em 8em !important;
 		.share {
 			bottom: 10em !important;
 			font-size: 1.5em;
@@ -1179,8 +1188,7 @@ body {
 
 	$xl-sidebar-height: 70em;
 	.sidebar {
-		margin-left: 3vw !important;
-		margin-right: 2vw !important;
+		margin: 0 8em 0 0 !important;
 		min-height: $xl-sidebar-height;
 		min-width: 30em;
 		.sidebar-title { height: 2em; }
@@ -1238,12 +1246,11 @@ body {
 	}
 
 	.viewer {
-		border-bottom-left-radius: 1em;
-		border-bottom-right-radius: 1em;
+		border-bottom-left-radius: .5em;
+		border-bottom-right-radius: .5em;
 		height: $xl-sidebar-height;
+		margin: 0 0 0 0;
 		width: 139em !important;
-		margin: 0 0 0 5em;
-
 		.viewer-title { height: 2em; }
 
 		.viewer-ctrl-panel {
@@ -1320,8 +1327,8 @@ body {
 	}
 
 	.annotations {
-		margin: 6em 0 10em 3vw;
-		width: 175em;
+		margin: 6em 0 10em 0;
+		width: 177em;
 		.annotations-search {
 			margin-bottom: 5em;
 			.annotations-search-icon { top: 1em; }
