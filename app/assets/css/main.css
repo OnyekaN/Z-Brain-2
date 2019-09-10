@@ -67,11 +67,10 @@ body {
   text-shadow: 1px 1px 2px #3388cc44; }
 
 .header {
-  box-shadow: -.75em 1em 1.5em -.25em #eeeeee55;
   font-family: "Raleway", sans-serif !important;
-  height: 10em;
-  margin: 0 0 3em -1em;
-  min-width: 90em;
+  height: 8em;
+  margin: 0 0 0em -1em;
+  min-width: 95em;
   position: relative;
   width: 100%; }
   .header .title {
@@ -88,10 +87,14 @@ body {
 
 .main {
   background-color: transparent;
-  width: 110em; }
+  width: 120em; }
   .main .lines-container {
-    width: 107em;
-    margin-left: 3em; }
+    box-shadow: inset 0 0 1.5em -.25em #99999922;
+    padding: 4em 0 4em 0;
+    margin-left: 0em;
+    min-width: 120em;
+    white-space: nowrap;
+    width: auto; }
   .main .share {
     background-color: #ffffffcc;
     border-radius: .25em;
@@ -132,19 +135,21 @@ body {
     opacity: 1; }
 
 .sidebar {
-  display: inline-block;
-  position: relative;
-  overflow: auto;
-  height: 45em;
-  width: 18em;
-  vertical-align: top;
-  margin-right: 2em;
   border-top: 1px solid #eee;
   border-radius: 2px;
   background-color: #eee;
-  box-shadow: 0 0 1em -.25em #bbbbbb55; }
+  box-shadow: 0 0 1em -.25em #bbbbbb55;
+  display: inline-block;
+  height: 45em;
+  margin-right: 2em;
+  overflow: auto;
+  position: relative;
+  vertical-align: top;
+  width: 18em;
+  white-space: normal; }
   .sidebar .sidebar-title {
     background-color: #e5e5e5;
+    border-bottom: 1px solid #33333310;
     box-shadow: 0 2px .75em -1px #4499cc11;
     height: 1.5em;
     padding-left: .25em;
@@ -226,7 +231,7 @@ body {
   .sidebar .lines-ctrls {
     padding: 1.5em 1.5em 2em 1em; }
   .sidebar .regions-ctrls {
-    min-height: 14em;
+    height: auto;
     padding: 0 1em 2em 1.5em; }
   .sidebar .channel-ctrls {
     margin: 0 0 2em 0;
@@ -341,7 +346,8 @@ body {
   height: 45em;
   min-width: 85em;
   position: relative;
-  vertical-align: top; }
+  vertical-align: top;
+  white-space: normal; }
   .viewer .viewer-title {
     background-color: #ddd;
     border-top-right-radius: 1px;
@@ -355,15 +361,15 @@ body {
       font-weight: 100;
       font-size: 0.75em; }
   .viewer .viewer-ctrl-panel {
-    left: 15em;
-    height: 15em;
+    left: 21em;
+    height: 10em;
     position: absolute;
-    top: 4em;
-    z-index: 1000;
-    width: 30em; }
+    top: 3em;
+    width: 40em;
+    z-index: 1000; }
     .viewer .viewer-ctrl-panel .current-text {
       font-family: Helvetica;
-      margin-left: 10em;
+      margin-left: 2em;
       text-align: center;
       transition: all 400ms ease; }
       .viewer .viewer-ctrl-panel .current-text .line-name {
@@ -385,33 +391,32 @@ body {
         opacity: 0.85;
         text-shadow: 1px 1px 2px #ffffff55; }
     .viewer .viewer-ctrl-panel .z-index-div {
-      margin: 1em 0 2em 4em;
+      margin: .5em 0 2em 4em;
       z-index: 2000; }
     .viewer .viewer-ctrl-panel .z-index-slider {
-      top: 7em;
       width: 35em !important;
       z-index: 2000; }
   .viewer .primary-line-image {
-    height: 33em !important;
-    left: 4em;
-    top: 9em;
+    height: 36.5em !important;
+    left: 1em;
+    top: 7.5em;
     position: absolute;
-    width: 74em !important; }
+    width: 83em !important; }
   .viewer .color-channel {
     z-index: 500;
     opacity: 0.5;
-    height: 33em !important;
-    left: 4em;
-    top: 9em;
+    height: 36.5em !important;
+    left: 1em;
+    top: 7.5em;
     position: absolute;
-    width: 74em !important; }
+    width: 83em !important; }
   .viewer .region-img {
     z-index: 1000;
-    height: 33em !important;
-    left: 4em;
-    top: 9em;
+    height: 36.5em !important;
+    left: 1em;
+    top: 7.5em;
     position: absolute;
-    width: 74em !important; }
+    width: 83em !important; }
 
 .upload {
   background-color: #ffffff66;
@@ -516,7 +521,8 @@ body {
   margin: 5em 0 7em 0;
   padding: 1.5em 0 0 0;
   position: relative;
-  width: 100em; }
+  width: 100em;
+  white-space: normal; }
   .annotations tr {
     width: auto; }
   .annotations table {
@@ -727,7 +733,7 @@ body {
 
   .navbar li {
     height: 5em !important;
-    margin-right: 3em !important; }
+    margin-right: 2.5em !important; }
     .navbar li a {
       font-size: 1.25em;
       line-height: 2 !important; }
@@ -748,7 +754,7 @@ body {
     min-width: 100vw; }
 
   .lines-container {
-    margin-left: 3vw !important;
+    padding: 4em 4em 4em 4em !important;
     min-width: 100vw;
     white-space: nowrap; }
     .lines-container .share {
@@ -759,7 +765,7 @@ body {
       width: 50em !important; }
 
   .sidebar {
-    height: 50em;
+    height: 47em;
     margin-right: 5vw !important;
     white-space: normal;
     width: 25em; }
@@ -767,7 +773,7 @@ body {
       padding: 0 2em 0 2em !important; }
     .sidebar .overview-button {
       height: 2em;
-      margin: 1em 0 0 1em;
+      margin: 2em 0 0 1em;
       width: 17em; }
     .sidebar .download-line {
       height: 2em;
@@ -796,29 +802,32 @@ body {
       width: auto; }
     .sidebar .reset-button {
       width: 8em; }
+    .sidebar .regions-ctrls {
+      height: auto;
+      padding: 0 1em 2em 1.5em; }
 
   .viewer {
     border-top-right-radius: 2px;
-    height: 50em;
+    height: 47em;
     width: 90em; }
     .viewer .viewer-ctrl-panel {
-      left: 20em;
-      top: 3em; }
+      left: 23em;
+      top: 2.5em; }
     .viewer .primary-line-image {
-      top: 10em;
-      left: 4em;
-      height: 36em !important;
-      width: 81em !important; }
+      top: 7.5em;
+      left: .5em;
+      height: 39em !important;
+      width: 89em !important; }
     .viewer .region-img {
-      top: 10em;
-      left: 4em;
-      height: 36em !important;
-      width: 81em !important; }
+      top: 7.5em;
+      left: .5em;
+      height: 39em !important;
+      width: 89em !important; }
     .viewer .color-channel {
-      top: 10em;
-      left: 4em;
-      height: 36em !important;
-      width: 81em !important; }
+      top: 7.5em;
+      left: .5em;
+      height: 39em !important;
+      width: 89em !important; }
 
   .upload .upload-container {
     height: 35em;
@@ -868,14 +877,14 @@ body {
     min-width: 100vw; }
 
   .navbar li {
-    height: 6em !important;
+    height: 7.25em !important;
     margin-right: 4em !important;
     min-width: 9em;
     text-align: center; }
     .navbar li a {
       font-size: 1.5em;
       height: 6em;
-      line-height: 3 !important; }
+      line-height: 3.5 !important; }
   .navbar .active a {
     height: 5.1em !important; }
 
@@ -893,8 +902,8 @@ body {
 
   .title {
     min-width: 640px;
-    font-size: 6.5em !important;
-    left: calc(896px + 7%); }
+    font-size: 7em !important;
+    left: calc(960px + 7%) !important; }
 
   .lines-container {
     min-width: 110vw; }
@@ -959,7 +968,7 @@ body {
       height: 2em; }
     .viewer .viewer-ctrl-panel {
       top: 4em;
-      left: 35em;
+      left: 38em;
       width: 50em; }
       .viewer .viewer-ctrl-panel .current-text {
         margin: 0 0 0 3em; }
@@ -979,20 +988,20 @@ body {
         width: 50em !important;
         z-index: 1000; }
     .viewer .primary-line-image {
-      height: 58em !important;
-      left: 5em;
-      top: 10em;
-      width: 130em !important; }
+      height: 60.5em !important;
+      left: 1em;
+      top: 8em;
+      width: 137em !important; }
     .viewer .region-img {
-      height: 58em !important;
-      left: 5em;
-      top: 10em;
-      width: 130em !important; }
+      height: 60.5em !important;
+      left: 1em;
+      top: 8em;
+      width: 137em !important; }
     .viewer .color-channel {
-      height: 58em !important;
-      left: 5em;
-      top: 10em;
-      width: 130em !important; }
+      height: 60.5em !important;
+      left: 1em;
+      top: 8em;
+      width: 137em !important; }
 
   .upload .upload-container {
     height: 48em;

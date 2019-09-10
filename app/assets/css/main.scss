@@ -85,11 +85,11 @@ body {
 }
 
 .header {
-	box-shadow: -.75em 1em 1.5em -.25em #eeeeee55;
+	//box-shadow: -.75em 1em 1.5em -.25em #99999922;
 	font-family: "Raleway", sans-serif !important;
-	height: 10em;
-	margin: 0 0 3em -1em;
-	min-width: 90em;
+	height: 8em;
+	margin: 0 0 0em -1em;
+	min-width: 95em;
 	position: relative;
 	width: 100%;
 	.title {
@@ -108,14 +108,18 @@ body {
 
 .main {
 
-	$main-width: 110em;
-	$main-inner-margin: 3em;
+	$main-width: 120em;
+	$main-inner-margin: 0em;
 	background-color: transparent;
 	width: $main-width;
 
 	.lines-container {
-		width: $main-width - $main-inner-margin;
+		box-shadow: inset 0 0 1.5em -.25em #99999922;
+		padding: 4em 0 4em 0;
 		margin-left: $main-inner-margin;
+		min-width: $main-width - $main-inner-margin;
+		white-space: nowrap;
+		width: auto;
 	}
 	.share {
 		background-color: #ffffffcc;
@@ -168,20 +172,21 @@ body {
 
 
 .sidebar {
-	display: inline-block;
-	position: relative;
-	overflow: auto;
-	height: 45em;
-	width: 18em;
-	vertical-align: top;
-	margin-right: 2em;
 	border-top: 1px solid #eee;
 	border-radius: 2px;
 	background-color: #eee;
 	box-shadow: 0 0 1em -.25em #bbbbbb55;
-
+	display: inline-block;
+	height: 45em;
+	margin-right: 2em;
+	overflow: auto;
+	position: relative;
+	vertical-align: top;
+	width: 18em;
+	white-space: normal;
 	.sidebar-title {
 		background-color: #e5e5e5;
+		border-bottom: 1px solid #33333310;
 		box-shadow: 0 2px .75em -1px #4499cc11;
 		height: 1.5em;
   	padding-left: .25em;
@@ -288,7 +293,7 @@ body {
 	.lines-ctrls { padding: 1.5em 1.5em 2em 1em; }
 
 	.regions-ctrls {
-		min-height: 14em;
+		height: auto;
 		padding: 0 1em 2em 1.5em;
 	}
 
@@ -445,6 +450,7 @@ body {
 	min-width: 85em;
 	position: relative;
 	vertical-align: top;
+	white-space: normal;
 	.viewer-title {
 		background-color: #ddd;
 		border-top-right-radius: 1px;
@@ -460,15 +466,15 @@ body {
 		}
 	}
 	.viewer-ctrl-panel {
-		left: 15em;
-		height: 15em;
+		left: 21em;
+		height: 10em;
 		position: absolute;
-		top: 4em;
+		top: 3em;
+		width: 40em;
 		z-index: 1000;
-		width: 30em;
 		.current-text {
 			font-family: Helvetica;
-			margin-left: 10em;
+			margin-left: 2em;
 			text-align: center;
 			transition: all 400ms ease;
 			.line-name {
@@ -497,23 +503,22 @@ body {
 		}
 
 		.z-index-div {
-			margin: 1em 0 2em 4em;
+			margin: .5em 0 2em 4em;
 			z-index: 2000;
 		}
 
 		.z-index-slider {
-			top: 7em;
 			width: 35em !important;
 			z-index: 2000;
 		}
 	}
 
 	@mixin viewer-image-props() {
-		height: 33em !important;
-		left: 4em;
-		top: 9em;
+		height: 36.5em !important;
+		left: 1em;
+		top: 7.5em;
 		position: absolute;
-		width: 74em !important;
+		width: 83em !important;
 	}
 
 	.primary-line-image { @include viewer-image-props(); }
@@ -649,6 +654,7 @@ body {
 	padding: 1.5em 0 0 0;
 	position: relative;
 	width: 100em;
+	white-space: normal;
 	tr { width: auto; }
 
 	table {
@@ -918,7 +924,7 @@ body {
 	.navbar {
 	 	li {
 			height: 5em !important;
-			margin-right: 3em !important;
+			margin-right: 2.5em !important;
 			a {
 				font-size: 1.25em;
 				line-height: 2 !important;
@@ -946,7 +952,7 @@ body {
 	}
 
 	.lines-container {
-		margin-left: 3vw !important;
+		padding: 4em 4em 4em 4em !important;
 		min-width: 100vw;
 		white-space: nowrap;
 		.share {
@@ -958,7 +964,7 @@ body {
 		}
 	}
 
-	$lg-sidebar-height: 50em;
+	$lg-sidebar-height: 47em;
 	.sidebar {
 		height: $lg-sidebar-height;
 		margin-right: 5vw !important;
@@ -970,7 +976,7 @@ body {
 		$lg-sidebar-button-width: 17em;
 		.overview-button {
 			height: $lg-sidebar-button-height;
-			margin: 1em 0 0 1em;
+			margin: 2em 0 0 1em;
 			width: $lg-sidebar-button-width;
 		}
 
@@ -1013,6 +1019,12 @@ body {
 		}
 
 		.reset-button { width: 8em; }
+
+		.regions-ctrls {
+			height: auto;
+			padding: 0 1em 2em 1.5em;
+		}
+
 	}
 
 	.viewer {
@@ -1021,18 +1033,18 @@ body {
 		width: 90em;
 
 		.viewer-ctrl-panel {
-			left: 20em;
-			top: 3em;
+			left: 23em;
+			top: 2.5em;
 		}
 
 		@mixin viewer-img-pos() {
-			top: 10em;
-			left: 4em;
+			top: 7.5em;
+			left: .5em;
 		}
 
 		@mixin lg-viewer-img-props() {
-			height: 36em !important;
-			width: 81em !important;
+			height: 39em !important;
+			width: 89em !important;
 		}
 
 		.primary-line-image {
@@ -1119,14 +1131,14 @@ body {
 
 	.navbar {
 	 	li {
-			height: 6em !important;
+			height: 7.25em !important;
 			margin-right: 4em !important;
 			min-width: 9em;
 			text-align: center;
 			a {
 				font-size: 1.5em;
 				height: 6em;
-				line-height: 3 !important;
+				line-height: 3.5 !important;
 			}
 		}
 		.active a { height: 5.1em !important; }
@@ -1149,8 +1161,8 @@ body {
 
 	.title {
 		min-width: 640px;
-		font-size: 6.5em !important;
-		left: calc(896px + 7%);
+		font-size: 7em !important;
+		left: calc(960px + 7%) !important;
 	}
 
 	.lines-container {
@@ -1236,7 +1248,7 @@ body {
 
 		.viewer-ctrl-panel {
 			top: 4em;
-			left: 35em;
+			left: 38em;
 			width: 50em;
 			.current-text {
 				margin: 0 0 0 3em;
@@ -1265,10 +1277,10 @@ body {
 		}
 
 		@mixin xl-viewer-img-props() {
-			height: 58em !important;
-			left: 5em;
-			top: 10em;
-			width: 130em !important;
+			height: 60.5em !important;
+			left: 1em;
+			top: 8em;
+			width: 137em !important;
 		}
 
 		.primary-line-image { @include xl-viewer-img-props() }
