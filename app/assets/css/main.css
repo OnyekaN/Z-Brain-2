@@ -29,7 +29,7 @@ body {
     border-radius: .25em !important;
     display: inline;
     height: 4em !important;
-    margin-right: 1em;
+    margin-right: 1px;
     min-width: 8em;
     text-align: center;
     transition: all 300ms ease; }
@@ -65,7 +65,7 @@ body {
   font-family: Arial;
   font-size: 2.5em !important;
   font-weight: 700;
-  margin: .75em 4em 0 .75em;
+  margin: .75em 5em 0 1em;
   text-shadow: 1px 1px 2px #3388cc44; }
 
 .header {
@@ -735,8 +735,8 @@ body {
     min-width: 170em !important;
     width: auto !important; }
     .navbar li {
-      height: 5em !important;
-      margin-right: 1em !important;
+      height: 4.75em !important;
+      margin-right: 1px !important;
       min-width: 12em; }
       .navbar li a {
         font-size: 1.25em;
@@ -745,7 +745,9 @@ body {
         height: 5em; }
 
   .navbar-header h4 {
-    margin-right: 7em; }
+    font-size: 3em !important;
+    margin-left: 2.5em;
+    margin-right: 7.5em; }
 
   .header {
     margin: 0 0 3em -1em;
@@ -880,27 +882,31 @@ body {
     width: 100%;
     min-width: 100vw; }
 
-  .navbar li {
-    height: 7.25em !important;
-    margin-right: 4em !important;
-    min-width: 9em;
-    text-align: center; }
-    .navbar li a {
-      font-size: 1.5em;
-      height: 6em;
-      line-height: 3.5 !important; }
-  .navbar .active a {
-    height: 5.1em !important; }
+  .navbar {
+    min-width: 170em !important;
+    width: auto !important; }
+    .navbar li {
+      height: 7.25em !important;
+      margin-right: 1px !important;
+      min-width: 12em !important;
+      text-align: center; }
+      .navbar li a {
+        font-size: 1.5em;
+        height: 6em;
+        line-height: 3.5 !important; }
+    .navbar .active a {
+      height: 5.1em !important; }
 
   .navbar-header h4 {
     font-size: 4em !important;
-    margin-right: 6em; }
+    margin-left: 2em;
+    margin-right: 6.5em; }
 
   .main {
     min-width: 195em; }
 
   .header {
-    margin: 3em 0 5em -1em;
+    margin: 2em 0 5em -1em;
     min-height: 10em !important;
     min-width: 195em; }
 
@@ -911,7 +917,7 @@ body {
 
   .lines-container {
     min-width: 195em;
-    padding: 7em 8em 8em 8em !important; }
+    padding: 6em 8em 8em 8em !important; }
     .lines-container .share {
       bottom: 10em !important;
       font-size: 1.5em;

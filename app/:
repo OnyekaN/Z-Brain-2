@@ -34,7 +34,7 @@ body {
 		border-radius: .25em !important;
 		display: inline;
 		height: $nav-item-height !important;
-		margin-right: 1px;
+		margin-right: 1em;
 		min-width: 8em;
 		text-align: center;
 		transition: all 300ms ease;
@@ -82,7 +82,7 @@ body {
 	font-family: Arial;
 	font-size: 2.5em !important;
 	font-weight: 700;
-	margin: .75em 5em 0 1em;
+	margin: .75em 4em 0 .75em;
 	text-shadow: 1px 1px 2px #3388cc44;
 }
 
@@ -929,8 +929,8 @@ body {
 		min-width: 170em !important;
 		width: auto !important;
 	 	li {
-			height: 4.75em !important;
-			margin-right: 1px !important;
+			height: 5em !important;
+			margin-right: 1em !important;
 			min-width: 12em;
 			a {
 				font-size: 1.25em;
@@ -942,9 +942,8 @@ body {
 		}
 	}
 	.navbar-header h4 {
-		font-size: 3em !important;
-		margin-left: 2.5em;
-		margin-right: 7.5em;
+		margin-left: 2em;
+		margin-right: 7em;
 	}
 
 	.header {
@@ -1144,7 +1143,7 @@ body {
 		width: auto !important;
 	 	li {
 			height: 7.25em !important;
-			margin-right: 1px !important;
+			margin-right: 1em !important;
 			min-width: 12em !important;
 			text-align: center;
 			a {
@@ -1158,8 +1157,8 @@ body {
 
 	.navbar-header h4 {
 		font-size: 4em !important;
-		margin-left: 2em;
 		margin-right: 6.5em;
+		margin-left: 2em;
 	}
 
 	$media-xl-min-width: 195em;
@@ -1167,7 +1166,7 @@ body {
 	.main {	min-width: $media-xl-min-width }
 
 	.header {
-		margin: 2em 0 5em -1em;
+		margin: 3em 0 5em -1em;
 		min-height: 10em !important;
 		min-width: $media-xl-min-width;
 	}
@@ -1180,7 +1179,7 @@ body {
 
 	.lines-container {
 		min-width: $media-xl-min-width;
-		padding: 6em 8em 8em 8em !important;
+		padding: 7em 8em 8em 8em !important;
 		.share {
 			bottom: 10em !important;
 			font-size: 1.5em;
