@@ -51,7 +51,9 @@ class ViewerController {
 
 	$onInit() {
 
+		const that = this;
 		window.scrollTo(0, 0);
+		document.getElementById('display-images').onmousemove = this.handleMouseMove;
 		/* handle route resolve for regions */
 
 		let setDisplayRegions = this.$interval(() => {
@@ -170,6 +172,7 @@ class ViewerController {
 		if ( this.sliceIndex ) {
 			this.updateSlice();
 		}
+
 	}
 
 	/* On slider change, update display with new slice number
@@ -231,6 +234,31 @@ class ViewerController {
 				this.currentDisplayColorChannels[color] = 'images/blank.png';
 			}
 		});
+	}
+
+	handleMouseMove(event) {
+		let eventDoc, doc, body;
+
+		event = event || window.event;
+
+		if ( event.pageX == null && event.clientX != null ) {
+			eventDoc = ( event.target && event.target.ownerDocument ) || document;
+			doc = eventDoc.documentElement;
+			body = eventDoc.body;
+
+			event.pageX = event.clientX +
+				(doc && doc.scrollLeft || body && body.scrollLeft || 0) -
+				(doc && doc.clientLeft || body && body.clientLeft || 0);
+			event.pageY = event.clientY +
+				(doc && doc.scrollTop || body && body.scrollTop || 0) -
+				(doc && doc.clientTop || body && body.clientTop || 0);
+		}
+		if ( event.pageX < 600 && event.pageY < 1400 ) {
+			return { 'x': event.pageX, 'y': event.pageY }
+		}
+		//console.log("X: "+event.pageX);
+		//console.log("Y: "+event.pageY);
+
 	}
 
 }

@@ -97,6 +97,17 @@ router.get('/api/regions/nameof/:region', (req, res, next) => {
 		res.status(500).send({message: 'Not a database entry'});
 });
 
+/* GET metadata for single slice hitRegions */
+
+router.param('hit_region_slice_n', imagesController.get_hit_region);
+
+router.get('/api/hit_regions/:hit_region_slice_n', (req, res, next) => {
+	if ( req.hit_region.length )
+		res.send(req.hit_region[0]);
+	else
+		res.status(500).send({message: 'Not a database entry'});
+});
+
 
 /* GET metadata for single color & line colorchannel */
 

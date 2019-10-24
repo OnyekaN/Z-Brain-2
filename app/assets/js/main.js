@@ -7952,6 +7952,7 @@ let viewerComponentTemplate = `
 						region-images="$ctrl.regionImages"
 						region-color="$ctrl.regionColor"
 						slice-index="$ctrl.sliceIndex"
+						hit-regions="$ctrl.hitRegions"
 						color-channel-images="$ctrl.colorChannelImages"
 						color-channel-color="$ctrl.colorChannelColor"
 						color-channel-opacities="$ctrl.colorChannelOpacities"
@@ -8001,6 +8002,7 @@ class LinesController {
 		this.selected = undefined;
 		this.lines = [];
 		this.regions = [];
+		this.hitRegions = [];
 		this.files = [];
 		this.shortLink = '';
 		this.fullLink = '';
@@ -8068,6 +8070,10 @@ class LinesController {
 			// Cache default line for viewer component
 		this.LinesService.cacheLine("Elavl3-H2BRFP").then(response => {
 			this.lineImages = response;
+		});
+
+		this.LinesService.getHitRegion(50).then(response => {
+			this.hitRegions = response;
 		});
 
 		 // Limit number of files on file input to 138
@@ -8324,6 +8330,14 @@ class LinesService {
 			}
 		});
 		return selectedRegions;
+	}
+
+	getHitRegion(id) {
+		return this.$http.get(`api/hit_regions/${id}`)
+						.then(response => {
+							return response.data;
+						}).catch(e => console.log(e));
+
 	}
 
 	getAnnotations() {
@@ -8891,6 +8905,7 @@ const ViewerComponent = {
 		regionImages: '<',
 		regionColor: '<',
 		sliceIndex: '<',
+		hitRegions: '<',
 		colorChannelImages: '<',
 		colorChannelColor: '<',
 		colorChannelOpacities: '<',
@@ -8968,7 +8983,9 @@ class ViewerController {
 
 	$onInit() {
 
+		const that = this;
 		window.scrollTo(0, 0);
+		document.getElementById('display-images').onmousemove = this.handleMouseMove;
 		/* handle route resolve for regions */
 
 		let setDisplayRegions = this.$interval(() => {
@@ -9087,6 +9104,7 @@ class ViewerController {
 		if ( this.sliceIndex ) {
 			this.updateSlice();
 		}
+
 	}
 
 	/* On slider change, update display with new slice number
@@ -9148,6 +9166,31 @@ class ViewerController {
 				this.currentDisplayColorChannels[color] = 'images/blank.png';
 			}
 		});
+	}
+
+	handleMouseMove(event) {
+		let eventDoc, doc, body;
+
+		event = event || window.event;
+
+		if ( event.pageX == null && event.clientX != null ) {
+			eventDoc = ( event.target && event.target.ownerDocument ) || document;
+			doc = eventDoc.documentElement;
+			body = eventDoc.body;
+
+			event.pageX = event.clientX +
+				(doc && doc.scrollLeft || body && body.scrollLeft || 0) -
+				(doc && doc.clientLeft || body && body.clientLeft || 0);
+			event.pageY = event.clientY +
+				(doc && doc.scrollTop || body && body.scrollTop || 0) -
+				(doc && doc.clientTop || body && body.clientTop || 0);
+		}
+		if ( event.pageX < 600 && event.pageY < 1400 ) {
+			return { 'x': event.pageX, 'y': event.pageY }
+		}
+		//console.log("X: "+event.pageX);
+		//console.log("Y: "+event.pageY);
+
 	}
 
 }

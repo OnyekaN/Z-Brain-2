@@ -18,30 +18,32 @@
 		</div>
 	</div>
 
-	<img class="primary-line-image" ng-src="{{$ctrl.currentDisplayImage}}"
-		alt="primary-line-image"/>
+	<div id="display-images" class="display-images">
+		<img class="primary-line-image" ng-src="{{$ctrl.currentDisplayImage}}"
+			alt="primary-line-image"/>
 
-	<img id="red-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['red']}}"
-		ng-style="{'opacity':$ctrl.colorChannelOpacities['red']}"
-		class="color-channel" alt="red-color-channel"/>
-	<img id="green-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['green']}}"
-		ng-style="{'opacity':$ctrl.colorChannelOpacities['green']}"
-		class="color-channel" alt="green-color-channel"/>
-	<img id="blue-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['blue']}}"
-		ng-style="{'opacity':$ctrl.colorChannelOpacities['blue']}"
-		class="color-channel" alt="blue-color-channel"/>	
+		<img id="red-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['red']}}"
+			ng-style="{'opacity':$ctrl.colorChannelOpacities['red']}"
+			class="color-channel" alt="red-color-channel"/>
+		<img id="green-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['green']}}"
+			ng-style="{'opacity':$ctrl.colorChannelOpacities['green']}"
+			class="color-channel" alt="green-color-channel"/>
+		<img id="blue-color-channel" ng-src="{{$ctrl.currentDisplayColorChannels['blue']}}"
+			ng-style="{'opacity':$ctrl.colorChannelOpacities['blue']}"
+			class="color-channel" alt="blue-color-channel"/>	
 
-	<img id="mece-region" ng-src="{{$ctrl.meceDisplayRegion}}"
-		class="region-img" alt="mece-region"/>
+		<img id="mece-region" ng-src="{{$ctrl.meceDisplayRegion}}"
+			class="region-img" alt="mece-region"/>
 
-	<img id="cyan-region" ng-src="{{$ctrl.currentDisplayRegions['cyan']}}"
-		class="region-img" alt="cyan-region"/>
-	<img id="magenta-region" ng-src="{{$ctrl.currentDisplayRegions['magenta']}}"
-		class="region-img" alt="magenta-region"/>
-	<img id="green-region" ng-src="{{$ctrl.currentDisplayRegions['green']}}"
-		class="region-img" alt="green-region"/>
-	<img id="yellow-region" ng-src="{{$ctrl.currentDisplayRegions['yellow']}}"
-		class="region-img" alt="yellow-region"/>
+		<img id="cyan-region" ng-src="{{$ctrl.currentDisplayRegions['cyan']}}"
+			class="region-img" alt="cyan-region"/>
+		<img id="magenta-region" ng-src="{{$ctrl.currentDisplayRegions['magenta']}}"
+			class="region-img" alt="magenta-region"/>
+		<img id="green-region" ng-src="{{$ctrl.currentDisplayRegions['green']}}"
+			class="region-img" alt="green-region"/>
+		<img id="yellow-region" ng-src="{{$ctrl.currentDisplayRegions['yellow']}}"
+			class="region-img" alt="yellow-region"/>
+	</div>
 
 </div>
 

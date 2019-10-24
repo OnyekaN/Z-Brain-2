@@ -132,6 +132,7 @@ let viewerComponentTemplate = `
 						region-images="$ctrl.regionImages"
 						region-color="$ctrl.regionColor"
 						slice-index="$ctrl.sliceIndex"
+						hit-regions="$ctrl.hitRegions"
 						color-channel-images="$ctrl.colorChannelImages"
 						color-channel-color="$ctrl.colorChannelColor"
 						color-channel-opacities="$ctrl.colorChannelOpacities"

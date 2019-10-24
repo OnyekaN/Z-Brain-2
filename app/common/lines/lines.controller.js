@@ -9,6 +9,7 @@ class LinesController {
 		this.selected = undefined;
 		this.lines = [];
 		this.regions = [];
+		this.hitRegions = [];
 		this.files = [];
 		this.shortLink = '';
 		this.fullLink = '';
@@ -76,6 +77,10 @@ class LinesController {
 			// Cache default line for viewer component
 		this.LinesService.cacheLine("Elavl3-H2BRFP").then(response => {
 			this.lineImages = response;
+		});
+
+		this.LinesService.getHitRegion(50).then(response => {
+			this.hitRegions = response;
 		});
 
 		 // Limit number of files on file input to 138

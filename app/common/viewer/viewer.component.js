@@ -9,6 +9,7 @@ const ViewerComponent = {
 		regionImages: '<',
 		regionColor: '<',
 		sliceIndex: '<',
+		hitRegions: '<',
 		colorChannelImages: '<',
 		colorChannelColor: '<',
 		colorChannelOpacities: '<',

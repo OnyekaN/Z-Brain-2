@@ -19,7 +19,6 @@ exports.get_images = (req, res, next) => {
 			.then((response) => {
 				res.json(response.rows);
 			}).catch((e) => console.log(e))
-			//.finally(() => client.end());
 
 	});
 
@@ -53,7 +52,6 @@ exports.get_line = (req, res, next, id) => {
 				req.line = response.rows;
 				return next();
 			}).catch((e) => console.log(e))
-			//.finally(() => client.end());
 
 	});
 
@@ -81,7 +79,6 @@ exports.get_lines = (req, res, next) => {
 				res.json(response.rows);
 				return;
 		}).catch((e) => console.log(e))
-		//.finally(() => client.end());
 
 
 		pool.end();
@@ -112,7 +109,6 @@ exports.get_regions = (req, res, next) => {
 			.then((response) => {
 				res.json(response.rows);
 			}).catch((e) => console.log(e))
-			//.finally(() => client.end());
 
 
 		pool.end();
@@ -150,10 +146,36 @@ exports.get_region = (req, res, next, id) => {
 				req.region = response.rows;
 				return next();
 			}).catch((e) => console.log(e))
-		//	.finally(() => client.end());
 
 	});
 	pool.end();
+}
+
+// GET hit regions from regionsClicking table
+exports.get_hit_region = (req, res, next, id) => {
+	let pool = new Pool({ connectionString: connectionString }),
+			querySQL;
+
+	pool.connect((err, client, done) => {
+		if (err) {
+			done();
+			console.log(err);
+			client.end();
+			return res.status(500).json({success: false, data: err});
+		}
+
+		querySQL = `SELECT * FROM regionsclicking
+								WHERE slice_id='${id}';`
+
+		client.query(querySQL)
+			.then((response) => {
+				req.hit_region = response.rows;
+				return next();
+			}).catch((e) => console.log(e))
+
+	});
+	pool.end();
+
 }
 
 // GET single color channel from color channels Table
@@ -182,7 +204,6 @@ exports.get_color_channel = (req, res, next, id) => {
 				req.channel = response.rows;
 				return next();
 			})
-			// .finally(() => client.end());
 
 	});
 	pool.end()
@@ -212,7 +233,6 @@ exports.get_annotations = (req, res, next) => {
 				res.json(annotations);
 				return;
 			})
-			//.finally(() => client.end());
 
 
 	});

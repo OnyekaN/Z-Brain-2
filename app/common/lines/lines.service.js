@@ -89,6 +89,14 @@ class LinesService {
 		return selectedRegions;
 	}
 
+	getHitRegion(id) {
+		return this.$http.get(`api/hit_regions/${id}`)
+						.then(response => {
+							return response.data;
+						}).catch(e => console.log(e));
+
+	}
+
 	getAnnotations() {
 		return this.$http.get('api/annotations/')
 						.then(response => response.data)
