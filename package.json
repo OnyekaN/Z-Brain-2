@@ -10,7 +10,7 @@
     "watch": "webpack --watch --config ./webpack.config.js"
   },
   "dependencies": {
-    "angular": "^1.6.9",
+    "angular": "^1.7.9",
     "angular-ui-router": "^0.4.3",
     "babel-core": "^6.26.0",
     "babel-polyfill": "^6.26.0",
