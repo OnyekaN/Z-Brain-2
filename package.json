@@ -46,7 +46,7 @@
     "babel-preset-env": "^1.6.1",
     "copy-webpack-plugin": "^4.5.0",
     "extract-text-webpack-plugin": "^3.0.2",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "nodemon": "^1.19.1",
     "tar": "^4.4.8",
     "uglifyjs-webpack-plugin": "^1.2.2",
